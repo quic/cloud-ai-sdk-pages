@@ -1,0 +1,182 @@
+site_name: Cloud AI 100 
+site_url: https://github.com/quic/cloud-ai-sdk
+
+# change the theme to read the docs 
+# #################### TO ENABLE READ THE DOCS THEME (START) #################################
+# theme:
+#     name: readthedocs
+#     highlightjs: true
+#     hljs_languages:
+#         - cpp
+#         - python
+#     navigation_depth: 100
+# #################### TO ENABLE READ THE DOCS THEME (END) #################################
+
+# #################### TO ENABLE MATERIAL THEME (START) #################################
+theme:
+  favicon: images/favicon.png
+  logo: assets/logo.png
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    # - navigation.sections
+    - navigation.expand
+    - navigation.footer
+    # - navigation.path
+    - navigation.indexes
+    # - toc.integrate
+    - navigation.top
+    # - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+  font:
+    # text: Lato
+    text: Noto Sans
+    #code: Noto Sans Mono
+
+  language: en
+  icon:
+    admonition:
+      <type>: octicons/plus-circle-24
+
+  palette:
+    - scheme: default 
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode    
+      primary: white
+      accent: blue
+    - scheme: slate
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to light mode
+      primary: black
+      accent: blue
+
+      
+  # nav:
+  #   - Section:
+  #     - section/index.md 
+  #     - Page 1: section/page-1.md
+  #     - Page n: section/page-n.md
+
+# Page tree
+nav:
+  # - Home: index.md
+  - User Guide: 
+    - Getting-Started/index.md
+    - Quick Start Guide:
+      - Getting-Started/Quick-Start-Guide/index.md
+    - Installation: 
+      - Getting-Started/Installation/index.md
+      - Checklist: Getting-Started/Installation/Checklist/checklist.md
+      - Pre-requisites: Getting-Started/Installation/Pre-requisites/pre-requisites.md
+      - Cloud AI SDK: Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK.md
+      - Hypervisors: Getting-Started/Installation/Hypervisors/hypervisor.md
+      - Docker: Getting-Started/Installation/Docker/Docker.md
+    - Inference Workflow:
+      - Getting-Started/Inference-Workflow/index.md
+      - Export the Model: 
+        - Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model.md
+        - Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support.md
+        - Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model.md
+      - Compile the Model:
+        - Getting-Started/Inference-Workflow/model-compilation/Compile the Model.md
+        - Getting-Started/Inference-Workflow/model-compilation/Tune performance.md
+      - Execute the QPC: 
+        - Getting-Started/Inference-Workflow/model-execution/model-execution-options.md
+        - Getting-Started/Inference-Workflow/model-execution/Inference-Profiling.md
+        - Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support.md
+    - System Management:
+      - Getting-Started/System-Management/system-management.md
+    - Architecture:
+      - Getting-Started/Architecture/index.md
+    - Glossary:
+      - Getting-Started/Glossary/index.md
+  - API: 
+    - API/index.md
+    - Python API:
+      - Inference API: Python-API/qaic/qaic.md
+      # - Benchmarking: Python-API/qaicrt/class_InferenceBenchmarkSet.md
+      - Util API: Python-API/qaicrt/class_util.md
+    - CPP API:
+      - Cpp-API/example.md
+      - Cpp-API/features.md
+      - Cpp-API/runtime.md
+    - ONNXRT API:
+      - ONNXRT QAIC/onnxruntime.md
+  - FAQ:
+    - FAQ/index.md
+
+
+plugins:
+  - social
+  - tags
+  
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/quic/cloud-ai-sdk
+    - icon: fontawesome/brands/readme
+      link: https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence
+
+plugins:
+   - table-reader
+   - search
+   - glightbox:
+       touchNavigation: true
+       loop: false
+       effect: zoom
+       slide_effect: slide
+       width: 100%
+       height: auto
+       zoomable: true
+       draggable: true
+       skip_classes:
+         - custom-skip-class-name
+       auto_caption: false
+       caption_position: bottom
+  
+extra_css:
+  - stylesheets/extra.css
+  - custom.css
+
+# #################### TO ENABLE MATERIAL THEME (END) #################################
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.tilde
+  - md_in_html
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+
+copyright: |
+  &copy; 2023 <a href="https://github.com/quic/cloud-ai-sdk"  target="_blank" rel="noopener">Qualcomm Innovation Center, Inc.</a>
+
+

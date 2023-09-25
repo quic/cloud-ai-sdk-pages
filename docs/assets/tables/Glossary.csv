@@ -1,0 +1,9 @@
+Term , Description 
+AI Cores / AI compute cores / NSP , These terms are interchangably used to refer to the Neural Signal Processor cores in the Cloud AI Platforms. The NSP cores run the inference.
+Instance / activation, A single Instance or activation refers to a QPC executing on a set of AI cores. 
+QAIC / AIC / Cloud AI/ AIC100 , These terms are interchangably used to refer to Cloud AI. These terms are typically followed by the subject (like Compiler / SDK / library etc) being discussed.
+QPC (Qaic Program Container) / model binary / network binary, Cloud AI platforms can execute a QPC. A pre-trained model needs to be compiled to generate a QPC. QPC / model binary / network binary terms are used interchangably.   
+TCM / VTCM, (Vector) Tightly-Coupled Memory.  On-chip or in-NSP memory as featured in the ARM specification.
+ECC, Error Correcting Code.  Error correction in the TCM as featuerd in the ARM specification.
+VM/KVM, [(Kernel-based) Virtual Machine](../Installation/Hypervisors/hypervisor.md).
+ONNX, [Open Neural Network Exchange](https://en.wikipedia.org/wiki/Open_Neural_Network_Exchange) file format.
