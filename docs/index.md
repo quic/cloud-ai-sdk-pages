@@ -15,7 +15,7 @@ Qualcomm Cloud AI SDKs (Platform and Apps) enable high performance deep learning
 </div>
 
 <div class="card-grid">
-    <div class="card" onclick="redirectToPage('https://github.qualcomm.com/qranium/cloud-ai')">
+    <div class="card" onclick="redirectToPage('https://github.com/quic/cloud-ai-sdk')">
         <h2>Models, Tutorials and Sample Code</h2>
         <!-- <p>Content for card 1</p> -->
     </div>
