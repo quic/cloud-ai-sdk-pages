@@ -1,5 +1,5 @@
 # Introduction  
-Developers can access Qualcomm Cloud AI hardware through cloud instances or by purchasing servers equipped with Qualcomm Cloud AI hardware. 
+Developers can access Qualcomm Cloud AI accelerators on Cloud or by purchasing servers equipped with Qualcomm Cloud AI accelerators. 
 
 ### Cloud Instances 
 Cloud AI 100 cards are now available at 2 Cloud service providers - Amazon Web Services (AWS) and Cirrascale Cloud Services. The AI 100 accelerator SKUs and instance configuration offered at these providers can vary. 
