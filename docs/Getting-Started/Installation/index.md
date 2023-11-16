@@ -2,7 +2,13 @@
 Developers can access Qualcomm Cloud AI hardware through cloud instances or by purchasing servers equipped with Qualcomm Cloud AI hardware. 
 
 ### Cloud Instances 
-Cloud instances have all the software tools and packages that a developer needs to run the Cloud AI toolchain. The minimum setup typically includes installation of Apps and Platform SDK. Developers have the ability to launch deep learning containers, load a machine image that fits their needs etc. Details on accessing these instances are coming soon. 
+Cloud AI 100 cards are now available at 2 Cloud service providers - Amazon Web Services (AWS) and Cirrascale Cloud Services. 
+
+**AWS** [DL2q](https://aws.amazon.com/ec2/instance-types/dl2q) instances have 8 Standard AI 100 accelerators. To get started quickly, customers can load on of many Deep Learning Amazon Machine Images which come pre-packaged with Cloud AI Platform and Apps SDK. Search for `Qualcomm AMI` for a list of AMIs that can be loaded on the DL2q instance.
+
+**Cirrascale Cloud Services** have multiple configurations (from 1 to 8 cards per instance) for the user to choose from. 
+
+Users can determine the instance configuration based on their model and performance requirements.   
 
 ???+ note 
       **Developers using cloud instances can skip the rest of the installation section. Click here to go to the next section, [Inference Workflow](../Inference-Workflow/index.md)**
