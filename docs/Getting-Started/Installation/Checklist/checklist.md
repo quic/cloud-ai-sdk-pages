@@ -10,7 +10,7 @@ First, check for [supported operating environments](../index.md#supported-operat
     
 2. Install Platform and Apps SDKs ([Cloud AI SDK](../Cloud-AI-SDK/Cloud-AI-SDK.md))
 
-  -	**Tip:** To run Platform SDK tools without root (sudo) privilege, add yourself to the qaic group.  
+  -	**Tip:** To run Platform SDK tools without superuser (sudo) privilege, add yourself to the qaic group.  
     ```
     sudo usermod -aG qaic $USER
     ```

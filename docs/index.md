@@ -22,14 +22,14 @@ Qualcomm Cloud AI SDKs (Platform and Apps) enable high performance deep learning
 </div>
 
 <div class="card-grid">
-    <div class="card" onclick="redirectToPage('./Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK')">
-        <h2 style="margin:25px">Download SDK</h2>
+    <div class="card" onclick="redirectToPage('./Getting-Started/Installation/')">
+        <h2 style="margin:25px">AI 100 Instances on Cloud</h2>
     </div>
 </div>
 
 <div class="card-grid">
-    <div class="card" onclick="redirectToPage('./Getting-Started/Installation/')">
-        <h2 style="margin:25px">AI 100 Instances on Cloud</h2>
+    <div class="card" onclick="redirectToPage('./Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK')">
+        <h2 style="margin:25px">Download SDK</h2>
     </div>
 </div>
 

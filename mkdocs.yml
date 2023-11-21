@@ -81,6 +81,7 @@ nav:
       - Cloud AI SDK: Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK.md
       - Hypervisors: Getting-Started/Installation/Hypervisors/hypervisor.md
       - Docker: Getting-Started/Installation/Docker/Docker.md
+      - AWS: Getting-Started/Installation/AWS/aws.md
     - Inference Workflow:
       - Getting-Started/Inference-Workflow/index.md
       - Export the Model: 
@@ -120,8 +121,9 @@ plugins:
   - social
   - tags
   
-
 extra:
+  version:
+    provider: mike
   social:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/quic/cloud-ai-sdk

@@ -165,12 +165,12 @@ There are diffrent type of logging level to see different kind of logs.
 ## Profiling Elements
 ------------------
 
-For overview of profiling feature refer to [Profiling Support in Runtime](features.d/#profiling-support-in-runtime).
+For overview of profiling feature refer to [Profiling Support in Runtime](features.md/#profiling-support-in-runtime).
 
 ### ProfilingHandle
 ---------------------
 
-`ProfilingHandle` provides interface to use num-iter based profiling. Refer to [Num-iter based profiling](features,md/#num-iter-based-profiling) for more details on num-iter based profiling feature.
+`ProfilingHandle` provides interface to use num-iter based profiling. Refer to [Num-iter based profiling](features.md/#num-iter-based-profiling) for more details on num-iter based profiling feature.
 
 A `ProfilingHandle` object should be created using the `Factory` method. User needs to specify the `Program` that should be profiled, number of samples to collect, callback to call to deliver report, and type of profiling output expected.
 
