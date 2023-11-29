@@ -1,11 +1,12 @@
 # Introduction  
-Developers can access Qualcomm Cloud AI accelerators on Cloud or by purchasing servers equipped with Qualcomm Cloud AI accelerators. 
+Developers can access Qualcomm Cloud AI hardware through cloud instances or by purchasing servers equipped with Qualcomm Cloud AI hardware. 
 
 ### Cloud Instances 
 Cloud AI 100 cards are now available at 2 Cloud service providers - Amazon Web Services (AWS) and Cirrascale Cloud Services. The AI 100 accelerator SKUs and instance configurations offered at these providers can vary. 
 
-- Refer to [**Getting Started on AWS**](AWS/aws.md) for more information on the instances available at AWS.  
+- Refer to [**Getting Started on AWS**](AWS/aws.md) for more information on the instances available at AWS.
 - [**Cirrascale Cloud Services**](https://cirrascale.com/solutions-qualcomm-cloud-ai100.php) have multiple configurations (from 1 to 8 Pro AI 100 accelerators per instance) for the user to choose from. 
+
 
 ???+ note 
       **Developers using cloud instances can skip the rest of the installation section. Click here to go to the next section, [Inference Workflow](../Inference-Workflow/index.md)**
@@ -37,18 +38,14 @@ The Cloud AI Platform SDK is compatible with the following operating systems (OS
 
 | **Operating systems**        | **Kernel**                          | **x86-64** | **ARM64** |
 | ---------------------------- | ----------------------------------- | ---------- | -------------------------- |
-| CentOS Linux 7               | Linux Kernel 5.4.1                  | ✔       | ✗                          |
-| CentOS Linux 8               | Linux Kernel 4.19                   | ✗       | ✔                          |
-| Ubuntu 18.04                 | Linux Kernel 5.4.1 / Default Kernel | ✔       | ✔ (Note1)                        |
-| Ubuntu 20.04                 | Default Kernel                      | ✔       | ✗                          |
-| Ubuntu 22.04                 | Default Kernel                      | ✔       | ✗                          |
-| Red Hat Enterprise Linux 7.9 | Default Kernel                      | ✔       | ✗                          |
-| Red Hat Enterprise Linux 8.3 | Default Kernel                      | ✔       | ✗                          |
-| Red Hat Enterprise Linux 8.4 | Default Kernel                      | ✔       | ✗                          |
-| Red Hat Enterprise Linux 8.6 | Default Kernel                      | ✔       | ✗                          |
-| Red Hat Enterprise Linux 8.7 | Default Kernel                      | ✔       | ✗                          |
-| Red Hat Enterprise Linux 9.0 | Default Kernel                      | ✔       | ✗                          |
-| Red Hat Enterprise Linux 9.1 | Default Kernel                      | ✔       | ✗                          |
+| CentOS Linux 7               | Linux Kernel 5.4.1                  | ✔          | ✗                          |
+| CentOS Linux 8               | Linux Kernel 4.19                   | ✗          | ✔                          |
+| Ubuntu 18.04                 | Default Kernel (GA or HWE)          | ✔          | ✔ (Note1)                  |
+| Ubuntu 20.04                 | Default Kernel (GA or HWE)          | ✔          | ✗                          |
+| Ubuntu 22.04                 | Default Kernel (GA or HWE)          | ✔          | ✗                          |
+| Red Hat Enterprise Linux 7.9 | Default Kernel                      | ✔          | ✗                          |
+| Red Hat Enterprise Linux 8.8 | Default Kernel                      | ✔          | ✗                          |
+| Red Hat Enterprise Linux 9.2 | Default Kernel                      | ✔          | ✗                          |
 | `Note1`: Supported on certain ARM64-based Qualcomm platforms. |
 | `Note2`: Arm is a trademark of Arm Limited (or its subsidiaries) in the US and/or elsewhere. |
 | `Note3`: Apps SDK is available only for x86-64 platforms. |

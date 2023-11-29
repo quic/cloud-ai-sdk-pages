@@ -17,7 +17,7 @@ QAIC Execution Provider for ONNX Runtime enables hardware accelerated execution 
         }
     }
     ```
-- Launch a docker container for an image built with this specification, following instructions in [Docker](../Getting-Started/Installation/Docker/Docker.md)
+- Launch a docker container for an image built with this specification, following instructions in [Docker](../Getting-Started/Installation/Docker/Docker-rel-1.11.md)
 - In docker container, onnxruntime_qaic build (onnxruntime version 1.13.1 with qaic EP integration) will be available at /opt/qti-aic/integrations/qaic_onnxrt/onnxruntime_qaic.
 ## Configuration Options
 

@@ -19,23 +19,32 @@ In order to add a customized backends (to process inferencing on AIC100 hardware
 we need to run few scripts by passing sdk_path as parameters.
 "docker-build.sh" script will generate a docker image as output.This script is a part of apps-sdk contents and can be run after unzipping it.
 
-![image](https://github.qualcomm.com/storage/user/14267/files/af341a03-c8a0-41ef-969f-0f7acee83997)
+![image](../../../images/docker_workflow.png)
 
 
 ```bash
 
 sample> cd </path/to/app-sdk>/tools/docker-build
 
-sample> ./build_image.sh --apps-sdk </path/to/apps-sdk.zip> --platform-sdk </path/to/platform-sdk.zip> --tag <tag-name> --os triton --create-model-repo
+sample> python3 build_image.py --tag 1.11.0.46-triton --log_level 2 --user_specification_file /opt/qti-aic/tools/docker-build-gen2/sample_user_specs/user_image_spec_triton_model_repo.json --apps-sdk /apps/sdk/path --platform-sdk /platform/sdk/path
  
 ```
-The above command will take 15-20 minutes to complete and generate a Triton docker image in local docker repository.
+The above command may take 15-20 minutes to complete and generate incremental images for Triton docker image in local docker repository.
 
 ```bash
 
 sample> docker image ls
-REPOSITORY                                         TAG                 IMAGE ID       CREATED         SIZE
-qaic-triton-x86_64-latest                          1.11.0.46-triton    cc217d09baea   6 days ago      34.4GB
+REPOSITORY                                                                                                                      TAG                 IMAGE ID       CREATED         SIZE
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools-triton_model_repo               1.11.0.46-triton          a0968cf3711b   3 months ago    28.2GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools                                 1.11.0.46-triton          038dc80fd8e4   3 months ago    27.1GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton                                         1.11.0.46-triton          760fb9dc5314   3 months ago    24GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime                                                1.11.0.46-triton          a47266156b7f   3 months ago    23.9GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase                                                            1.11.0.46-triton          d620a1bdb6b6   3 months ago    20.1GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps                                                                   1.11.0.46-triton          8c87eb44f2db   3 months ago    15.3GB
+qaic-x86_64-triton-release-py38-qaic_platform                                                                             1.11.0.46-triton          e3ba2ce282c1   3 months ago    14.7GB
+qaic-x86_64-triton-release-py38                                                                                           1.11.0.46-triton          73b225d7e358   3 months ago    14.2GB
+qaic-x86_64-triton-release                                                                                                1.11.0.46-triton          914fa376e865   3 months ago    14.1GB
+qaic-x86_64-triton                                                                                                        1.11.0.46-triton          2090680d4d59   3 months ago    14.1GB
 
 ```
 Docker can be launched using docker "run" command passing the desired image name.
@@ -46,8 +55,8 @@ Please note that a shared memory argument(--shm-size) to pass for supporting ens
 sample> docker run -it --rm --privileged --shm-size=4g --ipc=host --net=host <triton-docker-image-name> /bin/bash
 
 sample> docker ps
-CONTAINER ID   IMAGE                                                                COMMAND                  CREATED      STATUS      PORTS     NAMES
-b88d5eb98187   qaic-triton-x86_64-latest                                            "/opt/tritonserver/n…"   2 days ago   Up 2 days             thirsty_beaver
+CONTAINER ID   IMAGE                                                                                                            COMMAND                  CREATED      STATUS      PORTS     NAMES
+b88d5eb98187   qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools-triton_model_repo      "/opt/tritonserver/n…"   2 days ago   Up 2 days             thirsty_beaver
 
 ```
 
@@ -63,9 +72,9 @@ The "use_qaic" parameter should be passed and set to true.
 Parameters are user-provided key-value pairs which Triton will pass to backend runtime environment as variables and can be used in the backend processing logic.
 
 - config : path for configuration file containing compiler options.
-- device_id : id of AIC100 device on which inference is targeted. 
+- device_id : id of AIC100 device on which inference is targeted. (not mandatory as the server auto picks the available device)
 - use_qaic : flag to indicate to use qaic execution provider.
-- hare_session : flag to enable the use of single session of runtime object across model instances.
+- share_session : flag to enable the use of single session of runtime object across model instances.
 
 sample example of a config.pbtxt
 
@@ -122,8 +131,8 @@ Parameters are user-provided key-value pairs which Triton will pass to backend r
 
 Parameters are user-provided key-value pairs which Triton will pass to backend runtime environment as variables and can be used in processing logic of backend.
 
-- qpc_path : path for compiled binary of model.(programqpc.bin)
-- device_id : id of AIC100 device on which inference is targeted. device is set 0
+- qpc_path : path for compiled binary of model.(programqpc.bin) (if not provided the server searches for qpc in the model folder)
+- device_id : id of AIC100 device on which inference is targeted. device is set 0 (not mandatory as the server auto picks the available device)
 - set_size : size of inference queue for runtime,default is set to 20
 - no_of_activations : flag to enable multiple activations of a model’s network,default is set to 1
 
@@ -183,7 +192,7 @@ To launch Triton server, execute the tritonserver binary within Triton docker wi
 /opt/tritonserver/bin/tritonserver --model-repository=</path/to/repository>
 ```
 
-![image](https://github.qualcomm.com/storage/user/14267/files/a5bb13a1-a8fc-4a00-91da-c00e73fba795)
+![image](../../../images/triton_launch_within_container.png)
 
 
 ## Supported Features
@@ -192,6 +201,18 @@ To launch Triton server, execute the tritonserver binary within Triton docker wi
 - Dynamic Batching
 - Auto device-picker
 - Support for ARM64
+- Support for auto complete configuration
+
+### Triton Config_generation tool
+Model configuration file (config.pbtxt) is required for each model to run on the triton server. The triton_config_generator.py tool helps to generate a minimal model configuration file if the programqpc.bin or model.onnx file is provided. The script can be found in /opt/qti-aic/integrations/triton/release-artifacts/config-generation-script path inside the container.
+
+The script takes in three arguments:
+-	--model_repository: Model repository for which config.pbtxt needs to be generated (QAic backend)
+-	--all: Generate config.pbtxt for Onnx (used with --model-repository)
+-	--model_path: QAic model or Onnx model file path for which model folder needs to be generated.
+
+The model_repository argument can be passed, and the script goes through the models and generates config.pbtxt for models that do not contain config (the --all option needs to be passed if config needs to be generated for Onnx models) or model path can be provided to generate model folder structure with config.pbtxt using random model names.
+
 
 
 
