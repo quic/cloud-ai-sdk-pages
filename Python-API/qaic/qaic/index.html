@@ -1,0 +1,2333 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/Python-API/qaic/qaic/">
+      
+      
+        <link rel="prev" href="../../../API/">
+      
+      
+        <link rel="next" href="../../qaicrt/class_util/">
+      
+      <link rel="icon" href="../../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>Inference API - Cloud AI 100</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+  
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--<type>:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.75 7.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"/><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"/></svg>');}</style>
+
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#qaic-package" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cloud AI 100
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Inference API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Getting-Started/" class="md-tabs__link">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../API/" class="md-tabs__link md-tabs__link--active">
+        API
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../FAQ/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Cloud AI 100
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Getting-Started/">User Guide</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Getting-Started/Quick-Start-Guide/">Quick Start Guide</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Quick Start Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Getting-Started/Installation/">Installation</a>
+          
+            <label for="__nav_1_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Checklist/checklist/" class="md-nav__link">
+        Checklist
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
+        Pre-requisites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
+        Cloud AI SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Hypervisors/hypervisor/" class="md-nav__link">
+        Hypervisors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Docker/Docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/AWS/aws/" class="md-nav__link">
+        AWS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Getting-Started/Inference-Workflow/">Inference Workflow</a>
+          
+            <label for="__nav_1_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Inference Workflow
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_2" id="__nav_1_4_2_label" tabindex="0">
+          Export the Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Export the Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
+        Exporting ONNX Model from Different Frameworks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
+        Operator and Datatype support
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
+        Introduction to the Model Preparator Tool
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_3" id="__nav_1_4_3_label" tabindex="0">
+          Compile the Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Compile the Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Compile%20the%20Model/" class="md-nav__link">
+        Compile the Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Tune%20performance/" class="md-nav__link">
+        Tune Performance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_4" id="__nav_1_4_4_label" tabindex="0">
+          Execute the QPC
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Execute the QPC
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
+        Model Execution
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
+        Inference Profiling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
+        Triton Inference Server
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
+          System Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          System Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/system-management/" class="md-nav__link">
+        System Management
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Getting-Started/Architecture/">Architecture</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Getting-Started/Glossary/">Glossary</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Glossary
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../API/">API</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          Python API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Python API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Inference API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Inference API
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-on-how-to-run-an-inference" class="md-nav__link">
+    Example on how to run an inference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-for-benchmarking" class="md-nav__link">
+    Example for benchmarking
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-session" class="md-nav__link">
+    class Session
+  </a>
+  
+    <nav class="md-nav" aria-label="class Session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-list-function-variables-for-session-object" class="md-nav__link">
+    API List (Function variables for session object)
+  </a>
+  
+    <nav class="md-nav" aria-label="API List (Function variables for session object)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend_options" class="md-nav__link">
+    backend_options()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_metrics" class="md-nav__link">
+    get_metrics()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_input_shape_dict" class="md-nav__link">
+    model_input_shape_dict()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_output_shape_dict" class="md-nav__link">
+    model_output_shape_dict()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print_metrics" class="md-nav__link">
+    print_metrics()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print_profile_data" class="md-nav__link">
+    print_profile_data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset" class="md-nav__link">
+    reset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    setup()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runinput_dict" class="md-nav__link">
+    run(input_dict)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_benchmark" class="md-nav__link">
+    run_benchmark()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update_backend_optionskwargs" class="md-nav__link">
+    update_backend_options(**kwargs)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qaicrt/class_util/" class="md-nav__link">
+        Util API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+          CPP API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          CPP API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/example/" class="md-nav__link">
+        InferenceSet IO Example
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/features/" class="md-nav__link">
+        Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/runtime/" class="md-nav__link">
+        Runtime
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+          ONNXRT API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          ONNXRT API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
+        QAIC execution provider
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../FAQ/">FAQ</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+    <nav class="md-nav" aria-label="Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-on-how-to-run-an-inference" class="md-nav__link">
+    Example on how to run an inference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-for-benchmarking" class="md-nav__link">
+    Example for benchmarking
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    Limitations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-session" class="md-nav__link">
+    class Session
+  </a>
+  
+    <nav class="md-nav" aria-label="class Session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-list-function-variables-for-session-object" class="md-nav__link">
+    API List (Function variables for session object)
+  </a>
+  
+    <nav class="md-nav" aria-label="API List (Function variables for session object)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backend_options" class="md-nav__link">
+    backend_options()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_metrics" class="md-nav__link">
+    get_metrics()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_input_shape_dict" class="md-nav__link">
+    model_input_shape_dict()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_output_shape_dict" class="md-nav__link">
+    model_output_shape_dict()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print_metrics" class="md-nav__link">
+    print_metrics()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print_profile_data" class="md-nav__link">
+    print_profile_data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset" class="md-nav__link">
+    reset()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    setup()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runinput_dict" class="md-nav__link">
+    run(input_dict)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_benchmark" class="md-nav__link">
+    run_benchmark()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update_backend_optionskwargs" class="md-nav__link">
+    update_backend_options(**kwargs)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="qaic-package">qaic package<a class="headerlink" href="#qaic-package" title="Permanent link">&para;</a></h1>
+<hr />
+<p><code>qaic</code> - qaic package provides a way to run inference on Qualcomm Cloud AI 100 card.</p>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<hr />
+<p>A user can create a session object by passing in </p>
+<ol>
+<li>
+<p>with a <code>.onnx</code> file.</p>
+</li>
+<li>
+<p>with a precompiled qpc as model_path, in case a user already has compiled qpc. Full path to qpc.bin should be passed while using precompiled binary.</p>
+</li>
+</ol>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>QPC : Qualcomm Program Container</p>
+</details>
+<h4 id="example-on-how-to-run-an-inference">Example on how to run an inference<a class="headerlink" href="#example-on-how-to-run-an-inference" title="Permanent link">&para;</a></h4>
+<div class="highlight"><span class="filename">option 1 : Compiles the onnx file to generate QPC and sets up session for inference</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">qaic</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">qaic</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="s1">&#39;/path/to/model/model.onnx&#39;</span><span class="p">)</span> 
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">input_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;input_name&#39;</span><span class="p">:</span> <span class="n">input_data</span><span class="p">}</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">output</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">input_dict</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">option 2 : Uses generate QPC and sets up session for inference</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">qaic</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">qaic</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="s1">&#39;/path/to/model/qpc.bin&#39;</span><span class="p">)</span> <span class="c1"># option 2 : Session uses compiled QPC file to </span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">input_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;input_name&#39;</span><span class="p">:</span> <span class="n">input_data</span><span class="p">}</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">output</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">input_dict</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="example-for-benchmarking">Example for benchmarking<a class="headerlink" href="#example-for-benchmarking" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span> <span class="nn">qaic</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">qaic</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="s1">&#39;/path/to/model&#39;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;aic&#39;</span><span class="p">,</span> <span class="n">options_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/yaml&#39;</span><span class="p">)</span> <span class="c1"># model_path can be either onnx or precompiled qpc</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">inf_completed</span><span class="p">,</span> <span class="n">inf_rate</span><span class="p">,</span> <span class="n">inf_time</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run_benchmark</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Currently only QAic backend is supported. We plan support for QNN backend in future releases. </li>
+<li>APIs are compatible with only Python 3.8 </li>
+<li>These APIs are supported only on x86-64 platforms </li>
+</ul>
+<h2 id="class-session">class Session<a class="headerlink" href="#class-session" title="Permanent link">&para;</a></h2>
+<hr />
+<p>Session is the entry point of these APIs. Session is a factory method which user needs to call to create an instance of session.
+A model is compiled by default when creating a session.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">Session</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+<p>Session creates a session object based on the qpc provided.</p>
+<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model_path</code></td>
+<td><code>str</code></td>
+<td>path to .onnx file or .bin file i.e. the compiled model QPC</td>
+</tr>
+<tr>
+<td><code>**kwargs</code></td>
+<td></td>
+<td>refer to the keyword arguments listed below</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Keyword Arguments</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev_id</code></td>
+<td><code>int</code></td>
+<td>Device on which to run the inference. Default is 0</td>
+</tr>
+<tr>
+<td><code>num_activations</code></td>
+<td><code>int</code></td>
+<td>Number of instances on network to be activated.</td>
+</tr>
+<tr>
+<td><code>set_size</code></td>
+<td><code>int</code></td>
+<td>Number of ExecObj to be created.</td>
+</tr>
+<tr>
+<td><code>mos</code></td>
+<td><code>int</code></td>
+<td>Effort level to reduce the on-chip memory.</td>
+</tr>
+<tr>
+<td><code>ols</code></td>
+<td><code>int</code></td>
+<td>Factor to increasing splitting of network for parallelism</td>
+</tr>
+<tr>
+<td><code>aic_num_cores</code></td>
+<td><code>int</code></td>
+<td>Number of aic cores to be used for inference</td>
+</tr>
+<tr>
+<td><code>convert_to_fp16</code></td>
+<td><code>bool</code></td>
+<td>Run all floating-point in fp16</td>
+</tr>
+<tr>
+<td><code>onnx_define_symbol</code></td>
+<td><code>(list[tuple(str, int)])</code></td>
+<td>Define an onnx symbol with its value</td>
+</tr>
+<tr>
+<td><code>output_dir</code></td>
+<td><code>str</code></td>
+<td>Stores model binaries at directory location provided</td>
+</tr>
+<tr>
+<td><code>output_node_names</code></td>
+<td><code>(list[str])</code></td>
+<td>Output node names should be in the order as present in model file. This option is mandatory for TF models</td>
+</tr>
+<tr>
+<td><code>model_inputs list</code></td>
+<td><code>dict</code></td>
+<td>`Provide input node name with its data type and shape. Dict must contain keys 'input_name', 'input_type','input_shape'.  This is mandatory for pytorch models</td>
+</tr>
+<tr>
+<td><code>allocator_dealloac_delay</code></td>
+<td><code>int</code></td>
+<td>Option to increase the lifetime of buffers to reduce false dependencies</td>
+</tr>
+<tr>
+<td><code>size_split_granularity</code></td>
+<td><code>int</code></td>
+<td>Option to specify a maximum tile size target for operations that may be too large to execute out of fast memory. Tile size in KiB between 512 - 2048</td>
+</tr>
+<tr>
+<td><code>vtcm_working_set_limit_ratio</code></td>
+<td><code>float</code></td>
+<td -="-" 0="0" 1="1">Option to Specify the maximum ratio amount of fast memory to DDR any single instruction is allowed use of all available value between</td>
+</tr>
+<tr>
+<td><code>execute_nodes_in_fp16</code></td>
+<td><code>(list[str])</code></td>
+<td>Run all insances of the operators in this list with FP16</td>
+</tr>
+<tr>
+<td><code>node_precision_info_file</code></td>
+<td><code>str</code></td>
+<td>Load model loader precision file which contains first output name of operator instances required to be executed in FP16 or FP32.</td>
+</tr>
+<tr>
+<td><code>keep_original_precision_for_nodes</code></td>
+<td><code>(list[str])</code></td>
+<td>Run all insances of the operators in this list with original precision during generation of quantized precision model even if the operator is supported in Int8 precision</td>
+</tr>
+<tr>
+<td><code>custom_io_list_file</code></td>
+<td><code>str</code></td>
+<td>Custom I/O config file in yaml format containing layout, precision scale and offset for each input and output of the model.</td>
+</tr>
+<tr>
+<td><code>dump_custom_io_config_template_file</code></td>
+<td><code>str</code></td>
+<td>Dumps the yaml template for Custom I/O configuration</td>
+</tr>
+<tr>
+<td><code>external_quantization_file</code></td>
+<td><code>str</code></td>
+<td>Load the externally generated quantization profile</td>
+</tr>
+<tr>
+<td><code>quantization_schema_activations</code></td>
+<td><code>str</code></td>
+<td>Specify which quantization schema to use for activations. Valid options: asymmetric, symmetric, symmetric_with_uint8 (default), symmetric_with_power2_scale</td>
+</tr>
+<tr>
+<td><code>quantization_schema_constants</code></td>
+<td><code>str</code></td>
+<td>Specify which quantization schema to use for constants. Valid options: asymmetric, symmetric, symmetric_with_uint8</td>
+</tr>
+<tr>
+<td><code>quantization_calibration</code></td>
+<td><code>str</code></td>
+<td>Specify which quantization calibration to use Default is None (MinMax calibration is applied). Valid options: None (default), KLMinimization, KLMinimizationV2, Percentile, MSE and SQNR.</td>
+</tr>
+<tr>
+<td><code>percentile_calibration_value</code></td>
+<td><code>float</code></td>
+<td>Specify the percentile value to be used with Percentile calibration method. The specified float value must lie within 90 and 100, default: 100.</td>
+</tr>
+<tr>
+<td><code>num_histogram_bins</code></td>
+<td><code>int</code></td>
+<td>Sets the num of histogram bins that will be used in profiling every node. Default value is 512</td>
+</tr>
+<tr>
+<td><code>quantization_precision</code></td>
+<td><code>str</code></td>
+<td>Specify which quantization precision to use. Int8(default) is only supported precision for now.</td>
+</tr>
+<tr>
+<td><code>quantization_precision_bias</code></td>
+<td><code>str</code></td>
+<td>Specify which quantization precision to use. Value options: Int8, Int32 (default)</td>
+</tr>
+<tr>
+<td><code>enable_rowwise</code></td>
+<td><code>bool</code></td>
+<td>Enable rowwise quantization of FullyConnected and SparseLengthsSum ops.</td>
+</tr>
+<tr>
+<td><code>enable_channelwise</code></td>
+<td><code>bool</code></td>
+<td>Enable channelwise quantization of Convolution op.</td>
+</tr>
+<tr>
+<td><code>dump_profile</code></td>
+<td><code>str</code></td>
+<td>Perform quantization profiling for a given graph and dump result to the file. Compilation will be done after dumping profile unlike qaic-exec</td>
+</tr>
+<tr>
+<td><code>load_profile</code></td>
+<td><code>str</code></td>
+<td>Load quantization profile file and quantize the graph. The profile file to be loaded is the one which is dumped through option -dump-profile.</td>
+</tr>
+<tr>
+<td><code>convert_to_quantize</code></td>
+<td><code>bool</code></td>
+<td>If -load-profile option is not provided then input data is profiled and run in quantized mode. Default is off. Also set-quantization-* options as per requirement. Do not use this option along with -dump-profile or -load-profile.</td>
+</tr>
+<tr>
+<td><code>load_embedding_tables</code></td>
+<td><code>str</code></td>
+<td>Load embedding tables from this zip file for DLRM and RecSys models.</td>
+</tr>
+<tr>
+<td><code>dump_embedding_tables</code></td>
+<td><code>str</code></td>
+<td>Extract embedding tables from pytorch model and dump them in the zip file specified.</td>
+</tr>
+<tr>
+<td><code>mdp_load_partition_config</code></td>
+<td><code>str</code></td>
+<td>Load config file for partitioning a graph across devices.</td>
+</tr>
+<tr>
+<td><code>mdp_dump_partition_config</code></td>
+<td><code>str</code></td>
+<td>Dump config file for partitioning a graph across devices.</td>
+</tr>
+<tr>
+<td><code>host_preproc</code></td>
+<td><code>bool</code></td>
+<td>Enable all pre-/post-processing on host</td>
+</tr>
+<tr>
+<td><code>aic_preproc</code></td>
+<td><code>bool</code></td>
+<td>Disable all pre-/post-processing on host. Operations are performed on AI 100 instead.</td>
+</tr>
+<tr>
+<td><code>aic_enable_depth_first</code></td>
+<td><code>bool</code></td>
+<td>Enables DFS with default memory size</td>
+</tr>
+<tr>
+<td><code>aic_depth_first_mem</code></td>
+<td><code>int</code></td>
+<td>Sets DFS memory size. number must be choosen from [8,32]</td>
+</tr>
+<tr>
+<td><code>stats_batchsize</code></td>
+<td><code>int</code></td>
+<td>This option is used to normalize performance statistics to be per inference</td>
+</tr>
+<tr>
+<td><code>always_expand_onnx_functions</code></td>
+<td><code>bool</code></td>
+<td>This option forces the expansion ONNX functions.</td>
+</tr>
+<tr>
+<td><code>enable_debug</code></td>
+<td><code>bool</code></td>
+<td>Enables debug mode during model compilation</td>
+</tr>
+<tr>
+<td><code>time_passes</code></td>
+<td><code>bool</code></td>
+<td>Enables printing of compile-time statistics</td>
+</tr>
+<tr>
+<td><code>io_crc</code></td>
+<td><code>bool</code></td>
+<td>Enables CRC check for inputs and outputs of the network.</td>
+</tr>
+<tr>
+<td><code>io_crc_stride</code></td>
+<td><code>int</code></td>
+<td>Specifies size of stride to calculate CRC in the stride section</td>
+</tr>
+<tr>
+<td><code>sdp_cluster_sizes</code></td>
+<td><code>(list[int])</code></td>
+<td>Enables single device partitioning and sets the cluster configuration</td>
+</tr>
+<tr>
+<td><code>profiling_threads</code></td>
+<td><code>int</code></td>
+<td>This option is used to assign the number of threads to use for for quantization profile generation</td>
+</tr>
+<tr>
+<td><code>compile_threads</code></td>
+<td><code>int</code></td>
+<td>Sets the number of parallel threads used for compilation.</td>
+</tr>
+<tr>
+<td><code>use_producer_dma</code></td>
+<td><code>bool</code></td>
+<td>Initiate NSP DMAs from the thread that produces data being transferred</td>
+</tr>
+<tr>
+<td><code>aic_perf_warnings</code></td>
+<td><code>bool</code></td>
+<td>Print performance warning messages</td>
+</tr>
+<tr>
+<td><code>aic_perf_metrics</code></td>
+<td><code>bool</code></td>
+<td>Print compiler performance metrics</td>
+</tr>
+<tr>
+<td><code>aic_pmu_recipe</code></td>
+<td><code>str</code></td>
+<td>Enable the PMU selection based on built-in recipe: AxiRd, AxiWr, AxiRdWr, KernelUtil, HmxMacs</td>
+</tr>
+<tr>
+<td><code>aic_pmu_events</code></td>
+<td><code>str</code></td>
+<td>Track events in NSP cores. Up to 8 events are supported</td>
+</tr>
+<tr>
+<td><code>dynamic_shape_input</code></td>
+<td><code>(list[str])</code></td>
+<td>Inform the compiler which inputs should be treated as having dynamic shape</td>
+</tr>
+<tr>
+<td><code>multicast_weights</code></td>
+<td><code>bool</code></td>
+<td>Reduce DDR bandwidth by loading weights used on multiple-cores only once and multicasting to other cores.</td>
+</tr>
+<tr>
+<td><code>ddr_stats</code></td>
+<td><code>bool</code></td>
+<td>Used to collect DDR traffic details at per core level.</td>
+</tr>
+<tr>
+<td><code>combine_inputs</code></td>
+<td><code>bool</code></td>
+<td>When enabled combines inputs into fewer buffers for  transfer to device.</td>
+</tr>
+<tr>
+<td><code>combine_outputs</code></td>
+<td><code>bool</code></td>
+<td>When enabled combines outputs into a single buffer for transfer to host.</td>
+</tr>
+<tr>
+<td><code>enable_metrics</code></td>
+<td><code>bool</code></td>
+<td>Set value to True if you are interested in getting performance metrics for inference runs on a session. (Can not be used if enable_profiling is set to True.)</td>
+</tr>
+<tr>
+<td><code>enable_profiling</code></td>
+<td><code>bool</code></td>
+<td>Set value to True if you want to profile the inferences and get performance metrics for inference runs on a session. (Can not be used if enable_metrics is set to True.)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h3>
+<p>Session object.</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><span class="filename">using options_path yaml file</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">qaic</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="s1">&#39;/path/to/model&#39;</span><span class="p">,</span> <span class="n">options_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/options.yaml&#39;</span><span class="p">)</span> 
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">input_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;input_name&#39;</span><span class="p">:</span> <span class="n">input_data</span><span class="p">}</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">output</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">input_dict</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">sample contents of yaml file</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">aic_num_cores</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nt">num_activations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nt">convert_to_fp16</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nt">onnx_define_symbol</span><span class="p">:</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">batch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;./resnet_qpc&#39;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">using keyword args</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    <span class="n">sess</span> <span class="o">=</span> <span class="n">qaic</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="s1">&#39;/path/to/model_qpc/*.bin&#39;</span><span class="p">,</span> <span class="n">num_activations</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">set_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">input_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;input_name&#39;</span><span class="p">:</span> <span class="n">input_data</span><span class="p">}</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">output</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">input_dict</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="api-list-function-variables-for-session-object">API List (Function variables for session object)<a class="headerlink" href="#api-list-function-variables-for-session-object" title="Permanent link">&para;</a></h3>
+<p>Session class has following methods.</p>
+<h4 id="backend_options">backend_options()<a class="headerlink" href="#backend_options" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p>A dict of options that can be configured after creating session </p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">backend_options_dict</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">backend_options</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="get_metrics">get_metrics()<a class="headerlink" href="#get_metrics" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p>A dictionary containing the following metrics:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>- num_of_inferences (int): The number of inferences.
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>- min_latency (float): The minimum inference time.
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>- max_latency (float): The maximum inference time.
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>- P25 (float): The 25th percentile latency.
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>- P50 (float): The 50th percentile latency (median).
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>- P75 (float): The 75th percentile latency.
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>- P90 (float): The 90th percentile latency.
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>- P99 (float): The 99th percentile latency.
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>- P999 (float): The 99.9th percentile latency.
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>- total_inference_time (float): The sum of individual insference times.
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>- avg_latency (float): The average latency.
+</code></pre></div>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">metrics_dict</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_metrics</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="model_input_shape_dict">model_input_shape_dict()<a class="headerlink" href="#model_input_shape_dict" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p>A dict with input_name as key and input_shape, input_type as values     </p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">input_shape_dict</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">model_input_shape_dict</span><span class="p">()</span> 
+</code></pre></div>
+<h4 id="model_output_shape_dict">model_output_shape_dict()<a class="headerlink" href="#model_output_shape_dict" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p>A dict with output_name as key and output_shape, output_type as values  </p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">output_shape_dict</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">model_output_shape_dict</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="print_metrics">print_metrics()<a class="headerlink" href="#print_metrics" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p><code>None</code></p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">session</span><span class="o">.</span><span class="n">print_metrics</span><span class="p">()</span> 
+</code></pre></div>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>This method assumes that either the 'enable_profiling' or 'enable_metrics' attribute is set to True.</p>
+</details>
+<p>Sample Output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Number of inferences utilized for calculation are 999
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>Minimum latency observed 0.0009578340000000001 s
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Maximum latency observed 0.002209001 s
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>Average latency / inference time observed is 0.0012380756316316324 s
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>P25 / 25% of inferences observed latency less than 0.001095435 s
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>P50 / 50% of inferences observed latency less than 0.0012522870000000001 s
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>P75 / 75% of inferences observed latency less than 0.001299786 s
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>P90 / 90% of inferences observed latency less than 0.002209001 s
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>P99 / 99% of inferences observed latency less than 0.0016082370000000002 s
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>Sum of all the inference times 1.2368375560000007 s
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>Average latency / inference time observed is 0.0012380756316316324 s
+</code></pre></div>
+<h4 id="print_profile_data">print_profile_data<a class="headerlink" href="#print_profile_data" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p><code>None</code></p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">session</span><span class="o">.</span><span class="n">print_profile_data</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>   
+</code></pre></div>
+<p>Print profiling data for the first n iterations</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>This function only works when 'enable_profiling' is set to True for the Session.</p>
+</details>
+<ul>
+<li>This method assumes that the 'enable_profiling' attribute is set to True, and the 'profiling_results' attribute contains the profiling data for each iteration.</li>
+<li>The method prints the profiling data in a tabular format, including the file, line, function, number of calls, function time (seconds), and total time (seconds) for each function.</li>
+</ul>
+<p>Sample Output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>|  File-Line-Function  | |  num calls  | |  func time  | |  tot time  |
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>(&#39;~&#39;, 0, &quot;&lt;method &#39;astype&#39; of &#39;numpy.ndarray&#39; objects&gt;&quot;) 1 0.000149101 0.000149101
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>(&#39;~&#39;, 0, &#39;&lt;built-in method numpy.empty&gt;&#39;) 1 2.38e-06 2.38e-06
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>(&#39;~&#39;, 0, &#39;&lt;built-in method numpy.frombuffer&gt;&#39;) 1 4.22e-06 4.22e-06
+</code></pre></div>
+<h4 id="reset">reset()<a class="headerlink" href="#reset" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p><code>None</code> </p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">session</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span> 
+</code></pre></div>
+<p>Releases all the device resources acquired by session </p>
+<h4 id="setup">setup()<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p><code>None</code> </p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">session</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span> 
+</code></pre></div>
+<p>Loads the network to the device.</p>
+<p>Network is usually loaded during first call of run. If this is called before that, network will be already loaded when first run is called.</p>
+<h4 id="runinput_dict">run(input_dict)<a class="headerlink" href="#runinput_dict" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p>A dict with output_name and output_value of inference   </p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">output</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">input_dict</span><span class="p">)</span>    
+</code></pre></div>
+<p>input_dict should have input_name as key and value should be a numpy array</p>
+<h4 id="run_benchmark">run_benchmark()<a class="headerlink" href="#run_benchmark" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p>inf_completed: Total number of inferences run
+inf_rate: Inf/Sec of the model
+inf_time: total time taken to run inferences
+batch_size: Batch Size used by model</p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">inf_completed</span><span class="p">,</span> <span class="n">inf_rate</span><span class="p">,</span> <span class="n">inf_time</span><span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">run_benchmark</span><span class="p">()</span> 
+</code></pre></div>
+<p>It accepts following args:</p>
+<p>num_inferences: num of inferences to run in benchmarking. Default 40
+inf_time: duration for which inference is to be run in seconds. Default None
+input_dict: Input to be used in inference. Default random</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>num_inferences and time cannot be used together.</p>
+</details>
+<p>This API uses C++ benchmarking APIs and doesn't take into account python overheads</p>
+<h4 id="update_backend_optionskwargs">update_backend_options(**kwargs)<a class="headerlink" href="#update_backend_optionskwargs" title="Permanent link">&para;</a></h4>
+<p><strong>Returns</strong></p>
+<p><code>None</code> </p>
+<div class="highlight"><span class="filename">Usage example</span><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">session</span><span class="o">.</span><span class="n">update_backend_options</span><span class="p">(</span><span class="n">num_activations</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>     
+</code></pre></div>
+<p>Update option specified in kwargs</p>
+<p>For example:</p>
+<p><code>num_activation</code>, <code>dev_id</code>, <code>set_size</code> can be configured with this API.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../../API/" class="md-footer__link md-footer__link--prev" aria-label="Previous: API" rel="prev">
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                API
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../qaicrt/class_util/" class="md-footer__link md-footer__link--next" aria-label="Next: Util API" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Util API
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/quic/cloud-ai-sdk"  target="_blank" rel="noopener">Qualcomm Innovation Center, Inc.</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/quic/cloud-ai-sdk" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence" target="_blank" rel="noopener" title="www.qualcomm.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M528.3 46.5H388.5c-48.1 0-89.9 33.3-100.4 80.3-10.6-47-52.3-80.3-100.4-80.3H48c-26.5 0-48 21.5-48 48v245.8c0 26.5 21.5 48 48 48h89.7c102.2 0 132.7 24.4 147.3 75 .7 2.8 5.2 2.8 6 0 14.7-50.6 45.2-75 147.3-75H528c26.5 0 48-21.5 48-48V94.6c0-26.4-21.3-47.9-47.7-48.1zM242 311.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5V289c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V251zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm259.3 121.7c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5V228c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.8c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V190z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
