@@ -1,0 +1,79 @@
+@font-face {
+    font-family: "Staatliches";
+    src:url(Staatliches-Regular.ttf) ;
+}
+
+@font-face {
+    font-family: "QualcommNext";
+    src: url(https://assets.qualcomm.com/rs/385-TWS-803/images/QualcommNext-Regular.woff2) format("woff2"), url(https://assets.qualcomm.com/rs/385-TWS-803/images/QualcommNext-Regular.woff) format("woff");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+.md-typeset text {
+    font-family: "QualcommNext", Arial, sans-serif !important;
+  }
+
+  /* :root {
+    --md-code-font: "Roboto Mono"; 
+  } */
+  
+.md-typeset code {
+    /* color: rgb(50, 83, 220);  */
+    font-family: "Roboto Mono";
+}
+
+.md-typeset body {
+    /* color: rgb(50, 83, 220);  */
+    font-family: "Roboto Mono";
+}
+
+
+.md-typeset h1 {
+    color: rgb(50, 83, 220); 
+    font-family: "QualcommNext", Arial, sans-serif !important;
+    font-weight: bolder;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1 {
+    color: rgb(50, 83, 220);
+    font-family: "QualcommNext", Arial, sans-serif !important;
+    font-weight: bolder;
+}
+
+.md-typeset h2 {
+    color: rgb(50, 83, 220);
+    font-family: "QualcommNext", Arial, sans-serif !important;
+    font-weight: bolder;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h2 {
+    color: rgb(50, 83, 220);
+    font-family: "QualcommNext", Arial, sans-serif !important;
+    font-weight: bolder;
+}
+
+.md-typeset h3 {
+    color: rgb(50, 83, 220);
+    font-family: "QualcommNext", Arial, sans-serif !important;
+    font-weight: bolder;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h3 {
+    color: rgb(50, 83, 220);
+    font-family: "QualcommNext", Arial, sans-serif !important;
+    font-weight: bolder;
+}
+
+.md-typeset h4 {
+    color: rgb(50, 83, 220);
+    font-family: "QualcommNext", Arial, sans-serif !important;
+    font-weight: bolder;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h4 {
+    color: rgb(50, 83, 220);
+    font-family: "QualcommNext", Arial, sans-serif !important;
+    font-weight: bolder;
+}
