@@ -95,6 +95,10 @@ nav:
         - Getting-Started/Inference-Workflow/model-execution/model-execution-options.md
         - Getting-Started/Inference-Workflow/model-execution/Inference-Profiling.md
         - Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support.md
+    - Model Architecture Support:
+      - Getting-Started/Model-Architecture-Support/index.md
+      - Large-Language-Models:
+        - Getting-Started/Model-Architecture-Support/Large-Language-Models/llm.md
     - System Management:
       - Getting-Started/System-Management/system-management.md
     - Architecture:
