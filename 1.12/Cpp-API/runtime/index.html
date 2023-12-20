@@ -1,0 +1,2299 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.12/Cpp-API/runtime/">
+      
+      
+        <link rel="prev" href="../features/">
+      
+      
+        <link rel="next" href="../../ONNXRT%20QAIC/onnxruntime/">
+      
+      <link rel="icon" href="../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>Runtime - Cloud AI 100</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+  
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--<type>:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.75 7.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"/><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"/></svg>');}</style>
+
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#qpc-elements" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cloud AI 100
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Runtime
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Getting-Started/" class="md-tabs__link">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../API/" class="md-tabs__link md-tabs__link--active">
+        API
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../FAQ/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Cloud AI 100
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Getting-Started/">User Guide</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Getting-Started/Quick-Start-Guide/">Quick Start Guide</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Quick Start Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Getting-Started/Installation/">Installation</a>
+          
+            <label for="__nav_1_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Installation/Checklist/checklist/" class="md-nav__link">
+        Checklist
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
+        Pre-requisites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
+        Cloud AI SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Installation/Hypervisors/hypervisor/" class="md-nav__link">
+        Hypervisors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Installation/Docker/Docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Installation/AWS/aws/" class="md-nav__link">
+        AWS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Getting-Started/Inference-Workflow/">Inference Workflow</a>
+          
+            <label for="__nav_1_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Inference Workflow
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_2" id="__nav_1_4_2_label" tabindex="0">
+          Export the Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Export the Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
+        Exporting ONNX Model from Different Frameworks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
+        Operator and Datatype support
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
+        Introduction to the Model Preparator Tool
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_3" id="__nav_1_4_3_label" tabindex="0">
+          Compile the Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Compile the Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Inference-Workflow/model-compilation/Compile%20the%20Model/" class="md-nav__link">
+        Compile the Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Inference-Workflow/model-compilation/Tune%20performance/" class="md-nav__link">
+        Tune Performance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_4" id="__nav_1_4_4_label" tabindex="0">
+          Execute the QPC
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Execute the QPC
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
+        Model Execution
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
+        Inference Profiling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
+        Triton Inference Server
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Getting-Started/Model-Architecture-Support/">Model Architecture Support</a>
+          
+            <label for="__nav_1_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          Model Architecture Support
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_5_2" id="__nav_1_5_2_label" tabindex="0">
+          Large-Language-Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_5_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Large-Language-Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
+        Large Language Models (LLMs)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+          System Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          System Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Getting-Started/System-Management/system-management/" class="md-nav__link">
+        System Management
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Getting-Started/Architecture/">Architecture</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_8" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Getting-Started/Glossary/">Glossary</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          Glossary
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../API/">API</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          Python API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Python API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python-API/qaic/qaic/" class="md-nav__link">
+        Inference API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python-API/qaicrt/class_util/" class="md-nav__link">
+        Util API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+          CPP API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          CPP API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example/" class="md-nav__link">
+        InferenceSet IO Example
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Runtime
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Runtime
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#qpc-elements" class="md-nav__link">
+    QPC Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="QPC Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qpc" class="md-nav__link">
+    QPC
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qpcfile" class="md-nav__link">
+    QpcFile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qpcinfo" class="md-nav__link">
+    QpcInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qpcprograminfo" class="md-nav__link">
+    QpcProgramInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qpcconstantsinfo" class="md-nav__link">
+    QpcConstantsInfo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buffermappings" class="md-nav__link">
+    BufferMappings
+  </a>
+  
+    <nav class="md-nav" aria-label="BufferMappings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buffermapping" class="md-nav__link">
+    BufferMapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qaicbufferdatatypeenum" class="md-nav__link">
+    QAicBufferDataTypeEnum
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-elements" class="md-nav__link">
+    Context Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Context Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    Context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qloglevel" class="md-nav__link">
+    QLogLevel
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiling-elements" class="md-nav__link">
+    Profiling Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiling Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#profilinghandle" class="md-nav__link">
+    ProfilingHandle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streamprofilinghandle" class="md-nav__link">
+    StreamProfilingHandle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inferencing-elements" class="md-nav__link">
+    Inferencing Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Inferencing Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qbuffer" class="md-nav__link">
+    QBuffer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferencevector" class="md-nav__link">
+    InferenceVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferencehandle" class="md-nav__link">
+    InferenceHandle
+  </a>
+  
+    <nav class="md-nav" aria-label="InferenceHandle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle-of-inferencehandle" class="md-nav__link">
+    LifeCycle of InferenceHandle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferenceset" class="md-nav__link">
+    InferenceSet
+  </a>
+  
+    <nav class="md-nav" aria-label="InferenceSet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#numactivations-and-setsize" class="md-nav__link">
+    NumActivations and SetSize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference-flow" class="md-nav__link">
+    Inference Flow
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferencesetproperties" class="md-nav__link">
+    InferenceSetProperties
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+          ONNXRT API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          ONNXRT API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
+        QAIC execution provider
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../FAQ/">FAQ</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#qpc-elements" class="md-nav__link">
+    QPC Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="QPC Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qpc" class="md-nav__link">
+    QPC
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qpcfile" class="md-nav__link">
+    QpcFile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qpcinfo" class="md-nav__link">
+    QpcInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qpcprograminfo" class="md-nav__link">
+    QpcProgramInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qpcconstantsinfo" class="md-nav__link">
+    QpcConstantsInfo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buffermappings" class="md-nav__link">
+    BufferMappings
+  </a>
+  
+    <nav class="md-nav" aria-label="BufferMappings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buffermapping" class="md-nav__link">
+    BufferMapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qaicbufferdatatypeenum" class="md-nav__link">
+    QAicBufferDataTypeEnum
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-elements" class="md-nav__link">
+    Context Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Context Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    Context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qloglevel" class="md-nav__link">
+    QLogLevel
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiling-elements" class="md-nav__link">
+    Profiling Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiling Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#profilinghandle" class="md-nav__link">
+    ProfilingHandle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streamprofilinghandle" class="md-nav__link">
+    StreamProfilingHandle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inferencing-elements" class="md-nav__link">
+    Inferencing Elements
+  </a>
+  
+    <nav class="md-nav" aria-label="Inferencing Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qbuffer" class="md-nav__link">
+    QBuffer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferencevector" class="md-nav__link">
+    InferenceVector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferencehandle" class="md-nav__link">
+    InferenceHandle
+  </a>
+  
+    <nav class="md-nav" aria-label="InferenceHandle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle-of-inferencehandle" class="md-nav__link">
+    LifeCycle of InferenceHandle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferenceset" class="md-nav__link">
+    InferenceSet
+  </a>
+  
+    <nav class="md-nav" aria-label="InferenceSet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#numactivations-and-setsize" class="md-nav__link">
+    NumActivations and SetSize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference-flow" class="md-nav__link">
+    Inference Flow
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inferencesetproperties" class="md-nav__link">
+    InferenceSetProperties
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Runtime</h1>
+
+<p>The following document describes Qualcomm AIC 100 User space Linux Runtime classes design and implementation.</p>
+<h2 id="qpc-elements">QPC Elements<a class="headerlink" href="#qpc-elements" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="qpc">QPC<a class="headerlink" href="#qpc" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Class <code>Qpc</code> is a main <em>QPC</em> API class type that provides functionality to allocate a QPC from a filename or buffer, and also provides API to query information related to the loaded <code>QPC</code>.</p>
+<p>Class <code>Qpc</code> has 2 <em>Factory</em> functions to create a <code>std::shared_ptr&lt;&gt;</code> of <code>Qpc</code>. There are couple of ways to create <code>QPC</code> object.</p>
+<p>The class is non-copyable, nor movable.</p>
+<ol>
+<li>Creating from buffer and size.</li>
+<li>Creating from a given filename (base-path plus filename).</li>
+</ol>
+<p>If <code>Factory</code> instance creation is successful, the functions will return an instance of <code>std::shared_ptr&lt;&gt;</code>, otherwise a proper exception will be thrown.</p>
+<p>Important API in class type <code>Qpc</code> includes the following:</p>
+<ol>
+<li><code>getInfo()</code> - returns <code>QpcInfo</code>. See below for more info.</li>
+<li><code>getBufferMappings()</code> - returns a container of <code>BufferMappings</code>. Each <code>BufferMapping</code> instance in the container includes information on the buffers as obtained from <code>Qpc</code> file. Name, size, direction and index of buffers.</li>
+<li><code>getBufferMappingsDma</code> - Same return type as above (<code>getBufferMapping()</code>) but for DMA allocated buffers instead of user's heap allocated ones.</li>
+<li><code>getIoDescriptor()</code> - returns pointer to QData which is a buffer and length of the QPC buffer.</li>
+<li><code>get()</code> - returns a const pointer to QAicQpcObj - which is an opaque Data structure to Internal Program Container. Users have no visibility to the API of QAicQpcObj since it is Opaque in the C layer.</li>
+<li><code>buffer()</code> - returns the QPC buffer as a const pointer to uint8_t.</li>
+<li><code>size()</code> - returns the size of the QPC buffer.</li>
+</ol>
+<h3 id="qpcfile">QpcFile<a class="headerlink" href="#qpcfile" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Class <code>QpcFile</code> is encapsulating the QPC file basepath and filename as well as <code>DataBuffer&lt;QData&gt;</code> data member which holds the buffer of the QPC file.
+<code>QpcFile</code> takes the base-path and the filename of the QPC, where <code>programqpc.bin</code> is a default filename provided in the constructor.
+<code>QpcFile</code> is a non-movable, non-copyable type.</p>
+<p>It has a <code>load()</code> function that will load the content of the QPC into  <code>DataBuffer&lt;&gt;</code> which holds <code>QData</code> buffer representation internally.</p>
+<p>There are few APIs provided by the <code>QpcFile</code> class type.</p>
+<ol>
+<li><code>getBuffer()</code> - returns a <code>QData</code> buffer const reference.</li>
+<li><code>data()</code> - returns a <code>const uint8_t</code> pointer to buffer.</li>
+<li><code>size()</code> - returns the size of the loaded QPC file buffer.</li>
+</ol>
+<h3 id="qpcinfo">QpcInfo<a class="headerlink" href="#qpcinfo" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Struct <code>QpcInfo</code> is a simple struct type that aggregates a collection of <code>QpcProgramInfo</code> (also referred to as "program") and corresponding collection of <code>QpcConstantsInfo</code> (also referred to as "constants").</p>
+<h3 id="qpcprograminfo">QpcProgramInfo<a class="headerlink" href="#qpcprograminfo" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Struct <code>QpcProgramInfo</code> is a simple struct aggregating information related to the content of the loaded QPC.</p>
+<p>For example:</p>
+<ol>
+<li>BufferMappings, user allocated or <em>DMA</em>.</li>
+<li>Name identifying a segment in <code>QPC</code> file.</li>
+<li>Number of cores requires to run the program.</li>
+<li>Program Index in the QPC.</li>
+<li>Size of the program</li>
+<li>Batch size.</li>
+<li>Number of Semaphores, number of MC(MultiCast) IDs.</li>
+<li>Total required memory to run the program.</li>
+</ol>
+<h3 id="qpcconstantsinfo">QpcConstantsInfo<a class="headerlink" href="#qpcconstantsinfo" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Struct <code>QpcConstantsInfo</code> defines the Constants info that are obtained from the QPC file.
+It has the following attributes:</p>
+<ol>
+<li><code>name</code></li>
+<li><code>index</code></li>
+<li><code>size</code></li>
+</ol>
+<h2 id="buffermappings">BufferMappings<a class="headerlink" href="#buffermappings" title="Permanent link">&para;</a></h2>
+<hr />
+<p>Vector <code>BufferMappings</code> is a vector of <code>BufferMapping</code>.</p>
+<p><code>BufferMappings</code> is created from QPC.</p>
+<p><code>BufferMappings</code> is used by API to store the Input/Output buffer information that is also used to create <code>inferenceVector</code>.</p>
+<h3 id="buffermapping">BufferMapping<a class="headerlink" href="#buffermapping" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Struct <code>BufferMapping</code> is a simple struct type that describes the information of a buffer.</p>
+<p>Struct <code>BufferMapping</code> has two constructors:</p>
+<ol>
+<li>Creating by providing all of the data members.</li>
+<li>Default constructor that creates an uninitialized <code>BufferMapping</code> instance.</li>
+</ol>
+<p>Struct <code>BufferMapping</code> has following structure data members:</p>
+<ol>
+<li><code>bufferName</code> - string name identifying the buffer.</li>
+<li><code>index</code> - an unsigned int that represent the index in an array of buffers.</li>
+<li><code>ioType</code> - define the direction of a buffer from user's perspective. An input buffer is from user to device. An output buffer is from device to user.</li>
+<li><code>size</code> - buffer size in bytes.</li>
+<li><code>isPartialBufferAllowed</code> - <code>Partial buffer</code> is a feature that allows buffer to have actual size that is smaller than what is specified in IO descriptor. <code>isPartialBufferAllowed</code> is set by IO descriptor. By setting <code>isPartialBufferAllowed</code> true, this buffer takes user buffer that is smaller than what is specified by <code>size</code>.</li>
+<li><code>dataType</code> - define the format of buffer. The types of format is defined in struct <code>QAicBufferDataTypeEnum</code></li>
+</ol>
+<h3 id="qaicbufferdatatypeenum">QAicBufferDataTypeEnum<a class="headerlink" href="#qaicbufferdatatypeenum" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Struct <code>QAicBufferDataTypeEnum</code> is a simple struct type that defines the data type of the <code>BufferMapping</code>.</p>
+<p>Struct <code>QAicBufferDataTypeEnum</code> defines following data types:</p>
+<ol>
+<li><code>BUFFER_DATA_TYPE_FLOAT</code> - 32-bit float type (float)</li>
+<li><code>BUFFER_DATA_TYPE_FLOAT16</code> - 16-bit float type (half, fp16)</li>
+<li><code>BUFFER_DATA_TYPE_INT8Q</code> - 8-bit quantized type (int8_t)</li>
+<li><code>BUFFER_DATA_TYPE_UINT8Q</code> - unsigned 8-bit quantized type (uint8_t)</li>
+<li><code>BUFFER_DATA_TYPE_INT16Q</code> - 16-bit quantized type (int16_t)</li>
+<li><code>BUFFER_DATA_TYPE_INT32Q</code> - 32-bit quantized type (int32_t)</li>
+<li><code>BUFFER_DATA_TYPE_INT32I</code> - 32-bit index type (int32_t)</li>
+<li><code>BUFFER_DATA_TYPE_INT64I</code> - 64-bit index type (int64_t)</li>
+<li><code>BUFFER_DATA_TYPE_INT8</code> - 8-bit type (int8_t)</li>
+<li><code>BUFFER_DATA_TYPE_INVAL</code> - invalid type</li>
+</ol>
+<h2 id="context-elements">Context Elements<a class="headerlink" href="#context-elements" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h3>
+<hr />
+<p>There are various Linux Runtime core components like <code>qpc</code>, <code>program</code>, <code>execObj</code>, and <code>queue</code> etc. which are needed to run inference and enhance performance/usability.
+Class <code>Context</code> is a primary class which helps to link all LRT core components. <code>Context</code> object should be created first. Application creates a context to obtain access to other API functions, the context is passed in other API calls.
+The caller can also register for logging and error callbacks. A context ID is passed to the error handler to uniquely identify the <code>Context</code> object.</p>
+<p>Class <code>Context</code> has a <em>Factory</em> functions to create a <code>std::shared_ptr&lt;&gt;</code> of <code>Context</code>.</p>
+<p>Context object is created from context properties, list of devices used by this context, logging callback function, specific user data to be included in log callback, an error handler to call in case of critical errors and specific user data to be included in error handler callback.
+If logging callback and error handler are not provided then default <code>defaultLogger</code> and <code>defaultErrorHandler</code> will be used.</p>
+<p>If <code>Factory</code> instance creation is successful, the functions will return an instance of <code>std::shared_ptr&lt;&gt;</code>, otherwise a proper exception will be thrown.</p>
+<p>Important API in class type <code>Context</code> includes the following:</p>
+<ol>
+<li><code>findDevice()</code> - returns a suitable device for the network and check selected device has enough resources.</li>
+<li><code>setLogLevel()</code> - set new logging level to get logging information while running the program. See below for more details about <code>QLogLevel</code>.</li>
+<li><code>getLogLevel()</code> - returns current logging level for given <code>Context</code>.</li>
+<li><code>get()</code> -  returns a const pointer to <code>QAicContext</code>. Users have no visibility to the API of <code>QAicContext</code> since it is Opaque in the C layer.</li>
+<li><code>getId()</code> - returns an unsigned int that represent id of the <code>Context</code>. This id will be returned in error reports to refer a specific created context.</li>
+<li><code>objName()</code> - returns <code>const std::string</code> which is name of the object. For context object name is <code>Context</code>.</li>
+<li><code>objNameCstr()</code>- returns a pointer to an array that contains a null-terminated sequence of char representing the name of an object.</li>
+</ol>
+<h3 id="qloglevel">QLogLevel<a class="headerlink" href="#qloglevel" title="Permanent link">&para;</a></h3>
+<hr />
+<p>There are diffrent type of logging level to see different kind of logs.</p>
+<ol>
+<li><code>QL_DEBUG</code> : set to this level to see debug logs</li>
+<li><code>QL_INFO</code> : set to this level to see informative logs</li>
+<li><code>QL_WARN</code> : set to this level to see warning logs</li>
+<li><code>QL_ERROR</code> : set to this level to see error logs</li>
+</ol>
+<p><code>LogCallback</code> - It is a logging callback lambda function.</p>
+<p><code>ErrorHandler</code> - It is an error handler lambda function to call in case of critical errors.</p>
+<h2 id="profiling-elements">Profiling Elements<a class="headerlink" href="#profiling-elements" title="Permanent link">&para;</a></h2>
+<hr />
+<p>For overview of profiling feature refer to <a href="../features/#profiling-support-in-runtime">Profiling Support in Runtime</a>.</p>
+<h3 id="profilinghandle">ProfilingHandle<a class="headerlink" href="#profilinghandle" title="Permanent link">&para;</a></h3>
+<hr />
+<p><code>ProfilingHandle</code> provides interface to use num-iter based profiling. Refer to <a href="../features/#num-iter-based-profiling">Num-iter based profiling</a> for more details on num-iter based profiling feature.</p>
+<p>A <code>ProfilingHandle</code> object should be created using the <code>Factory</code> method. User needs to specify the <code>Program</code> that should be profiled, number of samples to collect, callback to call to deliver report, and type of profiling output expected.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Profiling type parameter has a default value set to <em>Latency type</em>.</p>
+</details>
+<p>Important API in class type <code>ProfilingHandle</code> includes the following:</p>
+<ol>
+<li><code>start()</code> - Start profiling. After the API call, profiling data from all the inferences for specified <code>Program</code> will be collected till either user calls <code>stop()</code> or number of requested samples have been collected.</li>
+<li><code>stop()</code> Stop profiling. Stops profiling even if the num-samples requirement has not been met. This API calls triggers a callback to the user specified callback with profiling report of all collected samples.</li>
+</ol>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>If <code>stop()</code> is called without any inferences being complete for the specified <code>Program</code>, callback will not get triggered.</p>
+</details>
+<h3 id="streamprofilinghandle">StreamProfilingHandle<a class="headerlink" href="#streamprofilinghandle" title="Permanent link">&para;</a></h3>
+<hr />
+<p>ProfilingHandle provides interface to use duration based profiling. Refer to <a href="../features/#duration-based-profiling">Duration based profiling</a> for more details on duration based profiling feature.</p>
+<p>A <code>StreamProfilingHandle</code> object should be created using the <code>Factory</code> method. User needs to specify the sampling rate, reporting rate, callback to call to deliver report and profiling output format expected. User may optionally specify a name for the handle, and regEx to auto add/remove programs.</p>
+<details class="note">
+<summary>Note</summary>
+<p>Profiling type is specified using <em>ProfilingProperties</em> field. <em>ProfilingProperties</em> has a default param <em>nullptr</em> which results in profiling type to be <em>Latency type</em>.</p>
+</details>
+<p>Important API in class type <code>StreamProfilingHandle</code> includes the following:</p>
+<ol>
+<li>
+<p><code>start()</code> - Start profiling. After the API call, user should expect a callback at every <em>reporting rate</em> boundary containing information of profiling inferences during that duration.</p>
+<details class="note">
+<summary>Note</summary>
+<p>User will get callback even if there are no samples collected.</p>
+</details>
+</li>
+<li>
+<p><code>stop()</code> Stop profiling. A final report will be delivered to user when the profiling is stopped with the profiling data of samples collected from last report till the point <code>stop()</code> is called.</p>
+</li>
+<li>
+<p><code>addProgram()</code> - Add a program to list of program being profiled.</p>
+<details class="note">
+<summary>Note</summary>
+<p>Adding program when profiling is active can cause spurious report callback or a delayed report callback.</p>
+</details>
+</li>
+<li>
+<p><code>removeProgram()</code> - Remove a program from list of program being profiled.</p>
+<details class="note">
+<summary>Note</summary>
+<p>Removing program when profiling is active can cause spurious report callback or a delayed report callback.</p>
+</details>
+</li>
+<li>
+<p><code>flushReports()</code> - After profiling is stopped using <code>stop()</code> API, user should make sure that all the reports on the queue of the profiling infrastructure are delivered to user as callback before application exit. <code>flushReports()</code> API only returns after there are no more reports left to be delivered to the user, thus ensuring a clean application exit.</p>
+</li>
+</ol>
+<h2 id="inferencing-elements">Inferencing Elements<a class="headerlink" href="#inferencing-elements" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="qbuffer">QBuffer<a class="headerlink" href="#qbuffer" title="Permanent link">&para;</a></h3>
+<hr />
+<p><code>QBuffer</code> is a struct that contains pointer to the buffer and its size. It can have Input or output buffer address from heap or DMA memory. <code>handle</code>, <code>offset</code> and <code>type</code> are considered only when type is QBUFFER_TYPE_DMABUF or QBUFFER_TYPE_PMEM. It has following Members:</p>
+<ol>
+<li><code>size</code> - Total size of memory pointed by buf pointer or handle.</li>
+<li><code>buf</code> - Buffer Pointer, must be valid in case of heap buffer.</li>
+<li><code>handle</code> - Buffer Handle, must be valid in case of DMA (or PMEM) buffer.</li>
+<li><code>offset</code> - Offset within handle.</li>
+<li><code>type</code> - Type of the buffer heap, DMA or PMEM.</li>
+</ol>
+<h3 id="inferencevector">InferenceVector<a class="headerlink" href="#inferencevector" title="Permanent link">&para;</a></h3>
+<hr />
+<p><code>InferenceVector</code> contains a vector of <code>QBuffer</code>. Vector of <code>QBuffer</code> is a vector containing both input and output buffers.
+User can create <code>InferenceVector</code> from multiple sources like files from disk or create <code>QBuffer</code> with data available with the user and set them in <code>InferenceVector</code> with <code>setBuffers()</code> API of this class.
+The input buffer will be used for inference and result of inference will be stored in output buffer.
+User needs to keep reference of InferenceVector until inference is complete and user can read output buffers from inference vector after completion of inference.</p>
+<p><code>InferenceVector</code> APIs</p>
+<ul>
+<li><code>getVector()</code>: Returns a vector of <code>QBuffer</code>. Vector contains both input and output buffers. <code>QBuffer</code> is a struct that contains pointer to the buffer and its size.
+                User can call this after the inference is completed to read output buffers.</li>
+<li><code>setBuffers()</code>: Sets input and output buffers of this <code>InferenceVector</code></li>
+<li><code>Factory()</code>: Instantiates InferenceVector</li>
+</ul>
+<h3 id="inferencehandle">InferenceHandle<a class="headerlink" href="#inferencehandle" title="Permanent link">&para;</a></h3>
+<hr />
+<p><code>InferenceHandle</code> contains <code>InferenceVector</code> and id given at the time of submission of inference. <code>InferenceHandle</code> cannot be created directly by the user, user can get an
+available <code>InferenceHandle</code> by calling <code>getAvailable()</code> API of <code>InferenceSet</code>.
+<code>InferenceHandle</code> is a container that has data needed for inference stored in <code>InferenceVector</code>. Number of <code>InferenceHandle</code> objects created depends on the set_size and
+num_activations parameters passed during instantiation of <code>InferenceSet</code>. Number of <code>InferenceHandle</code> and number of <code>ExecObj</code> created will be the same.</p>
+<h4 id="lifecycle-of-inferencehandle">LifeCycle of <code>InferenceHandle</code><a class="headerlink" href="#lifecycle-of-inferencehandle" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>InferenceHandle</code> objects are created when <code>InferenceSet</code> is instantiated and all objects are moved to availableList vector from which user can retrieve it by calling <code>getAvailable()</code> API of <code>InferenceSet</code></li>
+<li>When user calls <code>getAvailable()</code> if availableList vector has an <code>InferenceHandle</code>, it is popped out from the availableList and returned to user, otherwise this call is blocked until the user puts the used <code>InferenceHandle</code> using <code>putCompleted()</code> API</li>
+<li>User sets buffers in the InferenceHandle it got using <code>setBuffers()</code> API</li>
+<li>User submits InferenceHandle using <code>submit()</code> API of <code>InferenceSet</code></li>
+<li>To get the completed <code>InferenceHandle</code> user can call <code>getCompleted()</code> or <code>getCompletedId()</code> and extract/read the output of inference from <code>InferenceHandle</code></li>
+<li>After processing the output of inference, user needs to call <code>putCompleted()</code> API of <code>InferenceSet</code> to put completed <code>InferenceHandle</code> back to availableList vector otherwise <code>getAvailable()</code> call will be blocked</li>
+</ul>
+<h3 id="inferenceset">InferenceSet<a class="headerlink" href="#inferenceset" title="Permanent link">&para;</a></h3>
+<hr />
+<p><code>InferenceSet</code> is a C++ class that is used to submit inference. It abstracts out lower level classes like Queue, Program and ExecObj and provides an easier way
+of handling multiple activations in a single group to submit inference.</p>
+<p>List of APIs of <code>InferenceSet</code></p>
+<ul>
+<li><code>submit()</code>: Submit an inference through <code>InferenceVector</code>. The submission will be blocked until an <code>InferenceHandle</code> is available</li>
+<li><code>submit()</code>: Submit an inference through <code>InferenceHandle</code></li>
+<li><code>getCompleted()</code>: Returns a completed <code>InferenceHandle</code> object. User can access output of the inference using this <code>InferenceHandle</code> object by calling <code>getBuffers()</code> method</li>
+<li><code>getCompletedId()</code>: Returns a completed <code>InferenceHandle</code> object with specified ID</li>
+<li><code>putCompleted()</code>: Move a completed InferenceHandle back into the availableList vector</li>
+<li><code>getAvailable()</code>: Returns an available <code>InferenceHandle</code> object from availableList</li>
+<li><code>waitForCompletion()</code>: Wait for all inferences submitted to be completed on all activations</li>
+<li><code>Factory()</code>: Instantiates InferenceSet</li>
+</ul>
+<h4 id="numactivations-and-setsize">NumActivations and SetSize<a class="headerlink" href="#numactivations-and-setsize" title="Permanent link">&para;</a></h4>
+<hr />
+<p><code>NumActivations</code> and <code>SetSize</code> are arguments of <code>InferenceSet::Factory</code> API.</p>
+<ul>
+<li><code>NumActivations</code>: <code>InferenceSet</code> creates this many numbers of network instances inside device. User can decide <code>NumActivations</code> based on number of cores required to run his network and number of available cores.</li>
+<li><code>SetSize</code>: For each network instance, user application can simultaneously enqueue this many numbers of input/output buffers to run inferences. Recommended value is between 2 to 10. User should find an optimal value to achieve desired throughput (inferences/sec) and latency.</li>
+</ul>
+<figure>
+<p><a class="glightbox" href="../images/ActivationAndSetSize.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../images/ActivationAndSetSize.png" /></a>
+  </p>
+<figcaption>Activations and SetSize</figcaption>
+</figure>
+<h4 id="inference-flow">Inference Flow<a class="headerlink" href="#inference-flow" title="Permanent link">&para;</a></h4>
+<hr />
+<p>Inference flow using <code>InferenceSet</code> would be as follows:</p>
+<ol>
+<li>Instantiate <code>InferenceSet</code> using the Factory method</li>
+<li>Acquire one of the available <code>InferenceHandle</code>.</li>
+<li>Set Input and Output buffers in that <code>InferenceHandle</code>.</li>
+<li>Submit <code>InferenceHandle</code> to <code>InferenceSet</code> to run inference in device.</li>
+<li>Call <code>getCompletedId</code> API to wait for Inference to complete. Inference results are available in Output buffers, once this API returns.</li>
+<li>Once application reads output data, <code>putCompleted</code> must be called to return the <code>InferenceHandle</code> back to available List of handles.</li>
+</ol>
+<figure>
+<p><a class="glightbox" href="../images/InferenceSetFlow.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Image title" src="../images/InferenceSetFlow.png" /></a>
+  </p>
+<figcaption>Inference Flow</figcaption>
+</figure>
+<h3 id="inferencesetproperties">InferenceSetProperties<a class="headerlink" href="#inferencesetproperties" title="Permanent link">&para;</a></h3>
+<hr />
+<p><code>InferenceSetProperties</code> defines properties to be consumed by <code>InferenceSet</code></p>
+<p>List of members of <code>InferenceSetProperties</code></p>
+<ul>
+<li><code>programProperties</code>: User can set different program properties which will be consumed internally by <code>Program</code> object. Notable programProperties are:<ul>
+<li><code>SubmitRetryTimeoutMs</code>: After submission of inference, runtime waits for this milliseconds timeout period, if inference is not complete in this timeout period, error is returned</li>
+<li><code>SubmitNumRetries</code>: Number of times submission should be retried when the above timeout occurs</li>
+<li><code>devMapping</code>: devMapping specifies the physical devices to be used by the program and is valid only for the network's that need multiple devices to run</li>
+</ul>
+</li>
+<li><code>queueProperties</code>: User can set queue properties which will be consumed internally by <code>Queue</code> object. Notable queueProperties are:<ul>
+<li><code>numThreadsPerQueue</code>: Number of threads spawned to process elements in the queue. Default 4</li>
+</ul>
+</li>
+<li><code>name</code>: Defines name of the InferenceSet Object</li>
+<li><code>id</code>: Defines id of the InferenceSet Object</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../features/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Features" rel="prev">
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Features
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../ONNXRT%20QAIC/onnxruntime/" class="md-footer__link md-footer__link--next" aria-label="Next: QAIC execution provider" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                QAIC execution provider
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/quic/cloud-ai-sdk"  target="_blank" rel="noopener">Qualcomm Innovation Center, Inc.</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/quic/cloud-ai-sdk" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence" target="_blank" rel="noopener" title="www.qualcomm.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M528.3 46.5H388.5c-48.1 0-89.9 33.3-100.4 80.3-10.6-47-52.3-80.3-100.4-80.3H48c-26.5 0-48 21.5-48 48v245.8c0 26.5 21.5 48 48 48h89.7c102.2 0 132.7 24.4 147.3 75 .7 2.8 5.2 2.8 6 0 14.7-50.6 45.2-75 147.3-75H528c26.5 0 48-21.5 48-48V94.6c0-26.4-21.3-47.9-47.7-48.1zM242 311.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5V289c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V251zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm259.3 121.7c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5V228c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.8c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V190z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
