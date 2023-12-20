@@ -89,7 +89,8 @@ The [Cloud-AI-SDK GitHub repo](https://github.com/quic/cloud-ai-sdk/tree/1.12/mo
 - **maximum_context_length** - This the maximum number of tokens supported by the model.
 - **prompt_length** 
     - Prefill stage: This parameter represents the maximum length of the initial input or instruction that can be given to the model. This length must be fixed to support the static input shapes expected by Cloud AI 100. This is also referred to as **sequence length**
-    - Decode stage: In this stage the prompt length is always one. This is because only the last generated token is provided as input for generating the next token. **Generation length** = Maximum number of tokens generated = (maximum_context_length) - (prompt_length of Prefill stage). 
+    - Decode stage: In this stage the prompt length is always one. This is because only the last generated token is provided as input for generating the next token. 
+    **Generation length** = Maximum number of tokens generated = (maximum_context_length) - (prompt_length of Prefill stage). 
 - no_of_heads: number of Attention heads in the Transformer model.
 - hidden_size: Size of the hidden state of the Transformer model.
 - vocabulary_size: Vocabulary size of the Transformer model.

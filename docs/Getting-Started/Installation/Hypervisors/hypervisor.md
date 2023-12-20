@@ -109,4 +109,18 @@ Before powering-on the VM and installing the guest OS, a few setting changes are
   4. Create a VM per instructions in the ESXi documentation. Under "virtual hardware", "add other device", and select "pci device". This will add a new entry for the PCI device. Verify that the correct AI 100 card is selected here. Repeat this process for every AI 100 card that should be assigned to the VM.
   5. Setup is now complete and the VM can be powered ON. It should automatically boot the guest OS ISO and start the installer. A preview of the console is shown in the virtual machine tab when the concerned VM is selected. The preview can be clicked to be expanded and used as an interface for the VM. Walk through the OS installer like any other system.
 
+## Xen
+Xen is an open source virtualization hypervisor that is maintained by the Xen community. Please refer to the community documentation for Xen hypervisor and virtual machine setup/operation instructions.
+
+Only HVM type virtual machines are supported with Qualcomm Cloud AI products. PV type virtual machines are not supported.
+
+The desired Cloud AI device must be assigned to the desired VM via PCI passthrough. The Xen documentation details this process, but for reference:
+
+Assume the Cloud AI device is at PCI address 0000:12:00.0. 
+A driver (xen-pciback) to support device assignment needs to be loaded in Dom0 every time Dom0 is booted - modprobe xen-pciback
+The desired PCI device needs to be configured for passthrough in Dom0 every time Dom0 is booted - xl pci-assignable-add 12:00.0
+The passthrough configuration can be verified - xl pci-assignable-list
+The VM config needs to be edited to assign the device to the VM - pci         = [ '0000:12:00.0,permissive=1' ]
+The VM will need to be booted after the config change. The device will appear in lspci output within the VM.
+
 ## 

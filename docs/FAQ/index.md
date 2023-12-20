@@ -46,8 +46,16 @@
 
     [Tutorials](https://github.com/quic/cloud-ai-sdk) are another resource that walks through the workflows to onboard models, tune for best performance, profile inferences etc. 
 
-    
-## System Management 
+## Runtime errors during inference 
+??? question "While running inference I encounter 'IOCTL: Connection timed out ERROR'. What is the fix?"
+    There are 3 parameters that we recommend users to increase significantly when this issue is encountererd. If the issue is not fixed, please raise a case through the Qualcomm case support system or `Cloud-ai-sdk` GitHub. 
+    ```
+    echo 4000000 > /sys/module/qaic/parameters/wait_exec_default_timeout
+    echo 4000000 > /sys/module/qaic/parameters/control_resp_timeout
+    echo 4000000 > /sys/module/qaic/parameters/mhi_timeout
+    ```
+
+## System management 
 ??? question "Which utility/tool is used to query health, telemetry etc of all Cloud AI cards in the server?"
     Use the [qaic-util](../Getting-Started/System-Management/system-management.md) CLI tool to query health, telemetry etc of Cloud AI cards in the server. 
 
