@@ -1,10 +1,19 @@
 # Installation - Cloud AI SDK
+
+## Download Instructions
+Version 1.12 onwards, Platform and Apps SDK can only be downloaded from [Qualcomm Package Manager](https://qpm.qualcomm.com/). 
+
+1. login to [Qualcomm Package Manager](https://qpm.qualcomm.com/). First time users need to register for a Qualcomm ID. 
+2. Click on **Tools** 
+3. In the Filter pane on the left, **check Linux** and **uncheck Windows**. <br> In the search box, type **Cloud AI**.<br> Click on **Qualcomm® Cloud AI Products** to reveal the SDKs available. 
+4. For Platform SDK, click **Qualcomm® Cloud AI Platform SDK**. <br>For Apps SDK, click **Qualcomm® Cloud AI Apps SDK**. 
+5. Two drop down lists are present, one for the OS and one for the version of the SDK. Select **Linux** and **SDK Version** from the drop down lists. 
+![](../../../images/qpm_download_sdk.PNG)
+6. Click the **Download** button to download the SDK.
+
 ## Platform SDK 
 
-- The Platform SDK is available at [https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence/cloud-ai-100#Software](https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence/cloud-ai-100#Software)
-- Log in with your Qualcomm ID to access the SDK. First time users need to register. 
-- The latest Platform SDKs are available under "Software Packages". 
-    - The Platform SDK is available in four different packages for the different combinations of x86-64/ARM64 and deb/rpm: `x86-deb, x86-rpm, aarch64-deb, and aarch64-rpm`
+- The downloaded Platform SDK file is named **aic_platform.Core.`<majorversion.minorversion.patchversion.buildversion>`.Linux-AnyCPU.zip**. <br>For example: aic_platform.Core.1.12.2.0.Linux-AnyCPU.zip. 
 - On the host machine, log in as root or use `sudo` to have the right permissions to complete installation 
 - Copy the Platform SDK downloaded from the Qualcomm Portal to the host machine:
     - For networked x86-64 or ARM64 host:
@@ -20,45 +29,61 @@
         - Unzip the downloaded zip file to a working directory
         - cd to the working directory
         ```
+- unzip the downloaded file. 
   
-???+ note 
-      Extract the downloaded zip file until `qaic-platform-sdk-<x86_64/aarch64>-<deb/rpm>-<SDK version>.zip` is available. Confirm the architecture and installation linux package format works for your setup.  
+???+ info 
+      The Platform SDK contains collaterals for x86-rpm, x86-deb, aarch64-rpm and aarch64-deb. Confirm the architecture and linux package format that works for your setup.    
   
-  The Platform SDK is composed of the following tree structure. Users will see rpm or deb based on the SDK package:
+  The Platform SDK (qaic-platform-sdk-`<major.minor.patch.build>`) is composed of the following tree structure. 
       ```
+      ├── aarch64
+      │   ├── deb
+      │   │   ├── deb
+      │   │   ├── deb-docker
+      │   │   ├── deb-perf
+      │   │   └── Workload
+      │   ├── rpm
+      │   │   ├── rpm
+      │   │   ├── rpm-docker
+      │   │   ├── rpm-perf
+      │   │   └── Workload
+      │   └── test_suite
+      │       ├── pcietool
+      │       └── powerstress
       ├── common
-      │   ├── sectools 
-      ├── <architecture - x86_64 or aarch64>  
-      │   ├── rpm 
-      │   │   ├── rpm 
-      │   │   │   ├── qaic-fw-<version>.el7.x86_64.rpm 
-      │   │   │   ├── qaic-kmd-<version>.el7.x86_64.rpm 
-      │   │   │   └── qaic-rt-<version>.el7.x86_64.rpm   
-      │   │   ├── rpm-docker 
-      │   │   │   └── qaic-rt-docker-<version>.el7.x86_64.rpm  
-      │   │   ├── install.sh 
-      │   │   ├── Notice.txt 
-      │   │   └── uninstall.sh 
-      │   ├── deb
-      │   │   ├── deb 
-      │   │   │   ├── qaic-fw_<version>.deb 
-      │   │   │   ├── qaic-kmd_<version>-devel_amd64.deb 
-      │   │   │   └── qaic-rt_<version>_amd64.debm  
-      │   │   ├── install.sh 
-      │   │   ├── Notice.txt 
-      │   │   └── uninstall.sh 
-      │   ├── test_suite   
-      │   │   ├── pcietool   
-      └── └── └── powerstress    
+      │   ├── qaic-test-data
+      │   └── sectools
+      │       ├── bin
+      │       ├── config
+      │       ├── example
+      │       ├── ext
+      │       ├── plugin
+      │       ├── resources
+      │       └── sectools
+      └── x86_64
+          ├── deb
+          │   ├── deb
+          │   ├── deb-docker
+          │   └── Workload
+          ├── rpm
+          │   ├── rpm
+          │   ├── rpm-docker
+          │   └── Workload
+          └── test_suite
+              ├── pcietool
+              └── powerstress
+
       ```
 
   Uninstall existing Platform SDK
+
     ```bash
+    cd <architecture>/<deb/rpm>
     sudo ./uninstall.sh
     sync
     ```  
 
-  Run the install.sh script as root or with sudo to install with root permissions. Installation may take up to 30 mins depending on the number of Cloud AI cards in the server/VM. Cloud AI cards undergo resets several times during the installation. 
+  Run the install.sh script as root or with sudo to install with superuser permissions. Installation may take up to 30 mins depending on the number of Cloud AI cards in the server/VM. Cloud AI cards undergo resets several times during the installation. 
     ```bash
     cd <architecture>/<deb/rpm>
     # For Hybrid boot cards (PCIe CEM form factor cards), run 
@@ -86,8 +111,6 @@
     sudo usermod -a -G qaic $USER
     ```
 
-???+ warning
-      Adding a user to the qaic group grants root-level privileges.  
 
 ### Verify card operation 
   Refer to [Verify Card Operation](../Checklist/checklist.md#verify-card-operation)
@@ -95,42 +118,41 @@
 ## Apps SDK 
 The Apps SDK is only available for x86-64 Linux-based hosts. For ARM64-based Qualcomm platforms, models are first compiled on x86 with the Apps SDK. The compiled binary (QPC) is transferred to the ARM64 host for loading and execution by the Platform SDK on Cloud AI hardware.
 
-- The Apps SDK is available at [https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence/cloud-ai-100#Software](https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence/cloud-ai-100#Software)
-- Log in with your Qualcomm ID to access the SDK. First time users need to register. 
-- The latest Apps SDK is available under "Software Packages". 
-- Download the Apps SDK. Unzip until you see the below folder structure. 
+- The downloaded Apps SDK file is named **aic_apps.Core.`<majorversion.minorversion.patchversion.buildversion>`.Linux-AnyCPU.zip**. For example: aic_apps.Core.1.12.2.0.Linux-AnyCPU.zip. 
+- Copy the SDK over to the linux x86 machine. 
+- unzip the downloaded file. 
+- The Apps SDK (qaic-apps-`<major.minor.patch.build version>`) is composed of the following tree structure.  
 
   ```
-    <Apps-SDK> 
-    ├── dev  
-    │   ├── hexagon_tools  
-    │   ├── inc 
-    │   └── lib 
-    │       └── x86_64 
-    │           └── apps 
-    ├── examples 
-    │   ├── apps 
-    │   └── scripts 
-    ├── exec 
-    │   └── qaic-exec 
-    ├── tools
-    │   ├── docker-build
-    │   ├── package-generator
-    │   ├── qaic-pytools
-    │   ├── qaic-version-util
-    │   ├── rcnn-exporter
-    │   └── smart-nms
-    ├── install.sh  
-    ├── integrations  
-    │   └── qaic_onnxrt 
-    │   └── triton 
-    ├── Notice.txt  
-    ├── scripts 
-    │   └── qaic-model-configurator
-    ├── versions 
-    │   └── apps.xml  
-    └── uninstall.sh
+  ├── dev
+  │   ├── hexagon_docker_scripts
+  │   ├── hexagon_tools
+  │   ├── inc
+  │   ├── lib
+  │   └── python
+  ├── examples
+  │   ├── apps
+  │   └── scripts
+  ├── exec
+  ├── integrations
+  │   ├── qaic_onnxrt
+  │   └── triton
+  ├── scripts
+  │   ├── qaic-model-configurator
+  │   └── qaic-prepare-model
+  ├── tools
+  │   ├── custom-ops
+  │   ├── docker-build
+  │   ├── graph-analysis-engine
+  │   ├── opstats-profiling
+  │   ├── package-generator
+  │   ├── qaic-inference-optimizer
+  │   ├── qaic-pytools
+  │   ├── rcnn-exporter
+  │   └── smart-nms
+  └── versions
   ```
+
 ### Install Apps SDK 
   - Uninstall existing Apps SDK<br>
     ```sudo ./uninstall.sh```
@@ -147,23 +169,7 @@ The Apps SDK is only available for x86-64 Linux-based hosts. For ARM64-based Qua
     sudo chmod a+x /opt/qti-aic/exec/*
     ```
   
-## Activate `qaic-env`
-
-`qaic-env` virtual environment is created during the installation of the APPS SDK. Developers are expected to activate `qaic-env` for seamless interaction with Cloud AI devices/SDKs.
-
-- For bash shell, 
-  ```
-  source /opt/qti-aic/dev/python/qaic-env/bin/activate
-  ```
-
-- For csh shell, 
-  ```
-  source /opt/qti-aic/dev/python/qaic-env/bin/activate.csh
-  ```
-
-To deactivate the virtual environment, type `deactivate` in any directory.    
-  
-  
+ 
 
 
 
