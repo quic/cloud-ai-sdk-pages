@@ -530,6 +530,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#download-instructions" class="md-nav__link">
+    Download Instructions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#platform-sdk" class="md-nav__link">
     Platform SDK
   </a>
@@ -566,13 +573,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#activate-qaic-env" class="md-nav__link">
-    Activate qaic-env
-  </a>
   
 </li>
       
@@ -1503,6 +1503,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#download-instructions" class="md-nav__link">
+    Download Instructions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#platform-sdk" class="md-nav__link">
     Platform SDK
   </a>
@@ -1542,13 +1549,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#activate-qaic-env" class="md-nav__link">
-    Activate qaic-env
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1565,14 +1565,20 @@
 
 
 <h1 id="installation-cloud-ai-sdk">Installation - Cloud AI SDK<a class="headerlink" href="#installation-cloud-ai-sdk" title="Permanent link">&para;</a></h1>
+<h2 id="download-instructions">Download Instructions<a class="headerlink" href="#download-instructions" title="Permanent link">&para;</a></h2>
+<p>Version 1.12 onwards, Platform and Apps SDK can only be downloaded from <a href="https://qpm.qualcomm.com/">Qualcomm Package Manager</a>. </p>
+<ol>
+<li>login to <a href="https://qpm.qualcomm.com/">Qualcomm Package Manager</a>. First time users need to register for a Qualcomm ID. </li>
+<li>Click on <strong>Tools</strong> </li>
+<li>In the Filter pane on the left, <strong>check Linux</strong> and <strong>uncheck Windows</strong>. <br> In the search box, type <strong>Cloud AI</strong>.<br> Click on <strong>Qualcomm® Cloud AI Products</strong> to reveal the SDKs available. </li>
+<li>For Platform SDK, click <strong>Qualcomm® Cloud AI Platform SDK</strong>. <br>For Apps SDK, click <strong>Qualcomm® Cloud AI Apps SDK</strong>. </li>
+<li>Two drop down lists are present, one for the OS and one for the version of the SDK. Select <strong>Linux</strong> and <strong>SDK Version</strong> from the drop down lists. 
+<a class="glightbox" href="../../../../images/qpm_download_sdk.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../images/qpm_download_sdk.PNG" /></a></li>
+<li>Click the <strong>Download</strong> button to download the SDK.</li>
+</ol>
 <h2 id="platform-sdk">Platform SDK<a class="headerlink" href="#platform-sdk" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The Platform SDK is available at <a href="https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence/cloud-ai-100#Software">https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence/cloud-ai-100#Software</a></li>
-<li>Log in with your Qualcomm ID to access the SDK. First time users need to register. </li>
-<li>The latest Platform SDKs are available under "Software Packages". <ul>
-<li>The Platform SDK is available in four different packages for the different combinations of x86-64/ARM64 and deb/rpm: <code>x86-deb, x86-rpm, aarch64-deb, and aarch64-rpm</code></li>
-</ul>
-</li>
+<li>The downloaded Platform SDK file is named <strong>aic_platform.Core.<code>&lt;majorversion.minorversion.patchversion.buildversion&gt;</code>.Linux-AnyCPU.zip</strong>. <br>For example: aic_platform.Core.1.12.2.0.Linux-AnyCPU.zip. </li>
 <li>On the host machine, log in as root or use <code>sudo</code> to have the right permissions to complete installation </li>
 <li>Copy the Platform SDK downloaded from the Qualcomm Portal to the host machine:<ul>
 <li>For networked x86-64 or ARM64 host:<ul>
@@ -1591,42 +1597,58 @@
 </code></pre></div></li>
 </ul>
 </li>
+<li>unzip the downloaded file. </li>
 </ul>
-<details class="note" open="open">
-<summary>Note</summary>
-<p>Extract the downloaded zip file until <code>qaic-platform-sdk-&lt;x86_64/aarch64&gt;-&lt;deb/rpm&gt;-&lt;SDK version&gt;.zip</code> is available. Confirm the architecture and installation linux package format works for your setup.  </p>
+<details class="info" open="open">
+<summary>Info</summary>
+<p>The Platform SDK contains collaterals for x86-rpm, x86-deb, aarch64-rpm and aarch64-deb. Confirm the architecture and linux package format that works for your setup.    </p>
 </details>
-<p>The Platform SDK is composed of the following tree structure. Users will see rpm or deb based on the SDK package:
-      <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>├── common
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│   ├── sectools 
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── &lt;architecture - x86_64 or aarch64&gt;  
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   ├── rpm 
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   │   ├── rpm 
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   │   │   ├── qaic-fw-&lt;version&gt;.el7.x86_64.rpm 
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   │   │   ├── qaic-kmd-&lt;version&gt;.el7.x86_64.rpm 
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   │   │   └── qaic-rt-&lt;version&gt;.el7.x86_64.rpm   
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│   │   ├── rpm-docker 
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│   │   │   └── qaic-rt-docker-&lt;version&gt;.el7.x86_64.rpm  
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│   │   ├── install.sh 
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│   │   ├── Notice.txt 
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│   │   └── uninstall.sh 
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│   ├── deb
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│   │   ├── deb 
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│   │   │   ├── qaic-fw_&lt;version&gt;.deb 
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>│   │   │   ├── qaic-kmd_&lt;version&gt;-devel_amd64.deb 
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│   │   │   └── qaic-rt_&lt;version&gt;_amd64.debm  
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│   │   ├── install.sh 
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>│   │   ├── Notice.txt 
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>│   │   └── uninstall.sh 
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>│   ├── test_suite   
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>│   │   ├── pcietool   
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>└── └── └── powerstress    
+<p>The Platform SDK (qaic-platform-sdk-<code>&lt;major.minor.patch.build&gt;</code>) is composed of the following tree structure. 
+      <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>├── aarch64
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│   ├── deb
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│   │   ├── deb
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   │   ├── deb-docker
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   │   ├── deb-perf
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   │   └── Workload
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── rpm
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   │   ├── rpm
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│   │   ├── rpm-docker
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│   │   ├── rpm-perf
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│   │   └── Workload
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│   └── test_suite
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│       ├── pcietool
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│       └── powerstress
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>├── common
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│   ├── qaic-test-data
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>│   └── sectools
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│       ├── bin
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│       ├── config
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>│       ├── example
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>│       ├── ext
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>│       ├── plugin
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>│       ├── resources
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>│       └── sectools
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>└── x86_64
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    ├── deb
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    │   ├── deb
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    │   ├── deb-docker
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    │   └── Workload
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>    ├── rpm
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    │   ├── rpm
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    │   ├── rpm-docker
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    │   └── Workload
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>    └── test_suite
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        ├── pcietool
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        └── powerstress
 </code></pre></div></p>
-<p>Uninstall existing Platform SDK
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>./uninstall.sh
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sync
-</code></pre></div></p>
-<p>Run the install.sh script as root or with sudo to install with root permissions. Installation may take up to 30 mins depending on the number of Cloud AI cards in the server/VM. Cloud AI cards undergo resets several times during the installation. 
+<p>Uninstall existing Platform SDK</p>
+<div class="highlight"><pre><span></span><code>```bash
+cd &lt;architecture&gt;/&lt;deb/rpm&gt;
+sudo ./uninstall.sh
+sync
+```
+</code></pre></div>
+<p>Run the install.sh script as root or with sudo to install with superuser permissions. Installation may take up to 30 mins depending on the number of Cloud AI cards in the server/VM. Cloud AI cards undergo resets several times during the installation. 
     <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;architecture&gt;/&lt;deb/rpm&gt;
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># For Hybrid boot cards (PCIe CEM form factor cards), run </span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>--auto_upgrade_sbl<span class="w"> </span>--ecc<span class="w"> </span><span class="nb">enable</span>
@@ -1647,49 +1669,43 @@
   Add user to the qaic group to allow command-line tools to run without sudo:
     <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo usermod -a -G qaic $USER
 </code></pre></div></p>
-<details class="warning" open="open">
-<summary>Warning</summary>
-<p>Adding a user to the qaic group grants root-level privileges.  </p>
-</details>
 <h3 id="verify-card-operation">Verify card operation<a class="headerlink" href="#verify-card-operation" title="Permanent link">&para;</a></h3>
 <p>Refer to <a href="../../Checklist/checklist/#verify-card-operation">Verify Card Operation</a></p>
 <h2 id="apps-sdk">Apps SDK<a class="headerlink" href="#apps-sdk" title="Permanent link">&para;</a></h2>
 <p>The Apps SDK is only available for x86-64 Linux-based hosts. For ARM64-based Qualcomm platforms, models are first compiled on x86 with the Apps SDK. The compiled binary (QPC) is transferred to the ARM64 host for loading and execution by the Platform SDK on Cloud AI hardware.</p>
 <ul>
-<li>The Apps SDK is available at <a href="https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence/cloud-ai-100#Software">https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence/cloud-ai-100#Software</a></li>
-<li>Log in with your Qualcomm ID to access the SDK. First time users need to register. </li>
-<li>The latest Apps SDK is available under "Software Packages". </li>
-<li>Download the Apps SDK. Unzip until you see the below folder structure. </li>
+<li>The downloaded Apps SDK file is named <strong>aic_apps.Core.<code>&lt;majorversion.minorversion.patchversion.buildversion&gt;</code>.Linux-AnyCPU.zip</strong>. For example: aic_apps.Core.1.12.2.0.Linux-AnyCPU.zip. </li>
+<li>Copy the SDK over to the linux x86 machine. </li>
+<li>unzip the downloaded file. </li>
+<li>The Apps SDK (qaic-apps-<code>&lt;major.minor.patch.build version&gt;</code>) is composed of the following tree structure.  </li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>  &lt;Apps-SDK&gt; 
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  ├── dev  
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  │   ├── hexagon_tools  
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  │   ├── inc 
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  │   └── lib 
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  │       └── x86_64 
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  │           └── apps 
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  ├── examples 
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  │   ├── apps 
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  │   └── scripts 
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  ├── exec 
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>  │   └── qaic-exec 
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>  ├── tools
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>  │   ├── docker-build
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>  │   ├── package-generator
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>  │   ├── qaic-pytools
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>  │   ├── qaic-version-util
-<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>  │   ├── rcnn-exporter
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>  │   └── smart-nms
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>  ├── install.sh  
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>  ├── integrations  
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>  │   └── qaic_onnxrt 
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>  │   └── triton 
-<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>  ├── Notice.txt  
-<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>  ├── scripts 
-<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>  │   └── qaic-model-configurator
-<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>  ├── versions 
-<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>  │   └── apps.xml  
-<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>  └── uninstall.sh
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>├── dev
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>│   ├── hexagon_docker_scripts
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>│   ├── hexagon_tools
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│   ├── inc
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│   ├── lib
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│   └── python
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>├── examples
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>│   ├── apps
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>│   └── scripts
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>├── exec
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>├── integrations
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>│   ├── qaic_onnxrt
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>│   └── triton
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>├── scripts
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>│   ├── qaic-model-configurator
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>│   └── qaic-prepare-model
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>├── tools
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>│   ├── custom-ops
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>│   ├── docker-build
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>│   ├── graph-analysis-engine
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>│   ├── opstats-profiling
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>│   ├── package-generator
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>│   ├── qaic-inference-optimizer
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>│   ├── qaic-pytools
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>│   ├── rcnn-exporter
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>│   └── smart-nms
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>└── versions
 </code></pre></div>
 <h3 id="install-apps-sdk">Install Apps SDK<a class="headerlink" href="#install-apps-sdk" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1708,21 +1724,6 @@
 </code></pre></div>
 </li>
 </ul>
-<h2 id="activate-qaic-env">Activate <code>qaic-env</code><a class="headerlink" href="#activate-qaic-env" title="Permanent link">&para;</a></h2>
-<p><code>qaic-env</code> virtual environment is created during the installation of the APPS SDK. Developers are expected to activate <code>qaic-env</code> for seamless interaction with Cloud AI devices/SDKs.</p>
-<ul>
-<li>
-<p>For bash shell, 
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>source /opt/qti-aic/dev/python/qaic-env/bin/activate
-</code></pre></div></p>
-</li>
-<li>
-<p>For csh shell, 
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>source /opt/qti-aic/dev/python/qaic-env/bin/activate.csh
-</code></pre></div></p>
-</li>
-</ul>
-<p>To deactivate the virtual environment, type <code>deactivate</code> in any directory.    </p>
 
 
 
