@@ -210,7 +210,7 @@ The outputs that needs to be saved on device should end with suffix "_RetainedSt
 ### Compile the Model
 
 Following is a sample compile script using `qaic-exec`. Compilation uses the [Network Specialization](#network-specialization) and [Custom I/O](#custom-io) features. 
-Two data precision formats - FP16 or MX6, are recommended. [MX6](https://arxiv.org/abs/2302.08007) enables lower bit-width arithmetic operations and smaller memory footprint. MX6 will help developers run models on Cloud AI 100 SKUs in scenarios where FP16 exceeds the memory footprint and hence, cannot be used.  
+Two data precision formats - FP16 or MX6 (Shared Micro-exponents), are recommended. [MX6](https://arxiv.org/abs/2302.08007) enables smaller memory footprint by storing the model weights in MX6 (uses 6 bits vs 16 bits for FP16). MX6 will help developers run models on Cloud AI 100 SKUs in scenarios where FP16 exceeds the memory footprint and hence, cannot be used.  
 
     ``` 
     #!/bin/bash
