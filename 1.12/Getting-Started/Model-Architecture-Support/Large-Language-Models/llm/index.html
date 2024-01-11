@@ -2010,7 +2010,7 @@ will be picked from the on-board DDR of Cloud AI 100. This avoids data transfers
 </ul>
 <h3 id="compile-the-model">Compile the Model<a class="headerlink" href="#compile-the-model" title="Permanent link">&para;</a></h3>
 <p>Following is a sample compile script using <code>qaic-exec</code>. Compilation uses the <a href="#network-specialization">Network Specialization</a> and <a href="#custom-io">Custom I/O</a> features. 
-Two data precision formats - FP16 or MX6, are recommended. <a href="https://arxiv.org/abs/2302.08007">MX6</a> enables lower bit-width arithmetic operations and smaller memory footprint. MX6 will help developers run models on Cloud AI 100 SKUs in scenarios where FP16 exceeds the memory footprint and hence, cannot be used.  </p>
+Two data precision formats - FP16 or MX6 (Shared Micro-exponents), are recommended. <a href="https://arxiv.org/abs/2302.08007">MX6</a> enables smaller memory footprint by storing the model weights in MX6 (uses 6 bits vs 16 bits for FP16). MX6 will help developers run models on Cloud AI 100 SKUs in scenarios where FP16 exceeds the memory footprint and hence, cannot be used.  </p>
 <div class="highlight"><pre><span></span><code>``` 
 #!/bin/bash
 set -e
