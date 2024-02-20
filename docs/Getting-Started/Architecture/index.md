@@ -1,9 +1,25 @@
 # Architecture 
 
 ## Cloud AI Platforms
-Cloud AI Platforms/cards contain one or more Cloud AI 100 SoCs per card and are designed to operate at a specific TDP. The cards interface to the host via PCIe and to the BMC via SMBus/I2C.  
+Cloud AI Platforms/cards contain one or more Cloud AI 100 SoCs per card and are designed to operate at a specific TDP. The cards interface to the host via PCIe and to the BMC via SMBus/I2C. The table below provides the key hardware specs across the available SKUs. 
 
-Cloud AI 100 [Product brief](https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/Prod-Brief-QCOM-Cloud-AI-100.pdf) provides details on the form factors and SKUs. 
+The Cloud AI 100 Ultra SKU has 4 AI 100 SoCs and a PCIe switch on the card. The interface to the host is through the PCIe switch via a PCIe gen4 x16 interface. The PCIe switch connects to the 4 AI 100 SoCs via a PCIe Gen4 x 8 interface.      
+
+The Cloud AI 100 Standard and Pro SKUs have 1 AI 100 SoC on the card interfacing to the host via a PCIe Gen4 x 8 interface. 
+
+
+| Accelerator SKU    | AI 100 Standard | AI 100 Pro | AI 100 Ultra |
+| ------------------ | ---------- | ---------- | ------------ |
+| AI 100 SoC Count   | 1          | 1          | 4            |
+| DDR Capacity       | 16 GB      | 32 GB      | 128 GB       |
+| DDR BW             | 137 GB/s   | 137 GB/s   | 548 GB/s     |
+| On-chip SRAM       | 126 MB     | 144 MB     | 576 MB       |
+| FP16               | 110 TFLOPs | 125 TFLOPs | 290 TFLOPs   |
+| Int8               | 325 TOPs   | 375 TOPs   | 870 TOPs     |
+| Connection to host via PCIe | Gen4 x8    | Gen4 x8    | Gen4 x16     |
+| TDP                | 75 W       | 75 W       | 150 W        |
+| Formfactor         | PCIe HHHL  | PCIe HHHL  | PCIe FH3/4L  |
+
 
 ## Cloud AI 100 SoC
 Cloud AI100 SOC’s multi-core architecture, shown in figure below, is purpose-built for deep learning inference in the Cloud. 
@@ -34,3 +50,4 @@ The vector unit implements over 700+ rich instructions for AI, content verificat
 The scalar processor is a 4-way VLIW (very large instruction word) machine supporting six hardware threads, each with a local scalar register file, instruction and data caches, and support for 8/16b integer and 16/32b floating point operations—a rich instruction set of over 1800 instructions that provide flexibility in compute operations. 
 
 An 8 MB Vector Tightly Coupled Memory (VTCM) provides scratch-pad data storage for both the vector unit as well as the tensor unit. The 1 MB L2 cache in the core is shared by all three compute units (scalar, vector, and tensor), and it implements hardware for the intelligent prefetching of data and for advanced DMA operations. 
+

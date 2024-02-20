@@ -52,9 +52,3 @@ Based on the total number of AI cores available on the device, a few combination
 Lets use the Standard SKU of Cloud AI 100 with 14 AI cores to illustrate this. Throughput for different combinations of cores and instances are shown in the figure below. The Batch-size is fixed. For example: C1 x I12 represents the model compiled on 1 core and 12 instances deployed on 12 cores. 
 
 ![Throughput vs 'Cores and Instances'](../../../images/throughput_cores_instances.png)
-
-
-
-
-
-
