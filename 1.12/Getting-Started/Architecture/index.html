@@ -735,8 +735,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../Inference-Workflow/model-compilation/Tune%20performance/" class="md-nav__link">
-        Tune Performance
+      <a href="../Inference-Workflow/model-compilation/Tune performance.md" class="md-nav__link">
+        None
       </a>
     </li>
   
@@ -1459,8 +1459,75 @@
 
 <h1 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h1>
 <h2 id="cloud-ai-platforms">Cloud AI Platforms<a class="headerlink" href="#cloud-ai-platforms" title="Permanent link">&para;</a></h2>
-<p>Cloud AI Platforms/cards contain one or more Cloud AI 100 SoCs per card and are designed to operate at a specific TDP. The cards interface to the host via PCIe and to the BMC via SMBus/I2C.  </p>
-<p>Cloud AI 100 <a href="https://www.qualcomm.com/content/dam/qcomm-martech/dm-assets/documents/Prod-Brief-QCOM-Cloud-AI-100.pdf">Product brief</a> provides details on the form factors and SKUs. </p>
+<p>Cloud AI Platforms/cards contain one or more Cloud AI 100 SoCs per card and are designed to operate at a specific TDP. The cards interface to the host via PCIe and to the BMC via SMBus/I2C. The table below provides the key hardware specs across the available SKUs. </p>
+<p>The Cloud AI 100 Ultra SKU has 4 AI 100 SoCs and a PCIe switch on the card. The interface to the host is through the PCIe switch via a PCIe gen4 x16 interface. The PCIe switch connects to the 4 AI 100 SoCs via a PCIe Gen4 x 8 interface.      </p>
+<p>The Cloud AI 100 Standard and Pro SKUs have 1 AI 100 SoC on the card interfacing to the host via a PCIe Gen4 x 8 interface. </p>
+<table>
+<thead>
+<tr>
+<th>Accelerator SKU</th>
+<th>AI 100 Standard</th>
+<th>AI 100 Pro</th>
+<th>AI 100 Ultra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI 100 SoC Count</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>DDR Capacity</td>
+<td>16 GB</td>
+<td>32 GB</td>
+<td>128 GB</td>
+</tr>
+<tr>
+<td>DDR BW</td>
+<td>137 GB/s</td>
+<td>137 GB/s</td>
+<td>548 GB/s</td>
+</tr>
+<tr>
+<td>On-chip SRAM</td>
+<td>126 MB</td>
+<td>144 MB</td>
+<td>576 MB</td>
+</tr>
+<tr>
+<td>FP16</td>
+<td>110 TFLOPs</td>
+<td>125 TFLOPs</td>
+<td>290 TFLOPs</td>
+</tr>
+<tr>
+<td>Int8</td>
+<td>325 TOPs</td>
+<td>375 TOPs</td>
+<td>870 TOPs</td>
+</tr>
+<tr>
+<td>Connection to host via PCIe</td>
+<td>Gen4 x8</td>
+<td>Gen4 x8</td>
+<td>Gen4 x16</td>
+</tr>
+<tr>
+<td>TDP</td>
+<td>75 W</td>
+<td>75 W</td>
+<td>150 W</td>
+</tr>
+<tr>
+<td>Formfactor</td>
+<td>PCIe HHHL</td>
+<td>PCIe HHHL</td>
+<td>PCIe FH3/4L</td>
+</tr>
+</tbody>
+</table>
 <h2 id="cloud-ai-100-soc">Cloud AI 100 SoC<a class="headerlink" href="#cloud-ai-100-soc" title="Permanent link">&para;</a></h2>
 <p>Cloud AI100 SOC’s multi-core architecture, shown in figure below, is purpose-built for deep learning inference in the Cloud. 
 <a class="glightbox" href="../../images/SoC.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Cloud AI 100 SoC Architecture" src="../../images/SoC.png" /></a></p>

@@ -735,8 +735,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Inference-Workflow/model-compilation/Tune%20performance/" class="md-nav__link">
-        Tune Performance
+      <a href="../../../Inference-Workflow/model-compilation/Tune performance.md" class="md-nav__link">
+        None
       </a>
     </li>
   
@@ -1833,43 +1833,11 @@
 <p>In the following section, we will discuss the end-to-end workflow (from onboarding to execution of models) of <strong>decoder architecture models</strong>.</p>
 <h2 id="decoder-only-models">Decoder-only Models<a class="headerlink" href="#decoder-only-models" title="Permanent link">&para;</a></h2>
 <p>This architecture is particularly suitable for autoregressive tasks where sequence generation involves processing one token at a time, and contextual information from earlier tokens is crucial for predicting the next token. The inclusion of a kV cache enhances the efficiency of the decoding process, making it more computationally efficient.</p>
-<p>Typically, the inputs to LLMs are:</p>
-<ul>
-<li>
-<p><strong>input_ids</strong> - These are sequences of numerical IDs that correspond to the tokens in the input text. Each token (word or subword) is mapped to unique numerical identifier based on the model's vocabulary.</p>
-</li>
-<li>
-<p><strong>Attention Masks</strong> - For tasks like text generation or autoregressive language modeling, an attention mask is used to specify which positions in the input sequence should be attended to and which should be ignored. It helps the model focus on relevant information.</p>
-</li>
-<li>
-<p><strong>Positional Encodings</strong> - To provide information about the order or position of tokens in a sequence, positional encodings are added to the input embeddings. This is crucial for transformers since they don't inherently understand the order of the tokens.</p>
-</li>
-<li>
-<p><strong>Additional Inputs (task-specific)</strong> - Depending on the specific task, additional inputs may be required. For example:</p>
-<ul>
-<li>Language Translation - Paired sequences may be provided.</li>
-<li>Text Summarization - The input may be accompanied by special tokens indicating the summary target.</li>
-</ul>
-</li>
-</ul>
-<p>Commonly used blocks in a Decoder-only model are described below.</p>
-<ul>
-<li><strong>Embedding Layer</strong> - The input sequence is initially transformed into numerical embeddings using an embedding layer. Each token in the input sequence is represented as a vector.</li>
-<li><strong>Positional Encoding</strong> - To provide positional information to the model, positional encoding is added to the input embeddings.</li>
-<li><strong>Decoder Layer</strong> - Key building blocks of a Decoder Layer are:<ul>
-<li>Masked Self-Attention - The decoder processes the input sequence autoregressively, attending only to previous positions using masked self-attention. This ensures that each position attends only to positions before it.</li>
-<li>Feedforward Neural Network - Each decoder block contains a feedforward neural network to capture complex patterns and
-    relationships in the data.</li>
-<li>Normalization and Residual Connections - Layer normalization and residual connections are applied to each sub-layer for training
-    stability.</li>
-</ul>
-</li>
-<li><strong>Stacked Decoder Layers</strong> - Multiple decoder blocks are stacked to create a deep architecture. The depth contributes to the model's ability to capture dependencies and generate coherent sequences.</li>
-<li><strong>kV Cache Management</strong> - Each of the Decoder layer generates keys ('k') and values ('V'). A cache mechanism is introduced to store and reuse previously computed 'k' and 'v'. This cache optimizes the efficiency of self-attention during autoregressive generation. The cache is updated at each decoding step, allowing the model to reuse information from earlier positions in the sequence.</li>
-<li><strong>Output Layer</strong> - The final layer generates a probability distribution over the vocabulary for the next token in the sequence during training. During generation, the model predicts one token at a time and updates the KV cache.</li>
-</ul>
+<p>The image below provides a high level overview of the Torch vs AI 100 execution of LLMs.  </p>
+<p><a class="glightbox" href="../../../../images/torch_vs_ai100.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../images/torch_vs_ai100.png" /></a></p>
+<p>The ahead-of-time AI 100 compiler pre-allocates the resources on the device based on the prompt length, generation length, KV cache, batch size etc. Hardware resources are allocated as mentioned in the QPC, when the compiled model binary aka QPC is loaded on the device. The entire KV Cache (across batch size and layers) is managed in the device memory.  </p>
 <h2 id="llm-execution-on-cloud-ai-100-accelerators">LLM execution on Cloud AI 100 Accelerators<a class="headerlink" href="#llm-execution-on-cloud-ai-100-accelerators" title="Permanent link">&para;</a></h2>
-<p>To align with the autoregressive nature of the transformer based LLMs, processing is divided into two stages - Prefill and Decode. </p>
+<p>To align with the autoregressive nature of the transformer decoder based LLMs, processing is divided into two stages - Prefill and Decode. </p>
 <h3 id="prefill-stage">Prefill Stage<a class="headerlink" href="#prefill-stage" title="Permanent link">&para;</a></h3>
 <p>The prefill stage is a one-time process that prepares the model's context for autoregressive generation. It involves encoding the input prompt/sequence and establishing the initial state of the model. During this stage, the input prompt up to the sequence length is processed and the KV Cache is stored in the on-board DDR of Cloud AI 100.</p>
 <h3 id="decode-stage">Decode Stage<a class="headerlink" href="#decode-stage" title="Permanent link">&para;</a></h3>
