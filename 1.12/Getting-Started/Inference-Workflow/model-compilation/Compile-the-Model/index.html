@@ -8,27 +8,27 @@
       
       
       
-        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.12/Getting-Started/Inference-Workflow/">
+        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.12/Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model/">
       
       
-        <link rel="prev" href="../Installation/AWS/aws/">
+        <link rel="prev" href="../../Export-the-model/Prepare-the-model/">
       
       
-        <link rel="next" href="Export-the-model/Export-the-Model/">
+        <link rel="next" href="../Tune-performance/">
       
-      <link rel="icon" href="../../images/favicon.png">
+      <link rel="icon" href="../../../../images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
     
     
       
-        <title>Inference workflow on Cloud AI - Cloud AI 100</title>
+        <title>Compile the Model - Cloud AI 100</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.eebd395e.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ecc896b0.min.css">
       
       
   
@@ -52,18 +52,18 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../custom.css">
+      <link rel="stylesheet" href="../../../../custom.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
         html.glightbox-open { overflow: initial; height: 100%; }
         .gslide-title { margin-top: 0px; user-select: text; }
         .gslide-desc { color: #666; user-select: text; }
@@ -74,7 +74,7 @@
             body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
             body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
             body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+            </style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -96,7 +96,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#inference-workflow-on-cloud-ai" class="md-skip">
+        <a href="#compile-the-model" class="md-skip">
           Skip to content
         </a>
       
@@ -116,9 +116,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+    <a href="../../../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -134,7 +134,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Inference workflow on Cloud AI
+              Compile the Model
             
           </span>
         </div>
@@ -228,7 +228,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../" class="md-tabs__link md-tabs__link--active">
+      <a href="../../../" class="md-tabs__link md-tabs__link--active">
         User Guide
       </a>
     </li>
@@ -244,7 +244,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../API/" class="md-tabs__link">
+      <a href="../../../../API/" class="md-tabs__link">
         API
       </a>
     </li>
@@ -260,7 +260,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../FAQ/" class="md-tabs__link">
+      <a href="../../../../FAQ/" class="md-tabs__link">
         FAQ
       </a>
     </li>
@@ -276,7 +276,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../blogs/B1004_AmberChat/" class="md-tabs__link">
+      <a href="../../../../blogs/B1004_AmberChat/" class="md-tabs__link">
         Blogs
       </a>
     </li>
@@ -310,9 +310,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+    <a href="../../../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../../assets/logo.png" alt="logo">
 
     </a>
     Cloud AI 100
@@ -362,7 +362,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../">User Guide</a>
+          <a href="../../../">User Guide</a>
           
             <label for="__nav_1">
               <span class="md-nav__icon md-icon"></span>
@@ -403,7 +403,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../Quick-Start-Guide/">Quick Start Guide</a>
+          <a href="../../../Quick-Start-Guide/">Quick Start Guide</a>
           
         </div>
       
@@ -459,7 +459,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../Installation/">Installation</a>
+          <a href="../../../Installation/">Installation</a>
           
             <label for="__nav_1_3">
               <span class="md-nav__icon md-icon"></span>
@@ -482,7 +482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Installation/Checklist/checklist/" class="md-nav__link">
+      <a href="../../../Installation/Checklist/checklist/" class="md-nav__link">
         Checklist
       </a>
     </li>
@@ -496,7 +496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
+      <a href="../../../Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
         Pre-requisites
       </a>
     </li>
@@ -510,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
+      <a href="../../../Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
         Cloud AI SDK
       </a>
     </li>
@@ -524,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Installation/Hypervisors/hypervisor/" class="md-nav__link">
+      <a href="../../../Installation/Hypervisors/hypervisor/" class="md-nav__link">
         Hypervisors
       </a>
     </li>
@@ -538,7 +538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Installation/Docker/Docker/" class="md-nav__link">
+      <a href="../../../Installation/Docker/Docker/" class="md-nav__link">
         Docker
       </a>
     </li>
@@ -552,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Installation/AWS/aws/" class="md-nav__link">
+      <a href="../../../Installation/AWS/aws/" class="md-nav__link">
         AWS
       </a>
     </li>
@@ -598,8 +598,8 @@
       
         
         
-        <div class="md-nav__link md-nav__link--index md-nav__link--active">
-          <a href="./">Inference Workflow</a>
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../">Inference Workflow</a>
           
             <label for="__nav_1_4">
               <span class="md-nav__icon md-icon"></span>
@@ -657,7 +657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Export-the-model/Export-the-Model/" class="md-nav__link">
+      <a href="../../Export-the-model/Export-the-Model/" class="md-nav__link">
         Exporting ONNX Model from Different Frameworks
       </a>
     </li>
@@ -671,7 +671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
+      <a href="../../Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
         Operator and Datatype support
       </a>
     </li>
@@ -685,7 +685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="Export-the-model/Prepare-the-model/" class="md-nav__link">
+      <a href="../../Export-the-model/Prepare-the-model/" class="md-nav__link">
         Introduction to the Model Preparator Tool
       </a>
     </li>
@@ -704,14 +704,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3" checked>
       
       
         
@@ -726,7 +728,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1_4_3">
           <span class="md-nav__icon md-icon"></span>
           Compile the Model
@@ -737,11 +739,59 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="model-compilation/Compile-the-Model/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Compile the Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Compile the Model
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#before-compiling-model-into-qpc-format" class="md-nav__link">
+    Before compiling model into QPC format:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation-using-qaic-exec" class="md-nav__link">
+    Compilation using qaic-exec
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -753,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="model-compilation/Tune-performance/" class="md-nav__link">
+      <a href="../Tune-performance/" class="md-nav__link">
         Tune Performance
       </a>
     </li>
@@ -809,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="model-execution/model-execution-options/" class="md-nav__link">
+      <a href="../../model-execution/model-execution-options/" class="md-nav__link">
         Model Execution
       </a>
     </li>
@@ -823,7 +873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="model-execution/Inference-Profiling/" class="md-nav__link">
+      <a href="../../model-execution/Inference-Profiling/" class="md-nav__link">
         Inference Profiling
       </a>
     </li>
@@ -837,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
+      <a href="../../model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
         Triton Inference Server
       </a>
     </li>
@@ -885,7 +935,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../Model-Architecture-Support/">Model Architecture Support</a>
+          <a href="../../../Model-Architecture-Support/">Model Architecture Support</a>
           
             <label for="__nav_1_5">
               <span class="md-nav__icon md-icon"></span>
@@ -939,7 +989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
+      <a href="../../../Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
         Large Language Models (LLMs)
       </a>
     </li>
@@ -998,7 +1048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../System-Management/system-management/" class="md-nav__link">
+      <a href="../../../System-Management/system-management/" class="md-nav__link">
         System Management
       </a>
     </li>
@@ -1037,7 +1087,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../Architecture/">Architecture</a>
+          <a href="../../../Architecture/">Architecture</a>
           
         </div>
       
@@ -1081,7 +1131,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../Glossary/">Glossary</a>
+          <a href="../../../Glossary/">Glossary</a>
           
         </div>
       
@@ -1139,7 +1189,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../API/">API</a>
+          <a href="../../../../API/">API</a>
           
             <label for="__nav_2">
               <span class="md-nav__icon md-icon"></span>
@@ -1195,7 +1245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Python-API/qaic/qaic/" class="md-nav__link">
+      <a href="../../../../Python-API/qaic/qaic/" class="md-nav__link">
         Inference API
       </a>
     </li>
@@ -1209,7 +1259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Python-API/qaicrt/class_util/" class="md-nav__link">
+      <a href="../../../../Python-API/qaicrt/class_util/" class="md-nav__link">
         Util API
       </a>
     </li>
@@ -1265,7 +1315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Cpp-API/example/" class="md-nav__link">
+      <a href="../../../../Cpp-API/example/" class="md-nav__link">
         InferenceSet IO Example
       </a>
     </li>
@@ -1279,7 +1329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Cpp-API/features/" class="md-nav__link">
+      <a href="../../../../Cpp-API/features/" class="md-nav__link">
         Features
       </a>
     </li>
@@ -1293,7 +1343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Cpp-API/runtime/" class="md-nav__link">
+      <a href="../../../../Cpp-API/runtime/" class="md-nav__link">
         Runtime
       </a>
     </li>
@@ -1345,7 +1395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
+      <a href="../../../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
         QAIC execution provider
       </a>
     </li>
@@ -1392,7 +1442,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../FAQ/">FAQ</a>
+          <a href="../../../../FAQ/">FAQ</a>
           
         </div>
       
@@ -1450,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blogs/B1004_AmberChat/" class="md-nav__link">
+      <a href="../../../../blogs/B1004_AmberChat/" class="md-nav__link">
         AmberChat
       </a>
     </li>
@@ -1491,22 +1541,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#export-and-prepare-the-model" class="md-nav__link">
-    Export and prepare the Model
+  <a href="#before-compiling-model-into-qpc-format" class="md-nav__link">
+    Before compiling model into QPC format:
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compile-the-model" class="md-nav__link">
-    Compile the Model
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#execute-integrate-and-deploy-in-production-pipeline" class="md-nav__link">
-    Execute, integrate and deploy in production pipeline
+  <a href="#compilation-using-qaic-exec" class="md-nav__link">
+    Compilation using qaic-exec
   </a>
   
 </li>
@@ -1526,22 +1569,75 @@
                   
 
 
-<h1 id="inference-workflow-on-cloud-ai">Inference workflow on Cloud AI<a class="headerlink" href="#inference-workflow-on-cloud-ai" title="Permanent link">&para;</a></h1>
-<p>Developers can deploy a pre-trained model for inference on any Cloud AI platform using three easy steps:</p>
+<h1 id="compile-the-model">Compile the Model<a class="headerlink" href="#compile-the-model" title="Permanent link">&para;</a></h1>
+<p>The AI/ML models compilation step compiles a pre-trained model defined in other formats (ONNX is preferred) into QPC (Qaic Program Container) format.
+This is required, since  Cloud AI devices works on this format, to run inference.</p>
+<p>A pretrained model can be compiled in three ways:</p>
 <ol>
-<li>Export the model in ONNX format and prepare the model </li>
-<li>Compile the model to generate a QPC (Qaic Program Container)</li>
-<li>Execute, integrate and deploy into production pipeline</li>
+<li>Using qaic-exec (Binary executable shipped with the Apps SDK). This CLI tool has support for all the latest compiler flags.  </li>
+<li>Using High Level Python APIs </li>
+<li>Using C++ APIs </li>
 </ol>
-<p><a class="glightbox" href="../../images/AIC_Inference_workflow.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="AIC Workflow" src="../../images/AIC_Inference_workflow.jpg" /></a></p>
-<p>Cloud AI SDK provides tools for each of the steps as shown below. </p>
-<p><a class="glightbox" href="../../images/AIC_workflow_details.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="AIC Workflow Details" src="../../images/AIC_workflow_details.png" /></a></p>
-<h2 id="export-and-prepare-the-model">Export and prepare the Model<a class="headerlink" href="#export-and-prepare-the-model" title="Permanent link">&para;</a></h2>
-<p>Exporting and preparing the pre-trained model as explained in this section is a requirement to extract the best performance and accuracy. Exporting the model in ONNX format is strongly recommended due to operator support. The ONNX file is then passed through a few checks (for model accuracy and performance) before it can be compiled in the next step.   </p>
-<h2 id="compile-the-model">Compile the Model<a class="headerlink" href="#compile-the-model" title="Permanent link">&para;</a></h2>
-<p>Compilation of the prepared ONNX file generates a QPC which can be loaded and executed on Cloud AI devices. To get the best performance from the device based on user requirements of throughput and latency, compilation needs to be done with the right parameters. Tune the performance goes over how to derive the best parameters for compilation. </p>
-<h2 id="execute-integrate-and-deploy-in-production-pipeline">Execute, integrate and deploy in production pipeline<a class="headerlink" href="#execute-integrate-and-deploy-in-production-pipeline" title="Permanent link">&para;</a></h2>
-<p>This section will go over the different ways (CLI, C++, Python etc) for developers to execute inferences on Cloud AI platforms and all the tools/utilities available to integrate into inference application and deploy in the production pipeline.  </p>
+<h2 id="before-compiling-model-into-qpc-format">Before compiling model into QPC format:<a class="headerlink" href="#before-compiling-model-into-qpc-format" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Use ONNX format as input.</li>
+<li>Try to squash the original model into a single file ONNX format.</li>
+</ol>
+<h2 id="compilation-using-qaic-exec">Compilation using qaic-exec<a class="headerlink" href="#compilation-using-qaic-exec" title="Permanent link">&para;</a></h2>
+<p>The qaic-exec (QAic executor), a CLI tool, is used to compile the model. <code>qaic-exec</code> is a sophisticated tool with a number of arguments. </p>
+<p>qaic-exec CLI is located at <code>/opt/qti-aic/exec/qaic-exec</code></p>
+<p>The tutorials and models folder (#FIXME) provides several examples of <code>qaic-exec</code> usage. </p>
+<p>The help/usage command provides the extensive list of arguments and their descriptions for usage.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/opt/qti-aic/exec/qaic-exec -h
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/opt/qti-aic/exec/qaic-exec --usage
+</code></pre></div></p>
+<p>Few of the frequently used arguments are additionally explained:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-m=&lt;path&gt;;, -model=&lt;path&gt; # specifies the path of input ONNX model 
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>-onnx-define-symbol=&lt;sym, value&gt; # defines the names and values of the ONNX symbols that needed to be passed into the QPC.
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  For example
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> -onnx-define-symbol=sequence,10 # For single symbol
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a> -onnx-define-symbol=sequence,10 -onnx-define-symbol=batch_size,8 # For more than one symbol
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>-aic-num-cores=&lt;numCores&gt;
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  The Cloud AI cards can have a number of Neural Signal Processing cores (a.k.a AI cores) based on the SKU. The Inferencing workload can be distributed among different cores, so that they can execute concurrently and can produce more efficient inferencing. Refer to Tune Performance section on how to set this value.
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>-ols= &lt;1,2,4,8.. numCores&gt;
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  Factor to increase splitting of network operations for more fine-grained parallelism. Refer to Tune Performance section on how to set this value.
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>-mos= &lt;1,2,4,8.. numCores&gt;
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  Effort level to reduce on-chip memory usage. Refer to Tune Performance section on how to set this value.
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>-multicast-weights
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>  Reduce DDR bandwidth by loading weights used on multiple-cores only once and multicasting to other cores. 
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>-convert-to-fp16
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>  mandatory flag, ensures that compiled QPC executes all floating point computations on the AIC 100 device is 16-bit precision. 
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>-batchsize=&lt;numBatch&gt;
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>  batchsize refers to number of number of input samples that can be passed to the model during inferencing. Ideally a careful selection of batch size can facilitate better parallel processing and hence a better throughput from the device. Tune performance section expands on batchsize selection. 
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>-stats-batchsize=&lt;numBatch&gt;
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>  Set this value to numBatch. Used in performance statistics reporting
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>-aic-binary-dir=&lt;path&gt;
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>  specifies the output QPC path.
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>-aic-hw
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>  Mandatory flag. This flag enables the QPC to be run on hardware.
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>-compile-only 
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>  Mandatory flag, allows to only compile and produce the QPC format file for the model and does not run the model with random data. Use qaic-runner CLI to execute the QPC. 
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>-aic-hw-version=2.0
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>  The version string must be passed as &quot;2.0&quot; which is the .
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>-aic-profiling-type=&lt;stats|trace|latency&gt;
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>  Used in device level profiling. Refer to Profiler notebook under tutorials. 
+</code></pre></div></p>
+<p><code>qaic-exec</code> can also be used to dump the operators supported across onnx, tensorflow, pytorch, caffe or caffe2 ML frameworks.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/opt/qti-aic/exec/qaic-exec -operators-supported=&lt;onnx | tensorflow | pytorch | caffe | caffe2&gt;
+</code></pre></div>
 
 
 
@@ -1570,7 +1666,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../Installation/AWS/aws/" class="md-footer__link md-footer__link--prev" aria-label="Previous: AWS" rel="prev">
+          <a href="../../Export-the-model/Prepare-the-model/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction to the Model Preparator Tool" rel="prev">
             <div class="md-footer__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
@@ -1579,20 +1675,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                AWS
+                Introduction to the Model Preparator Tool
               </div>
             </div>
           </a>
         
         
           
-          <a href="Export-the-model/Export-the-Model/" class="md-footer__link md-footer__link--next" aria-label="Next: Exporting ONNX Model from Different Frameworks" rel="next">
+          <a href="../Tune-performance/" class="md-footer__link md-footer__link--next" aria-label="Next: Tune Performance" rel="next">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Exporting ONNX Model from Different Frameworks
+                Tune Performance
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1655,10 +1751,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
     
   <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
