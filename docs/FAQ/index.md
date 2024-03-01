@@ -23,7 +23,7 @@
 ## Deep Learning frameworks and networks 
 
 ??? question "Which deep learning frameworks for supported by Cloud AI SDKs?"
-    Onnx, tensorflow, pytorch, caffe or caffe2 are supported by the [compiler](../Getting-Started/Inference-Workflow/model-compilation/Compile%20the%20Model.md). 
+    Onnx, tensorflow, pytorch, caffe or caffe2 are supported by the [compiler](../Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model.md). 
     `qaic-exec` can dump the operators supported across different frameworks. Onnx has the best operator support. 
     
 ??? question "Which deep learning neural networks are supported?"

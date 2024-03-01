@@ -35,13 +35,13 @@ The [installation guide](Installation/index.md) covers
 [SDK Tools](https://docs.qualcomm.com/bundle/publicresource/topics/80-PT790-993B) provides details on usage of the tools in the SDKs used in the Inference workflow as well as card management. 
 
 ## Tutorials
-[Tutorials](https://github.com/quic/cloud-ai-sdk/tree/1.10/tutorials), in the form of Jupyter Notebooks walk the developer through the Cloud AI inference workflow as well as the tools used in the process. Tutorials are divided into CV and NLP to provide a better developer experience even though the inference workflows are quite similar. 
+[Tutorials](https://github.com/quic/cloud-ai-sdk/tree/1.12/tutorials), in the form of Jupyter Notebooks walk the developer through the Cloud AI inference workflow as well as the tools used in the process. Tutorials are divided into CV and NLP to provide a better developer experience even though the inference workflows are quite similar. 
 
 ## Model Recipes
-[Model recipes](https://github.com/quic/cloud-ai-sdk/tree/1.10/models) provide the developer the most performant and efficient way to run some of the popular models across categories. The recipe starts with the public model. The model is then exported to ONNX, some patches are applied if required, compiled and executed for best performance. Developers can use the recipe to integrate the compiled binary into their inference application.   
+[Model recipes](https://github.com/quic/cloud-ai-sdk/tree/1.12/models) provide the developer the most performant and efficient way to run some of the popular models across categories. The recipe starts with the public model. The model is then exported to ONNX, some patches are applied if required, compiled and executed for best performance. Developers can use the recipe to integrate the compiled binary into their inference application.   
 
 ## Sample Code
-[Sample code](https://github.com/quic/cloud-ai-sdk/tree/1.10/samples) helps developers get familiar with the usage of Python and C++ APIs for inferencing on Cloud AI platforms. 
+[Sample code](https://github.com/quic/cloud-ai-sdk/tree/1.12/samples) helps developers get familiar with the usage of Python and C++ APIs for inferencing on Cloud AI platforms. 
 
 ## System Management 
 [System Management](System-Management/system-management.md) details management for Cloud AI Platforms. 

@@ -89,8 +89,8 @@ nav:
         - Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support.md
         - Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model.md
       - Compile the Model:
-        - Getting-Started/Inference-Workflow/model-compilation/Compile the Model.md
-        - Getting-Started/Inference-Workflow/model-compilation/Tune performance.md
+        - Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model.md
+        - Getting-Started/Inference-Workflow/model-compilation/Tune-performance.md
       - Execute the QPC: 
         - Getting-Started/Inference-Workflow/model-execution/model-execution-options.md
         - Getting-Started/Inference-Workflow/model-execution/Inference-Profiling.md
@@ -119,6 +119,8 @@ nav:
       - ONNXRT QAIC/onnxruntime.md
   - FAQ:
     - FAQ/index.md
+  - Blogs: 
+    - blogs/B1004_AmberChat.md
 
 
 plugins:

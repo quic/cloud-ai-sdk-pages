@@ -11,6 +11,7 @@
     font-display: swap;
 }
 
+
 .md-typeset text {
     font-family: "QualcommNext", Arial, sans-serif !important;
   }
@@ -76,4 +77,9 @@
     color: rgb(50, 83, 220);
     font-family: "QualcommNext", Arial, sans-serif !important;
     font-weight: bolder;
+}
+
+.md-main__inner.md-grid {
+    max-width: 95%;
+
 }

@@ -45,7 +45,7 @@ torch.onnx.export(model,                        # PyTorch model
 
 ### 4. Compile the model 
 
-Compile the model with the `qaic-exec` CLI tool. You can find more details about its usage [here](../Inference-Workflow/model-compilation/Compile%20the%20Model.md).
+Compile the model with the `qaic-exec` CLI tool. You can find more details about its usage [here](../Inference-Workflow/model-compilation/Compile-the-Model.md).
 This quickstart issues the command from Python.
 
 ```py
