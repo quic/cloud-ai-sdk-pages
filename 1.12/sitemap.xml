@@ -176,12 +176,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://github.com/quic/cloud-ai-sdk/1.12/blogs/</loc>
-         <lastmod>2024-03-01</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://github.com/quic/cloud-ai-sdk/1.12/blogs/B1004_AmberChat/</loc>
+         <loc>https://github.com/quic/cloud-ai-sdk/1.12/blogs/AmberChat/</loc>
          <lastmod>2024-03-01</lastmod>
          <changefreq>daily</changefreq>
     </url>
