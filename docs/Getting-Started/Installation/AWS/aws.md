@@ -6,9 +6,9 @@ DL2q is an accelerated computing instance powered by Cloud AI 100 Standard accel
 
 Details regarding the DL2q instance can be found [here](https://aws.amazon.com/ec2/instance-types/dl2q/). 
 
-To get started quickly, customers can load one of many Deep Learning Amazon Machine Images (DLAMI) which come pre-packaged with Cloud AI Platform and Apps SDK. Search `Qualcomm AMI` for a list of AMIs that can be loaded on the DL2q instance. 
+The latest AMI from Qualcomm is `“Deep Learning Base Qualcomm AMI (Amazon Linux 2) 1.12.0.88P 1.14.0.24A SDK” ami-057a7f5a69e18e465`. Email your 12-digit AWS account number along with the intended use case (CV, NLP, GenAI etc) to `qualcomm_dl2q_ami@qti.qualcomm.com`. Qualcomm will provide access the latest AMI. 
 
-We recommend users to attach 200GB of EBS GP3 storage to the instance to start with.  
+We recommend users to attach 500GB of EBS GP3 storage to the instance to start with (especially for running LLMs).  
 
 ???+ note 
       Users of DL2q instance may need to request AWS to increase the vCPU limit to be able to spin up the first DL2q instance from an AWS account. 
