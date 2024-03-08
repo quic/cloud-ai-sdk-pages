@@ -19,7 +19,7 @@
     
     
       
-        <title>Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats - Cloud AI 100</title>
+        <title>How to Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats on Qualcomm® Cloud AI 100 - Cloud AI 100</title>
       
     
     
@@ -94,7 +94,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#quadruple-llm-decoding-performance-with-speculative-decoding-spd-and-microscaling-mx-formats" class="md-skip">
+        <a href="#how-to-quadruple-llm-decoding-performance-with-speculative-decoding-spd-and-microscaling-mx-formats-on-qualcomm-cloud-ai-100" class="md-skip">
           Skip to content
         </a>
       
@@ -132,7 +132,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
+              How to Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats on Qualcomm<sup>®</sup> Cloud AI 100
             
           </span>
         </div>
@@ -1472,12 +1472,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
+          How to Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats on Qualcomm<sup>®</sup> Cloud AI 100
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
+        How to Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats on Qualcomm<sup>®</sup> Cloud AI 100
       </a>
       
         
@@ -2003,7 +2003,7 @@
                   
 
 
-<h1 id="quadruple-llm-decoding-performance-with-speculative-decoding-spd-and-microscaling-mx-formats">Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats<a class="headerlink" href="#quadruple-llm-decoding-performance-with-speculative-decoding-spd-and-microscaling-mx-formats" title="Permanent link">&para;</a></h1>
+<h1 id="how-to-quadruple-llm-decoding-performance-with-speculative-decoding-spd-and-microscaling-mx-formats-on-qualcomm-cloud-ai-100">How to Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats on Qualcomm<sup>®</sup> Cloud AI 100<a class="headerlink" href="#how-to-quadruple-llm-decoding-performance-with-speculative-decoding-spd-and-microscaling-mx-formats-on-qualcomm-cloud-ai-100" title="Permanent link">&para;</a></h1>
 <p>Posted by Natarajan "Raj" Vaidhyanathan  <br />
 Co-written with Apoorva Gokhale</p>
 <p><a class="glightbox" href="../media/Spec_decode_example/spec_decode_example.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A screen shot of a computer screen Description automatically generated" src="../media/Spec_decode_example/spec_decode_example.gif" /></a><br />
@@ -2086,7 +2086,7 @@ in the token with the highest probability/logit value.</p>
 </ul>
 </li>
 <li>
-<p><em>Multiple Invocations</em>: LM is invoked <span class="arithmatex">\(n\)</span> times each time - once 
+<p><em>Multiple Invocations</em>: LM is invoked $n $times each time -- once 
 for each generated token. Each invocation makes use of all the
 parameters of the model.</p>
 </li>
@@ -2769,9 +2769,9 @@ probability of 0.3:</p>
 <p>What to do when <span class="arithmatex">\(t_{1}\)</span> was rejected, which happens with probability
     0.25 ? We will pick <span class="arithmatex">\(t_{2}\)</span> or <span class="arithmatex">\(t_{4}\)</span> with probability 0.75 and
     0.25 respectively, which is equal to sampling from
-    <span class="arithmatex">\((P_{T} - P_{D})_{+}\)</span>. <span class="arithmatex">\(^*\)</span>  </p>
-<p><em><span class="arithmatex">\(^*\)</span> The reasoning behind this will become clearer after we examine the</em>
-case sample from <span class="arithmatex">\(P_{D}\)</span> is <span class="arithmatex">\(t_{1}\)</span>.</p>
+    <span class="arithmatex">\((P_{T} - P_{D})_{+}\)</span>.   </p>
+<p><em>The reasoning behind this will become clearer after we examine the
+case sample from <span class="arithmatex">\(P_{D}\)</span> is <span class="arithmatex">\(t_{1}\)</span>.</em></p>
 </li>
 </ul>
 <p><strong>Case</strong> <span class="arithmatex">\(P_{D}(t) \leq P_{T}(t):\)</span> Now suppose the sample from
