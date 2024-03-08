@@ -1,5 +1,5 @@
 
-# Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats 
+# How to Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats on Qualcomm<sup>®</sup> Cloud AI 100 
 
 Posted by Natarajan "Raj" Vaidhyanathan    
 Co-written with Apoorva Gokhale
@@ -88,7 +88,7 @@ over $\Sigma$. Sampling from this pdf is generally referred to as
     on others. Sampling from such a distribution will always result 
     in the token with the highest probability/logit value.
 
-2. *Multiple Invocations*: LM is invoked $n$ times each time - once 
+2. *Multiple Invocations*: LM is invoked $n\ $times each time -- once 
 for each generated token. Each invocation makes use of all the
 parameters of the model.
 
@@ -701,10 +701,10 @@ probability of 0.3:
 -   What to do when $t_{1}$ was rejected, which happens with probability
     0.25 ? We will pick $t_{2}$ or $t_{4}$ with probability 0.75 and
     0.25 respectively, which is equal to sampling from
-    $(P_{T} - P_{D})_{+}$. $^*$  
+    $(P_{T} - P_{D})_{+}$.   
 
-    *$^*$ The reasoning behind this will become clearer after we examine the*
-    case sample from $P_{D}$ is $t_{1}$.
+    *The reasoning behind this will become clearer after we examine the
+    case sample from $P_{D}$ is $t_{1}$.*
 
 **Case** $P_{D}(t) \leq P_{T}(t):$ Now suppose the sample from
 $P_{D}$ is $t_{2}$. Processing is analogous if the sampled token was
