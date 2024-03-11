@@ -32,11 +32,13 @@ Use of MXFP6 for weight compression allows the Qualcomm Cloud AI 100 to have all
 Table 1 shows experimental results for various workloads on the Qualcomm Cloud AI 100 Standard card. The throughput improvement when using MXFP6 weights is given. For the 13B model, without MXFP6 the network will not fit, but with MXFP6, the model fits and benefits from the performance improvements.
 
 *Table 1 - Qualcomm Cloud AI 100 STD Throughput Improvement*
+
 | Model | BS | PL | GL | CL | FP16 <br />(tok/sec) | MXFP6 <br />(tok/sec) | MXFP6 % Gain <br />over FP16 |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | gpt-j-6b | 1 | 1024 | 1024 | 2048 | 8.08 | 13.9 | 72.03 |
 | opt-2.7b | 1 | 1024 | 1024 | 2048 | 15.44 | 27.72 | 79.53 |
-| opt-13b | 1 | 1024 | 1024 | 2048 | n/a | 6.98 | n/a |  
+| opt-13b | 1 | 1024 | 1024 | 2048 | n/a | 6.98 | n/a |
+ 
 
 <br />
 
@@ -44,6 +46,7 @@ Table 2 shows experimental results for various workloads on the Qualcomm Cloud A
 <br />
 
 *Table 2 - Qualcomm Cloud AI 100 Ultra Throughput Improvement*
+
 | Model | BS | PL | GL | CL | FP16 <br />(tok/sec) | MXFP6 <br />(tok/sec) | MXFP6 % Gain <br />over FP16 |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | opt-6.7b | 1 | 1024 | 1024 | 2048 | 19.49 | 41.29 | 111.85 |
@@ -51,6 +54,7 @@ Table 2 shows experimental results for various workloads on the Qualcomm Cloud A
 | xgen-7b | 1 | 1024 | 1024 | 2048 | 26.5 | 43.46 | 64 |
 | gpt-j-6b | 1 | 1024 | 1024 | 2048 | 31.14 | 50.99 | 63.74 |
 | opt-2.7b | 1 | 1024 | 1024 | 2048 | 64.17 | 104.25 | 62.46 |
+
 
 The MXFP6 weight compression feature is available in the 1.12 release of the Qualcomm Cloud AI 100 software and runs on a DL2q instance in AWS EC2 today. MxFP delivers up to 79% increase in tokens per second for 2K context length and enables models such as OPT-13B to fit on a single card in the DLq2 instance. Each DL2q instance can run 8 instances of OPT-13B.
 
