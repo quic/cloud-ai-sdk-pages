@@ -1,5 +1,5 @@
 
-# How to Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats on Qualcomm<sup>®</sup> Cloud AI 100 
+# Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats  
 
 Posted by Natarajan "Raj" Vaidhyanathan    
 Co-written with Apoorva Gokhale

@@ -120,9 +120,11 @@ nav:
   - FAQ:
     - FAQ/index.md
   - Blogs: 
-    - blogs/AmberChat.md
+    - blogs/Train_Anywhere/train_anywhere.md
+    - blogs/Microscaling/microscaling.md 
     - blogs/Speculative_Decode/spec_decode_ai100.md
-
+    - blogs/Text_Embeddings.md
+    - blogs/AmberChat.md
 
 plugins:
   - social

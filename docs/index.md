@@ -33,7 +33,7 @@ Qualcomm Cloud AI SDKs (Platform and Apps) enable high performance deep learning
 </div>
 
 <div class="card-grid">
-    <div class="card" onclick="redirectToPage('./blogs/AmberChat')">
+    <div class="card" onclick="redirectToPage('./blogs/Train_Anywhere/train_anywhere')">
         <h2 style="margin:25px">Blogs</h2>
     </div>
 </div>

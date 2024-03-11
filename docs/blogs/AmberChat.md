@@ -1,11 +1,9 @@
-# AmberChat
-
-## Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 Instances
+# Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
 
 Many popular Large Language Models (LLMs) are closed and/or limited by
 their licensing to specific use-cases, which limits the democratization
 of AI progress. [LLM360](https://www.llm360.ai/) is a joint effort
-of Petuum, [MBZUAI](https://mbzuai.ac.ae/), and Cerebras, with a focus
+of Petuum, [MBZUAI](https://mbzuai.ac.ae/), and Cerebras, with a focus
 on providing fully accessible and open-source LLMs.
 [Amber](https://huggingface.co/LLM360/Amber) and
 [AmberChat](https://huggingface.co/LLM360/AmberChat) are two such
@@ -27,7 +25,7 @@ AI 100 Github
 page](https://github.com/quic/cloud-ai-sdk/tree/1.12/models/language_processing/decoder/LlamaForCausalLM)
 to run the Amber or AmberChat models.
 
-## Qualcomm Cloud AI 100 Optimizations for LLM Inference:
+### Qualcomm Cloud AI 100 Optimizations for LLM Inference:
 
 A variety of compute and memory optimizations in both the hardware and
 software deliver the best-in-class performance-per-TCO\$ for LLMs on
@@ -58,7 +56,7 @@ memory-bound, these optimizations significantly boost the LLM
 performance and improve the end-user experience in an inference
 application deployed using these LLMs.
 
-## Performance numbers on Qualcomm Cloud AI 100 Standard SKU:
+### Performance numbers on Qualcomm Cloud AI 100 Standard SKU:
 
 The performance of AmberChat-7B on a single Cloud AI 100 Standard SKU
 for a batchsize of 1 is listed in the table below. Note that Amber and
@@ -74,7 +72,7 @@ increasing the batchsize.
 | AmberChat-7B | 1x STD SKU | MXFP6 | 1 | 1 | 128 | 2048 | 1.33 | 14.9 |
 | | 8x STD SKU DL2q | MXFP6 | 8 | 1 | 128 | 2048 | 1.33 | 119.2 |
 
-## Sample Prompts and Generated Responses:
+### Sample Prompts and Generated Responses:
 
 Here are some sample prompts and the corresponding responses generated
 by AmberChat-7B. We used the prompt template from the model's
@@ -135,7 +133,7 @@ and nail art supplies. The girls can also play relaxing music and enjoy
 some snacks while they pamper themselves. It's a fun and creative way
 to celebrate a birthday!
 
-## References
+### References:
 
 \[1\] Z. Liu, et al. "[*LLM360: Towards Fully Transparent Open-Source
 LLMs*](https://arxiv.org/abs/2312.06550)", arXiv preprint
