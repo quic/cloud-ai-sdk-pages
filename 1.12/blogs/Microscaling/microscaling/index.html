@@ -8,23 +8,27 @@
       
       
       
-        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.12/Getting-Started/Installation/Docker/Docker-rel-1.11/">
+        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.12/blogs/Microscaling/microscaling/">
       
       
+        <link rel="prev" href="../../Train_Anywhere/train_anywhere/">
       
-      <link rel="icon" href="../../../../images/favicon.png">
+      
+        <link rel="next" href="../../Speculative_Decode/spec_decode_ai100/">
+      
+      <link rel="icon" href="../../../images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
     
     
       
-        <title>Introduction - Cloud AI 100</title>
+        <title>Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats - Cloud AI 100</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.eebd395e.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ecc896b0.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ecc896b0.min.css">
       
       
   
@@ -48,18 +52,18 @@
       
     
     
-      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../../../custom.css">
+      <link rel="stylesheet" href="../../../custom.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
         html.glightbox-open { overflow: initial; height: 100%; }
         .gslide-title { margin-top: 0px; user-select: text; }
         .gslide-desc { color: #666; user-select: text; }
@@ -70,7 +74,7 @@
             body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
             body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
             body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+            </style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -92,7 +96,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction" class="md-skip">
+        <a href="#accelerate-large-language-model-inference-by-2x-using-microscaling-mx-formats" class="md-skip">
           Skip to content
         </a>
       
@@ -112,9 +116,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+    <a href="../../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
       
-  <img src="../../../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -130,7 +134,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction
+              Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats
             
           </span>
         </div>
@@ -222,7 +226,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../" class="md-tabs__link">
+      <a href="../../../Getting-Started/" class="md-tabs__link">
         User Guide
       </a>
     </li>
@@ -238,7 +242,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../API/" class="md-tabs__link">
+      <a href="../../../API/" class="md-tabs__link">
         API
       </a>
     </li>
@@ -254,7 +258,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../FAQ/" class="md-tabs__link">
+      <a href="../../../FAQ/" class="md-tabs__link">
         FAQ
       </a>
     </li>
@@ -264,13 +268,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../../../blogs/Train_Anywhere/train_anywhere/" class="md-tabs__link">
+      <a href="../../Train_Anywhere/train_anywhere/" class="md-tabs__link md-tabs__link--active">
         Blogs
       </a>
     </li>
@@ -304,9 +310,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+    <a href="../../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
       
-  <img src="../../../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     Cloud AI 100
@@ -354,7 +360,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../">User Guide</a>
+          <a href="../../../Getting-Started/">User Guide</a>
           
             <label for="__nav_1">
               <span class="md-nav__icon md-icon"></span>
@@ -395,7 +401,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../Quick-Start-Guide/">Quick Start Guide</a>
+          <a href="../../../Getting-Started/Quick-Start-Guide/">Quick Start Guide</a>
           
         </div>
       
@@ -451,7 +457,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../">Installation</a>
+          <a href="../../../Getting-Started/Installation/">Installation</a>
           
             <label for="__nav_1_3">
               <span class="md-nav__icon md-icon"></span>
@@ -474,7 +480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Checklist/checklist/" class="md-nav__link">
+      <a href="../../../Getting-Started/Installation/Checklist/checklist/" class="md-nav__link">
         Checklist
       </a>
     </li>
@@ -488,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Pre-requisites/pre-requisites/" class="md-nav__link">
+      <a href="../../../Getting-Started/Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
         Pre-requisites
       </a>
     </li>
@@ -502,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
+      <a href="../../../Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
         Cloud AI SDK
       </a>
     </li>
@@ -516,7 +522,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Hypervisors/hypervisor/" class="md-nav__link">
+      <a href="../../../Getting-Started/Installation/Hypervisors/hypervisor/" class="md-nav__link">
         Hypervisors
       </a>
     </li>
@@ -530,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Docker/" class="md-nav__link">
+      <a href="../../../Getting-Started/Installation/Docker/Docker/" class="md-nav__link">
         Docker
       </a>
     </li>
@@ -544,7 +550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../AWS/aws/" class="md-nav__link">
+      <a href="../../../Getting-Started/Installation/AWS/aws/" class="md-nav__link">
         AWS
       </a>
     </li>
@@ -589,7 +595,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../Inference-Workflow/">Inference Workflow</a>
+          <a href="../../../Getting-Started/Inference-Workflow/">Inference Workflow</a>
           
             <label for="__nav_1_4">
               <span class="md-nav__icon md-icon"></span>
@@ -647,7 +653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
         Exporting ONNX Model from Different Frameworks
       </a>
     </li>
@@ -661,7 +667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
         Operator and Datatype support
       </a>
     </li>
@@ -675,7 +681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
         Introduction to the Model Preparator Tool
       </a>
     </li>
@@ -729,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Inference-Workflow/model-compilation/Compile-the-Model/" class="md-nav__link">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model/" class="md-nav__link">
         Compile the Model
       </a>
     </li>
@@ -743,7 +749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Inference-Workflow/model-compilation/Tune-performance/" class="md-nav__link">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Tune-performance/" class="md-nav__link">
         Tune Performance
       </a>
     </li>
@@ -799,7 +805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
         Model Execution
       </a>
     </li>
@@ -813,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
         Inference Profiling
       </a>
     </li>
@@ -827,7 +833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
         Triton Inference Server
       </a>
     </li>
@@ -875,7 +881,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../Model-Architecture-Support/">Model Architecture Support</a>
+          <a href="../../../Getting-Started/Model-Architecture-Support/">Model Architecture Support</a>
           
             <label for="__nav_1_5">
               <span class="md-nav__icon md-icon"></span>
@@ -929,7 +935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
+      <a href="../../../Getting-Started/Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
         Large Language Models (LLMs)
       </a>
     </li>
@@ -988,7 +994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../System-Management/system-management/" class="md-nav__link">
+      <a href="../../../Getting-Started/System-Management/system-management/" class="md-nav__link">
         System Management
       </a>
     </li>
@@ -1027,7 +1033,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../Architecture/">Architecture</a>
+          <a href="../../../Getting-Started/Architecture/">Architecture</a>
           
         </div>
       
@@ -1071,7 +1077,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../Glossary/">Glossary</a>
+          <a href="../../../Getting-Started/Glossary/">Glossary</a>
           
         </div>
       
@@ -1129,7 +1135,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../../API/">API</a>
+          <a href="../../../API/">API</a>
           
             <label for="__nav_2">
               <span class="md-nav__icon md-icon"></span>
@@ -1185,7 +1191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Python-API/qaic/qaic/" class="md-nav__link">
+      <a href="../../../Python-API/qaic/qaic/" class="md-nav__link">
         Inference API
       </a>
     </li>
@@ -1199,7 +1205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Python-API/qaicrt/class_util/" class="md-nav__link">
+      <a href="../../../Python-API/qaicrt/class_util/" class="md-nav__link">
         Util API
       </a>
     </li>
@@ -1255,7 +1261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Cpp-API/example/" class="md-nav__link">
+      <a href="../../../Cpp-API/example/" class="md-nav__link">
         InferenceSet IO Example
       </a>
     </li>
@@ -1269,7 +1275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Cpp-API/features/" class="md-nav__link">
+      <a href="../../../Cpp-API/features/" class="md-nav__link">
         Features
       </a>
     </li>
@@ -1283,7 +1289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Cpp-API/runtime/" class="md-nav__link">
+      <a href="../../../Cpp-API/runtime/" class="md-nav__link">
         Runtime
       </a>
     </li>
@@ -1335,7 +1341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
+      <a href="../../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
         QAIC execution provider
       </a>
     </li>
@@ -1382,7 +1388,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../../../FAQ/">FAQ</a>
+          <a href="../../../FAQ/">FAQ</a>
           
         </div>
       
@@ -1407,14 +1413,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
         
@@ -1435,7 +1443,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Blogs
@@ -1448,7 +1456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../blogs/Train_Anywhere/train_anywhere/" class="md-nav__link">
+      <a href="../../Train_Anywhere/train_anywhere/" class="md-nav__link">
         Train anywhere, Infer on Qualcomm® Cloud AI 100
       </a>
     </li>
@@ -1460,11 +1468,73 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../../blogs/Microscaling/microscaling/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#large-language-model-challenges" class="md-nav__link">
+    Large Language Model Challenges
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microscaling-formats" class="md-nav__link">
+    Microscaling Formats
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qualcomm-cloud-ai-100-and-mx" class="md-nav__link">
+    Qualcomm Cloud AI 100 and MX
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experimental-results" class="md-nav__link">
+    Experimental Results
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1476,7 +1546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../blogs/Speculative_Decode/spec_decode_ai100/" class="md-nav__link">
+      <a href="../../Speculative_Decode/spec_decode_ai100/" class="md-nav__link">
         Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
       </a>
     </li>
@@ -1490,7 +1560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../blogs/Text_Embeddings/" class="md-nav__link">
+      <a href="../../Text_Embeddings/" class="md-nav__link">
         Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances
       </a>
     </li>
@@ -1504,7 +1574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../blogs/AmberChat/" class="md-nav__link">
+      <a href="../../AmberChat/" class="md-nav__link">
         Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
       </a>
     </li>
@@ -1545,97 +1615,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#setup-and-system-pre-requisistes" class="md-nav__link">
-    Setup and System Pre-requisistes
+  <a href="#large-language-model-challenges" class="md-nav__link">
+    Large Language Model Challenges
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-image" class="md-nav__link">
-    Build Image
+  <a href="#microscaling-formats" class="md-nav__link">
+    Microscaling Formats
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    Features
+  <a href="#qualcomm-cloud-ai-100-and-mx" class="md-nav__link">
+    Qualcomm Cloud AI 100 and MX
   </a>
-  
-    <nav class="md-nav" aria-label="Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#incremental-build-layers" class="md-nav__link">
-    Incremental build layers
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#image-specification" class="md-nav__link">
-    Image specification
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#overridable-options-in-specification" class="md-nav__link">
-    Overridable options in specification
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#auto-completion-of-user-provided-specification" class="md-nav__link">
-    Auto-completion of user provided specification
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#multi-platform-image-build" class="md-nav__link">
-    Multi-platform image build
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#launch-container" class="md-nav__link">
-    Launch container
-  </a>
-  
-    <nav class="md-nav" aria-label="Launch container">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#command" class="md-nav__link">
-    Command
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#architecture-selection" class="md-nav__link">
-    Architecture selection
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run-tests-in-container" class="md-nav__link">
-    Run tests in container
+  <a href="#experimental-results" class="md-nav__link">
+    Experimental Results
   </a>
   
 </li>
@@ -1655,177 +1657,46 @@
                   
 
 
-<h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
-<p>Docker is a product that allows users to build, test, and deploy applications through software containers. Docker for Cloud AI 100 packages the Platform SDK, Apps SDK (x86-64 only), libraries, system tools, etc., which enables the user to navigate the inference workflow seamlessly. </p>
-<p>The Docker scripts are in the Apps SDK in the <code>tools/docker-build</code> folder. The scripts to build a QAic Docker image are composed of the following structure.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>├── build_image.py
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── config
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   ├── applications
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── base_image
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   ├── build_type
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   ├── python_version
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   └── sdk
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── image_schema.json
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── README.md
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── requirements.txt
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>└── sample_user_specs
-</code></pre></div></p>
-<h2 id="setup-and-system-pre-requisistes">Setup and System Pre-requisistes<a class="headerlink" href="#setup-and-system-pre-requisistes" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Packages: python3.8, docker v23+ (https://docs.docker.com/engine/install/)</li>
-<li>Download Apps SDK and Platform SDK from Qualcomm site.<ul>
-<li>Docker containers require the Cloud AI device drivers to communicate with the devices. Install the Platform SDK on the host bare metal OS or VM.</li>
-<li>Unzip Apps SDK and the build scripts are located under <code>/tools/docker-build/</code>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>unzip<span class="w"> </span>qaic-apps-1.11.0.&lt;&gt;.zip
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>qaic-apps-1.11.0.&lt;&gt;/tools/docker-build/
-</code></pre></div></li>
-</ul>
-</li>
-<li>Install python modules listed in requirements.txt, preferably in a virtual environment
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="o">[</span>user@localhost<span class="w"> </span>qaic-docker<span class="o">]</span>$<span class="w"> </span>python3.8<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/venv_directory/qaic_docker_venv
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">[</span>user@localhost<span class="w"> </span>qaic-docker<span class="o">]</span>$<span class="w"> </span>.<span class="w"> </span>/venv_directory/qaic_docker_venv/bin/activate
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">(</span>qaic_docker_venv<span class="o">)</span><span class="w"> </span><span class="o">[</span>user@localhost<span class="w"> </span>qaic-docker<span class="o">]</span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-</code></pre></div></li>
-</ul>
-<h2 id="build-image">Build Image<a class="headerlink" href="#build-image" title="Permanent link">&para;</a></h2>
-<p>QAic docker build script is used to create new docker image with Cloud AI 100 Apps SDK and Cloud AI 100 Platform SDK with the supported OS.</p>
-<p>The command to build the docker image is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python3<span class="w"> </span>build_image.py<span class="w"> </span><span class="o">[</span><span class="w"> </span>--user_specification_file<span class="w"> </span><span class="o">(</span>Required<span class="o">)</span><span class="w"> </span>&lt;user-specification-json-file-path&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">[</span><span class="w"> </span>--mirror<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;docker-registry-mirror-location&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="o">[</span><span class="w"> </span>--apps_sdk<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>/qaic/apps/sdk/zip/path<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--platform_sdk<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>/qaic/platform/sdk/zip/path<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--qnn_sdk<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="o">[</span><span class="w"> </span>--arch<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;x86_64<span class="p">|</span>aarch64&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--external_dist_files<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;file-path-1<span class="w"> </span>file-path-2<span class="w"> </span>...<span class="w"> </span>file-path-n&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="o">[</span><span class="w"> </span>--tag<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;tag-for-the-created-image&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--log_level<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;log-level-numeric-value&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--no_cache<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span><span class="o">]</span>
-</code></pre></div>
-<p>The resulting docker image is named by the convention: qaic-\<arch>-<base_image>-<build_type>-<python_version>-<sdk_types>-\<applications>:\<tag> </p>
-<p>Description <br>
-<em>user_specification_file</em>: specifies path to user specification json file <br>
-<em>mirror</em>: specifies registry mirror location for base images in docker format (eg. host.domain/dir/) <br>
-<em>arch</em>: Pick from x86_64, aarch64. Default is host arch. <br>
-<em>tag</em>: specifies tag for the created image <br>
-<em>apps_sdk</em>: specifies path to the zip file of apps sdk. Overrides if corresponding path is already mentioned in user_specification_file. <br>
-<em>platform_sdk</em>: specifies path to the zip file of platform sdk. Overrides if corresponding path is already mentioned in user_specification_file. <br>
-<em>qnn_sdk</em>: specifies path to the zip file of qnn sdk. Overrides if corresponding path is already mentioned in user_specification_file. <br>
-<em>external_dist_files</em>: specify external files required in docker image build. Overrides any external_dist_files already mentioned in user_specification_file. <br>
-<em>log_level</em>: specifies numeric value corresponding to log level (debug:1, info:2, warning:3, error:4, critical:5) <br>
-<em>no_cache</em>: Do not use docker's internal layer cache (used for debug) <br></p>
-<p>For Example:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python3<span class="w"> </span>build_image.py<span class="w"> </span>--user_specification_file<span class="w"> </span>./sample_user_specs/user_image_spec_qaic.json<span class="w"> </span>--apps_sdk<span class="w"> </span>~/qaic-apps-1.11.0.&lt;&gt;.zip<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>--platform_sdk<span class="w"> </span>~/qaic-platform-sdk-1.11.0.&lt;&gt;.zip<span class="w"> </span>--tag<span class="w"> </span><span class="m">1</span>.11.0.&lt;&gt;
-</code></pre></div></p>
-<p>To check the docker image created with above script: <br>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span>docker<span class="w"> </span>images
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>REPOSITORY<span class="w">                                                            </span>TAG<span class="w">            </span>IMAGE<span class="w"> </span>ID<span class="w">       </span>CREATED<span class="w">        </span>SIZE
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps<span class="w">             </span><span class="m">1</span>.11.0.&lt;&gt;<span class="w">      </span>f784c37d7f18<span class="w">   </span><span class="m">2</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">    </span><span class="m">4</span>.25GB
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>qaic-x86_64-ubuntu20-release-py38-qaic_platform<span class="w">                       </span><span class="m">1</span>.11.0.&lt;&gt;<span class="w">      </span>a4f8193202db<span class="w">   </span><span class="m">2</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">    </span><span class="m">3</span>.64GB
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>qaic-x86_64-ubuntu20-release-py38<span class="w">                                     </span><span class="m">1</span>.11.0.&lt;&gt;<span class="w">      </span>78000059a5aa<span class="w">   </span><span class="m">2</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">    </span><span class="m">3</span>.12GB
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>qaic-x86_64-ubuntu20-release<span class="w">                                          </span><span class="m">1</span>.11.0.&lt;&gt;<span class="w">      </span>cbdd424f4338<span class="w">   </span><span class="m">2</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">    </span><span class="m">3</span>.1GB
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>qaic-x86_64-ubuntu20<span class="w">                                                  </span><span class="m">1</span>.11.0.&lt;&gt;<span class="w">      </span>a38215c10e0b<span class="w">   </span><span class="m">2</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">    </span><span class="m">3</span>.1GB
-</code></pre></div></p>
-<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Incremental docker image build infrastructure optimizes disk usage and rebuilding time</li>
-<li>Flexibility to override specification options such as sdk paths, external dist files through cmd line options</li>
-<li>User provided image specification is resolved for dependencies and dumped as autocompleted_user_specification.json</li>
-<li>Supports multi-platform builds</li>
-</ul>
-<h4 id="incremental-build-layers">Incremental build layers<a class="headerlink" href="#incremental-build-layers" title="Permanent link">&para;</a></h4>
-<p>The configurations are grouped as shown below to minimize the need for rebuild and to allow sharing layers.
-This enables reduction of disk usage and allows faster rebuild.</p>
-<p><a class="glightbox" href="../../../../images/docker_layers.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Incremental image build architecture" src="../../../../images/docker_layers.png" /></a> </p>
-<h4 id="image-specification">Image specification<a class="headerlink" href="#image-specification" title="Permanent link">&para;</a></h4>
-<p>User provides a specification json that defines the items to build in each group and list external file dependecies
-The build script auto-completes the configuration by resolving the dependencies for specified nodes.
-Sample user specification files are present in sample_user_specs directory within Apps SDK directory - tools/docker-build/</p>
-<p>Supported keys in json: 
-    'build_type', 'applications', 'sdk', 'python_version', 'base_image', 'external_dist_files'</p>
-<p>Applications - Optional, accepts a list of values.
-SDK - Optional, accepts a dictionary of values (sdk type: file-path/boolean).
-Python Version - Optional, accepts a single value.
-Build Type - Required, accepts a single value.
-Base Image - Required, accepts a single value.
-External dist files - Optional, allows specifying external files required in docker image build. Accepts a list of values.</p>
-<p>Example - 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nt">&quot;applications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gae&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;pytools&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;aimet&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;qinf&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;pybase&quot;</span><span class="p">],</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&quot;sdk&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">        </span><span class="nt">&quot;qaic_apps&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/qaic-apps-1.11.0.&lt;&gt;.zip&quot;</span><span class="p">,</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="nt">&quot;qaic_platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/qaic-platform-sdk-1.11.0.&lt;&gt;.zip&quot;</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="p">},</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nt">&quot;python_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;py38&quot;</span><span class="p">,</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="nt">&quot;base_image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ubuntu20&quot;</span><span class="p">,</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="nt">&quot;external_dist_files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/path/to/aimetpro-1.26.0-RC7.torch-gpu-release.tar.gz&quot;</span><span class="p">]</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">}</span>
-</code></pre></div></p>
-<p>Minimal user specification to build the same image
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nt">&quot;applications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gae&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;aimet&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;qinf&quot;</span><span class="p">],</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">&quot;sdk&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="nt">&quot;qaic_apps&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/qaic-apps-1.11.0.&lt;&gt;.zip&quot;</span><span class="p">,</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="nt">&quot;qaic_platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/qaic-platform-sdk-1.11.0.&lt;&gt;.zip&quot;</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p">},</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="nt">&quot;external_dist_files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/path/to/aimetpro-1.26.0-RC7.torch-gpu-release.tar.gz&quot;</span><span class="p">]</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">}</span>
-</code></pre></div>
-sdk, external_dist_files can be skipped here and provided through cmd line </p>
-<h4 id="overridable-options-in-specification">Overridable options in specification<a class="headerlink" href="#overridable-options-in-specification" title="Permanent link">&para;</a></h4>
-<p>SDK, external dist files configuration rely on file paths. These keys can be specified either through specification file or cmd line options.
-cmd line specification takes precedence when specified through both.</p>
-<h4 id="auto-completion-of-user-provided-specification">Auto-completion of user provided specification<a class="headerlink" href="#auto-completion-of-user-provided-specification" title="Permanent link">&para;</a></h4>
-<p>The docker image may constitute base image + layers from other groups specified in the figure above.
-Resolution of dependencies is done top-down for the specified groups. </p>
-<p>Applications - Resolved as union of dependencies in same level. <br>
-SDK - Resolved as union of dependencies from higher levels and same level. <br>
-Python Version - Resolved as intersection of dependencies from higher levels of which preferred node is chosen. <br>
-Build Type - Resolved as intersection of dependencies from higher levels of which preferred node is chosen. <br>
-Base Image - Resolved as intersection of dependencies from higher levels of which preferred node is chosen. <br></p>
-<h4 id="multi-platform-image-build">Multi-platform image build<a class="headerlink" href="#multi-platform-image-build" title="Permanent link">&para;</a></h4>
-<p>Use the --arch command line option with the build command to configure building the image for the preferred
-architecture (x86_64/aarch64).</p>
-<h2 id="launch-container">Launch container<a class="headerlink" href="#launch-container" title="Permanent link">&para;</a></h2>
-<h4 id="command">Command<a class="headerlink" href="#command" title="Permanent link">&para;</a></h4>
-<p>Below is example for launching an x86_64 ubuntu20 image with python3.8 environment, apps and platform sdk. </p>
-<p>Run the container and map 1 or more qaic devices. (Or any other directory mapping using the -v option)
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Passing 1 device</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-dit<span class="w"> </span>--name<span class="w"> </span>qaic-ubuntu-test<span class="w"> </span>--device<span class="o">=</span>/dev/qaic_aic100_0<span class="w"> </span>qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.11.0.&lt;&gt;
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Passing 1 device and mapping a local folder</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>docker<span class="w"> </span>run<span class="w"> </span>-dit<span class="w"> </span>--name<span class="w"> </span>qaic-ubuntu-test<span class="w"> </span>-v<span class="w"> </span>/data/test:/data/test<span class="w"> </span>--device<span class="o">=</span>/dev/qaic_aic100_0<span class="w"> </span>qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.11.0.&lt;&gt;
-</code></pre></div></p>
-<h4 id="architecture-selection">Architecture selection<a class="headerlink" href="#architecture-selection" title="Permanent link">&para;</a></h4>
-<p>When passing --arch option where the host architecture is not the same as the requested architecture, setup the host for docker multiarch using qemu.</p>
-<p>Ubuntu Host
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="o">[</span>user@localhost<span class="w"> </span>qaic-docker<span class="o">]</span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>qemu<span class="w"> </span>binfmt-support<span class="w"> </span>qemu-user-static
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="o">[</span>user@localhost<span class="w"> </span>qaic-docker<span class="o">]</span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Check the setup</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="o">[</span>user@localhost<span class="w"> </span>qaic-docker<span class="o">]</span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-t<span class="w"> </span>--platform<span class="o">=</span>linux/arm64<span class="w"> </span>&lt;image<span class="w"> </span>name&gt;<span class="w"> </span>uname<span class="w"> </span>-m
-</code></pre></div>
-The command above should give the architecture as aarch64</p>
-<p>Centos Host
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="o">[</span>user@localhost<span class="w"> </span>qaic-docker<span class="o">]</span>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>qemu<span class="w"> </span>qemu-kvm
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="o">[</span>user@localhost<span class="w"> </span>qaic-docker<span class="o">]</span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># Check the setup</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="o">[</span>user@localhost<span class="w"> </span>qaic-docker<span class="o">]</span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-t<span class="w"> </span>--platform<span class="o">=</span>linux/arm64<span class="w"> </span>&lt;image<span class="w"> </span>name&gt;<span class="w"> </span>uname<span class="w"> </span>-m
-</code></pre></div>
-The command above should give the architecture as aarch64</p>
-<h2 id="run-tests-in-container">Run tests in container<a class="headerlink" href="#run-tests-in-container" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p>Connect to the container and run tests:</p>
-<ul>
-<li>Run "docker ps" to get the container SHA</li>
-<li>Run docker exec -it <SHA> /bin/bash</li>
-<li>Run "/opt/qti-aic/tools/qaic_util -q" and ensure that you can see your devices.</li>
-<li>Run an inference with recorded data. Eg: "/opt/qti-aic/exec/qaic-runner -d 0 -t /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-quant-resnet50/"</li>
-</ul>
-</li>
-<li>
-<p>Activate the python enviornment and test Python HL API (valid if <em>qaic_python: "True"</em> specified in sdk group of user_specification_file while building docker image):
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">source</span><span class="w"> </span>/opt/qti-aic/dev/python/py_env/bin/activate
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">cd</span><span class="w"> </span>/opt/qti-aic/examples/apps/qaic-python-sdk/examples/resnet_example/
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>python<span class="w"> </span>resnet_example.py
-</code></pre></div></p>
-</li>
-</ul>
+<h1 id="accelerate-large-language-model-inference-by-2x-using-microscaling-mx-formats">Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats<a class="headerlink" href="#accelerate-large-language-model-inference-by-2x-using-microscaling-mx-formats" title="Permanent link">&para;</a></h1>
+<p>Posted By Colin Verrilli</p>
+<p><em>MxFP, defined by the Microscaling Formats (Mx) Alliance, is enabled on DL2q instance of AWS EC2 and is evaluated on several large language models.</em></p>
+<h2 id="large-language-model-challenges">Large Language Model Challenges<a class="headerlink" href="#large-language-model-challenges" title="Permanent link">&para;</a></h2>
+<p>When performing inference on large language models (LLMs), the generation of tokens (beyond the first) requires DRAM memory bandwidth that far exceeds the required compute. Each subsequent token that is generated requires reading all the model weights from DRAM. In addition, the remembered state (KV cache) of the prompt processing and of all previously generated tokens must be read from DRAM. For this reason, these workloads are severely memory bandwidth constrained in the subsequent token generation phase. The more memory bandwidth available, the faster the generation can occur.</p>
+<p>In addition to bandwidth, memory <em>capacity</em> can also be a constraining factor in deploying LLMs. The largest of these models have hundreds of billions of parameters which easily exceeds the capacity of inference accelerators. These large models are typically split across several accelerator cards in such a way that each card will hold a portion of the model weights. The storing of KV cache also requires more DRAM capacity. The capacity requirements increase linearly with model size (d_model), context length and batch size.</p>
+<p>A third performance limiter with LLM inference is communication bandwidth. Since these workloads are split across many cards, intermediate activations must be broadcast between the cards several times during the execution of each decoder block of every token inference. The size of the data to be communicated is proportional to the model size (d_model and number of decoder blocks), the batch size and the sequence length. The communication impact is especially important during prompt processing where the data for many tokens need to be communicated. In this case, the ratio of communication to DRAM access is much higher.</p>
+<p>The three above performance constraints can all be addressed with data compression techniques. Weight compression reduces the required bandwidth to read the weights. It also can reduce the footprint of the weights in DRAM. Activation compression can reduce the amount of actual data that needs to be communicated over the inter-card links.</p>
+<h2 id="microscaling-formats">Microscaling Formats<a class="headerlink" href="#microscaling-formats" title="Permanent link">&para;</a></h2>
+<p>Earlier this year, AMD, Arm, Intel, Meta, Microsoft, NVIDIA, and Qualcomm Technologies, Inc. formed the Microscaling Formats (MX) Alliance with the goal of creating and standardizing next-generation 6- and 4-bit data types for AI training and inferencing. The key enabling technology that enables sub 8-bit formats to work, referred to as <em>microscaling</em>, builds on a foundation of years of design space exploration and research. MX enhances the robustness and ease-of-use of existing 8-bit formats such as FP8 and INT8, thus lowering the barrier for broader adoption of single digit bit training and inference.</p>
+<p>The initial <a href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">MX specification</a> introduces four concrete floating point and integer-based data formats (MXFP8, MXFP6, MXFP4, and MXINT8) that are compatible with current AI stacks, support implementation flexibility across both hardware and software, and enable fine-grain microscaling at the hardware level. <a href="https://arxiv.org/abs/2310.10537">Extensive studies</a> demonstrate that MX formats can be easily deployed for many diverse real-world cases such as large language models, computer vision, and recommender systems. MX technology also enables LLM pre-training at 6- and 4-bit precisions without any modifications to conventional training recipes.</p>
+<p>One of the primary intentions of MX is to allow vendors to build more power and area efficient hardware for both inference and training accelerators. This is a long-term goal, however, a short-term benefit of this standard and the associated data science is that weights and activations can be "direct cast" (compressed / quantized) into these formats post-training to address the issues described above.</p>
+<h2 id="qualcomm-cloud-ai-100-and-mx">Qualcomm Cloud AI 100 and MX<a class="headerlink" href="#qualcomm-cloud-ai-100-and-mx" title="Permanent link">&para;</a></h2>
+<p>Qualcomm's Cloud AI 100 inference accelerator provides flexible programming that permits adaptation to a wide range of new workloads and new acceleration techniques. One such technique recently implemented is the use of MXFP6 as a weight compression format. When the user selects this compilation option, the compiler will automatically compress the weights from FP32 or FP16 into MXFP6 format during the offline compilation phase. Compressing in this form saves 61% of the size of the weights and thus reduces the pressure on DRAM capacity.</p>
+<p>At inference run time, the Qualcomm Cloud AI 100 performs on-the-fly decompression in software using its vector engine with an optimized decompression kernel. decompression can be performed in parallel with the weight fetching and computations, so the overhead is mostly hidden. Again, up to 61% of the DRAM bandwidth can be saved. After decompression, the calculations are performed as before in FP16 precision. The use of FP16 is acceptable since the LLMs still remain DRAM constrained so that the compute is not a bottleneck. FP16 also allows to retain the higher precision activations which overcomes loss of accuracy from the quantization.</p>
+<p>Not yet available, but in-plan is the use of MXINT8 for compression and decompression of activations that need to be communicated over inter-card links. MXINT8 has the property that FP16 can generally be "direct cast" to MXINT8 without overall loss in accuracy of the workload (see referenced <a href="https://arxiv.org/abs/2310.10537">white paper</a>). In cases where the link bandwidth is constrained, the benefit gained in reduced transfer latencies overcomes the overhead of compressing and decompressing in software. This feature is expected to make a significant improvement in time-to-first-token latencies for large models and for large prompts.</p>
+<h2 id="experimental-results">Experimental Results<a class="headerlink" href="#experimental-results" title="Permanent link">&para;</a></h2>
+<p>Use of MXFP6 for weight compression allows the Qualcomm Cloud AI 100 to have all the benefits of reduced precision (like FP8 or INT8) without the need for special hardware, without the loss of workload accuracy and without the need to modify the training process. It is entirely transparent to the user.</p>
+<p>Table 1 shows experimental results for various workloads on the Qualcomm Cloud AI 100 Standard card. The throughput improvement when using MXFP6 weights is given. For the 13B model, without MXFP6 the network will not fit, but with MXFP6, the model fits and benefits from the performance improvements.</p>
+<p><em>Table 1 - Qualcomm Cloud AI 100 STD Throughput Improvement</em>
+| Model | BS | PL | GL | CL | FP16 <br />(tok/sec) | MXFP6 <br />(tok/sec) | MXFP6 % Gain <br />over FP16 |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| gpt-j-6b | 1 | 1024 | 1024 | 2048 | 8.08 | 13.9 | 72.03 |
+| opt-2.7b | 1 | 1024 | 1024 | 2048 | 15.44 | 27.72 | 79.53 |
+| opt-13b | 1 | 1024 | 1024 | 2048 | n/a | 6.98 | n/a |  </p>
+<p><br /></p>
+<p>Table 2 shows experimental results for various workloads on the Qualcomm Cloud AI 100 Ultra card. The throughput improvement when using MXFP6 weights is given.<br />
+<br /></p>
+<p><em>Table 2 - Qualcomm Cloud AI 100 Ultra Throughput Improvement</em>
+| Model | BS | PL | GL | CL | FP16 <br />(tok/sec) | MXFP6 <br />(tok/sec) | MXFP6 % Gain <br />over FP16 |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| opt-6.7b | 1 | 1024 | 1024 | 2048 | 19.49 | 41.29 | 111.85 |
+| Llama2-7b | 1 | 1024 | 1024 | 2048 | 26.49 | 43.78 | 65.27 |
+| xgen-7b | 1 | 1024 | 1024 | 2048 | 26.5 | 43.46 | 64 |
+| gpt-j-6b | 1 | 1024 | 1024 | 2048 | 31.14 | 50.99 | 63.74 |
+| opt-2.7b | 1 | 1024 | 1024 | 2048 | 64.17 | 104.25 | 62.46 |</p>
+<p>The MXFP6 weight compression feature is available in the 1.12 release of the Qualcomm Cloud AI 100 software and runs on a DL2q instance in AWS EC2 today. MxFP delivers up to 79% increase in tokens per second for 2K context length and enables models such as OPT-13B to fit on a single card in the DLq2 instance. Each DL2q instance can run 8 instances of OPT-13B.</p>
+<p><a href="https://github.qualcomm.com/qranium/cloud-ai">Visit Qualcomm® Cloud AI 100 Github</a> to learn more and download SDK.</p>
+<p><br /></p>
+<p><em>Snapdragon and Qualcomm branded products are products of Qualcomm Technologies, Inc. and/or its subsidiaries.</em></p>
 
 
 
@@ -1849,6 +1720,42 @@ The command above should give the architecture as aarch64</p>
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../Train_Anywhere/train_anywhere/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Train anywhere, Infer on Qualcomm® Cloud AI 100" rel="prev">
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Train anywhere, Infer on Qualcomm® Cloud AI 100
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../Speculative_Decode/spec_decode_ai100/" class="md-footer__link md-footer__link--next" aria-label="Next: Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     
   
   <div class="md-footer-meta md-typeset">
@@ -1903,13 +1810,13 @@ The command above should give the architecture as aarch64</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
-          <script src="../../../../javascripts/mathjax.js"></script>
+          <script src="../../../javascripts/mathjax.js"></script>
         
       
         
