@@ -1676,23 +1676,123 @@
 <h2 id="experimental-results">Experimental Results<a class="headerlink" href="#experimental-results" title="Permanent link">&para;</a></h2>
 <p>Use of MXFP6 for weight compression allows the Qualcomm Cloud AI 100 to have all the benefits of reduced precision (like FP8 or INT8) without the need for special hardware, without the loss of workload accuracy and without the need to modify the training process. It is entirely transparent to the user.</p>
 <p>Table 1 shows experimental results for various workloads on the Qualcomm Cloud AI 100 Standard card. The throughput improvement when using MXFP6 weights is given. For the 13B model, without MXFP6 the network will not fit, but with MXFP6, the model fits and benefits from the performance improvements.</p>
-<p><em>Table 1 - Qualcomm Cloud AI 100 STD Throughput Improvement</em>
-| Model | BS | PL | GL | CL | FP16 <br />(tok/sec) | MXFP6 <br />(tok/sec) | MXFP6 % Gain <br />over FP16 |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| gpt-j-6b | 1 | 1024 | 1024 | 2048 | 8.08 | 13.9 | 72.03 |
-| opt-2.7b | 1 | 1024 | 1024 | 2048 | 15.44 | 27.72 | 79.53 |
-| opt-13b | 1 | 1024 | 1024 | 2048 | n/a | 6.98 | n/a |  </p>
+<p><em>Table 1 - Qualcomm Cloud AI 100 STD Throughput Improvement</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Model</th>
+<th style="text-align: center;">BS</th>
+<th style="text-align: center;">PL</th>
+<th style="text-align: center;">GL</th>
+<th style="text-align: center;">CL</th>
+<th style="text-align: center;">FP16 <br />(tok/sec)</th>
+<th style="text-align: center;">MXFP6 <br />(tok/sec)</th>
+<th style="text-align: center;">MXFP6 % Gain <br />over FP16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">gpt-j-6b</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">2048</td>
+<td style="text-align: center;">8.08</td>
+<td style="text-align: center;">13.9</td>
+<td style="text-align: center;">72.03</td>
+</tr>
+<tr>
+<td style="text-align: center;">opt-2.7b</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">2048</td>
+<td style="text-align: center;">15.44</td>
+<td style="text-align: center;">27.72</td>
+<td style="text-align: center;">79.53</td>
+</tr>
+<tr>
+<td style="text-align: center;">opt-13b</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">2048</td>
+<td style="text-align: center;">n/a</td>
+<td style="text-align: center;">6.98</td>
+<td style="text-align: center;">n/a</td>
+</tr>
+</tbody>
+</table>
 <p><br /></p>
 <p>Table 2 shows experimental results for various workloads on the Qualcomm Cloud AI 100 Ultra card. The throughput improvement when using MXFP6 weights is given.<br />
 <br /></p>
-<p><em>Table 2 - Qualcomm Cloud AI 100 Ultra Throughput Improvement</em>
-| Model | BS | PL | GL | CL | FP16 <br />(tok/sec) | MXFP6 <br />(tok/sec) | MXFP6 % Gain <br />over FP16 |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| opt-6.7b | 1 | 1024 | 1024 | 2048 | 19.49 | 41.29 | 111.85 |
-| Llama2-7b | 1 | 1024 | 1024 | 2048 | 26.49 | 43.78 | 65.27 |
-| xgen-7b | 1 | 1024 | 1024 | 2048 | 26.5 | 43.46 | 64 |
-| gpt-j-6b | 1 | 1024 | 1024 | 2048 | 31.14 | 50.99 | 63.74 |
-| opt-2.7b | 1 | 1024 | 1024 | 2048 | 64.17 | 104.25 | 62.46 |</p>
+<p><em>Table 2 - Qualcomm Cloud AI 100 Ultra Throughput Improvement</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Model</th>
+<th style="text-align: center;">BS</th>
+<th style="text-align: center;">PL</th>
+<th style="text-align: center;">GL</th>
+<th style="text-align: center;">CL</th>
+<th style="text-align: center;">FP16 <br />(tok/sec)</th>
+<th style="text-align: center;">MXFP6 <br />(tok/sec)</th>
+<th style="text-align: center;">MXFP6 % Gain <br />over FP16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">opt-6.7b</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">2048</td>
+<td style="text-align: center;">19.49</td>
+<td style="text-align: center;">41.29</td>
+<td style="text-align: center;">111.85</td>
+</tr>
+<tr>
+<td style="text-align: center;">Llama2-7b</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">2048</td>
+<td style="text-align: center;">26.49</td>
+<td style="text-align: center;">43.78</td>
+<td style="text-align: center;">65.27</td>
+</tr>
+<tr>
+<td style="text-align: center;">xgen-7b</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">2048</td>
+<td style="text-align: center;">26.5</td>
+<td style="text-align: center;">43.46</td>
+<td style="text-align: center;">64</td>
+</tr>
+<tr>
+<td style="text-align: center;">gpt-j-6b</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">2048</td>
+<td style="text-align: center;">31.14</td>
+<td style="text-align: center;">50.99</td>
+<td style="text-align: center;">63.74</td>
+</tr>
+<tr>
+<td style="text-align: center;">opt-2.7b</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">1024</td>
+<td style="text-align: center;">2048</td>
+<td style="text-align: center;">64.17</td>
+<td style="text-align: center;">104.25</td>
+<td style="text-align: center;">62.46</td>
+</tr>
+</tbody>
+</table>
 <p>The MXFP6 weight compression feature is available in the 1.12 release of the Qualcomm Cloud AI 100 software and runs on a DL2q instance in AWS EC2 today. MxFP delivers up to 79% increase in tokens per second for 2K context length and enables models such as OPT-13B to fit on a single card in the DLq2 instance. Each DL2q instance can run 8 instances of OPT-13B.</p>
 <p><a href="https://github.qualcomm.com/qranium/cloud-ai">Visit Qualcomm® Cloud AI 100 Github</a> to learn more and download SDK.</p>
 <p><br /></p>
