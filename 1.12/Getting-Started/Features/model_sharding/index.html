@@ -8,27 +8,27 @@
       
       
       
-        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.12/Cpp-API/features/">
+        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.12/Getting-Started/Features/model_sharding/">
       
       
-        <link rel="prev" href="../example/">
+        <link rel="prev" href="../custom_ops/">
       
       
-        <link rel="next" href="../runtime/">
+        <link rel="next" href="../../System-Management/system-management/">
       
-      <link rel="icon" href="../../images/favicon.png">
+      <link rel="icon" href="../../../images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
     
     
       
-        <title>Features - Cloud AI 100</title>
+        <title>Model Sharding - Cloud AI 100</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ecc896b0.min.css">
       
       
   
@@ -52,18 +52,18 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../custom.css">
+      <link rel="stylesheet" href="../../../custom.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
         html.glightbox-open { overflow: initial; height: 100%; }
         .gslide-title { margin-top: 0px; user-select: text; }
         .gslide-desc { color: #666; user-select: text; }
@@ -74,7 +74,7 @@
             body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
             body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
             body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+            </style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -96,7 +96,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#features" class="md-skip">
+        <a href="#model-sharding" class="md-skip">
           Skip to content
         </a>
       
@@ -116,9 +116,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+    <a href="../../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -134,7 +134,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Features
+              Model Sharding
             
           </span>
         </div>
@@ -220,13 +220,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../Getting-Started/" class="md-tabs__link">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
         User Guide
       </a>
     </li>
@@ -236,15 +238,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../API/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../../API/" class="md-tabs__link">
         API
       </a>
     </li>
@@ -260,7 +260,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../FAQ/" class="md-tabs__link">
+      <a href="../../../FAQ/" class="md-tabs__link">
         FAQ
       </a>
     </li>
@@ -276,7 +276,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../blogs/Train_Anywhere/train_anywhere/" class="md-tabs__link">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/" class="md-tabs__link">
         Blogs
       </a>
     </li>
@@ -310,9 +310,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+    <a href="../../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     Cloud AI 100
@@ -326,14 +326,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
       
       
         
@@ -362,7 +364,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../Getting-Started/">User Guide</a>
+          <a href="../../">User Guide</a>
           
             <label for="__nav_1">
               <span class="md-nav__icon md-icon"></span>
@@ -370,7 +372,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1">
           <span class="md-nav__icon md-icon"></span>
           User Guide
@@ -403,7 +405,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../Getting-Started/Quick-Start-Guide/">Quick Start Guide</a>
+          <a href="../../Quick-Start-Guide/">Quick Start Guide</a>
           
         </div>
       
@@ -459,7 +461,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../Getting-Started/Installation/">Installation</a>
+          <a href="../../Installation/">Installation</a>
           
             <label for="__nav_1_3">
               <span class="md-nav__icon md-icon"></span>
@@ -482,7 +484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Checklist/checklist/" class="md-nav__link">
+      <a href="../../Installation/Checklist/checklist/" class="md-nav__link">
         Checklist
       </a>
     </li>
@@ -496,7 +498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
+      <a href="../../Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
         Pre-requisites
       </a>
     </li>
@@ -510,7 +512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
+      <a href="../../Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
         Cloud AI SDK
       </a>
     </li>
@@ -524,7 +526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Hypervisors/hypervisor/" class="md-nav__link">
+      <a href="../../Installation/Hypervisors/hypervisor/" class="md-nav__link">
         Hypervisors
       </a>
     </li>
@@ -538,7 +540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Docker/Docker/" class="md-nav__link">
+      <a href="../../Installation/Docker/Docker/" class="md-nav__link">
         Docker
       </a>
     </li>
@@ -552,7 +554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/AWS/aws/" class="md-nav__link">
+      <a href="../../Installation/AWS/aws/" class="md-nav__link">
         AWS
       </a>
     </li>
@@ -597,7 +599,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../Getting-Started/Inference-Workflow/">Inference Workflow</a>
+          <a href="../../Inference-Workflow/">Inference Workflow</a>
           
             <label for="__nav_1_4">
               <span class="md-nav__icon md-icon"></span>
@@ -655,7 +657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
+      <a href="../../Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
         Exporting ONNX Model from Different Frameworks
       </a>
     </li>
@@ -669,7 +671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
+      <a href="../../Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
         Operator and Datatype support
       </a>
     </li>
@@ -683,7 +685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
+      <a href="../../Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
         Introduction to the Model Preparator Tool
       </a>
     </li>
@@ -737,7 +739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-compilation/Compile-the-Model/" class="md-nav__link">
         Compile the Model
       </a>
     </li>
@@ -751,7 +753,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-compilation/Tune-performance/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-compilation/Tune-performance/" class="md-nav__link">
         Tune Performance
       </a>
     </li>
@@ -807,7 +809,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
         Model Execution
       </a>
     </li>
@@ -821,7 +823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
         Inference Profiling
       </a>
     </li>
@@ -835,7 +837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
         Triton Inference Server
       </a>
     </li>
@@ -883,7 +885,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../Getting-Started/Model-Architecture-Support/">Model Architecture Support</a>
+          <a href="../../Model-Architecture-Support/">Model Architecture Support</a>
           
             <label for="__nav_1_5">
               <span class="md-nav__icon md-icon"></span>
@@ -937,7 +939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
+      <a href="../../Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
         Large Language Models (LLMs)
       </a>
     </li>
@@ -963,14 +965,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" checked>
       
       
         
@@ -987,7 +991,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../Getting-Started/Features/">Features</a>
+          <a href="../">Features</a>
           
             <label for="__nav_1_6">
               <span class="md-nav__icon md-icon"></span>
@@ -995,7 +999,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1_6">
           <span class="md-nav__icon md-icon"></span>
           Features
@@ -1041,7 +1045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Features/custom_ops/" class="md-nav__link">
+      <a href="../custom_ops/" class="md-nav__link">
         Custom Operations (C++)
       </a>
     </li>
@@ -1060,14 +1064,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_3" checked>
       
       
         
@@ -1080,7 +1086,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_3_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_1_6_3">
           <span class="md-nav__icon md-icon"></span>
           Model Sharding
@@ -1091,11 +1097,120 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../Getting-Started/Features/model_sharding/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Model Sharding
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Model Sharding
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    Use Cases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    Architecture
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tensor-slicing" class="md-nav__link">
+    Tensor Slicing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-setup" class="md-nav__link">
+    Platform setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-requisites" class="md-nav__link">
+    Pre-requisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#card-configuration" class="md-nav__link">
+    Card configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    Compilation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution" class="md-nav__link">
+    Execution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    Recommendations
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1152,7 +1267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/System-Management/system-management/" class="md-nav__link">
+      <a href="../../System-Management/system-management/" class="md-nav__link">
         System Management
       </a>
     </li>
@@ -1191,7 +1306,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../Getting-Started/Architecture/">Architecture</a>
+          <a href="../../Architecture/">Architecture</a>
           
         </div>
       
@@ -1235,7 +1350,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../Getting-Started/Glossary/">Glossary</a>
+          <a href="../../Glossary/">Glossary</a>
           
         </div>
       
@@ -1267,16 +1382,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
         
@@ -1295,7 +1408,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../API/">API</a>
+          <a href="../../../API/">API</a>
           
             <label for="__nav_2">
               <span class="md-nav__icon md-icon"></span>
@@ -1303,7 +1416,7 @@
           
         </div>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           API
@@ -1351,7 +1464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Python-API/qaic/qaic/" class="md-nav__link">
+      <a href="../../../Python-API/qaic/qaic/" class="md-nav__link">
         Inference API
       </a>
     </li>
@@ -1365,7 +1478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Python-API/qaicrt/class_util/" class="md-nav__link">
+      <a href="../../../Python-API/qaicrt/class_util/" class="md-nav__link">
         Util API
       </a>
     </li>
@@ -1384,16 +1497,14 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
       
       
         
@@ -1410,7 +1521,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2_3">
           <span class="md-nav__icon md-icon"></span>
           CPP API
@@ -1423,7 +1534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../example/" class="md-nav__link">
+      <a href="../../../Cpp-API/example/" class="md-nav__link">
         InferenceSet IO Example
       </a>
     </li>
@@ -1435,200 +1546,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Features
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/features/" class="md-nav__link">
         Features
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#profiling-support-in-runtime" class="md-nav__link">
-    Profiling Support in Runtime
-  </a>
-  
-    <nav class="md-nav" aria-label="Profiling Support in Runtime">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#profiling-report-types" class="md-nav__link">
-    Profiling Report Types
-  </a>
-  
-    <nav class="md-nav" aria-label="Profiling Report Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#latency-type" class="md-nav__link">
-    Latency type
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#trace-type" class="md-nav__link">
-    Trace type
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#profiling-report-collection-methods" class="md-nav__link">
-    Profiling Report Collection methods
-  </a>
-  
-    <nav class="md-nav" aria-label="Profiling Report Collection methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#num-iter-based-profiling" class="md-nav__link">
-    Num-iter based profiling
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#duration-based-profiling" class="md-nav__link">
-    Duration based profiling
-  </a>
-  
-    <nav class="md-nav" aria-label="Duration based profiling">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reporting-rate" class="md-nav__link">
-    Reporting Rate
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sampling-rate" class="md-nav__link">
-    Sampling rate
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#regex" class="md-nav__link">
-    RegEx
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#device-partitioning-tool" class="md-nav__link">
-    Device Partitioning Tool
-  </a>
-  
-    <nav class="md-nav" aria-label="Device Partitioning Tool">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-and-test-the-shadow-devices" class="md-nav__link">
-    Create and Test the Shadow Device(s)
-  </a>
-  
-    <nav class="md-nav" aria-label="Create and Test the Shadow Device(s)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-create-the-shadow-device" class="md-nav__link">
-    1. Create the Shadow device
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-verify-the-derived-device-creation" class="md-nav__link">
-    2. Verify the Derived device creation:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-destroy-the-device" class="md-nav__link">
-    3. Destroy the device.
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#partition-device-configuration" class="md-nav__link">
-    Partition Device Configuration
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1640,7 +1562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../runtime/" class="md-nav__link">
+      <a href="../../../Cpp-API/runtime/" class="md-nav__link">
         Runtime
       </a>
     </li>
@@ -1692,7 +1614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
+      <a href="../../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
         QAIC execution provider
       </a>
     </li>
@@ -1739,7 +1661,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../../FAQ/">FAQ</a>
+          <a href="../../../FAQ/">FAQ</a>
           
         </div>
       
@@ -1805,7 +1727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blogs/Train_Anywhere/train_anywhere/" class="md-nav__link">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/" class="md-nav__link">
         Train anywhere, Infer on Qualcomm® Cloud AI 100
       </a>
     </li>
@@ -1819,7 +1741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blogs/Microscaling/microscaling/" class="md-nav__link">
+      <a href="../../../blogs/Microscaling/microscaling/" class="md-nav__link">
         Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats
       </a>
     </li>
@@ -1833,7 +1755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blogs/Speculative_Decode/spec_decode_ai100/" class="md-nav__link">
+      <a href="../../../blogs/Speculative_Decode/spec_decode_ai100/" class="md-nav__link">
         Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
       </a>
     </li>
@@ -1847,7 +1769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blogs/Text_Embeddings/" class="md-nav__link">
+      <a href="../../../blogs/Text_Embeddings/" class="md-nav__link">
         Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances
       </a>
     </li>
@@ -1861,7 +1783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blogs/AmberChat/" class="md-nav__link">
+      <a href="../../../blogs/AmberChat/" class="md-nav__link">
         Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
       </a>
     </li>
@@ -1902,91 +1824,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#profiling-support-in-runtime" class="md-nav__link">
-    Profiling Support in Runtime
+  <a href="#use-cases" class="md-nav__link">
+    Use Cases
   </a>
   
-    <nav class="md-nav" aria-label="Profiling Support in Runtime">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    Architecture
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#profiling-report-types" class="md-nav__link">
-    Profiling Report Types
+  <a href="#tensor-slicing" class="md-nav__link">
+    Tensor Slicing
   </a>
-  
-    <nav class="md-nav" aria-label="Profiling Report Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#latency-type" class="md-nav__link">
-    Latency type
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#trace-type" class="md-nav__link">
-    Trace type
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#profiling-report-collection-methods" class="md-nav__link">
-    Profiling Report Collection methods
-  </a>
-  
-    <nav class="md-nav" aria-label="Profiling Report Collection methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#num-iter-based-profiling" class="md-nav__link">
-    Num-iter based profiling
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#duration-based-profiling" class="md-nav__link">
-    Duration based profiling
-  </a>
-  
-    <nav class="md-nav" aria-label="Duration based profiling">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reporting-rate" class="md-nav__link">
-    Reporting Rate
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sampling-rate" class="md-nav__link">
-    Sampling rate
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#regex" class="md-nav__link">
-    RegEx
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1996,45 +1851,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#device-partitioning-tool" class="md-nav__link">
-    Device Partitioning Tool
+  <a href="#platform-setup" class="md-nav__link">
+    Platform setup
   </a>
   
-    <nav class="md-nav" aria-label="Device Partitioning Tool">
+    <nav class="md-nav" aria-label="Platform setup">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    Usage
+  <a href="#pre-requisites" class="md-nav__link">
+    Pre-requisites
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-and-test-the-shadow-devices" class="md-nav__link">
-    Create and Test the Shadow Device(s)
-  </a>
-  
-    <nav class="md-nav" aria-label="Create and Test the Shadow Device(s)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-create-the-shadow-device" class="md-nav__link">
-    1. Create the Shadow device
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-verify-the-derived-device-creation" class="md-nav__link">
-    2. Verify the Derived device creation:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-destroy-the-device" class="md-nav__link">
-    3. Destroy the device.
+  <a href="#card-configuration" class="md-nav__link">
+    Card configuration
   </a>
   
 </li>
@@ -2043,16 +1876,25 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#partition-device-configuration" class="md-nav__link">
-    Partition Device Configuration
+      
+        <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    Compilation
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#execution" class="md-nav__link">
+    Execution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    Recommendations
+  </a>
   
 </li>
       
@@ -2071,138 +1913,147 @@
                   
 
 
-<h1 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h1>
-<h2 id="profiling-support-in-runtime">Profiling Support in Runtime<a class="headerlink" href="#profiling-support-in-runtime" title="Permanent link">&para;</a></h2>
-<hr />
-<p>When running inferences on AIC100, we might want to get deeper insights into the performance of the AIC100 stack to either triage low performance or for general monitoring.</p>
-<p>Current AIC100 stack provides mechanism to get performance metrics of key milestones through the inference cycle.</p>
-<p>Profiling data can be broadly classified into two components:</p>
-<ol>
-<li>Host metrics
-   An inference passes through various software layers on host before it make it to the network on device. Examining the performance on host we can identify if tweaking in network pre/post processing stages or host side multi-threading knobs is required.</li>
-<li>Network/device metrics
-   Network metrics provide plethora of information, starting from whole network execution time to detailed operator level performance. This information can be put to use to make the most out of existing network or to optimize network itself.
-   Note: Network perf collection is not baked into the network by default. It needs to be enabled during network compilation itself. The amount of network perf details present depends on the parameters passed to AIC compiler.</li>
-</ol>
-<h3 id="profiling-report-types">Profiling Report Types<a class="headerlink" href="#profiling-report-types" title="Permanent link">&para;</a></h3>
-<hr />
-<p>Using AIC100 software stacks, profiling information can be requested in following types (layouts):</p>
-<h4 id="latency-type">Latency type<a class="headerlink" href="#latency-type" title="Permanent link">&para;</a></h4>
-<p>Latency type is a CSV style table of key of AIC100 stack. Contains both host and device side information.</p>
-<h4 id="trace-type">Trace type<a class="headerlink" href="#trace-type" title="Permanent link">&para;</a></h4>
-<p>Trace type is a json formatted Chrome trace data. It can be viewed on any interface that consumes Chrome traces. Contains both host and device side information.</p>
-<h3 id="profiling-report-collection-methods">Profiling Report Collection methods<a class="headerlink" href="#profiling-report-collection-methods" title="Permanent link">&para;</a></h3>
-<p>The above information can be requested from AIC100 stack using two mechanisms. The core content is the same in both mechanisms, just the delivery mechanism changes. The two ways are as follows:</p>
-<ol>
-<li>Num-iter based profiling</li>
-<li>Duration based profiling</li>
-</ol>
-<h4 id="num-iter-based-profiling">Num-iter based profiling<a class="headerlink" href="#num-iter-based-profiling" title="Permanent link">&para;</a></h4>
-<p>Alias: Legacy profiling</p>
-<p>When user creates a profiling handle for num-iter based profiling, they need to specify:</p>
-<ol>
-<li>The program to profile,</li>
-<li>Number of samples to collect,</li>
-<li>Profiling callback and,</li>
-<li>Type of profiling output type i.e. latency or trace.</li>
-</ol>
-<p>The fundamental idea is that during the creation of profiling handle, the user specifies the number of inferences that needs to be sampled. After profiling is started by the user, the profiling stops and calls user provided callback when:</p>
-<p>a. Number of samples requested by user has been collected.</p>
-<p>b. User explicitly stops profiling
-   In this case, the number of samples collected might be less than that requested during profiling handle creation.</p>
-<p>After the profiling is stopped, the user can again call start profiling using the same handle. The behavior of the infra will be as if the handle is being triggered for the first time.</p>
-<p>Refer to section <code>ProfilingHandle</code>_ for HPP API interface.</p>
-<p>Note in the APIs how at the creation of profiling handle, the user needs to be aware of the program needs to be profiled. Only 1 program can be profiled by a given profiling handle. If user wants to profile multiple programs, multiple profiling handles needs to be created, one for each program.</p>
-<h4 id="duration-based-profiling">Duration based profiling<a class="headerlink" href="#duration-based-profiling" title="Permanent link">&para;</a></h4>
-<p>Alias: Stream profiling</p>
-<p>When user creates a profiling handle of type duration based profiling or stream profiling, the user needs to specify:</p>
-<ol>
-<li>Reporting rate,</li>
-<li>Sampling rate,</li>
-<li>Callback,</li>
-<li>RegEx, and</li>
-<li>Type of profiling output type i.e. latency or trace.</li>
-</ol>
-<p>Notice how there is no condition to specify when profiling should automatically end, hence once the user calls start profiling, the samples are collected till user explicitly calls stop profiling.
-Also, we do not specify which program we want to profile. We add and remove programs at runtime (even after profiling has started) using appropriate API. Hence, allowing more than one program to be profiled by same profiling handle.</p>
-<h5 id="reporting-rate">Reporting Rate<a class="headerlink" href="#reporting-rate" title="Permanent link">&para;</a></h5>
-<p>The profiling callbacks are called at every reporting rate boundary, i.e. suppose the reporting rate set by user is 500ms, and profiling is started at 4seconds and 400ms time-point, the first callback will be called at 4 seconds and 500ms time-point (not the callback did not get called after 500ms but at 500ms boundary).
-Next callback at 5 seconds time-point and then at 5 seconds 500ms time-point and so on.
-The callback contains profiling data for inferences that took place between the last report and the current report.</p>
-<h5 id="sampling-rate">Sampling rate<a class="headerlink" href="#sampling-rate" title="Permanent link">&para;</a></h5>
-<p>User may not be interested in performance of each and every inference, they may want to just get an over view of the performance and hence can choose to record data for every - second, fourth, eighth or sixteenth inference using the sampling rate knob.</p>
-<h5 id="regex">RegEx<a class="headerlink" href="#regex" title="Permanent link">&para;</a></h5>
-<p>User may want to profiling all the programs running under the process matching a regular expression say "Resnet50*". If the user creates a profiling handle with a specific regular expression, any new program created, whose name passes the regEx filter, will automatically start getting profiled.
-Once the program is released by the user, it automatically is also removed from the profiling handle's list of programs.</p>
-<p>Note: Addition/removal of program can lead to a report generation getting delayed or preponed.
-Note: RegEx engine used is ECMAScript.</p>
-<p>Refer to section <code>StreamProfilingHandle</code>_ for HPP API interface.</p>
-<h2 id="device-partitioning-tool">Device Partitioning Tool<a class="headerlink" href="#device-partitioning-tool" title="Permanent link">&para;</a></h2>
-<hr />
-<p>Device partitioning is a virtualization technique for Qualcomm AIC 100 card that creates a Shadow device with discrete set of resources on the native
-device. The Shadow Device is tied to a "Resource Group Reservation" made by the application and is presented with Device id(QID) greater than 100 [Eg: QID 100].
-The Shadow Device is allowed to use only the pre-reserved set of resources tied to its reservation and is non-persistent in nature.</p>
-<p>Either of the below two scenarios will destroy the device and release the resources associated with it.
-  a. The device would be destroyed when the Resource Group Reservation is
-     released by application either explicitly or when the application dies.
-  b. A hard reset is performed on the device.</p>
-<p>Below listed are the set of resources that are available for reservation under
-"Resource Group"
-  - Neural Signal Processors(NSP)
-  - Multicast IDs (MCID)
-  - Virtual Channels for DMA data
-  - Device Semaphores
-  - Device Memory (DDR, L2)</p>
-<p>qaic-dev-partition, is an application tool to create the Shadow Device(s) with the specified set of device resources.</p>
-<p>Since the device allocation is non-persistent in nature, below use cases are UNSUPPORTED as they may invalidate the QID
-allocated by an already existing instance of application.
-1. Multiple instances of qaic-dev-partition tool.
-2. Hotplug a QAic device when there is a active qaic-dev-partition.</p>
-<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
-<hr />
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/opt/qti-aic/tools/qaic-dev-partition<span class="w"> </span>-h
+<h1 id="model-sharding">Model Sharding<a class="headerlink" href="#model-sharding" title="Permanent link">&para;</a></h1>
+<p>Cloud AI SDK enables model sharding which provides the benefits of running larger models and improve throughput/latency/batch-size support across SoCs/Cards connected to the same host. Topologies supported are with or without a PCIe switch. Cards connected to a PCIe switch with peer-to-peer communication enabled provide the best performance. </p>
+<h2 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h2>
+<p>There are 2 primary use cases of model sharding via tensor slicing. </p>
+<ul>
+<li>Execute models that do not fit in the memory footprint of a single SoC. </li>
+<li>Optimize performance (latency/throughput) for models that can fit within a single SoC but still benefit from tensor-slicing.  </li>
+</ul>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<p>For tensor slicing to achieve the best performance (latency/throughput), the server architecture in particular, accelerator card inter-connect performance is critical. The image below shows 8 <em>AI 100 Ultra accelerator cards</em> connected via a PCIe switch to the host. There are two approaches regarding card-to-card communication.  </p>
+<ul>
+<li>P2P communication between the cards through a PCIe switch. This architecture provides the best performance. </li>
+<li>Multi-device through host: Card to card communication happens through the host. This approach will have inferior performance compared to P2P.  </li>
+</ul>
+<p>This sample configuration allows model sharding via tensor slicing across 8 cards (typically used for &gt; 15B parameter models).     </p>
+<p><a class="glightbox" href="../../../images/multi_device_arch.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/multi_device_arch.png" /></a></p>
+<h3 id="tensor-slicing">Tensor Slicing<a class="headerlink" href="#tensor-slicing" title="Permanent link">&para;</a></h3>
+<p>Model operations are split across muliple SoCs (maximum across 16 SoCs in P2P config). The image provides a sample graph execution that is tensor sliced across 4 AI 100 accelerator cards. As seen from the image, there is a lot of inter-card traffic across models layers. Inter-card data bandwidth available plays a critical role in the performance. Hence, the need to enable P2P inter-card communication via PCIe switch. 
+The AI 100 Ultra card has a PCIe switch between the 4 SoCs on the card. In a server with many AI 100 accelerators the PCIe hierarchy plays a critical role in the performance.  </p>
+<p><a class="glightbox" href="../../../images/tensor_slicing_eg.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/tensor_slicing_eg.png" /></a></p>
+<h2 id="platform-setup">Platform setup<a class="headerlink" href="#platform-setup" title="Permanent link">&para;</a></h2>
+<h3 id="pre-requisites">Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Host should be able to support large BAR sizes. Each AI 100 accelerator card requires 2+ GB of BAR space per SoC.  </li>
+<li>BAR region 4 for <em>every</em> AI 100 SoC is 2G (<strong>size=2G</strong> as shown below).<br />
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>lspci -s &lt;PCIe address of AI 100 SoC&gt; -vv | grep &quot;Region 4&quot;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Region 4: Memory at xyz (64-bit, prefetchable) [size=2G]
 </code></pre></div>
-<h3 id="create-and-test-the-shadow-devices">Create and Test the Shadow Device(s)<a class="headerlink" href="#create-and-test-the-shadow-devices" title="Permanent link">&para;</a></h3>
-<hr />
-<h4 id="1-create-the-shadow-device">1. Create the Shadow device<a class="headerlink" href="#1-create-the-shadow-device" title="Permanent link">&para;</a></h4>
-<p>Launch the qaic-dev-partition utility as a daemon, either in foreground or background to keep
-   the Shadow device alive.</p>
-<p>To request resource reservation using the QPC file on Device-id 2</p>
-<div class="highlight"><pre><span></span><code>  sudo qaic-dev-partition -q &lt;path to qpc&gt;/programqpc.bin -d 2
+    If the region 4 for every SoC is not 2G, contact your System Integrator.</li>
+</ul>
+<h3 id="card-configuration">Card configuration<a class="headerlink" href="#card-configuration" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Disable PCIe Switch ACS to enable P2P communication between PCIe ports. See instructions <a href="https://github.com/quic/cloud-ai-sdk/tree/1.12/utils/multi-device">here</a>. </p>
+</li>
+<li>
+<p>Enable multi-device partitioning on all the SoCs. 
+    Download enable_mdp.json from <a href="https://github.com/quic/cloud-ai-sdk/tree/1.12/utils/multi-device">here</a>. 
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>systemd-run --unit=qmonitor-proxy /opt/qti-aic/tools/qaic-monitor-grpc-server
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/opt/qti-aic/tools/qaic-monitor-json -i enable_mdp.json​ 
+</code></pre></div></p>
+<p>Reset all the SoCs in the server.<br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo /opt/qti-aic/tools/qaic-util -s
 </code></pre></div>
-<p>To request resource reservation using json config file:</p>
-<div class="highlight"><pre><span></span><code>  sudo qaic-dev-partition -p &lt;path_to_json_config&gt;
+3. Verify that multi-device partitioning (MDP) feature is enabled for <strong>all</strong> devices.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/opt/qti-aic/tools/qaic-util -q | grep MDP
 </code></pre></div>
-<p>Multiple reservations can be created through json configuration. The first resource set is allotted QID 100,
-   and QID is incremented by 1 for every resource set listed thereafter.</p>
-<h4 id="2-verify-the-derived-device-creation">2. Verify the Derived device creation:<a class="headerlink" href="#2-verify-the-derived-device-creation" title="Permanent link">&para;</a></h4>
-<p>Run qaic-util tool to list the newly generated device. Typically the
-   Shadow devices have QID &gt;= 100. Note that PCI fields are invalid with dummy values as it is an
-   emulated device, and PCI Hardware attributes are not applicable.
-   Example: <code>sudo qaic-util -q -d 101</code></p>
-<h4 id="3-destroy-the-device">3. Destroy the device.<a class="headerlink" href="#3-destroy-the-device" title="Permanent link">&para;</a></h4>
-<p>On killing the utility the Shadow device should disappear and one may verify that the resources are added
-   back to the native device's resource pool.</p>
-<p>Example configuration files are present in <code>/opt/qti-aic/test-data/json/qaic-dev-partition</code></p>
-<h3 id="partition-device-configuration">Partition Device Configuration<a class="headerlink" href="#partition-device-configuration" title="Permanent link">&para;</a></h3>
-<hr />
-<p>Alias names: Partition Device/ Shadow Device/Derived Device.</p>
-<p>Documentation uses the term "Derived Device". The starting Device ID for Derived Device(s) is QID 100.
-Multiple Shadow/Derived devices can be created on the same QAIC device.
-Each shadow device would have unique QID and Dev link assigned as shown below.</p>
-<p>Example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Parent device:  QID 17
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>                Dev Link: /dev/qaic_aic100_15
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Shadow devices for QID 17
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> QID 112 :
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>           Dev Link : /dev/qaic_aic100_31
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>     Parent Dev Link: /dev/qaic_aic100_15
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a> QID 113 :
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>           Dev Link : /dev/qaic_aic100_33
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>     Parent Dev Link: /dev/qaic_aic100_15
+<code>MDP+</code> indicates that multi-device feature is enabled on the device. </p>
+</li>
+</ol>
+<h2 id="compilation">Compilation<a class="headerlink" href="#compilation" title="Permanent link">&para;</a></h2>
+<p>Model partitioning across multiple devices is done by the compiler. The user is required to specify the number of SoCs/devices and the connectivity between the devices. Here a few examples of the device partition config files based on the connectivity and number of devices. The device partition config file is passed to the compiler <code>qaic-exec</code> CLI. </p>
+<p>Example 1: Model, tensor sliced across 4 SoCs with P2P communication between the SoCs. 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mdp_4soc_p2p.json 
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>{
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    &quot;connections&quot;: [
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        {
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>            &quot;devices&quot;: [0,1,2,3],
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>            &quot;type&quot;: &quot;p2p&quot;
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        }
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    ],
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    &quot;partitions&quot;: [
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        {
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>            &quot;name&quot;: &quot;Partition0&quot;,
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>            &quot;devices&quot;: [
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>                {
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>                    &quot;deviceId&quot;: 0,
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>                    &quot;numCores&quot;: 16
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>                },
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>                {
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>                    &quot;deviceId&quot;: 1,
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>                    &quot;numCores&quot;: 16
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>                },
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>                {
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>                    &quot;deviceId&quot;: 2,
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>                    &quot;numCores&quot;: 16
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>                },
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>                {
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>                    &quot;deviceId&quot;: 3,
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>                    &quot;numCores&quot;: 16
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>                }
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>            ]
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>        }
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>    ]
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>}
+</code></pre></div></p>
+<p>Example 2: Model, tensor sliced across 2 SoCs with communication through the host between the SoCs. If no <code>connections</code> are defined, the conectivity is assumed to be through the host</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mdp_2soc_host.json 
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>{
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    &quot;partitions&quot;: [
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        {
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>            &quot;name&quot;: &quot;Partition0&quot;,
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            &quot;devices&quot;: [
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>                {
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>                    &quot;deviceId&quot;: 0,
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>                    &quot;numCores&quot;: 16
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>                },
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>                {
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>                    &quot;deviceId&quot;: 1,
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>                    &quot;numCores&quot;: 16
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>                }
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>            ]
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>        }
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    ]
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>}
 </code></pre></div>
+<p>To compile the model with the tensor sliced configurations, pass the device paritioning config file to <code>qaic-exec</code> using <code>mdp-load-partition-config</code> flag as shown below. </p>
+<pre>
+/opt/qti-aic/exec/qaic-exec \
+    -m=$model_path \
+    -aic-hw \
+    -aic-hw-version=2.0 \
+    -network-specialization-config=specializations.json \
+    -retained-state \
+    -convert-to-fp16 \
+    -aic-num-cores=${CORES} \
+    -custom-IO-list-file=${model_name}/custom_io.yaml \
+    -compile-only \
+    -aic-binary-dir=qpc/${model_name}-${BS}bs-${PL}pl-${CL}cl-${CORES}c-${SOCS}soc-${MX} \
+    <b>-mdp-load-partition-config=mdp.json</b>
+</pre>
+
+<h2 id="execution">Execution<a class="headerlink" href="#execution" title="Permanent link">&para;</a></h2>
+<p>Refer to <a href="https://github.com/quic/cloud-ai-sdk/tree/1.12/models/language_processing/decoder/LlamaForCausalLM#multi-soc-1">Cloud-ai-sdk</a> example for executing inference on multi-SoCs. </p>
+<h2 id="recommendations">Recommendations<a class="headerlink" href="#recommendations" title="Permanent link">&para;</a></h2>
+<p>For very large models which are compiled for inter-SoC communication through the host, the host memory requirements can be large. If inference fails due to host or device resource exhaustion, try below options. </p>
+<ul>
+<li>
+<p>Increase the maximum number of memory mappings allowed for a process from the default value of 65k 
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo bash -c &quot;sysctl -w &#39;vm.max_map_count=2048000&#39;&quot;
+</code></pre></div>
+    Verify the new setting using 
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cat /proc/sys/vm/max_map_count
+</code></pre></div></p>
+</li>
+<li>
+<p>Increase system memory (RAM) to 1TB and CPU count to 32 cores or higher. </p>
+</li>
+</ul>
 
 
 
@@ -2231,7 +2082,7 @@ Each shadow device would have unique QID and Dev link assigned as shown below.</
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../example/" class="md-footer__link md-footer__link--prev" aria-label="Previous: InferenceSet IO Example" rel="prev">
+          <a href="../custom_ops/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Operations (C++)" rel="prev">
             <div class="md-footer__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
@@ -2240,20 +2091,20 @@ Each shadow device would have unique QID and Dev link assigned as shown below.</
                 Previous
               </span>
               <div class="md-ellipsis">
-                InferenceSet IO Example
+                Custom Operations (C++)
               </div>
             </div>
           </a>
         
         
           
-          <a href="../runtime/" class="md-footer__link md-footer__link--next" aria-label="Next: Runtime" rel="next">
+          <a href="../../System-Management/system-management/" class="md-footer__link md-footer__link--next" aria-label="Next: System Management" rel="next">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Runtime
+                System Management
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2316,13 +2167,13 @@ Each shadow device would have unique QID and Dev link assigned as shown below.</
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
-          <script src="../../javascripts/mathjax.js"></script>
+          <script src="../../../javascripts/mathjax.js"></script>
         
       
         

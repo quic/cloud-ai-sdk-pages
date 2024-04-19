@@ -1,0 +1,2619 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.12/Getting-Started/Features/custom_ops/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../model_sharding/">
+      
+      <link rel="icon" href="../../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>Custom Operations (C++) - Cloud AI 100</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+  
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--<type>:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.75 7.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"/><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"/></svg>');}</style>
+
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#custom-operations-c" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cloud AI 100
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Custom Operations (C++)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../API/" class="md-tabs__link">
+        API
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../FAQ/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/" class="md-tabs__link">
+        Blogs
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Cloud AI 100
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../">User Guide</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Quick-Start-Guide/">Quick Start Guide</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          Quick Start Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Installation/">Installation</a>
+          
+            <label for="__nav_1_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Installation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Checklist/checklist/" class="md-nav__link">
+        Checklist
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
+        Pre-requisites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
+        Cloud AI SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Hypervisors/hypervisor/" class="md-nav__link">
+        Hypervisors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Docker/Docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/AWS/aws/" class="md-nav__link">
+        AWS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Inference-Workflow/">Inference Workflow</a>
+          
+            <label for="__nav_1_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Inference Workflow
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_2" id="__nav_1_4_2_label" tabindex="0">
+          Export the Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Export the Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
+        Exporting ONNX Model from Different Frameworks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
+        Operator and Datatype support
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
+        Introduction to the Model Preparator Tool
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_3" id="__nav_1_4_3_label" tabindex="0">
+          Compile the Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Compile the Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-compilation/Compile-the-Model/" class="md-nav__link">
+        Compile the Model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-compilation/Tune-performance/" class="md-nav__link">
+        Tune Performance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_4" id="__nav_1_4_4_label" tabindex="0">
+          Execute the QPC
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Execute the QPC
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
+        Model Execution
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
+        Inference Profiling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
+        Triton Inference Server
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Model-Architecture-Support/">Model Architecture Support</a>
+          
+            <label for="__nav_1_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          Model Architecture Support
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_5_2" id="__nav_1_5_2_label" tabindex="0">
+          Large-Language-Models
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_5_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Large-Language-Models
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
+        Large Language Models (LLMs)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" checked>
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Features</a>
+          
+            <label for="__nav_1_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_2" checked>
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_2" id="__nav_1_6_2_label" tabindex="0">
+          Custom Ops
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_1_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Custom Ops
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Custom Operations (C++)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Custom Operations (C++)
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operations-workflow" class="md-nav__link">
+    Custom Operations workflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operation-package" class="md-nav__link">
+    Custom Operation package
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-a-custom-operation" class="md-nav__link">
+    Modeling a custom operation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-file" class="md-nav__link">
+    Configuration File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-operation-functions" class="md-nav__link">
+    Custom Operation Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verification-function" class="md-nav__link">
+    Verification Function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shape-inference-function" class="md-nav__link">
+    Shape Inference Function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-function" class="md-nav__link">
+    Selection Function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-operation-implementations" class="md-nav__link">
+    Custom Operation Implementations
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpreter-implementation" class="md-nav__link">
+    Interpreter Implementation
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreter Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-information-and-implementations" class="md-nav__link">
+    Configuration information and implementations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aic-implementation" class="md-nav__link">
+    AIC Implementation
+  </a>
+  
+    <nav class="md-nav" aria-label="AIC Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-information-and-aic-implementations" class="md-nav__link">
+    Configuration information and AIC implementations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-tiled-custom-ops" class="md-nav__link">
+    Writing tiled custom ops
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requesting-scratch-memory" class="md-nav__link">
+    Requesting scratch memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-configuration-for-the-aic-backend" class="md-nav__link">
+    Memory configuration for the AIC backend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronize-threads-on-the-aic-backend" class="md-nav__link">
+    Synchronize threads on the AIC backend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-messages-on-aic-backend" class="md-nav__link">
+    Logging messages on AIC backend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datatype-support" class="md-nav__link">
+    Datatype support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capabilities-and-limitations" class="md-nav__link">
+    Capabilities and limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qualcomm-hexagon-hvx-documentation" class="md-nav__link">
+    Qualcomm Hexagon HVX documentation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    Compilation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_3" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_3" id="__nav_1_6_3_label" tabindex="0">
+          Model Sharding
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Model Sharding
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_sharding/" class="md-nav__link">
+        Model Sharding
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
+          System Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          System Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../System-Management/system-management/" class="md-nav__link">
+        System Management
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_8" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Architecture/">Architecture</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_9" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Glossary/">Glossary</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          Glossary
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../API/">API</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          Python API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Python API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaic/qaic/" class="md-nav__link">
+        Inference API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaicrt/class_util/" class="md-nav__link">
+        Util API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+          CPP API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          CPP API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/example/" class="md-nav__link">
+        InferenceSet IO Example
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/features/" class="md-nav__link">
+        Features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/runtime/" class="md-nav__link">
+        Runtime
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+          ONNXRT API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          ONNXRT API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
+        QAIC execution provider
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../FAQ/">FAQ</a>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Blogs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Blogs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/" class="md-nav__link">
+        Train anywhere, Infer on Qualcomm® Cloud AI 100
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Microscaling/microscaling/" class="md-nav__link">
+        Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Speculative_Decode/spec_decode_ai100/" class="md-nav__link">
+        Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Text_Embeddings/" class="md-nav__link">
+        Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/AmberChat/" class="md-nav__link">
+        Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operations-workflow" class="md-nav__link">
+    Custom Operations workflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operation-package" class="md-nav__link">
+    Custom Operation package
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-a-custom-operation" class="md-nav__link">
+    Modeling a custom operation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-file" class="md-nav__link">
+    Configuration File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-operation-functions" class="md-nav__link">
+    Custom Operation Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verification-function" class="md-nav__link">
+    Verification Function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shape-inference-function" class="md-nav__link">
+    Shape Inference Function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-function" class="md-nav__link">
+    Selection Function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-operation-implementations" class="md-nav__link">
+    Custom Operation Implementations
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpreter-implementation" class="md-nav__link">
+    Interpreter Implementation
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreter Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-information-and-implementations" class="md-nav__link">
+    Configuration information and implementations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aic-implementation" class="md-nav__link">
+    AIC Implementation
+  </a>
+  
+    <nav class="md-nav" aria-label="AIC Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-information-and-aic-implementations" class="md-nav__link">
+    Configuration information and AIC implementations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-tiled-custom-ops" class="md-nav__link">
+    Writing tiled custom ops
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requesting-scratch-memory" class="md-nav__link">
+    Requesting scratch memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-configuration-for-the-aic-backend" class="md-nav__link">
+    Memory configuration for the AIC backend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronize-threads-on-the-aic-backend" class="md-nav__link">
+    Synchronize threads on the AIC backend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-messages-on-aic-backend" class="md-nav__link">
+    Logging messages on AIC backend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datatype-support" class="md-nav__link">
+    Datatype support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capabilities-and-limitations" class="md-nav__link">
+    Capabilities and limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qualcomm-hexagon-hvx-documentation" class="md-nav__link">
+    Qualcomm Hexagon HVX documentation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    Compilation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="custom-operations-c">Custom Operations (C++)<a class="headerlink" href="#custom-operations-c" title="Permanent link">&para;</a></h1>
+<p>Custom operation allows users to add an operation into the graph, which is unknown to Cloud AI (aka QAic) Compiler. For example, a certain graph is not part of the operation set supported for the various models that the compiler knows to load and compile.  As will be described later in the page, with custom operations, users can <em>register</em> a new operation prior to loading/defining the graph, and then use this new operation in the new graph created. QAic Compiler will use the registration information to create a Graph which can be compiled.</p>
+<p><a class="glightbox" href="../../../images/custom_ops/custom_operations_1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../images/custom_ops/custom_operations_1.png" /></a></p>
+<p>As an example, ONNX node definition supports <strong>Domains</strong>. A user can create an ONNX model file which has nodes that come from the non-default domain, register these nodes definition in QAic Compiler.</p>
+<h2 id="custom-operations-workflow">Custom Operations workflow<a class="headerlink" href="#custom-operations-workflow" title="Permanent link">&para;</a></h2>
+<p>There are three high-level stages to create and work with a custom operation.</p>
+<p><a class="glightbox" href="../../../images/custom_ops/custom_operations_2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../images/custom_ops/custom_operations_2.png" /></a></p>
+<p>The first stage is to create the custom operation in one of the machine learning frameworks (such as pyTorch, TensorFlow, Caffe2, and so on). After creating this operation, it is added to a machine learning model and the model is trained. The resulted model trained is stored for inference -
+either as ONNX file, Torchscript, TensorFlow savedmodel, or else. For each framework/trained-model, the way to specify a custom operation is a bit different, and as such the way QAic Compiler knows to identify the custom operation varies. Current version supports Custom Operations for ONNX Models. More details on it below.</p>
+<p>The second stage is to prepare a package for the custom operation/s, which contains:</p>
+<ul>
+<li>The information needed for QAic Compiler to integrate the operations in the ML graph.</li>
+<li>Implementations to be used when compiling the graph to a binary. The content of this stage is explained in details on next sections.</li>
+</ul>
+<p>The third stage is compilation. In order to compile a model that has the custom operation inside, the operation package needs to be registered first. After successful registration, the model can be loaded and compiled using <strong>qaic-exec</strong>.</p>
+<h2 id="custom-operation-package">Custom Operation package<a class="headerlink" href="#custom-operation-package" title="Permanent link">&para;</a></h2>
+<p>The custom operations package is prepared by the developer, and contains all files needed to register operations within the compiler. Custom operations package is tagged with a version number to ensure that users custom op package is compatible with the installed Apps SDK.</p>
+<p>As described in previous section, the developer created a custom operation in a machine learning framework, and used it to train a model, and export a model with this custom op. The files in the custom operations package are used by the QAic Compiler to compile that model into a binary.</p>
+<p>The drawing below shows the content of a package, and the next sections describe each component in details.</p>
+<p><a class="glightbox" href="../../../images/custom_ops/custom_operations_4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../images/custom_ops/custom_operations_4.png" /></a></p>
+<p>Briefly:</p>
+<ul>
+<li>
+<p>The configuration file describes the version number, custom operations and related files, and is used by the QAic Compiler to bootstrap the package, registering its content within the compiler.</p>
+</li>
+<li>
+<p>Custom Op Function files (<code>Foo1OpFunc.so</code>, <code>Foo2OpFunc.so</code>) contain utility functions used by the compiler during compilation of the model.</p>
+</li>
+<li>
+<p>Implementation files contain the implementations of the operations for different compilation targets. Also, per operation it is possible to provide multiple implementations (selected by the <code>selection</code> function - see below).</p>
+</li>
+</ul>
+<p>Although the custom op package can be written as described in the next sections, it is recommended to use the utility script provided here - <em>/opt/qti-aic/tools/custom-op/gen_custom_op_package.py</em> to generate skeleton structure of the above described custom op package. Script takes in a ONNX or Tensorflow model and generates package for each custom operation present in the input model. For more details run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python3 /opt/qti-aic/tools/custom-op/gen_custom_op_package.py --help
+</code></pre></div>
+<p>After the skeleton code is generated for custom ops, user needs to write the necesary functionality that is specific to custom op, like the the kernel, verification, selection, shape inference function as described in the next sections.</p>
+<h3 id="modeling-a-custom-operation">Modeling a custom operation<a class="headerlink" href="#modeling-a-custom-operation" title="Permanent link">&para;</a></h3>
+<p>To better understand the content of the package, this section briefly discusses what is needed to model any machine learning operation, so that it can be placed in a graph and compiled. The folloiwng drawing shows modeling of one operation.</p>
+<p><a class="glightbox" href="../../../images/custom_ops/custom_operations_5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../images/custom_ops/custom_operations_5.png" /></a></p>
+<p><strong>Operation Info</strong> block represents the modeling of the operation itself as a <em>black box</em> which needs to be connected inside a graph. In order to do that, need to provide basic information on the operation (name, type), as well as describing the inputs, outputs and parameters of the operation.</p>
+<p><a class="glightbox" href="../../../images/custom_ops/custom_operations_6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../images/custom_ops/custom_operations_6.png" /></a></p>
+<p>Any operation in a machine learning graph (not just custom operations) can be modeled by defining its set of inputs, outputs and parameters. The inputs and outputs are tensors. Inputs come from the operations before this one, and outputs are the tensors created by the operation, and provided to the operation/s that come afterwards. For the inputs and outputs, the developer needs to specify the maximal rank supported by the operation. The actual values per dimension will be populated by the compiler during graph creation Parameters are the constant values provided to the operation as part of the configuration: for example, kernel size, alpha value, and so on. Parameters can be scalar (single value) or a vector of values.</p>
+<p>In addition to the Operation Info, the modeling of the operation includes a collection of utility functions and implementations.</p>
+<p><strong>Utility functions</strong> help the compiler during the compilation. The developer is required to implement the following functions.</p>
+<ul>
+<li>
+<p>Verification function: receives a set of inputs, outputs and parameters, populated with actual values that the operation is going to work on. The function should validate that the values are correct and the operation can support this combination.</p>
+</li>
+<li>
+<p>Shape inference function: receives a set of inputs and parameters, populated with actual values that the operation is going to work on. The function is doing shape inference of the outputs: for example, it returns what will be the tensor size on each dimension.</p>
+</li>
+<li>
+<p>Selection function: receives a set of inputs, outputs and parameters, populated with actual values that the operation is going to work on. In addition it receives the compilation target (AIC or Interpreter). The function returns a string containing the name of the adequate implementation to use for this configuration. More details on that below.</p>
+</li>
+</ul>
+<h3 id="configuration-file">Configuration File<a class="headerlink" href="#configuration-file" title="Permanent link">&para;</a></h3>
+<p>The configuration file is part of the custom operation package provided by the developer. There is a single configuration file which provides the required information for all operations in package. The file is YAML formatted. Below is an example of a configuration file for a single operation.</p>
+<p><a class="glightbox" href="../../../images/custom_ops/custom_operations_7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../images/custom_ops/custom_operations_7.png" /></a></p>
+<p>Configuration file contains a <code>version</code> number which indicates the custom op package version. It is used by the compiler to verify compatibility of custom op pakage and the installed Apps SDK.</p>
+<p>Operations are described in <code>CustomOps</code> section. Each operation section has the following:</p>
+<ul>
+<li>
+<p>Operation Info, defining the operation <code>name</code>, <code>type</code>, <code>inputs</code>, <code>outputs</code> and <code>params</code>.</p>
+</li>
+<li>
+<p>For each input / output, the relevant fields are the <code>name</code> and <code>maxDims</code> (maximal rank of the tensor)</p>
+</li>
+<li>
+<p>For input, there is also optional constant field, which can be true/false, to indicate if it is a constant.</p>
+</li>
+<li>
+<p>For each param, the relevant fields are <code>name</code>, <code>datatype</code> (bool/float/int), <code>scalar</code> (true/false).</p>
+</li>
+<li>
+<p>If param <code>scalar</code> field is <code>false</code>, meaning this is an array (1d vector), and then need to provide <code>size</code>.</p>
+</li>
+<li>
+<p>Optionally, user can request for scratch memory which can be used to store and load intermediate computations inside the kernel.</p>
+</li>
+<li>
+<p>Location of the custom operation functions</p>
+</li>
+<li>
+<p>Implementations</p>
+</li>
+</ul>
+<p>The information provided per implementation is:</p>
+<ul>
+<li>
+<p>target <code>Backend</code>.</p>
+</li>
+<li>
+<p><code>type</code>: used by the backend during selection process (see explanation next).</p>
+</li>
+<li>
+<p><code>impl</code>: location of the implementation file.</p>
+</li>
+<li>
+<p><code>config</code> (optional): additional information on this implementation, to be used by the backend.</p>
+</li>
+<li>
+<p><code>compilerArgs</code> (optional): hexagon-clang compiler options specific to the AIC backend implementation. This can be used to specify additional include directories, compile time MACROS, and so on. User is responsible for passing valid compilation options using this field.</p>
+</li>
+</ul>
+<p>The configuration file can provide the information for multiple operations. in this case, each operation is defined in a separated YAML section. Below is an example for how such configuration file would look like.</p>
+<p><a class="glightbox" href="../../../images/custom_ops/custom_operations_8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../images/custom_ops/custom_operations_8.png" /></a></p>
+<h3 id="custom-operation-functions">Custom Operation Functions<a class="headerlink" href="#custom-operation-functions" title="Permanent link">&para;</a></h3>
+<p>The developer is required to provide a shared library which has three functions: Verification, Shape inference, and selection. The path to the shared library, as well as the library name, is specified in <code>functionsLibrary</code> field of the configuration file.</p>
+<p>The API of these functions is C, and defined in <em>CustomOpFunctions.h</em>. The types used are defined in <em>CustomOpTypes.h</em>.</p>
+<h4 id="verification-function">Verification Function<a class="headerlink" href="#verification-function" title="Permanent link">&para;</a></h4>
+<p>The verification function is used by the compiler at graph construction stage, to validate that the custom operation implementation supports the combination of inputs, outputs, and parameters.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{C++}
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>   bool customOpVerify(CustomOpIOTensor *inputs, int32_t numInputs,
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>                       CustomOpIOTensor *outputs, int32_t numOutputs,
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                       CustomOpParam *params, int32_t numParams)
+</code></pre></div>
+<h4 id="shape-inference-function">Shape Inference Function<a class="headerlink" href="#shape-inference-function" title="Permanent link">&para;</a></h4>
+<p>The shape inference function is used by the compiler at graph construction stage to receive the output dimensions expected by the custom operation.</p>
+<p>In some models, specifying the output dimensions is optional. As such, the compiler has no way to known what will be the output dimensions of a custom operation (for internal known operations, it has shape inference functions).</p>
+<p>The function receives the input dimensions and parameters, and is expected to fill in the correct output dimensions.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>{C++}
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>   bool customOpInferShape(CustomOpIOTensor *outputs, const int32_t numOutputs,
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                           const CustomOpIOTensor *inputs, const int32_t numInputs,
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                           const CustomOpParam *params, const int32_t numParams)
+</code></pre></div>
+<h4 id="selection-function">Selection Function<a class="headerlink" href="#selection-function" title="Permanent link">&para;</a></h4>
+<p>By design, the Custom Op functionality allows user to provide multiple implementations suitable for different configurations.</p>
+<p>For example, provide implementation for float vs one for integer, provide specialized implementation for specific parameter value, and so on.</p>
+<p>The developer implements this function to return the adequate <em>flavor</em> of custom op implementation based on the node configuration (inputs, outputs, parameters) The returned string represents the flavor. Used by the Backend Op repository to select the proper implementation based on configuration info (see details on config info).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{C++}
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>   const char \*customOpSelectImpl(CustomOpIOTensor *inputs, int32_t numInputs,
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>                                   CustomOpIOTensor *outputs, int32_t numOutputs,
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                                   CustomOpParam *params, int32_t numParams,
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                                   const char *backend)
+</code></pre></div>
+<h3 id="custom-operation-implementations">Custom Operation Implementations<a class="headerlink" href="#custom-operation-implementations" title="Permanent link">&para;</a></h3>
+<p>The developer is required to provide suitable implementations for the compilation targets (Interpreter, AIC) and correctly register them in the configuration file.</p>
+<p>This section describes the implementations signatures and relation with the configuration file. The SDK comes with custom op examples which show how such implementations look like, and how do they get build</p>
+<h4 id="interpreter-implementation">Interpreter Implementation<a class="headerlink" href="#interpreter-implementation" title="Permanent link">&para;</a></h4>
+<p>The interpreter implementation is provided to the compiler as a shared library (or collection of shared libraries). Each shared library can contain multiple versions (flavors) of implementations of the operation, refered onwards as <em>kernels</em>. A kernel is selected at model compilation time by the selection function. The developer is responsible for compilation of these shared libraries. As the interface is C, the shared libraries can be compiled by various compilers (GCC, CLANG, and so on). In addition, as these shared libraries are running on the Host CPU, the developer can open files, dump results, use stdout/stderr for printing debug messages, and so on. This makes the Interpreter implementation a very effective way for debugging the operation functionality as part of model execution.</p>
+<p>The signature of the kernel (implementation) is generic, and fits any custom operation. It contains array of input tensors, array of output tensors, array of parameters and a pointer to custom op context.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{C++}
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>   typedef void (*customOpInterpreterKernel_t)(
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>                  CustomOpIOTensor *inputs, int32_t numInputs,
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>                  CustomOpIOTensor *outputs, int32_t numOutputs,
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>                  CustomOpParam *params, int32_t numParams,
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>                  CustomOpContext *ctx)
+</code></pre></div>
+<ul>
+<li>
+<p>The signature is defined in <em>/opt/qti-aic/dev/inc/CustomOpInterpreterInterface.h</em></p>
+</li>
+<li>
+<p>The relevant types defined in <em>/opt/qti-aic/dev/inc/CustomOpTypes.h</em></p>
+</li>
+<li>
+<p>CustomOpContext is defined in <em>/opt/qti-aic/dev/inc/CustomOpContext.h</em></p>
+</li>
+</ul>
+<p>Note that the order of inputs, outputs and parameters has to match the order defined in the configuration file. During the model compilation, the compiler is organizing the inputs, outputs and params passed to the kernel based on that order.</p>
+<p>When creating an implementation, the developer needs to create a kernel (or multiple kernels) which has the signature as above and compile it into a shared library. For example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>{C++} 
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>   void customFoo (CustomOpIOTensor *inputs, int32_t numInputs,
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>                   CustomOpIOTensor *outputs, int32_t numOutputs,
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>                   CustomOpParam *params, int32_t numParams,
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>                   CustomOpContext *ctx) {
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>   // Foo implementation is here
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>   }
+</code></pre></div>
+<p>The next section explains how the mapping between library / kernel name and compile-time selection is happening.</p>
+<h5 id="configuration-information-and-implementations">Configuration information and implementations<a class="headerlink" href="#configuration-information-and-implementations" title="Permanent link">&para;</a></h5>
+<p>The Compiler uses the information in the <em>implementations</em> section of the configuration file, together with the developers provided selection function, to allocate the proper implementation/kernel and use it. When the target is interpreter, and the compiler encounters a custom operation, it does the following:</p>
+<ul>
+<li>
+<p>Calls the selection function.</p>
+</li>
+<li>
+<p>Based on returned string, looks for the specific implementation in the <em>implementations</em> section, by trying to make the <code>type</code> field of each.</p>
+</li>
+<li>
+<p>Once found, opens the shared library which appears under <code>impl</code> field.</p>
+</li>
+<li>
+<p>Next, tries to get a function pointer (using <code>dlsym()</code>), using the name specified in type.</p>
+</li>
+</ul>
+<p><a class="glightbox" href="../../../images/custom_ops/custom_operations_9.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../images/custom_ops/custom_operations_9.png" /></a></p>
+<p>As such, developers needs to make sure that the kernel names in the code/shared-library match the string appears in the type field.</p>
+<h4 id="aic-implementation">AIC Implementation<a class="headerlink" href="#aic-implementation" title="Permanent link">&para;</a></h4>
+<p>The AIC implementation is provided as a C/C++ file. Just like in the case of interpreter target, the developer can provide a file (or multiple files) with multiple kernels (implementations) of the custom operation. The AIC compilation target API is similar to the Interpreter API, except for an additional thread identifier, <code>threadId</code>, passed to it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>{C++}
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>   typedef void (*customOpAICKernel_t)(
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>                  const CustomOpIOTensor *inputs, const int32_t numInputs,
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>                  const CustomOpIOTensor *outputs, const int32_t numOutputs,
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>                  const CustomOpParam *params, const int32_t numParams,
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>                  const CustomOpContext *ctx, const int32_t threadID)
+</code></pre></div>
+<p><strong>threadID</strong>: Developer can use up to 4 threads available on the AI Core. When the compiler generates the code, it will call the implementation 4 times, one time from each thread, passing to it the current threadID. This allows the compiler to maximize performance during compilation by taking full advantage of the HW. AIC implementation signature is defined in <em>/opt/qti-aic/dev/inc/CustomOpAICInterface.h</em>.</p>
+<h5 id="configuration-information-and-aic-implementations">Configuration information and AIC implementations<a class="headerlink" href="#configuration-information-and-aic-implementations" title="Permanent link">&para;</a></h5>
+<p>Similarly to the Interpreter target, when compiling to AIC target the Compiler uses the information in the <em>implementations</em> section of the configuration file, together with the developers provided selection function, to allocate the proper implementation/kernel and use it.</p>
+<ul>
+<li>
+<p>Calls the selection function.</p>
+</li>
+<li>
+<p>Based on returned string, looks for the specific implementation in the <em>implementations</em> section, by trying to make the <code>type</code> field of each.</p>
+</li>
+<li>
+<p>Once found, looks for the C/C++ file in <code>impl</code> field.</p>
+</li>
+<li>
+<p>Next, tries to find a kernel using the name specified in <code>type</code>.</p>
+</li>
+</ul>
+<p><a class="glightbox" href="../../../images/custom_ops/custom_operations_10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../images/custom_ops/custom_operations_10.png" /></a></p>
+<h4 id="writing-tiled-custom-ops">Writing tiled custom ops<a class="headerlink" href="#writing-tiled-custom-ops" title="Permanent link">&para;</a></h4>
+<p>Custom operations, by default, are configured to compile and run on one NSP. Custom ops can be configured to run in a tiled manner so that computation, along with inputs and outputs, can be split and distributed across multiple NSPs. Computing on tiled inputs and outputs helps boost performance as computation is split to execute in parallel on multiple NSPs with reduced memory footprint. Steps that should be followed to tile an operation are outlined below.</p>
+<ul>
+<li>
+<p>Specify tilability of each output of the CustomOp. This is done by configuring fields of <code>TileConfig</code> datastructure accessible in <code>customOpSetTileConfig</code> function. This step describes two things:</p>
+</li>
+<li>
+<p>axis along which an output can be sliced to form tiles, and</p>
+</li>
+<li>
+<p>alignment requirement for each axis that should be considered before slicing an output to form a tile. See <em>/opt/qti-aic/dev/inc/CutomOpTileCon8fig.h</em> for details.</p>
+</li>
+<li>
+<p>Provide the mapping of each output tile to its corresponding input tiles using <code>customOpMapTiles</code> function. Compiler uses each outputs <code>TileConfig</code> information to determine its tile size. The tiled outputs are made available in the <code>customOpMapTiles</code> function so that user can provide a mapping of output tiles to corresponding input tiles. For example, if compiler splits each output of a custom op into N tiles then <code>customOpMapTiles</code> will be invoked N times, once per output tile.</p>
+</li>
+</ul>
+<p>If the parameters configured by the user in <code>customOpSetTileConfig</code> and <code>customOpMapTiles</code> are valid then compiler will tile the custom operation, else the op will not be tiled.</p>
+<p><strong>Note</strong>: NSP cores on the AIC hardware do not have a shared memory. So, when an op is tiled, it is important to make sure that all the necessary dependency on inputs to compute a tiled output is mapped accurately in <code>customOpMapTiles</code> function.</p>
+<h4 id="requesting-scratch-memory">Requesting scratch memory<a class="headerlink" href="#requesting-scratch-memory" title="Permanent link">&para;</a></h4>
+<p>Custom operations may require scratch memory to store and load intermediate computations within the kernel. User can request for such scratch memory in the configuration file under <em>Operation Info</em> section by specifying the <code>name</code> and <code>size</code> of the required buffer(s) as follows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>scratchBuffers: 
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  - name: scratchBuf1 
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    size: 1024  # size in bytes.
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  - name: scratchBuf2 
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    size: 2048  # size in bytes.
+</code></pre></div>
+<ul>
+<li>
+<p>Scratch buffers, allocated by the compiler, exist throughout the lifespan of custom op function call, but content is not preserved between calls.</p>
+</li>
+<li>
+<p>Compiler makes an effort to allocate these buffers in the device VTCM. However, its allocation in the VTCM is not gauranteed.</p>
+</li>
+<li>
+<p>Scratch buffers are accessible only within custom op implementation through the <code>CustomOpContext*</code>, which is available to every implementation.</p>
+</li>
+<li>
+<p>Scratch buffers remain untiled even when the custom op is tiled and the scratch buffer size requested by the user is available to each tiled custom op.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>{C++} 
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>   float *buf1 = (float *)customOpContext-&gt;scratchBuffers[0].buf;
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>   int *buf2 = (int *)customOpContext-&gt;scratchBuffers[1].buf;
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>   int buf1Size = customOpContext-&gt;scratchBuffers[0].size;
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>   int buf2Size = customOpContext-&gt;scratchBuffers[1].size;
+</code></pre></div>
+<h4 id="memory-configuration-for-the-aic-backend">Memory configuration for the AIC backend<a class="headerlink" href="#memory-configuration-for-the-aic-backend" title="Permanent link">&para;</a></h4>
+<p>VTCM, DDR and CacheableDDR memory locations are available on the device. <code>memoryConfig</code> in the yaml configuration file can be used to specify a memory placement preference for each input, output and scratch buffer associated with custom op so that compiler can prioritize buffer placement:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>- implementation 
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  - backend: AIC 
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>      type: funcName
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>      impl: fileName.cpp
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>      memoryConfig:
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        #DDR/VTCM/CacheableDDR: [&lt;comma separated list of in/out/scratch names&gt;]
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        DDR: [inName1, outName2]
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        CacheableDDR: [inName2]
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        VTCM: [scratchBufName1]
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        requiredFor: [inName2, scratchBufName1]
+</code></pre></div>
+<p>Three preference lists, <code>VTCM</code>, <code>DDR</code> and <code>CacheableDDR</code>, as shown above, are available. If an input, output, or scratch buffer is listed under <code>VTCM</code> list, compiler will make an effort to place the listed buffer in the devices VTCM location. However, the placement in VTCM is not guaranteed by the compiler. Same holds true for the entries in the rn whenever the user preferred memory configuration is not satisfied during model compilation.</p>
+<p>If placement of a particular buffer in the specified memory location is a stringent requirement then user can indicate it to the compiler using <code>requiredFor</code> list. If compiler fails to allocate a buffer that is listed in <code>requiredFor</code> list as per the preference, then model compilation will fail with an error message.</p>
+<p>Altering the default memory configuration may change overall performance of the model as the memory locations are also used by the compiler for other ops in the model. General guideline for better performance is that VTCM is efficient for vector memory accesses, <code>CacheableDDR</code> is efficient for scalar memory accesses, and DDR access is relatively slower.</p>
+<h4 id="synchronize-threads-on-the-aic-backend">Synchronize threads on the AIC backend<a class="headerlink" href="#synchronize-threads-on-the-aic-backend" title="Permanent link">&para;</a></h4>
+<p>Custom op kernels on the AIC backend can take advantage of 4 threads running on the NSP. User can synchronize all threads, if needed, using sync function pointer from the CustomOpContext. Usage is shown below:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>customOpContext-&gt;syncThread(threadId);
+</code></pre></div>
+<p>Execution will wait for all threads to reach <code>syncThread</code> before proceeding.</p>
+<h4 id="logging-messages-on-aic-backend">Logging messages on AIC backend<a class="headerlink" href="#logging-messages-on-aic-backend" title="Permanent link">&para;</a></h4>
+<p>AIC backend makes logging available through printf style macros <code>AIC_PRINT_*</code>, defined in <em>CustomOpLog.h</em>. This allows runtime logging on AIC target. 64 bit values require wrapping the argument with <code>AIC_LOG64</code> macros.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>AIC_PRINT_INFO(ctx, &quot;decimal num: %d; unsigned num: %u; C-string: %s;&quot;,
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>                     -1, 0xFF, &quot;myCustomOp&quot;);
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>AIC_PRINT_INFO(ctx, &quot;int64_t HEX num: 0x&quot; AIC_LOG64X_FMT, AIC_LOG64_DATA(0x1122334455667788));
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>AIC_PRINT_INFO(ctx, &quot;fp32 num: %f&quot;, 3.141590f);
+</code></pre></div>
+<p>Qmonitor service must be running on host for logs to be collected automatically. This requires to issue a one-time command on host to start Qmonitor:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>systemd-run --unit=qmonitor-proxy /opt/qti-aic/tools/qaic-monitor-grpc-server
+</code></pre></div>
+<p>Different log message types are available: <code>AIC_PRINT_DEBUG</code>, <code>AIC_PRINT_INFO</code>, <code>AIC_PRINT_WARN</code>, <code>AIC_PRINT_ERROR</code>, and <code>AIC_PRINT_FATAL</code>, each corresponding to decreasing level of verbosity. Compiler option, <code>AIC_CUSTOMOP_LOG_COMPILE_LEVEL</code>, controls verbosity level which can be set to: <code>AIC_CUSTOMOP_LOG_LEVEL_FATAL</code>, <code>AIC_CUSTOMOP_LOG_LEVEL_ERROR</code>, <code>AIC_CUSTOMOP_LOG_LEVEL_WARN</code>, <code>AIC_CUSTOMOP_LOG_LEVEL_INFO</code> (default), or <code>AIC_CUSTOMOP_LOG_LEVEL_DEBUG</code>. All message types above given verbosity level are filtered out. <code>AIC_CUSTOMOP_LOG_COMPILE_LEVEL</code> can be overriden through the <code>compilerArgs</code> field on the custom op configuration <em>yaml</em> file.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>implementations: 
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>   - backend: AIC 
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>     compilerArgs: -DAIC_CUSTOMOP_LOG_COMPILE_LEVEL=AIC_CUSTOMOP_LOG_LEVEL_ERROR
+</code></pre></div>
+<p>Logs are collected under <em>/var/log/qti-aic/QID_*</em> folders, with each AIC device having its own folder. A maximum of ten format specifiers can be added to a single format string when using <code>AIC_PRINT*()</code> with AIC backend. <code>AIC_PRINT_*</code> macros will map to print when a custom op is compiled for backends other than AIC.</p>
+<p>Log verbosity level may also be configured at run time using <em>qaic-log</em> tool with <code>-c n</code> and <code>-s NNNetwork</code> flags.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>/opt/qti-aic/tools/qaic-log -l &lt;log_level&gt; -c n -s NNNetwork
+</code></pre></div>
+<p>where <code>&lt;log-level&gt;</code> is first letter of log level, that is any of <code>f/e/w/i(default)/d</code>. For more details run <code>qaic-log -h</code>.</p>
+<h4 id="datatype-support">Datatype support<a class="headerlink" href="#datatype-support" title="Permanent link">&para;</a></h4>
+<p>Custom ops support various data types for tensors and parameters as listed in <code>CustomOpDataType</code>. The datatype of input and output tensors of custom op (<code>CustomOpIOtensor</code>) can be one of the following types: <code>float</code>, <code>float16_ty</code> (AIC backend only), and <code>int8_t</code>, depending on the compilation options chosen by the user. <code>CustomOpTensor</code> will be of <code>float</code> type when model is compiled with float precision. Similarly, when model is compiled with <code>-convert-to-fp16</code> flag or using a quantization profile, tensors will be of <code>float16_ty</code> or <code>int8_t</code> type, respectively. Using different datatypes for tensors is currently limited. <code>int8_t</code>, <code>int16_t</code>, <code>int32_t</code>, and <code>int64_t</code> can also be used to represent index types. Tensors will not be quantized when index types are specified in the input model, irrespective of the model compilation options chosen.</p>
+<p>When model is quantized using a quantization profile <code>CustomOpIOTensor_s</code> are quantized using a scale and offset. User can dequantize input and output <code>_CustomOpIOTensor</code> data using the <code>scale</code> and <code>offset</code> as follows: <code>dequant(x) = (x - offset) * scale</code>, where <code>scale</code> and <code>offset</code> are accessible from <code>CustomOpContext</code> using following APIs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>{C++}
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>   float getInputScale(const CustomOpContext *ctx, const int32_t inputIdx); 
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>   int32_t getInputOffset(const CustomOpContext *ctx, const int32_t inputIdx); 
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>   float getOutputScale(const CustomOpContext *ctx, const int32_t outputIdx); 
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>   int32_t getOutputOffset(const CustomOpContext *ctx, const int32_t outputIdx);
+</code></pre></div>
+<p>Note that other software components, like AIMET or PGQ profiler, may represent quantization parameters differently, but that does not affect how custom ops represent scale and offset.</p>
+<h4 id="capabilities-and-limitations">Capabilities and limitations<a class="headerlink" href="#capabilities-and-limitations" title="Permanent link">&para;</a></h4>
+<p>The custom operation code can use any basic C/C++ functionality, including control code, loops, etc. In addition, the code can use HVX intrinsic for utilizing the embedded vector units. See next section for details. The code is limited to run on a single AI Core of the overall number of available cores. This limitation may be lifted on future releases.</p>
+<p>The developer should be aware of the following limitations when creating an AIC implementation:</p>
+<ul>
+<li>
+<p>Typical OS services do not exists on the HW. Code cannot use STDIO to write logs, attempt to open files or create new threads.</p>
+</li>
+<li>
+<p>Dynamic Memory allocation is not supported. Only static memory allocation is allowed within the implementation. Avoid using 1) malloc/new, 2) STD data types (like <code>std::vector</code> which requires dynamic allocation), 3) defining arrays with size not known at compile time (like <code>array[argument #6]</code>).</p>
+</li>
+</ul>
+<h4 id="qualcomm-hexagon-hvx-documentation">Qualcomm Hexagon HVX documentation<a class="headerlink" href="#qualcomm-hexagon-hvx-documentation" title="Permanent link">&para;</a></h4>
+<p>When writing code to run on AIC, the developer can use HVX intrinsic to utilize the internal vector units of the AI Core.</p>
+<p>For documentation on HVX intrinsic, please go to Qualcomm Developer Network website, Hexagon SDK SW page: https://developer.qualcomm.com/software/hexagon-dsp-sdk/tools and download the document named <em>Qualcomm Hexagon V66 HVX Programmers Reference Manual</em>.</p>
+<h2 id="compilation">Compilation<a class="headerlink" href="#compilation" title="Permanent link">&para;</a></h2>
+<p>As explained in <strong>Compiler Tools</strong>, qaic-exec is a command-line sample application, provided in the Apps SDK both as code and as prebuilt binary. It supports compiling and running a model.</p>
+<p>For supporting custom operations, a new command-line option was added to qaic-exec.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>-register-custom-op=&lt;config-file&gt;           Register custom op using this configuration file
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>                                            Specify multiple times to register multiple configs
+</code></pre></div>
+<p>Here is an example for running qaic-exec with a model which has custom operations, and providing a configuration file.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/opt/qti-aic/exec/qaic-exec -m=./mlp_custom.onnx -register-custom-op=./CustomReluConfig.yaml 
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>-aic-hw -aic-hw-version=2.0 -input-list-file=input.list -write-output-dir=./ 
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>-write-output-start-iter=1 -write-output-num-samples=1
+</code></pre></div>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>End-to-end examples of custom operations is available in the APPS SDK at <code>/opt/qti-aic/examples/apps/custom-op/</code>. </p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Features" rel="prev">
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Features
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../model_sharding/" class="md-footer__link md-footer__link--next" aria-label="Next: Model Sharding" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Model Sharding
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/quic/cloud-ai-sdk"  target="_blank" rel="noopener">Qualcomm Innovation Center, Inc.</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/quic/cloud-ai-sdk" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence" target="_blank" rel="noopener" title="www.qualcomm.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M528.3 46.5H388.5c-48.1 0-89.9 33.3-100.4 80.3-10.6-47-52.3-80.3-100.4-80.3H48c-26.5 0-48 21.5-48 48v245.8c0 26.5 21.5 48 48 48h89.7c102.2 0 132.7 24.4 147.3 75 .7 2.8 5.2 2.8 6 0 14.7-50.6 45.2-75 147.3-75H528c26.5 0 48-21.5 48-48V94.6c0-26.4-21.3-47.9-47.7-48.1zM242 311.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5V289c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V251zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm259.3 121.7c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5V228c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.8c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V190z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../../../javascripts/mathjax.js"></script>
+        
+      
+        
+          <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        
+      
+        
+          <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
