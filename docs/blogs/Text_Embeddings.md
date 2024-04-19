@@ -1,4 +1,5 @@
 # Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances
+Posted By Ravi Sivalingam
 
 Text embedding models map text into dense vectors for use in tasks such
 as semantic similarity search, document retrieval, text classification

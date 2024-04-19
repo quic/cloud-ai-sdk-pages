@@ -99,6 +99,12 @@ nav:
       - Getting-Started/Model-Architecture-Support/index.md
       - Large-Language-Models:
         - Getting-Started/Model-Architecture-Support/Large-Language-Models/llm.md
+    - Features: 
+      - Getting-Started/Features/index.md
+      - Custom Ops: 
+        - Getting-Started/Features/custom_ops.md
+      - Model Sharding:
+        - Getting-Started/Features/model_sharding.md
     - System Management:
       - Getting-Started/System-Management/system-management.md
     - Architecture:

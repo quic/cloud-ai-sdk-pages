@@ -1,4 +1,5 @@
 # Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
+Posted By Ravi Sivalingam
 
 Many popular Large Language Models (LLMs) are closed and/or limited by
 their licensing to specific use-cases, which limits the democratization

@@ -174,6 +174,7 @@ future blogs that will contain detailed information on the Qualcomm Cloud AI 100
 
 6. OCP Microscaling Formats (MX) Specification - [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf)
 
+
 <br>
 
 *Snapdragon and Qualcomm branded products are products of Qualcomm Technologies, Inc. and/or its subsidiaries. 
