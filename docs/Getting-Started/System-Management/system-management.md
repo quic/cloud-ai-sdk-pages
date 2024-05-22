@@ -25,6 +25,22 @@ sudo /opt/qti-aic/tools/qaic-util -q -t 1
 
 `-d` flag can be used to display information for a specific `QID`
 
+`qaic-util`, provides --filter(-f) option along with -q and -t options, which can filter by certain device properties. Also to dump output to the .json file by using -j option.
+
+Examples: <br>
+To display information for a specific `Card`.
+```
+sudo /opt/qti-aic/tools/qaic-util -q -f "Board serial==<BOARD_SERIAL_OF_CARD>"
+```
+To display information for a specific `Card` in tabular format.
+```
+sudo /opt/qti-aic/tools/qaic-util -t 1 -f "Board serial==<BOARD_SERIAL_OF_CARD>"
+```
+To dump output from the qaic-util, option -j can be used,
+```
+sudo /opt/qti-aic/tools/qaic-util -j <output-file-name>.json -f "Board serial==<BOARD_SERIAL_OF_CARD>"
+```
+
 Developers can `grep` for keywords like `Status`, `Capabilities`, `Nsp`, `temperature`, `power` to get specific information from the cards/SoCs.
 
 ## Health

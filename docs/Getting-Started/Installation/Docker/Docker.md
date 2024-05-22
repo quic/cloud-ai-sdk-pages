@@ -76,6 +76,20 @@ qaic-x86_64-ubuntu20-release                                          1.11.0.<> 
 qaic-x86_64-ubuntu20                                                  1.11.0.<>      a38215c10e0b   2 hours ago    3.1GB
 ```
 
+### Supported Operating Systems
+Docker container for Cloud AI 100 supports different operating system distributions, below are the list of operating systems that's been supported.
+
+#### Operating Systems
+
+| **Operating systems**        | **Comment**                         |
+| ---------------------------- | ----------------------------------- |
+| CentOS Linux 7               | Compatible with RHEL 7              |
+| Alma Linux 8                 | Compatible with RHEL 8              |
+| Alma Linux 9                 | Compatible with RHEL 9              |
+| Ubuntu 18                    |                                     |
+| Ubuntu 20                    |                                     |
+| Ubuntu 22                    |                                     |
+
 ## Features
 - Incremental docker image build infrastructure optimizes disk usage and rebuilding time
 - Flexibility to override specification options such as sdk paths, external dist files through cmd line options
@@ -155,10 +169,10 @@ Below is example for launching an x86_64 ubuntu20 image with python3.8 environme
 Run the container and map 1 or more qaic devices. (Or any other directory mapping using the -v option)
 ```bash
 # Passing 1 device
-docker run -dit --name qaic-ubuntu-test --device=/dev/qaic_aic100_0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.11.0.<>
+docker run -dit --name qaic-ubuntu-test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.11.0.<>
 
 # Passing 1 device and mapping a local folder
-docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/qaic_aic100_0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.11.0.<>
+docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.11.0.<>
 ```
 
 #### Architecture selection

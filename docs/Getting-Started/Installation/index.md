@@ -43,15 +43,13 @@ The Cloud AI Platform SDK is compatible with the following operating systems (OS
 | Ubuntu 20.04                 | Default Kernel (GA or HWE)          |
 | Ubuntu 22.04                 | Default Kernel (GA or HWE)          |
 | Red Hat Enterprise Linux 7.9 | Default Kernel                      |
-| Red Hat Enterprise Linux 8.8 (1.12 Platform SDK) | Default Kernel                      |
-| Red Hat Enterprise Linux 8.9 (1.13 Platform SDK) | Default Kernel                      |
-| Red Hat Enterprise Linux 9.2 (1.12 Platform SDK) | Default Kernel                      |
-| Red Hat Enterprise Linux 9.2 (1.13 Platform SDK) | Default Kernel                      |
+| Red Hat Enterprise Linux 8.9 | Default Kernel                      |
+| Red Hat Enterprise Linux 9.3 | Default Kernel                      |
 | AWS Linux 2                  | Default Kernel                      |
-| AWS Linux 2023 (Starting 1.13 Platform SDK)                  | Default Kernel                      |
+| AWS Linux 2023               | Default Kernel                      |
 | `Note1`: Arm is a trademark of Arm Limited (or its subsidiaries) in the US and/or elsewhere. |
 | `Note2`: Apps SDK is available only for x86-64 platforms. |
-| `Note3`: Ultra cards consume 4 DRM/Accel device resources per card. Kernels prior to 6.2 are limited to 64 DRM device resources for the entire system. Using Ubuntu 22.04 with the HWE kernel (6.2) is recommended as the resource limit is 256 Accel devices. Deployments with large numbers of Ultra cards that do not follow this recommendation may not be able to use all the combined hardware resources of the Ultra cards. |
+| `Note3`: Ultra cards consume 4 DRM/Accel device resources per card. Kernels prior to 6.2 are limited to 64 DRM device resources for the entire system. Using Ubuntu 22.04 with the HWE kernel is recommended as the resource limit is 256 Accel devices. Deployments with large numbers of Ultra cards that do not follow this recommendation may not be able to use all the combined hardware resources of the Ultra cards. |
 
 #### Hypervisors
 Cloud AI only supports PCIe passthrough to a virtual machine. This means that the virtual machine completely owns the Cloud AI device. A single Cloud AI device cannot be shared between virtual machines or between a virtual machine and the native host. 

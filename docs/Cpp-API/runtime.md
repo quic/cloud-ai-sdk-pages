@@ -162,6 +162,28 @@ There are diffrent type of logging level to see different kind of logs.
 
 `ErrorHandler` - It is an error handler lambda function to call in case of critical errors.
 
+### Device Log capture
+-----------------------
+When a `Context` is created with QAIC_CONTEXT_COLLECT_DEVICE_LOGS property bitmask set,
+it configures devices to start streaming logs to host. Logs are passed to user application
+using QAicLogCallback, which is registered while creating context. There is time delay
+between actual log event in device and host receiving them. Due to this Host logs are
+buffered for few seconds and dumped chronologically along with device logs.
+ 
+Context object keeps a track of all programs that are associated with it. Logs from all devices
+and NSPs, used within a context object, are captured. It is done in a separate thread,
+and will not impact the data path flow.
+
+#### Prerequisite
+qaic-monitor-grpc-server should be running in background. User can use below commands.
+ 
+* systemd-run --unit=qmonitor-proxy /opt/qti-aic/tools/qaic-monitor-grpc-server  # starts in background
+* systemctl stop qmonitor-proxy  # stops background service
+
+#### Limitation
+QSM logs from different inference sessions cannot be filtered. If multiple inference sessions are running
+in a device, QSM Logs captured by a context will have logs from all of them.
+
 ## Profiling Elements
 ------------------
 

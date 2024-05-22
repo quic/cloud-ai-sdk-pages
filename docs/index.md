@@ -20,6 +20,14 @@ Qualcomm Cloud AI SDKs (Platform and Apps) enable high performance deep learning
 </div>
 
 <div class="card-grid">
+    <div class="card" onclick="redirectToPage('https://github.com/quic/efficient-transformers')">
+        <h2>Qualcomm Transformers Library</h2>
+        <!-- <p>Content for card 1</p> -->
+    </div>
+</div>
+
+
+<div class="card-grid">
     <div class="card" onclick="redirectToPage('https://github.com/quic/cloud-ai-sdk')">
         <h2>Models, Tutorials and Sample Code</h2>
         <!-- <p>Content for card 1</p> -->

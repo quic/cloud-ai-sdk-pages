@@ -213,7 +213,23 @@ The script takes in three arguments:
 
 The model_repository argument can be passed, and the script goes through the models and generates config.pbtxt for models that do not contain config (the --all option needs to be passed if config needs to be generated for Onnx models) or model path can be provided to generate model folder structure with config.pbtxt using random model names.
 
-
+## Examples
+Triton example applications are released as part of the Apps SDK. Inside the triton docker container the sample model repositories are available at "/opt/qti-aic/aic-triton-model-repositories/"
+- Resnet101 and yolov5 models are available at "/opt/qti-aic/aic-triton-model-repositories/daisy-chained-ensembles"
+- `--model-repository` option can be used to launch the models.
+ 
+### Stable diffusion
+1) If we built the docker with triton model repo application then the stable diffusion model repo is available at this path: "/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion".
+ 
+2) To generate a model repo inside a triton container:
+   - Run the generate_SD_repo.py script. The script is located at "/opt/qti-aic/integrations/triton/release-artifacts/stable-diffusion-ensemble", which will create a ensemble-stable-diffuison model repo
+ 
+3) Start the triton server "/opt/tritonserver/bin/tritonserver --model-repository=/path/to/ensemble-stable-diffusion" <br>
+   Example: "/opt/tritonserver/bin/tritonserver --model-repository=/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion"
+ 
+4) Triton server takes about 2 minutes to start on the first go as it needs to compile qpc.
+ 
+5) Run the client_example.py from the same container for testing purpose or client_example.py can also be copied to Triton client container and executed from there.
 
 
 
