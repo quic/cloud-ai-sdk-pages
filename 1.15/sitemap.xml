@@ -2,222 +2,227 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/API/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Cpp-API/example/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Cpp-API/features/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Cpp-API/runtime/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/FAQ/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Architecture/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Containers-Deployment/</loc>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Features/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Features/custom_ops/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Features/model_sharding/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Glossary/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Inference-Workflow/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Inference-Workflow/model-compilation/Tune-performance/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Inference-Workflow/model-execution/Inference-Profiling/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Inference-Workflow/model-execution/model-execution-options/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Installation/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Installation/AWS/aws/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Installation/Checklist/checklist/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Installation/Docker/Docker-rel-1.11/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Installation/Docker/Docker/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Installation/Hypervisors/hypervisor/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Installation/Pre-requisites/pre-requisites/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Model-Architecture-Support/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Model-Architecture-Support/Large-Language-Models/llm/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/Quick-Start-Guide/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Getting-Started/System-Management/system-management/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/ONNXRT%20QAIC/onnxruntime-rel-1.11/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/ONNXRT%20QAIC/onnxruntime/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Python-API/qaic/qaic/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Python-API/qaicrt/class_InferenceBenchmarkSet/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/Python-API/qaicrt/class_util/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/blogs/AmberChat/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/blogs/Text_Embeddings/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/blogs/Microscaling/microscaling/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/blogs/Speculative_Decode/spec_decode_ai100/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/blogs/Train_Anywhere/train_anywhere/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.15/images/</loc>
-         <lastmod>2024-05-22</lastmod>
+         <lastmod>2024-06-18</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
