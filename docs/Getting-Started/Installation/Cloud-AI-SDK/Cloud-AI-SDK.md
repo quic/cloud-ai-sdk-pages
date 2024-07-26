@@ -128,7 +128,7 @@ Platform and Apps SDKs are available on [Qualcomm Package Manager](https://qpm.q
 
 
 ### Verify card operation 
-  Refer to [Verify Card Operation](../Checklist/checklist.md#verify-card-operation)
+  Refer to [Verify Card Operation](../Checklist/checklist.md#verify-card-healthfunction)
   
 ## Apps SDK 
 The Apps SDK is only available for x86-64 Linux-based hosts. For ARM64-based Qualcomm platforms, models are first compiled on x86 with the Apps SDK. The compiled binary (QPC) is transferred to the ARM64 host for loading and execution by the Platform SDK on Cloud AI hardware.

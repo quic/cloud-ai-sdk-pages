@@ -340,7 +340,7 @@ possible acceptances when $K = 3$.
 
 ## Multinomial Sampling
 
-Qualcomm Cloud AI 100 supports the general case when DLM and TLM do multinomial sampling. In this case, when TLM scores the input sequence and outputs conditional pdfs, the MRS scheme needs to make probabilistic decisions with appropriate probabilities, so that the completions are sampled from the desired target distributions. For further explanation on Multinomial Sampling, please see the [Appendix](#Appendix).
+Qualcomm Cloud AI 100 supports the general case when DLM and TLM do multinomial sampling. In this case, when TLM scores the input sequence and outputs conditional pdfs, the MRS scheme needs to make probabilistic decisions with appropriate probabilities, so that the completions are sampled from the desired target distributions. For further explanation on Multinomial Sampling, please see the [Appendix](#appendix).
 
 In summary, SpD involves the use of a smaller capacity model (DLM)
 running autoregressively to speculate a multi-token completion. Since
@@ -542,7 +542,7 @@ sampling from the next-token pdfs on the vocabulary.
 
 2.  The TLM will score the sequence
     $u_{1},u_{2},\ldots,u_{m},t_{1},\ldots,t_{K}$ with one invocation of TLM
-    ([Figure 4](#figure-4) )and calculate:
+    ([Figure 4](#figure_4) )and calculate:
 
     -   The probabilities
         $P_{TLM}(u_{1},u_{2},\ldots,u_{m},t_{1},\ldots,t_{i})$ for $i = 1\ldots K$
