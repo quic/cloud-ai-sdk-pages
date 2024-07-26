@@ -3256,7 +3256,7 @@ if all t[i]&#39;s are accepted then accept v[K+1]
 </li>
 </ol>
 <h2 id="multinomial-sampling">Multinomial Sampling<a class="headerlink" href="#multinomial-sampling" title="Permanent link">&para;</a></h2>
-<p>Qualcomm Cloud AI 100 supports the general case when DLM and TLM do multinomial sampling. In this case, when TLM scores the input sequence and outputs conditional pdfs, the MRS scheme needs to make probabilistic decisions with appropriate probabilities, so that the completions are sampled from the desired target distributions. For further explanation on Multinomial Sampling, please see the <a href="#Appendix">Appendix</a>.</p>
+<p>Qualcomm Cloud AI 100 supports the general case when DLM and TLM do multinomial sampling. In this case, when TLM scores the input sequence and outputs conditional pdfs, the MRS scheme needs to make probabilistic decisions with appropriate probabilities, so that the completions are sampled from the desired target distributions. For further explanation on Multinomial Sampling, please see the <a href="#appendix">Appendix</a>.</p>
 <p>In summary, SpD involves the use of a smaller capacity model (DLM)
 running autoregressively to speculate a multi-token completion. Since
 DLM is small, it can be executed much faster than TLM. The MRS algorithm
@@ -3468,7 +3468,7 @@ sampling from the next-token pdfs on the vocabulary.</p>
 <li>
 <p>The TLM will score the sequence
     <span class="arithmatex">\(u_{1},u_{2},\ldots,u_{m},t_{1},\ldots,t_{K}\)</span> with one invocation of TLM
-    (<a href="#figure-4">Figure 4</a> )and calculate:</p>
+    (<a href="#figure_4">Figure 4</a> )and calculate:</p>
 <ul>
 <li>
 <p>The probabilities
