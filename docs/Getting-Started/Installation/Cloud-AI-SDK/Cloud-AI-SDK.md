@@ -1,7 +1,7 @@
 # Installation - Cloud AI SDK
 
 ## Download Instructions
-Version 1.12 onwards, Platform and Apps SDK can only be downloaded from [Qualcomm Package Manager](https://qpm.qualcomm.com/). 
+Platform and Apps SDKs are available on [Qualcomm Package Manager](https://qpm.qualcomm.com/). 
 
 1. login to [Qualcomm Package Manager](https://qpm.qualcomm.com/). First time users need to register for a Qualcomm ID. 
 2. Click on **Tools** 
@@ -22,12 +22,12 @@ Version 1.12 onwards, Platform and Apps SDK can only be downloaded from [Qualcom
         - Unzip the downloaded zip file to a working directory
         - `cd` to the working directory
     - For ARM64 hosts that support Google Android Debug Bridge (ADB):
-        ```
-        - adb push <Platform SDK zip file> /data
-        - adb shell
-        - cd /data
-        - Unzip the downloaded zip file to a working directory
-        - cd to the working directory
+        ```bash
+        adb push <Platform SDK zip file> /data
+        adb shell
+        cd /data
+        Unzip the downloaded zip file to a working directory
+        cd to the working directory
         ```
 - unzip the downloaded file. 
   
@@ -53,13 +53,6 @@ Version 1.12 onwards, Platform and Apps SDK can only be downloaded from [Qualcom
       ├── common
       │   ├── qaic-test-data
       │   └── sectools
-      │       ├── bin
-      │       ├── config
-      │       ├── example
-      │       ├── ext
-      │       ├── plugin
-      │       ├── resources
-      │       └── sectools
       └── x86_64
           ├── deb
           │   ├── deb
@@ -76,22 +69,44 @@ Version 1.12 onwards, Platform and Apps SDK can only be downloaded from [Qualcom
       ```
 
   Uninstall existing Platform SDK
-
     ```bash
-    cd <architecture>/<deb/rpm>
+    cd <architecture>/<deb|rpm>
     sudo ./uninstall.sh
     sync
-    ```  
+    ```
 
   Run the install.sh script as root or with sudo to install with superuser permissions. Installation may take up to 30 mins depending on the number of Cloud AI cards in the server/VM. Cloud AI cards undergo resets several times during the installation. 
+
+  Ugprading to SDK 1.16 is a 2-step process:
+
+  1. In the first step we need to prepare each SoC to accept the 1.16 SBL bootloader firmware
+  2. In the second step we upgrade to the 1.16 SBL bootloader firmware
+
+  For Hybrid boot cards (PCIe CEM form factor cards), run:
     ```bash
     cd <architecture>/<deb/rpm>
-    # For Hybrid boot cards (PCIe CEM form factor cards), run 
-    sudo ./install.sh --auto_upgrade_sbl --ecc enable
-    # For VM on ESXi hypervisor, run 
-    sudo ./install.sh --auto_upgrade_sbl --datapath_polling –-ecc enable
 
-    # For Flashless boot cards, run 
+    sudo ./install.sh --no_auto_upgrade_sbl    # For VM on ESXi hypervisor, also add the --datapath_polling option
+    sudo ./install.sh --ecc enable
+
+    # start Qmonitor server in background
+    sudo systemd-run --unit=qmonitor-proxy /opt/qti-aic/tools/qaic-monitor-grpc-server
+
+    # Allow server to initialize all devices
+    sleep 10
+
+    # List QIDs in the system
+    sudo /opt/qti-aic/tools/qaic-util -q | grep -e QID
+
+    # Update SoC, repeat for all QIDs in the system.
+    sudo /opt/qti-aic/tools/qaic-firmware-updater -d <QID> -f 
+
+    # Reset cards.
+    sudo /opt/qti-aic/tools/qaic-util -e
+    ```
+
+  For Flashless boot cards (less common), run:
+    ```bash
     sudo ./install.sh –-ecc enable
     # For VM on ESXi hypervisor, run 
     sudo ./install.sh --datapath_polling –-ecc enable
@@ -99,15 +114,15 @@ Version 1.12 onwards, Platform and Apps SDK can only be downloaded from [Qualcom
 
   On successful installation of the platform SDK, the contents shown below are stored in /opt/qti-aic:
     ```
-    dev  drivers  examples  exec  firmware  services  test-data  tools
+    config  dev  examples  exec  firmware  lib  services  test-data  tools  versions
     ```
   
   Check Platform SDK version using 
-    ```
-    cat /opt/qti-aic/versions/platform.xml
+    ```bash
+    /opt/qti-aic/tools/qaic-version-util
     ```
   Add user to the qaic group to allow command-line tools to run without sudo:
-    ```
+    ```bash
     sudo usermod -a -G qaic $USER
     ```
 
@@ -135,15 +150,18 @@ The Apps SDK is only available for x86-64 Linux-based hosts. For ARM64-based Qua
   │   └── scripts
   ├── exec
   ├── integrations
+  │   ├── kserve
   │   ├── qaic_onnxrt
   │   └── triton
   ├── scripts
   │   ├── qaic-model-configurator
   │   └── qaic-prepare-model
   ├── tools
+  │   ├── aic-manager
   │   ├── custom-ops
   │   ├── docker-build
   │   ├── graph-analysis-engine
+  │   ├── k8s-device-plugin
   │   ├── opstats-profiling
   │   ├── package-generator
   │   ├── qaic-inference-optimizer

@@ -29,7 +29,7 @@ The [installation guide](Installation/index.md) covers
 [Inference workflow](Inference-Workflow/index.md) details the Cloud AI SDK workflow and tool support - from onboarding a pre-trained model to deployment on Cloud AI platforms. 
 
 ## Release Notes
-[Cloud AI release notes](https://docs.qualcomm.com/bundle/80-PT790-1/resource/80-PT790-1.pdf) provide developers with new features, limitations and modifications in the Platform and Apps SDKs.   
+[Cloud AI release notes](https://docs.qualcomm.com/bundle/80-PT790-93/resource/80-PT790-93.pdf) provide developers with new features, limitations and modifications in the Platform and Apps SDKs.
 
 ## SDK Tools 
 [SDK Tools](https://docs.qualcomm.com/bundle/publicresource/topics/80-PT790-993B) provides details on usage of the tools in the SDKs used in the Inference workflow as well as card management. 

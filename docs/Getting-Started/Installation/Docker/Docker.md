@@ -1,5 +1,6 @@
-# Introduction 
-Docker is a product that allows users to build, test, and deploy applications through software containers. Docker for Cloud AI 100 packages the Platform SDK, Apps SDK (x86-64 only), libraries, system tools, etc., which enables the user to navigate the inference workflow seamlessly. 
+# Docker
+
+Docker allows users to build, test, and deploy applications through software containers. Docker for Cloud AI 100 packages the Platform SDK, Apps SDK (x86-64 only), libraries, system tools, etc., which enables the user to navigate the inference workflow seamlessly. 
 
 The Docker scripts are in the Apps SDK in the `tools/docker-build` folder. The scripts to build a QAic Docker image are composed of the following structure.
 ```
@@ -22,8 +23,8 @@ The Docker scripts are in the Apps SDK in the `tools/docker-build` folder. The s
     - Docker containers require the Cloud AI device drivers to communicate with the devices. Install the Platform SDK on the host bare metal OS or VM.
     - Unzip Apps SDK and the build scripts are located under `/tools/docker-build/`
 ```bash
-unzip qaic-apps-1.16.0.<>.zip
-cd qaic-apps-1.16.0.<>/tools/docker-build/
+unzip qaic-apps-1.16.1.<>.zip
+cd qaic-apps-1.16.1.<>/tools/docker-build/
 ```
 - Install python modules listed in requirements.txt, preferably in a virtual environment
 ```bash
@@ -61,34 +62,39 @@ Description <br>
 
 For Example:
 ```bash
-python3 build_image.py --user_specification_file ./sample_user_specs/user_image_spec_qaic.json --apps_sdk ~/qaic-apps-1.16.0.<>.zip \
---platform_sdk ~/qaic-platform-sdk-1.16.0.<>.zip --tag 1.16.0.<>
+python3 build_image.py --user_specification_file ./sample_user_specs/user_image_spec_qaic.json --apps_sdk ~/qaic-apps-1.16.1.<>.zip \
+--platform_sdk ~/qaic-platform-sdk-1.16.1.<>.zip --tag 1.16.1.<>
 ```
 
 To check the docker image created with above script: <br>
 ```bash
 $ docker images
 REPOSITORY                                                            TAG            IMAGE ID       CREATED        SIZE
-qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps             1.16.0.<>      f784c37d7f18   2 hours ago    4.25GB
-qaic-x86_64-ubuntu20-release-py38-qaic_platform				          1.16.0.<>      a4f8193202db   2 hours ago    3.64GB
-qaic-x86_64-ubuntu20-release-py38                                     1.16.0.<>      78000059a5aa   2 hours ago    3.12GB
-qaic-x86_64-ubuntu20-release                                          1.16.0.<>      cbdd424f4338   2 hours ago    3.1GB
-qaic-x86_64-ubuntu20                                                  1.16.0.<>      a38215c10e0b   2 hours ago    3.1GB
+qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps             1.16.1.<>      f784c37d7f18   2 hours ago    4.25GB
+qaic-x86_64-ubuntu20-release-py38-qaic_platform				          1.16.1.<>      a4f8193202db   2 hours ago    3.64GB
+qaic-x86_64-ubuntu20-release-py38                                     1.16.1.<>      78000059a5aa   2 hours ago    3.12GB
+qaic-x86_64-ubuntu20-release                                          1.16.1.<>      cbdd424f4338   2 hours ago    3.1GB
+qaic-x86_64-ubuntu20                                                  1.16.1.<>      a38215c10e0b   2 hours ago    3.1GB
 ```
 
 ### Supported Operating Systems
-Docker container for Cloud AI 100 supports different operating system distributions, below are the list of operating systems that's been supported.
+Docker container for Cloud AI 100 supports different operating system distributions. Below is the list of supported operating systems.
 
 #### Operating Systems
 
-| **Operating systems**        | **Comment**                         |
-| ---------------------------- | ----------------------------------- |
-| CentOS Linux 7               | Compatible with RHEL 7              |
-| Alma Linux 8                 | Compatible with RHEL 8              |
-| Alma Linux 9                 | Compatible with RHEL 9              |
-| Ubuntu 18                    |                                     |
-| Ubuntu 20                    |                                     |
-| Ubuntu 22                    |                                     |
+| **Operating systems**          | **Comment**                         |
+| ------------------------------ | ----------------------------------- |
+| Alma Linux 8                   | Compatible with RHEL 8              |
+| Alma Linux 9                   | Compatible with RHEL 9              |
+| Amazon Linux 2                 |                                     |
+| Amazon Linux 2023              |                                     |
+| CentOS Linux 7                 | Compatible with RHEL 7              |
+| Red Hat Universal Base Image 8 |                                     | 
+| Red Hat Universal Base Image 9 |                                     | 
+| Ubuntu 18                      |                                     |
+| Ubuntu 20                      |                                     |
+| Ubuntu 22                      |                                     |
+| Ubuntu 24                      |                                     |
 
 ## Features
 - Incremental docker image build infrastructure optimizes disk usage and rebuilding time
@@ -122,8 +128,8 @@ Example -
 {
     "applications": ["gae", "pytools", "aimet", "qinf", "pybase"],
     "sdk": {
-        "qaic_apps": "/path/to/qaic-apps-1.16.0.<>.zip",
-        "qaic_platform": "/path/to/qaic-platform-sdk-1.16.0.<>.zip"
+        "qaic_apps": "/path/to/qaic-apps-1.16.1.<>.zip",
+        "qaic_platform": "/path/to/qaic-platform-sdk-1.16.1.<>.zip"
     },
     "python_version": "py38",
     "base_image": "ubuntu20",
@@ -136,8 +142,8 @@ Minimal user specification to build the same image
 {
     "applications": ["gae", "aimet", "qinf"],
     "sdk": {
-        "qaic_apps": "/path/to/qaic-apps-1.16.0.<>.zip",
-        "qaic_platform": "/path/to/qaic-platform-sdk-1.16.0.<>.zip"
+        "qaic_apps": "/path/to/qaic-apps-1.16.1.<>.zip",
+        "qaic_platform": "/path/to/qaic-platform-sdk-1.16.1.<>.zip"
     },
     "external_dist_files": ["/path/to/aimetpro-1.26.0-RC7.torch-gpu-release.tar.gz"]
 }
@@ -169,10 +175,10 @@ Below is example for launching an x86_64 ubuntu20 image with python3.8 environme
 Run the container and map 1 or more qaic devices. (Or any other directory mapping using the -v option)
 ```bash
 # Passing 1 device
-docker run -dit --name qaic-ubuntu-test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.16.0.<>
+docker run -dit --name qaic-ubuntu-test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.16.1.<>
 
 # Passing 1 device and mapping a local folder
-docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.16.0.<>
+docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.16.1.<>
 ```
 
 #### Architecture selection
@@ -187,7 +193,7 @@ Ubuntu Host
 ```
 The command above should give the architecture as aarch64
 
-Centos Host
+CentOS Host
 ```bash
 [user@localhost qaic-docker]$ sudo yum install qemu qemu-kvm
 [user@localhost qaic-docker]$ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
@@ -199,7 +205,7 @@ The command above should give the architecture as aarch64
 ## Run tests in container
 - Connect to the container and run tests:
 	- Run "docker ps" to get the container SHA
-	- Run docker exec -it <SHA> /bin/bash
+	- Run docker exec -it <SHA\> /bin/bash
 	- Run "/opt/qti-aic/tools/qaic_util -q" and ensure that you can see your devices.
 	- Run an inference with recorded data. Eg: "/opt/qti-aic/exec/qaic-runner -d 0 -t /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-quant-resnet50/"
 

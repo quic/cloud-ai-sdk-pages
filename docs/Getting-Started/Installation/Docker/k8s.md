@@ -1,5 +1,5 @@
 # Kubernetes
-Machine learning applications built for the Cloud AI 100 accelerator can be containerized with docker and deployed with Kubernetes. The following figure shows a sample Kubernetes deployment.
+Machine learning applications built for the Cloud AI 100 accelerator can be containerized with Docker and deployed with Kubernetes. The following figure shows a sample Kubernetes deployment.
 
 <figure markdown="span">
   ![k8s cluster](../../../images/Kubernetes_cluster.png)
@@ -25,11 +25,16 @@ The Cloud AI 100 k8s device plugin can be found at *qaic-apps-1.x.y.z/tools/k8s-
 ├── Gopkg.toml
 ├── go.sum
 ├── main.go
+├── multi_soc_checks.go
+├── multi_soc_checks_test.go
 ├── Notice.txt
 ├── qaic-device-plugin.yml
 ├── qaic.go
 ├── README.md
 ├── server.go
+├── server_test.go
+├── topology.go
+├── topology_test.go
 └── watcher.go
 
 ```
@@ -37,20 +42,17 @@ The Cloud AI 100 k8s device plugin can be found at *qaic-apps-1.x.y.z/tools/k8s-
 Contents of the qaic-k8s-device-plugin package:
 
 - QAic K8s Device Plugin
-    - Sends the kubelet the list of AIC100 devices it manages.
-    - Monitors AIC100 device health.
-    - Handles AIC100 device allocation and cleanup.
+    - Sends the kubelet the list of AI 100 devices it manages.
+    - Monitors AI 100 device health.
+    - Handles AI 100 device allocation and cleanup.
 - Qaic K8s Device Plugin Docker image build script
 - Deployment scripts (YAML)
     - Device Plugin Deployment Script (deploys Qaic K8s Device Plugin as daemonset)
-    - Sample AIC100 Workload Deployment Script
-    - 
+    - Sample AI 100 Workload Deployment Script
     
 Prerequisites for deployment:
 
 - Platform SDK installed on Kubernetes Worker Node
     - Required for QAic Linux kernel drivers and firmware images.
 - QAic K8s Device Plugin Docker Image available through customer docker-hub or preloaded on Kubernetes Worker Node
-- AIC100 Workload Docker Image available through customer docker-hub or preloaded on Kubernetes Worker Node
-
-### (pending) To be completed by Sameer's team
+- AI 100 Workload Docker Image available through customer docker-hub or preloaded on Kubernetes Worker Node

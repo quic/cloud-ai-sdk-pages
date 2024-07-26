@@ -3,21 +3,21 @@
 Triton Inference Server is an open source inference serving software that
 streamlines AI inferencing. 
 
-AIC100 SDK enables two backends for inference execution workflow.  These backends, once
-used on a host with AIC100 cards, will detect the AIC100 cards during initialization
+Cloud AI SDK enables two backends for inference execution workflow.  These backends, once
+used on a host with AI 100 cards, will detect the AI 100 cards during initialization
 and route the inferencing call (requested to Triton server) to the hardware.
 
-- onnxruntime_onnx as platform with QAic EP(execution provider)
-- QAic as a customized C++ backend
+- onnxruntime_onnx as platform with QAic EP(execution provider) for deploying ONNX graphs.
+- QAic as a customized C++ backend for deploying compiled binaries optimized for AIC.
 
 ![image](../../../images/server_frontends.png) 
 
 
-## Creating a AIC100 backend enabled Triton docker image using AIC100 development kits
+## Creating an AI 100 backend enabled Triton Docker image using AI 100 development kits
 
-In order to add a customized backends (to process inferencing on AIC100 hardware) into a Vanilla Triton server image,
-we need to run few scripts by passing sdk_path as parameters.
-"docker-build.sh" script will generate a docker image as output.This script is a part of apps-sdk contents and can be run after unzipping it.
+In order to add customized backends (to process inferencing on AI 100 hardware) into a vanilla Triton server image,
+we need to run a few scripts by passing sdk_path as parameters.
+`docker-build.sh` script will generate a Docker image as output.This script is a part of Cloud AI Aps SDK contents and can be run after unzipping it.
 
 ![image](../../../images/docker_workflow.png)
 
@@ -26,33 +26,33 @@ we need to run few scripts by passing sdk_path as parameters.
 
 sample> cd </path/to/app-sdk>/tools/docker-build
 
-sample> python3 build_image.py --tag 1.11.0.46-triton --log_level 2 --user_specification_file /opt/qti-aic/tools/docker-build-gen2/sample_user_specs/user_image_spec_triton_model_repo.json --apps-sdk /apps/sdk/path --platform-sdk /platform/sdk/path
+sample> python3 build_image.py --tag 1.16.1.29-triton --log_level 2 --user_specification_file /opt/qti-aic/tools/docker-build-gen2/sample_user_specs/user_image_spec_triton_model_repo.json --apps-sdk /apps/sdk/path --platform-sdk /platform/sdk/path
  
 ```
-The above command may take 15-20 minutes to complete and generate incremental images for Triton docker image in local docker repository.
+The above command may take 15-20 minutes to complete and generate incremental images for Triton Docker image in local Docker repository.
 
 ```bash
 
 sample> docker image ls
 REPOSITORY                                                                                                                      TAG                 IMAGE ID       CREATED         SIZE
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools-triton_model_repo               1.11.0.46-triton          a0968cf3711b   3 months ago    28.2GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools                                 1.11.0.46-triton          038dc80fd8e4   3 months ago    27.1GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton                                         1.11.0.46-triton          760fb9dc5314   3 months ago    24GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime                                                1.11.0.46-triton          a47266156b7f   3 months ago    23.9GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase                                                            1.11.0.46-triton          d620a1bdb6b6   3 months ago    20.1GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps                                                                   1.11.0.46-triton          8c87eb44f2db   3 months ago    15.3GB
-qaic-x86_64-triton-release-py38-qaic_platform                                                                             1.11.0.46-triton          e3ba2ce282c1   3 months ago    14.7GB
-qaic-x86_64-triton-release-py38                                                                                           1.11.0.46-triton          73b225d7e358   3 months ago    14.2GB
-qaic-x86_64-triton-release                                                                                                1.11.0.46-triton          914fa376e865   3 months ago    14.1GB
-qaic-x86_64-triton                                                                                                        1.11.0.46-triton          2090680d4d59   3 months ago    14.1GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools-triton_model_repo               1.16.1.29-triton          a0968cf3711b   3 days ago      28.2GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools                                 1.16.1.29-triton          038dc80fd8e4   3 days ago      27.1GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton                                         1.16.1.29-triton          760fb9dc5314   3 days ago      24GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime                                                1.16.1.29-triton          a47266156b7f   3 days ago      23.9GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase                                                            1.16.1.29-triton          d620a1bdb6b6   3 days ago      20.1GB
+qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps                                                                   1.16.1.29-triton          8c87eb44f2db   3 days ago      15.3GB
+qaic-x86_64-triton-release-py38-qaic_platform                                                                             1.16.1.29-triton          e3ba2ce282c1   3 days ago      14.7GB
+qaic-x86_64-triton-release-py38                                                                                           1.16.1.29-triton          73b225d7e358   3 days ago      14.2GB
+qaic-x86_64-triton-release                                                                                                1.16.1.29-triton          914fa376e865   3 days ago      14.1GB
+qaic-x86_64-triton                                                                                                        1.16.1.29-triton          2090680d4d59   3 days ago      14.1GB
 
 ```
-Docker can be launched using docker "run" command passing the desired image name.
-Please note that a shared memory argument(--shm-size) to pass for supporting ensembles and python backends.
+Docker can be launched using docker `run` command passing the desired image name.
+Please note the shared memory argument `--shm-size` for supporting ensembles and python backends.
 
 ```bash
 
-sample> docker run -it --rm --privileged --shm-size=4g --ipc=host --net=host <triton-docker-image-name> /bin/bash
+sample> docker run -it --rm --privileged --shm-size=4g --ipc=host --net=host <triton-docker-image-name>:<tag> /bin/bash
 
 sample> docker ps
 CONTAINER ID   IMAGE                                                                                                            COMMAND                  CREATED      STATUS      PORTS     NAMES
@@ -66,17 +66,17 @@ The model configuration file specifies the execution properties of a model.
 It indicates input/output structure, backend, batchsize, parameters, etc.  User needs to follow Triton's [model repository](https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md) and [model configuration](https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_configuration.md) rules while defining a config file.
 
 ### Model configuration - onnxruntime
-For onnxruntime configuration, platform should be set to "onnxruntime_onnx".
-The "use_qaic" parameter should be passed and set to true.
-#### AIC100 specific parameters
+For onnxruntime configuration, platform should be set to `onnxruntime_onnx`.
+The `use_qaic` parameter should be passed and set to true.
+#### AI 100 specific parameters
 Parameters are user-provided key-value pairs which Triton will pass to backend runtime environment as variables and can be used in the backend processing logic.
 
 - config : path for configuration file containing compiler options.
-- device_id : id of AIC100 device on which inference is targeted. (not mandatory as the server auto picks the available device)
+- device_id : id of AI 100 device on which inference is targeted. (not mandatory as the server auto picks the available device)
 - use_qaic : flag to indicate to use qaic execution provider.
 - share_session : flag to enable the use of single session of runtime object across model instances.
 
-sample example of a config.pbtxt
+sample example of a `config.pbtxt`
 
 ```
 name: "resnet_onnx"
@@ -124,19 +124,19 @@ instance_group [
 
 ```
 ### Model configuration - qaic backend
-For qaic backend configuration, the "backend" parameter should be set to "qaic".
+For qaic backend configuration, the `backend` parameter should be set to `qaic`.
 
-#### AIC100 specific parameters
+#### AI 100 specific parameters
 Parameters are user-provided key-value pairs which Triton will pass to backend runtime environment as variables and can be used in processing logic of backend.
 
 Parameters are user-provided key-value pairs which Triton will pass to backend runtime environment as variables and can be used in processing logic of backend.
 
-- qpc_path : path for compiled binary of model.(programqpc.bin) (if not provided the server searches for qpc in the model folder)
-- device_id : id of AIC100 device on which inference is targeted. device is set 0 (not mandatory as the server auto picks the available device)
+- qpc_path : path for compiled binary of model.(programqpc.bin) (if not provided the server searches for QPC in the model folder)
+- device_id : id of AI 100 device on which inference is targeted. device is set 0 (not mandatory as the server auto picks the available device)
 - set_size : size of inference queue for runtime,default is set to 20
 - no_of_activations : flag to enable multiple activations of a model’s network,default is set to 1
 
-sample example of a config.pbtxt
+sample example of a `config.pbtxt`
 
 ```
 name: "yolov5m_qaic"
@@ -186,7 +186,7 @@ instance_group [
 ```
 
 ## Launching Triton server inside container
-To launch Triton server, execute the tritonserver binary within Triton docker with the model repository path.
+To launch Triton server, execute the `tritonserver` binary within Triton Docker with the model repository path.
 
 ```bash
 /opt/tritonserver/bin/tritonserver --model-repository=</path/to/repository>
@@ -205,42 +205,44 @@ To launch Triton server, execute the tritonserver binary within Triton docker wi
 - LLM support for LlamaForCausalLM, AutoModelForCausalLM categories.
 
 ### Triton Config_generation tool
-Model configuration file (config.pbtxt) is required for each model to run on the triton server. The triton_config_generator.py tool helps to generate a minimal model configuration file if the programqpc.bin or model.onnx file is provided. The script can be found in /opt/qti-aic/integrations/triton/release-artifacts/config-generation-script path inside the container.
+Model configuration file `config.pbtxt` is required for each model to run on the Triton server. The `triton_config_generator.py` tool helps to generate a minimal model configuration file if the `programqpc.bin` or `model.onnx` file is provided. The script can be found in "/opt/qti-aic/integrations/triton/release-artifacts/config-generation-script" path inside the container.
 
-The script takes in three arguments:
+The script takes three arguments:
+
 -	--model_repository: Model repository for which config.pbtxt needs to be generated (QAic backend)
--	--all: Generate config.pbtxt for Onnx (used with --model-repository)
--	--model_path: QAic model or Onnx model file path for which model folder needs to be generated.
+-	--all: Generate config.pbtxt for ONNX (used with --model-repository)
+-	--model_path: QAic model or ONNX model file path for which model folder needs to be generated.
 
-The model_repository argument can be passed, and the script goes through the models and generates config.pbtxt for models that do not contain config (the --all option needs to be passed if config needs to be generated for Onnx models) or model path can be provided to generate model folder structure with config.pbtxt using random model names.
+The `model_repository` argument can be passed, and the script goes through the models and generates `config.pbtxt` for models that do not contain config (the --all option needs to be passed if config needs to be generated for ONNX models) or model path can be provided to generate model folder structure with `config.pbtxt` using random model names.
 
 ## Examples
-Triton example applications are released as part of the Apps SDK. Inside the triton docker container the sample model repositories are available at "/opt/qti-aic/aic-triton-model-repositories/"
+Triton example applications are released as part of the Cloud AI Apps SDK. Inside the Triton Docker container the sample model repositories are available at "/opt/qti-aic/aic-triton-model-repositories/"
 - `--model-repository` option can be used to launch the models.
  
 ### Stable diffusion
-1) If we built the docker with triton model repo application then the stable diffusion model repo is available at this path: "/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion".
+1) If we built the Docker with Triton model repo application then the stable diffusion model repo is available at this path: "/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion".
  
-2) To generate a model repo inside a triton container:
-   - Run the generate_SD_repo.py script. The script is located at "/opt/qti-aic/integrations/triton/release-artifacts/stable-diffusion-ensemble", which will create a ensemble-stable-diffuison model repo
+2) To generate a model repo inside a Triton container:
+
+   - Run the `generate_SD_repo.py` script. The script is located at "/opt/qti-aic/integrations/triton/release-artifacts/stable-diffusion-ensemble", which will create a ensemble-stable-diffuison model repo
  
-3) Start the triton server "/opt/tritonserver/bin/tritonserver --model-repository=/path/to/ensemble-stable-diffusion" <br>
+3) Start the Triton server "/opt/tritonserver/bin/tritonserver --model-repository=/path/to/ensemble-stable-diffusion" <br>
    Example: "/opt/tritonserver/bin/tritonserver --model-repository=/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion"
  
-4) Triton server takes about 2 minutes to start on the first go as it needs to compile qpc.
+4) Triton server takes about 2 minutes to start on the first go as it needs to compile QPC.
  
 5) Run the client_example.py from the same container for testing purpose or client_example.py can also be copied to Triton client container and executed from there.
 
 # Triton LLM
-- LLM serving through Triton is enabled using triton-qaic-backend-python
-- It supports execution of qpc for Causal models, KV Cache models of LlamaForCausalLM, AutoModelForCausalLM categories.
+- LLM serving through Triton is enabled using `triton-qaic-backend-python`
+- It supports execution of QPC binaries for Causal models, KV Cache models of LlamaForCausalLM, AutoModelForCausalLM categories.
 - It supports two modes of server to client response - batch, decoupled (stream). In batch response mode, all of the generated tokens are cached and composed as a single response at the end of decode stage. In decoupled (stream) response mode, each generated token is sent to client as a separate response.
 - Currently we include sample configurations for Mistral and Starcoder models.
 - Sample client scripts are provided to test kv, causal models in stream-response, batch-response transaction modes.
 ## Instructions to launch LLM models on Triton server
-### Launch triton server container
+### Launch Triton server container
 ```bash
-docker run -it --shm-size=4g --rm --privileged --net=host -v /path/to/custom/models/:/path/to/custom/models/ docker-registry.qualcomm.com/qraniumtest/qranium:1.16.0.65-triton bash
+docker run -it --shm-size=4g --rm --privileged --net=host -v /path/to/custom/models/:/path/to/custom/models/ <triton-docker-image-name>:<tag> bash
 ```
 - qefficient virtual environment comprises compatible packages for compilation/execution of a wide range of LLMs. Activate this environment within the container.
 ```bash
@@ -258,12 +260,12 @@ starcoder_decoupled | Causal | Decoupled (Stream)
 mistral_7b | KV cache | Batch 
 mistral_decoupled | KV cache | Decoupled (Stream) 
 
-- Pass in the qpc to generate_llm_model_repo.py script available at **/opt/qti-aic/integrations/triton/release-artifacts/llm-models/** within triton container.
+- Pass in the QPC to `generate_llm_model_repo.py` script available at **/opt/qti-aic/integrations/triton/release-artifacts/llm-models/** within Triton container.
 ```bash
 python generate_llm_model_repo.py --model_name mistral_7b --aic_binary_dir <path/to/qpc> --python_backend_dir /opt/qti-aic/integrations/triton/backends/qaic/qaic_backend_python/
 ```
 #### Custom models
-- **generate_llm_model_repo.py** script uses a template to auto-generate config for custom models. Configure required parameters such as use_kv_cache, model_name, decoupled transaction policy through command line options to the script. Choosing model_type will configure use_kv_cache parameter. If not provided, it will be determined by loading qpc object which may take several minutes for large models. This creates a model folder for <custom_model> in  **/opt/qti-aic/integrations/triton/release-artifacts/llm-models/llm_model_dir**
+- `generate_llm_model_repo.py` script uses a template to auto-generate config for custom models. Configure required parameters such as `use_kv_cache`, `model_name`, decoupled transaction policy through command line options to the script. Choosing `model_type` will configure `use_kv_cache` parameter. If not provided, it will be determined by loading QPC object which may take several minutes for large models. This creates a model folder for <custom_model> in  **/opt/qti-aic/integrations/triton/release-artifacts/llm-models/llm_model_dir**
 ```bash
 python generate_llm_model_repo.py --model_name <custom_model> \
                                   --aic_binary_dir <path/to/qpc> \
@@ -273,8 +275,8 @@ python generate_llm_model_repo.py --model_name <custom_model> \
 ```
 
 ### Launch tritonserver and load models
-- Pre-requisite: Users need to get access for necessary models from huggingface and login with huggingface token using **'huggingface-cli login`** before launching the server.
-- Launch the triton server with **llm_model_dir**.
+- Pre-requisite: Users need to get access for necessary models from Hugging Face and login with Hugging Face token using **'huggingface-cli login`** before launching the server.
+- Launch the Triton server with **llm_model_dir**.
 ```bash
 /opt/tritonserver/bin/tritonserver --model-repository=<path/to/llm_model_dir>
 ```
@@ -284,14 +286,14 @@ python generate_llm_model_repo.py --model_name <custom_model> \
 ```bash
 docker run -it --rm -v /path/to/unzipped/apps-sdk/integrations/triton/release-artifacts/llm-models/:/llm-models --net=host nvcr.io/nvidia/tritonserver:22.12-py3-sdk bash
 ```
-- Once the server has started you can run example triton client (client_example_kv.py/client_example_causal.py) provided to submit inference requests to loaded models.
+- Once the server has started you can run example Triton client (client_example_kv.py/client_example_causal.py) provided to submit inference requests to loaded models.
 - Decoupled model transaction policy is supported only over gRPC protocol. Therefore, decoupled models (stream response) use gRPC clients whereas batch response mode uses HTTP client as a sample.
 ```bash
 
 # mistral_decoupled
 python /llm-models/tests/stream-response/client_example_kv.py --prompt "My name is"
  
-# mistral_decoupled (qpc compiled for batch_size=2)
+# mistral_decoupled (QPC compiled for batch_size=2)
 python /llm-models/tests/stream-response/client_example_kv.py --prompt "My name is|Maroon bells"
  
 # mistral_7b
@@ -304,7 +306,7 @@ python /llm-models/tests/stream-response/client_example_causal.py --prompt "Writ
 python /llm-models/tests/batch-response/client_example_causal.py --prompt "Write a python program to print hello world"
 ```
 
-Note: For batch-response tests, the default network timeout in client_example_kv.py, client_example_causal.py is configured as 10 min (600 sec), 100 min (6000 sec) respectively.
+Note: For batch-response tests, the default network timeout in `client_example_kv.py`, `client_example_causal.py` is configured as 10 min (600 sec), 100 min (6000 sec) respectively.
 
 
 
