@@ -1,0 +1,3097 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.16/Getting-Started/Model-Architecture-Support/Large-Language-Models/llm/">
+      
+      
+        <link rel="prev" href="../../">
+      
+      
+        <link rel="next" href="../../../Features/">
+      
+      
+      <link rel="icon" href="../../../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+    
+    
+      
+        <title>Large Language Models (LLMs) - Cloud AI 100</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+  
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--<type>:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.75 7.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"/><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../../custom.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#large-language-models-llms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cloud AI 100
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Large Language Models (LLMs)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../API/" class="md-tabs__link">
+          
+  
+    
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../FAQ/" class="md-tabs__link">
+          
+  
+    
+  
+  FAQ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../blogs/Train_Anywhere/train_anywhere/" class="md-tabs__link">
+          
+  
+    
+  
+  Blogs
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    Cloud AI 100
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Quick-Start-Guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Quick Start Guide
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Quick Start Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Installation/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Installation/Checklist/checklist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Checklist
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pre-requisites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud AI SDK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Installation/Hypervisors/hypervisor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hypervisors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Installation/Docker/Docker.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Installation/AWS/aws/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Inference-Workflow/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Inference Workflow
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Inference Workflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4_2" id="__nav_1_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Export the Model
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Export the Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exporting ONNX Model from Different Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operator and Datatype support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to the Model Preparator Tool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4_3" id="__nav_1_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Compile the Model
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Compile the Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-compilation/Compile-the-Model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compile the Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-compilation/Tune-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tune Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4_4" id="__nav_1_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Execute the QPC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Execute the QPC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Execution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inference Profiling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Triton Inference Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Model Architecture Support
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Model Architecture Support
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_5_2" id="__nav_1_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Large-Language-Models
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_5_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Large-Language-Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Large Language Models (LLMs)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Large Language Models (LLMs)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#decoder-only-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decoder-only Models
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-execution-on-cloud-ai-100-accelerators" class="md-nav__link">
+    <span class="md-ellipsis">
+      LLM execution on Cloud AI 100 Accelerators
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LLM execution on Cloud AI 100 Accelerators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prefill-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prefill Stage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decode Stage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-specialization-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Specialization Overview
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steps-to-run-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to run the Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps to run the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modify-the-model-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modify the Model - Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modify-the-model-detailed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modify the Model - Detailed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modify the Model - Detailed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Definitions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-model-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Model Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-changes-for-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Changes for Inputs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Changes for Inputs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input_Ids
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#past_key_values" class="md-nav__link">
+    <span class="md-ellipsis">
+      past_key_values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      cache_index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attention_mask" class="md-nav__link">
+    <span class="md-ellipsis">
+      attention_mask
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      Position_ids
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-changes-for-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Changes for Outputs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compile-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compile the Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compile the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-specialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Specialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom I/O
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Features/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_6_2" id="__nav_1_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Custom Ops
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Custom Ops
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Features/custom_ops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom Operations (C++)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_6_3" id="__nav_1_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Model Sharding
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Model Sharding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Features/model_sharding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Sharding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    System Management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            System Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System-Management/system-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Architecture/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Glossary/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_9">
+            <span class="md-nav__icon md-icon"></span>
+            Glossary
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../API/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Python API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaic/qaic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inference API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaicrt/class_util/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Util API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CPP API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            CPP API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InferenceSet IO Example
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/runtime/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Runtime
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ONNXRT API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            ONNXRT API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QAIC execution provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../FAQ/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            FAQ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blogs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Blogs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Train_Anywhere/train_anywhere/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Train anywhere, Infer on Qualcomm® Cloud AI 100
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Microscaling/microscaling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Speculative_Decode/spec_decode_ai100/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Text_Embeddings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/AmberChat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#decoder-only-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decoder-only Models
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#llm-execution-on-cloud-ai-100-accelerators" class="md-nav__link">
+    <span class="md-ellipsis">
+      LLM execution on Cloud AI 100 Accelerators
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LLM execution on Cloud AI 100 Accelerators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prefill-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prefill Stage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decode-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decode Stage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-specialization-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Specialization Overview
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steps-to-run-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to run the Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps to run the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modify-the-model-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modify the Model - Overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modify-the-model-detailed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modify the Model - Detailed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modify the Model - Detailed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Definitions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-model-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Model Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-changes-for-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Changes for Inputs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Changes for Inputs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input_Ids
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#past_key_values" class="md-nav__link">
+    <span class="md-ellipsis">
+      past_key_values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache_index" class="md-nav__link">
+    <span class="md-ellipsis">
+      cache_index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attention_mask" class="md-nav__link">
+    <span class="md-ellipsis">
+      attention_mask
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      Position_ids
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-changes-for-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Changes for Outputs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compile-the-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compile the Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compile the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-specialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Specialization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom I/O
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="large-language-models-llms">Large Language Models (LLMs)<a class="headerlink" href="#large-language-models-llms" title="Permanent link">&para;</a></h1>
+<p>Large Language Models (LLMs) represent a significant advancement in artificial intelligence, particularly in the domain of natural language processing (NLP). These models, often based on transformer architectures, have revolutionized the way machines understand and generate human-like text.</p>
+<p>LLMs understand context, syntactic structures, and semantic nuances within textual data.</p>
+<p>The transformer architecture, introduced in the paper "Attention is All You Need" has become the foundation for many state-of-the-art language models. This paper discusses Encoder-Decoder architecture. However, many language models use Encoder only or Decoder only architectures as well.</p>
+<p>In the following section, we will discuss the end-to-end workflow (from onboarding to execution of models) of <strong>decoder architecture models</strong>.</p>
+<h2 id="decoder-only-models">Decoder-only Models<a class="headerlink" href="#decoder-only-models" title="Permanent link">&para;</a></h2>
+<p>This architecture is particularly suitable for autoregressive tasks where sequence generation involves processing one token at a time, and contextual information from earlier tokens is crucial for predicting the next token. The inclusion of a kV cache enhances the efficiency of the decoding process, making it more computationally efficient.</p>
+<p>The image below provides a high level overview of the Torch vs AI 100 execution of LLMs.  </p>
+<p><a class="glightbox" href="../../../../images/torch_vs_ai100.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../images/torch_vs_ai100.png" /></a></p>
+<p>The ahead-of-time AI 100 compiler pre-allocates the resources on the device based on the prompt length, generation length, KV cache, batch size etc. Hardware resources are allocated as mentioned in the QPC, when the compiled model binary aka QPC is loaded on the device. The entire KV Cache (across batch size and layers) is managed in the device memory.  </p>
+<h2 id="llm-execution-on-cloud-ai-100-accelerators">LLM execution on Cloud AI 100 Accelerators<a class="headerlink" href="#llm-execution-on-cloud-ai-100-accelerators" title="Permanent link">&para;</a></h2>
+<p>To align with the autoregressive nature of the transformer decoder based LLMs, processing is divided into two stages - Prefill and Decode. </p>
+<h3 id="prefill-stage">Prefill Stage<a class="headerlink" href="#prefill-stage" title="Permanent link">&para;</a></h3>
+<p>The prefill stage is a one-time process that prepares the model's context for autoregressive generation. It involves encoding the input prompt/sequence and establishing the initial state of the model. During this stage, the input prompt up to the sequence length is processed and the KV Cache is stored in the on-board DDR of Cloud AI 100.</p>
+<h3 id="decode-stage">Decode Stage<a class="headerlink" href="#decode-stage" title="Permanent link">&para;</a></h3>
+<p>The decoding stage is where the model generates the output sequence token by token. It operates in an autoregressive manner, where each token is predicted based on the context of the preceding tokens. As each token is generated, it is appended to the existing context, dynamically updating the input for subsequent predictions. This allows the model to consider its own generated output as part of the context.</p>
+<p>The decoding stage is an iterative process that continues until a stopping criterion is met, such as reaching a maximum length or generating an end-of-sequence token. The following figure illustrates the prefill and decode stages.</p>
+<p><a class="glightbox" href="../../../../images/llm-aic100-prefill-decode.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Prefill and Decode Stages" src="../../../../images/llm-aic100-prefill-decode.gif" /></a></p>
+<h3 id="network-specialization-overview">Network Specialization Overview<a class="headerlink" href="#network-specialization-overview" title="Permanent link">&para;</a></h3>
+<p>The ONNX model used in both Prefill stage and Decode stage is the same except for model input shapes. The model used in Prefill stage is compiled for a pre-defined prompt/sequence length while the model used in decode stage is always compiled for input length of one token, as only the last generated token is provided as input to the model.</p>
+<p>Since the models used in Prefill stage and Decode stage are essentially the same, both the models can share the same weights during execution. Hence a feature called "Network Specialization" is used to pack both the ONNX files into a single QPC file while sharing the same weights. This minimizes the time required for switching between models and the memory requirements. The following figure illustrates network specialization.</p>
+<p><a class="glightbox" href="../../../../images/llm-compile-time.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Network Specialization" src="../../../../images/llm-compile-time.gif" /></a></p>
+<h2 id="steps-to-run-the-model">Steps to run the Model<a class="headerlink" href="#steps-to-run-the-model" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Modify the model to make use of performance optimization features offered by Cloud AI 100.</li>
+<li>Generate the ONNX version of the modified model.</li>
+<li>Compile the modified model for Cloud AI 100 using the AIC SDK.</li>
+<li>Run inference on Cloud AI 100.</li>
+</ol>
+<h3 id="modify-the-model-overview">Modify the Model - Overview<a class="headerlink" href="#modify-the-model-overview" title="Permanent link">&para;</a></h3>
+<p>Cloud AI 100 offers various features to optimize LLM processing. Developers are required to modify the model accordingly for the best performance. The key features which would benefit from model changes are as follows:</p>
+<ul>
+<li><strong>Static Input Shapes</strong> - Cloud AI 100 supports only static input shapes to make use of various efficiencies this approach offers. The open source LLM models generally support dynamic input shapes. So, these models need to be modified to support static input shapes.</li>
+<li><strong>KV Cache storage on on-board DDR</strong> - Cloud AI 100 supports storing the KV Cache generated by the model on the on-board DDR memory. This avoids unnecessary KV cache movements between CPU and Cloud AI 100</li>
+<li><strong>Automatic Attention_mask generation</strong> - The model can be modified to generate the attention_mask on Cloud AI 100 and store it in the on-board DDR of Cloud AI 100, thus removing the need to move attention_masks between CPU and Cloud AI 100 every iteration.</li>
+</ul>
+<h3 id="modify-the-model-detailed">Modify the Model - Detailed<a class="headerlink" href="#modify-the-model-detailed" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://github.com/quic/cloud-ai-sdk/tree/1.12/models/language_processing/decoder">Cloud-AI-SDK GitHub repo</a> provides the modifications required and end-to-end recipes for several decoder based LLMs. </p>
+<h4 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>maximum_context_length</strong> - This the maximum number of tokens supported by the model.</li>
+<li><strong>prompt_length</strong> <ul>
+<li>Prefill stage: This parameter represents the maximum length of the initial input or instruction that can be given to the model. This length must be fixed to support the static input shapes expected by Cloud AI 100. This is also referred to as <strong>sequence length</strong></li>
+<li>Decode stage: In this stage the prompt length is always one. This is because only the last generated token is provided as input for generating the next token. 
+<strong>Generation length</strong> = Maximum number of tokens generated = (maximum_context_length) - (prompt_length of Prefill stage). </li>
+</ul>
+</li>
+<li>no_of_heads: number of Attention heads in the Transformer model.</li>
+<li>hidden_size: Size of the hidden state of the Transformer model.</li>
+<li>vocabulary_size: Vocabulary size of the Transformer model.</li>
+</ul>
+<h4 id="required-model-interface">Required Model Interface<a class="headerlink" href="#required-model-interface" title="Permanent link">&para;</a></h4>
+<p>To use the features mentioned above, the interface of the model should be modified as follows:</p>
+<p><strong>Model Inputs</strong></p>
+<ul>
+<li>input_ids (batch_size, prompt_length, int)</li>
+<li>position_ids (batch_size, prompt_length, int)</li>
+<li>attention_mask (batch_size, maximum_context_length, bool)</li>
+<li>past_key_values (batch_size, no_of_heads, maximum_context_length, hidden_size, float)</li>
+<li>cache_index (0, int)</li>
+</ul>
+<p><strong>Model Outputs</strong></p>
+<ul>
+<li>logits (batch_size, 1, vocabulary_size, float)</li>
+<li>attention_mask_RetainedState (batch_size, maximum_context_length, bool)</li>
+<li>past_key_values_RetainedState (batch_size, no_of_heads, maximum_context_length, hidden_size, float)</li>
+</ul>
+<h4 id="model-changes-for-inputs">Model Changes for Inputs<a class="headerlink" href="#model-changes-for-inputs" title="Permanent link">&para;</a></h4>
+<h5 id="input_ids">Input_Ids<a class="headerlink" href="#input_ids" title="Permanent link">&para;</a></h5>
+<ul>
+<li>
+<p><strong>Prefill stage</strong> - The prompt needs to be of fixed shape. So, the input_ids to the model should be generated with padding. It is required to use left padded tokens during prefill stage.</p>
+<p>For example, if the model is compiled with a prompt length of 32 and is required to process the prompt "Qualcomm is a San Diego based Technology company." The tokenization may look like:</p>
+<p><a class="glightbox" href="../../../../images/prefill-stage-tokenization-output.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt=" " src="../../../../images/prefill-stage-tokenization-output.png" /></a></p>
+<p>So, left padding the input_ids shall look like the following:</p>
+<p><a class="glightbox" href="../../../../images/prefill-stage-input-ids.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt=" " src="../../../../images/prefill-stage-input-ids.png" /></a></p>
+</li>
+<li>
+<p><strong>Decode stage</strong> - The input to the model will be only one token which is the last generated token. So, the prompt_length is always 1.</p>
+</li>
+</ul>
+<h5 id="past_key_values">past_key_values<a class="headerlink" href="#past_key_values" title="Permanent link">&para;</a></h5>
+<p>Cloud AI 100 supports storing the KV Cache on the on-board DDR of Cloud AI 100. If a zero-size past_key_values input is passed to the model, the KV cache
+will be picked from the on-board DDR of Cloud AI 100. This avoids data transfers of KV cache between CPU and Cloud AI 100.</p>
+<p>Each layer of decoder in the network will have its own KV data. So, if a model has <code>n</code> layers of decoders, <code>n</code> pairs of key and value inputs will be created.</p>
+<p>It is recommended to use a separate tensor for KV data of each layer to attain a better performance. So, the past_key_value input of the model shall look like this, (<strong>past_value.1</strong>, <strong>past_key.1</strong>),(<strong>past_value.2</strong>, <strong>past_key.2</strong>) ... (<strong>past_value.n,past_key.n</strong>)</p>
+<h5 id="cache_index">cache_index<a class="headerlink" href="#cache_index" title="Permanent link">&para;</a></h5>
+<p>As the input sizes are fixed, the memory required for KV Cache of entire "maximum_context_length" is allocated during initialization. After each iteration, KV cache needs to be stored at the correct index, similar to a scatter operation. This is done with the help of "Cache_index" input.</p>
+<p>Let's understand this with an example. Assuming the "prompt_length" is 32 and "maximum_context_length" is 256. This would create a memory pool with 256 memory slots sufficient to save 256 past key values during initialization.</p>
+<ul>
+<li>
+<p><strong>Prefill stage</strong> - Since the data is yet to be processed, the cache_index in prefill stage can be set to "0". After the prefill stage, the first 32 slots (size of prompt_length in example) of 256 slots (Size of maximum_context_length in example) are filled with the KV data of "input prompt".</p>
+</li>
+<li>
+<p><strong>Decode stage</strong> - The KV data of only the newly generated token is stored in this stage. In the first iteration of Decode stage the cache_index will be 33 in the example. cache_index needs to be specifically passed as input only in the first iteration of Decoder stage. The cache_index is then incremented automatically by the compiler in case of zero size input. However, the flexibility to store the data at any valid index is given to the developer. Following is an example of GPT model where the code of the model is modified to copy the KV cache of the newly generated token at correct index:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Transformers/src/transformers/models/gpt2/modeling_gpt2.py
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>class GPT2Attention (nn.Module):
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>     if layer_past is not None:
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>         past_key = layer_past[0]
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>         past_value = layer_past[1]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>-        key = torch.cat((past_key, key), dim=-2)
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>-        value = torch.cat((past_value, value), dim=-2)
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>+        seq_length = key.shape[2]
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>+        assert value.shape[2] == seq_length
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>+        kv_indices = torch.arange(seq_length) + cache_index
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>+        past_key[:, :, kv_indices] = key
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>+        past_value[:, :, kv_indices] = value
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>+        key = past_key
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>+        value = past_value
+</code></pre></div>
+</li>
+</ul>
+<p>The original code would "torch.cat" the key and value tensors to the existing tensor creating dynamic shaped tensors. So, this part of the code must be modified.</p>
+<p>Key.shape[2] gives us the number of tokens processed in the current iteration. So for Prefill stage, Key.shape[2] would be maximum input prompt length, while in case of Decode stage, it would be 1. So the code change suggested above would store the newly generated key and values at the cache_index specified.</p>
+<h5 id="attention_mask">attention_mask<a class="headerlink" href="#attention_mask" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Prefill stage</strong> - The Attention mask needs to be passed as usual.</li>
+<li>
+<p><strong>Decode stage</strong> - The Attention mask can be generated in the model based on cache_index and saved on the on-board DDR. This avoids the need to transfer attention_mask from host to Cloud AI 100 during every iteration. This reduces the memory bandwidth requirements. In order to use the  attention_mask stored on the on-board DDR, a zero-size input is fed to the model.</p>
+<p>Following is the code changes needed to generate attention_mask on Cloud AI 100 for decode stage:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Transformers/src/transformers/models/gpt2/modeling_gpt2.py
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>class GPT2Model(GPT2PreTrainedModel):
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>+        if cache_index is not None:
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>+            attention_mask[:, cache_index + seq_length - 1] = True
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>+            attention_mask_retained = attention_mask
+</code></pre></div></p>
+</li>
+</ul>
+<h5 id="position_ids">Position_ids<a class="headerlink" href="#position_ids" title="Permanent link">&para;</a></h5>
+<ul>
+<li>
+<p><strong>Prefill stage</strong> - If the position IDs of the sentence "Qualcomm is a San Diego based Technology company." looks like this:</p>
+<p><a class="glightbox" href="../../../../images/llm-position-ids.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt=" " src="../../../../images/llm-position-ids.png" /></a></p>
+<p>If prompt_length is 32, the position IDs should be left padded. So, input <code>position_ids</code> tensor would look like the following:</p>
+<p><a class="glightbox" href="../../../../images/llm-prefill-stage-position-ids.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt=" " src="../../../../images/llm-prefill-stage-position-ids.png" /></a></p>
+<p>In the above tensor, the first 19 elements can be any number, as they would be discarded with the help of attention_mask.</p>
+</li>
+<li>
+<p><strong>Decode stage</strong> - In case of the above example, the <code>position_ids</code> of first iteration would be 13, second iteration would be 14 and so on.</p>
+</li>
+</ul>
+<h4 id="model-changes-for-outputs">Model Changes for Outputs<a class="headerlink" href="#model-changes-for-outputs" title="Permanent link">&para;</a></h4>
+<p>The outputs that needs to be saved on device should end with suffix "_RetainedState". For example, in order to retrieve the "attention_mask" from on-board DDR, the output should have "_RetainedState" appended. So output will be "attention_mask_RetainedState"</p>
+<ul>
+<li><strong>Logits</strong> Logits is the raw output of the model.</li>
+<li><strong>attention_mask_RetainedState</strong> - The attention_mask generated will be stored on the on-board DDR</li>
+<li><strong>past_key_values_RetainedState</strong> - The KV Cache generated by the model will be saved on the on-board DDR at the appropriate index using the "cache_index" input.</li>
+</ul>
+<h3 id="compile-the-model">Compile the Model<a class="headerlink" href="#compile-the-model" title="Permanent link">&para;</a></h3>
+<p>Following is a sample compile script using <code>qaic-exec</code>. Compilation uses the <a href="#network-specialization">Network Specialization</a> and <a href="#custom-io">Custom I/O</a> features. 
+Two data precision formats - FP16 or MX6 (Shared Micro-exponents), are recommended. <a href="https://arxiv.org/abs/2302.08007">MX6</a> enables smaller memory footprint by storing the model weights in MX6 (uses 6 bits vs 16 bits for FP16). MX6 will help developers run models on Cloud AI 100 SKUs in scenarios where FP16 exceeds the memory footprint and hence, cannot be used.  </p>
+<div class="highlight"><pre><span></span><code>``` 
+#!/bin/bash
+set -e
+if [ -z &quot;$1&quot; ]; then
+  echo &quot;Usage: $0 &lt;model_name&gt;&quot;
+  exit 1
+fi
+model_name=&quot;$1&quot;
+prompt_len=$(grep seq_len specializations.json | head -n1 | grep -Eo &#39;[[:digit:]]+&#39;)
+ctx_len=$(grep ctx_len specializations.json | head -n1 | grep -Eo &#39;[[:digit:]]+&#39;)
+num_cores=16
+num_blocks=$(grep &#39;value.&#39; ${model_name}/custom_io.yaml | tail -n1 | grep -Eo &#39;[[:digit:]]+&#39;)
+# Create qpc directory
+mkdir -p qpc
+model_path=&quot;${model_name}/generatedModels/${model_name}_simplified.onnx&quot;
+if [ ! -f &quot;$model_path&quot; ]; then
+  model_path=&quot;${model_name}/generatedModels/${model_name}.onnx&quot;
+fi
+
+# Compile the model
+/opt/qti-aic/exec/qaic-exec \
+-m=$model_path \
+  -aic-hw \
+  -aic-hw-version=2.0 \
+  -network-specialization-config=specializations.json \
+  -convert-to-fp16 \
+  -retained-state=true \
+  -aic-num-cores=${num_cores} \
+  -custom-IO-list-file=${model_name}/custom_io.yaml \
+  -compile-only \
+  -aic-binary-dir=qpc/${model_name}-kv-${prompt_len}pl-${ctx_len}cl-${num_cores}c
+```
+</code></pre></div>
+<h4 id="network-specialization">Network Specialization<a class="headerlink" href="#network-specialization" title="Permanent link">&para;</a></h4>
+<p>Using the "Network Specialization" feature, the models used for Prefill and Decode stages can be packed into a single QPC and both models will be sharing the same weights. The input shapes for prefill and decode stages are defined in a .json file for enabling "Network Specialization" feature. Following is an example JSON file:</p>
+<div class="highlight"><pre><span></span><code>``` 
+ &quot;specializations&quot;: [
+         {
+                 &quot;batch_size&quot;: &quot;1&quot;,
+                 &quot;seq_len&quot;: &quot;32&quot;,
+                 &quot;ctx_len&quot;: &quot;128&quot;
+         },
+         {
+                 &quot;batch_size&quot;: &quot;1&quot;,
+                 &quot;seq_len&quot;: &quot;1&quot;,
+                 &quot;ctx_len&quot;: &quot;128&quot;
+         }
+ ]
+}
+```
+</code></pre></div>
+<h4 id="custom-io">Custom I/O<a class="headerlink" href="#custom-io" title="Permanent link">&para;</a></h4>
+<p>Custom I/O feature can be used to store the KV Cache in a precision needed by the model. For example, if the model is compiled for FP16 precision, The past_key_values can also be stored on on-board DDR in FP16 format. This would reduce the size of the KV cache and avoid unnecessary cast operations of the FP16 data to FP32.</p>
+<p>The precision for each I/O can be configured in a .yaml file and passed as an input during compile time. An example of the custom_io.yaml file is shown below.</p>
+<div class="highlight"><pre><span></span><code>``` 
+# Model Inputs
+ - IOName: past_key.0
+   Precision: float16
+ - IOName: past_value.0
+   Precision: float16
+ - IOName: past_key.1
+   Precision: float16
+ - IOName: past_value.1
+   Precision: float16
+.
+.
+.
+.
+ - IOName: past_key.26
+   Precision: float16
+ - IOName: past_value.26
+   Precision: float16
+ - IOName: past_key.27
+   Precision: float16
+ - IOName: past_value.27
+   Precision: float16
+
+
+# Model Outputs
+ - IOName: past_key.0_RetainedState
+   Precision: float16
+ - IOName: past_value.0_RetainedState
+   Precision: float16
+ - IOName: past_key.1_RetainedState
+   Precision: float16
+ - IOName: past_value.1_RetainedState
+   Precision: float16
+   .
+   .
+   .
+ - IOName: past_key.26_RetainedState
+   Precision: float16
+ - IOName: past_value.26_RetainedState
+   Precision: float16
+ - IOName: past_key.27_RetainedState
+   Precision: float16
+ - IOName: past_value.27_RetainedState
+   Precision: float16
+```
+</code></pre></div>
+<h3 id="inference">Inference<a class="headerlink" href="#inference" title="Permanent link">&para;</a></h3>
+<p>During inference, the prefill model is executed first and the KV cache is stored at appropriate index with left padding. The Decode stage is
+then executed generating one token at a time and is stored with right padding. Refer to the <a href="https://github.com/quic/cloud-ai-sdk/tree/1.12/models/language_processing/decoder">Cloud-AI-SDK GitHub repo</a> for LLM model recipes. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Model Architecture Support">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Model Architecture Support
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../../Features/" class="md-footer__link md-footer__link--next" aria-label="Next: Features">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Features
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/quic/cloud-ai-sdk"  target="_blank" rel="noopener">Qualcomm Innovation Center, Inc.</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/quic/cloud-ai-sdk" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence" target="_blank" rel="noopener" title="www.qualcomm.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M528.3 46.5H388.5c-48.1 0-89.9 33.3-100.4 80.3-10.6-47-52.3-80.3-100.4-80.3H48c-26.5 0-48 21.5-48 48v245.8c0 26.5 21.5 48 48 48h89.7c102.2 0 132.7 24.4 147.3 75 .7 2.8 5.2 2.8 6 0 14.7-50.6 45.2-75 147.3-75H528c26.5 0 48-21.5 48-48V94.6c0-26.4-21.3-47.9-47.7-48.1zM242 311.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5V289c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V251zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm259.3 121.7c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5V228c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.8c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V190z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

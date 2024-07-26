@@ -1,0 +1,3784 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.16/blogs/Speculative_Decode/spec_decode_ai100/">
+      
+      
+        <link rel="prev" href="../../Microscaling/microscaling/">
+      
+      
+        <link rel="next" href="../../Text_Embeddings/">
+      
+      
+      <link rel="icon" href="../../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+    
+    
+      
+        <title>Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats - Cloud AI 100</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+  
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--<type>:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.75 7.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z"/><path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quadruple-llm-decoding-performance-with-speculative-decoding-spd-and-microscaling-mx-formats" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cloud AI 100
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Getting-Started/" class="md-tabs__link">
+          
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../API/" class="md-tabs__link">
+          
+  
+    
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../FAQ/" class="md-tabs__link">
+          
+  
+    
+  
+  FAQ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../Train_Anywhere/train_anywhere/" class="md-tabs__link">
+          
+  
+    
+  
+  Blogs
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Cloud AI 100
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Quick-Start-Guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Quick Start Guide
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Quick Start Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Installation/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Checklist/checklist/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Checklist
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pre-requisites
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cloud AI SDK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Hypervisors/hypervisor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hypervisors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Docker/Docker.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/AWS/aws/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Inference Workflow
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Inference Workflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4_2" id="__nav_1_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Export the Model
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Export the Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exporting ONNX Model from Different Frameworks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operator and Datatype support
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to the Model Preparator Tool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4_3" id="__nav_1_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Compile the Model
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Compile the Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compile the Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Tune-performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tune Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4_4" id="__nav_1_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Execute the QPC
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Execute the QPC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Execution
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inference Profiling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Triton Inference Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Architecture-Support/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Model Architecture Support
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            Model Architecture Support
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_5_2" id="__nav_1_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Large-Language-Models
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Large-Language-Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Large Language Models (LLMs)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Features/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_6_2" id="__nav_1_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Custom Ops
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Custom Ops
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/custom_ops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom Operations (C++)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_6_3" id="__nav_1_6_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Model Sharding
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Model Sharding
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/model_sharding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Sharding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    System Management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            System Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/system-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Architecture/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Glossary/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_9">
+            <span class="md-nav__icon md-icon"></span>
+            Glossary
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../API/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Python API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaic/qaic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inference API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaicrt/class_util/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Util API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CPP API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            CPP API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/example/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    InferenceSet IO Example
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/runtime/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Runtime
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ONNXRT API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            ONNXRT API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QAIC execution provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../FAQ/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    FAQ
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            FAQ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Blogs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Blogs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Train_Anywhere/train_anywhere/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Train anywhere, Infer on Qualcomm® Cloud AI 100
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Microscaling/microscaling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#language-models-lms-and-autoregressive-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language Models (LMs) and Autoregressive Generation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Language Models (LMs) and Autoregressive Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoregressive-ar-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autoregressive (AR) Generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accelerating-autoregressive-generation-by-reducing-the-computation-with-kv-cache-kv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accelerating Autoregressive Generation by reducing the computation with KV Cache (KV$)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-profiles-of-lm-completion-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Profiles of LM Completion Generation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#speculative-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speculative Decoding
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Speculative Decoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#components-of-speculative-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components of Speculative Decoding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-of-speculative-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process of Speculative Decoding
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multinomial-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multinomial Sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weight-only-quantization-using-microscaling-mx-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weight-Only Quantization using Microscaling (Mx) Formats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experimental-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experimental Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Experimental Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acceleration-on-qualcomm-cloud-ai-100-ultra" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acceleration on Qualcomm Cloud AI 100 Ultra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speedup-on-qualcomm-cloud-ai-100-standard-and-pro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speedup on Qualcomm Cloud AI 100 Standard and Pro
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions-and-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusions and Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frequently Asked Questions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frequently Asked Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-the-requirements-on-the-draft-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are the requirements on the draft model?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-do-i-get-the-draft-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where do I get the draft model?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-there-any-accuracy-impact-because-of-speculated-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Is there any accuracy impact because of speculated decoding?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-performance-improvement-will-i-see-in-my-model-by-just-speculative-decoding-technique-alone" class="md-nav__link">
+    <span class="md-ellipsis">
+      What performance improvement will I see in my model by just speculative decoding technique alone?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-we-use-batch-size-1-to-further-improve-the-speedup-of-spd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can we use batch size > 1 to further improve the speedup of SpD?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-there-be-a-live-lock-situation-when-all-the-speculations-from-dlm-are-rejected-by-tlm-and-no-token-from-tlm-is-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can there be a "live lock" situation when all the speculations from DLM are rejected by TLM and no token from TLM is generated?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#will-this-technique-help-with-improving-the-time-to-generate-the-first-token-from-tlm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Will this technique help with improving the time to generate the first token from TLM?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modified-rejection-sampling-at-a-single-token-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modified Rejection Sampling at a single-token level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mrs-greedy-p_tlm-p_dlm-are-1-hot" class="md-nav__link">
+    <span class="md-ellipsis">
+      MRS Greedy: \(P_{TLM},\ P_{DLM}\) are 1-hot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mrs-general-p_tlm-p_dlm-are-general-pdfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      MRS General: \(P_{TLM}\ ,\ P_{DLM}\) are general pdfs.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Text_Embeddings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AmberChat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#language-models-lms-and-autoregressive-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language Models (LMs) and Autoregressive Generation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Language Models (LMs) and Autoregressive Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoregressive-ar-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Autoregressive (AR) Generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accelerating-autoregressive-generation-by-reducing-the-computation-with-kv-cache-kv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accelerating Autoregressive Generation by reducing the computation with KV Cache (KV$)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-profiles-of-lm-completion-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Profiles of LM Completion Generation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#speculative-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speculative Decoding
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Speculative Decoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#components-of-speculative-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components of Speculative Decoding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-of-speculative-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process of Speculative Decoding
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multinomial-sampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multinomial Sampling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weight-only-quantization-using-microscaling-mx-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weight-Only Quantization using Microscaling (Mx) Formats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experimental-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experimental Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Experimental Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acceleration-on-qualcomm-cloud-ai-100-ultra" class="md-nav__link">
+    <span class="md-ellipsis">
+      Acceleration on Qualcomm Cloud AI 100 Ultra
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speedup-on-qualcomm-cloud-ai-100-standard-and-pro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speedup on Qualcomm Cloud AI 100 Standard and Pro
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions-and-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusions and Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frequently Asked Questions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frequently Asked Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-the-requirements-on-the-draft-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are the requirements on the draft model?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-do-i-get-the-draft-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where do I get the draft model?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-there-any-accuracy-impact-because-of-speculated-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Is there any accuracy impact because of speculated decoding?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-performance-improvement-will-i-see-in-my-model-by-just-speculative-decoding-technique-alone" class="md-nav__link">
+    <span class="md-ellipsis">
+      What performance improvement will I see in my model by just speculative decoding technique alone?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-we-use-batch-size-1-to-further-improve-the-speedup-of-spd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can we use batch size > 1 to further improve the speedup of SpD?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-there-be-a-live-lock-situation-when-all-the-speculations-from-dlm-are-rejected-by-tlm-and-no-token-from-tlm-is-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can there be a "live lock" situation when all the speculations from DLM are rejected by TLM and no token from TLM is generated?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#will-this-technique-help-with-improving-the-time-to-generate-the-first-token-from-tlm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Will this technique help with improving the time to generate the first token from TLM?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appendix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modified-rejection-sampling-at-a-single-token-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modified Rejection Sampling at a single-token level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mrs-greedy-p_tlm-p_dlm-are-1-hot" class="md-nav__link">
+    <span class="md-ellipsis">
+      MRS Greedy: \(P_{TLM},\ P_{DLM}\) are 1-hot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mrs-general-p_tlm-p_dlm-are-general-pdfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      MRS General: \(P_{TLM}\ ,\ P_{DLM}\) are general pdfs.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="quadruple-llm-decoding-performance-with-speculative-decoding-spd-and-microscaling-mx-formats">Quadruple LLM Decoding Performance with Speculative Decoding (SpD) and Microscaling (MX) Formats<a class="headerlink" href="#quadruple-llm-decoding-performance-with-speculative-decoding-spd-and-microscaling-mx-formats" title="Permanent link">&para;</a></h1>
+<p>Posted by Natarajan "Raj" Vaidhyanathan  <br />
+Co-written with Apoorva Gokhale</p>
+<p><a class="glightbox" href="../media/Spec_decode_example/spec_decode_example.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A screen shot of a computer screen Description automatically generated" src="../media/Spec_decode_example/spec_decode_example.gif" /></a><br />
+<em>Figure 1: Generation on Qualcomm Cloud AI 100 Ultra<br />
+(left) Baseline with FP16 weights (center) Acceleration with MX6 (right) Acceleration with MX6 and SpD</em><br />
+<em>Note: Highlighted text in the right column indicate speculated tokens accepted.</em></p>
+<p><a href="https://arxiv.org/abs/2302.01318">Speculative Sampling</a> (SpS), also known as Speculative Decoding (SpD), 
+and weight compression through 
+<a href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">MXFP6 microscaling format</a>,
+are two advanced techniques that significantly enhance large language
+model (LLM) decoding speeds for LLM inference AI workloads. Both
+techniques are available for LLM acceleration on Qualcomm Technologies' data center
+AI accelerators. To achieve a significant inference performance speedup,
+start exploring Qualcomm Cloud AI 100 instances available on <a href="https://aws.amazon.com/ec2/instance-types/dl2q/">Amazon
+AWS</a> EC2 and
+<a href="https://cirrascale.com/solutions-qualcomm-cloud-ai100.php">Cirrascale Cloud
+Services</a>.</p>
+<p>This post explores the application of these advanced techniques on two
+large language models, <a href="https://arxiv.org/abs/2203.13474">CodeGen 1-7B</a>
+and <a href="https://ai.meta.com/research/publications/llama-2-open-foundation-and-fine-tuned-chat-models/">Llama
+2-7B-Chat-FT</a>,
+showcasing the potential for accelerated AI processing and efficiency.
+Join us as we unravel the details of this advancement and be sure to try
+out the <a href="https://github.com/quic/cloud-ai-sdk/tree/1.12/models/language_processing/decoder/CodeGen-With-Speculative-Decoding">speculative decoding</a> feature documentation in 
+Qualcomm <a href="https://github.com/quic/cloud-ai-sdk/">Cloud AI Github</a>.</p>
+<h2 id="language-models-lms-and-autoregressive-generation">Language Models (LMs) and Autoregressive Generation<a class="headerlink" href="#language-models-lms-and-autoregressive-generation" title="Permanent link">&para;</a></h2>
+<p>This section introduces the basics of LLM decoding based on traditional autoregressive 
+decoding and points out its inherent sequential nature of multi-token generation.
+Text completion is the common task for LMs: Given a prompt of text, the
+LMs generate plausible completions.
+LMs process text in the granularity of atomic units of text called
+<em>tokens</em>. Informally, tokens can be thought of as sub words in a word.
+The set of tokens that a LM can process is referred to as its
+<em>vocabulary</em> and denoted as <span class="arithmatex">\(\Sigma\)</span>.
+Language Models take a sequence of tokens as input and produce a
+probability distribution function (pdf) over its vocabulary. Sampling
+from this pdf gives one plausible token following the input. During
+implementation, a pdf over <span class="arithmatex">\(\Sigma\)</span> is represented as a vector of length
+<span class="arithmatex">\(|\Sigma|\)</span> with elements in <span class="arithmatex">\(\lbrack 0,1\rbrack\)</span> that sum up to one.</p>
+<h3 id="autoregressive-ar-generation">Autoregressive (AR) Generation<a class="headerlink" href="#autoregressive-ar-generation" title="Permanent link">&para;</a></h3>
+<p>Typically, we want to generate multiple following tokens, not just one.
+Given a prompt of <span class="arithmatex">\(m\)</span> tokens <span class="arithmatex">\(u_{1},\ldots,\ u_{m}\)</span> generation of <span class="arithmatex">\(n\)</span>
+tokens <span class="arithmatex">\(v_{1},\ldots,\ v_{n}\)</span> requires <span class="arithmatex">\(n\)</span> invocations of the LM
+(implemented as a decoder-only transformer model) as shown below:</p>
+<div class="highlight"><pre><span></span><code>input = u1,...,um   # the prompt
+
+for (i = 1; i &lt;= n; i++):
+
+    // Invoke the LM with the current input
+
+    logits  = LM(input)   # logits is a vector of length |Sigma|
+
+    P = top-k/top-p/softmax warp(logits)    # P is a pdf over vocabulary
+
+    v[i] = sample a token from the vocabulary pdf P
+
+    input = input &amp; v[i]    # Append the generated token to the input
+
+Output v[1],...,v[n] as a completion
+</code></pre></div>
+<p><em>Figure 2: Outline of Autoregressive (AR) Generation</em></p>
+<p>Observe the following about the above completion generation process in Figure 2:</p>
+<ol>
+<li>
+<p><em>Logits and Warping</em>: The LM produces a vocabulary-sized vector of
+quantities called <em>logits</em>. Normalizing it via softmax gives a pdf
+over <span class="arithmatex">\(\Sigma\)</span>. Sampling from this pdf is generally referred to as
+<em>multinomial sampling</em>.</p>
+<ul>
+<li>
+<p>Such a pdf can also be warped to redistribute the probability mass over a small subset of <span class="arithmatex">\(\Sigma\)</span>.</p>
+</li>
+<li>
+<p>A commonly used special form of multinomial sampling is <em>greedy</em> 
+sampling. This arises from top-1 warping. It will put all the 
+probability mass on the token with the highest logit value and 0 
+on others. Sampling from such a distribution will always result 
+in the token with the highest probability/logit value.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Multiple Invocations</em>: LM is invoked $n $times each time -- once 
+for each generated token. Each invocation makes use of all the
+parameters of the model.</p>
+</li>
+<li>
+<p><em>Autoregressive</em>: The output of the LM is concatenated with the
+input to the <em>same</em> LM in the following iteration.</p>
+</li>
+<li>
+<p><em>Causality:</em> It is not possible to generate <span class="arithmatex">\(v_{i}\)</span> without
+    generating all the previous tokens making the generation as a serial
+    process - the generation of <span class="arithmatex">\(v_{i}\)</span> and <span class="arithmatex">\(v_{j}\ (i \neq j)\)</span>
+    cannot be parallelized.</p>
+</li>
+<li>
+<p><em>Repeated calculation</em>: The LM invocations are independent, and
+    there is no internal state maintained within the LM across
+    invocations. This results in the same input being processed multiple
+    times, generating the same set of Key-Value vectors. For example,
+    the prompt itself is processed <span class="arithmatex">\(n\)</span> times and the generated token
+    <span class="arithmatex">\(v_{i}\)</span> is processed <span class="arithmatex">\(n - i\)</span> times.</p>
+</li>
+</ol>
+<h3 id="accelerating-autoregressive-generation-by-reducing-the-computation-with-kv-cache-kv">Accelerating Autoregressive Generation by reducing the computation with KV Cache (KV$)<a class="headerlink" href="#accelerating-autoregressive-generation-by-reducing-the-computation-with-kv-cache-kv" title="Permanent link">&para;</a></h3>
+<p>The common approach to avoid re-computation is to maintain internal
+state in the LM referred to as Key-Value Cache (KV$) between
+invocations. Such a model, LM_with_KV$, functions the same as the LM
+described above with the following operational differences:</p>
+<ul>
+<li>
+<p>when invoked for the first time on the prompt
+    <span class="arithmatex">\(u_{1},\ldots,u_{m}\)</span>, it will create KV$ and write the Key-Value vectors of <span class="arithmatex">\(m\)</span> prompt tokens to it.</p>
+</li>
+<li>
+<p>when invoked for subsequent token generations:</p>
+<ul>
+<li>
+<p>It takes as input only the single token generated in the
+    previous iteration instead of the growing input of tokens.</p>
+</li>
+<li>
+<p>It calculates the Key-Query-Value vectors of the single input
+    token and appends the Key-Values to the KV$.</p>
+</li>
+<li>
+<p>It processes only the single token through all layers of the LM but
+    calculates the causal attention of the single token with all the
+    Key-Value vectors in KV$.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>The text completion with LM_with_KV$() can be rewritten as follows:</p>
+<div class="highlight"><pre><span></span><code>input = u1,...,um    #initialize with the prompt
+
+for (i = 1; i &lt;= n; i++):
+
+    logits = LM_with_KV$(input)    # Append to KV\$
+
+    P = top-k/top-p/softmax warp(logits)    # P is a pdf over vocabulary
+
+    v[i] = Sample a token from the vocabulary using the pdf P
+
+    input = v[i]    # Single token that was just generated
+
+Output v[i],...,v[n] as a completion.
+</code></pre></div>
+<p>It is worth emphasizing that LM_with_KV$() with appropriate KV$
+contents and LM() are the same function - both calculate the same
+conditional probability distribution over the vocabulary that can be
+used to predict the next token following <span class="arithmatex">\(v_{i}.\)</span></p>
+<p><span class="arithmatex">\(LM\left( u_{1}..u_{m}, v_{1}\ldots v_{i} \right)\  \equiv LM\_ with\_ KV\$\ (v_{i}) \equiv P\)</span>(
+. |<span class="arithmatex">\(u_{1},\ u_{2},\ldots,\ u_{m},\ v_{1},\ldots v_{i})\)</span></p>
+<h3 id="performance-profiles-of-lm-completion-generation">Performance Profiles of LM Completion Generation<a class="headerlink" href="#performance-profiles-of-lm-completion-generation" title="Permanent link">&para;</a></h3>
+<p>The execution phase of LM_with_KV$() that takes a prompt as input and
+generates the first token is called the <em>Prefill Phase.</em> The execution
+phase that generates the subsequent tokens autoregressively, one token
+at a time, is called the <em>Decode Phase</em>.</p>
+<p>These phases have quite different performance profiles. The Prefill
+Phase requires just one invocation of the LM, requiring the fetch of all
+the parameters of the model once from the DRAM, and reuses it <span class="arithmatex">\(m\)</span> times
+to process all the <span class="arithmatex">\(m\)</span> tokens in the prompt. With sufficiently large
+value of <span class="arithmatex">\(m\)</span>, the Prefill Phase is more compute constrained than
+memory-bandwidth constrained.</p>
+<p>On the other hand, the Decode Phase is more DRAM-bandwidth constrained
+than computation constrained, because all the parameters of the model
+need to be fetched to process just one input token. Further, utilization
+of computational resources in the accelerator is quite low, as only one
+token is processed at a time. In other words, the decode phase can
+afford to do additional computation without impacting the latency.</p>
+<p>To a first order approximation, the number of tokens that an LM can
+generate during the decode phase can be calculated as
+DRAM-Read-Bandwidth (bytes/sec) divided by the capacity of the model in
+bytes.</p>
+<h2 id="speculative-decoding">Speculative Decoding<a class="headerlink" href="#speculative-decoding" title="Permanent link">&para;</a></h2>
+<p>It appears that the AR decoding cannot be parallelized because of its
+causality-induced serial nature: The token <span class="arithmatex">\(v_{i + 1}\)</span> can only be
+generated after the token <span class="arithmatex">\(v_{i}\)</span> has been generated. Let's observe how
+SpD overcomes this hurdle.</p>
+<p>SpD leverages the insight that it's faster to check whether a sequence
+of <span class="arithmatex">\(K ( &gt; 1)\)</span> tokens is a plausible continuation for a prompt rather than
+generating such a K-token continuation - as the former just requires
+one invocation of the LM. In SpD, the plausible completion is generated by another LM called
+Draft Language Model (DLM) with lower capacity. In this context,
+the original LM by contrast is referred to as Target LM (TLM).</p>
+<p>To check whether <span class="arithmatex">\(v_{1},\ldots,v_{K}\)</span> is a plausible completion of
+<span class="arithmatex">\(u_{1}\ldots u_{m}\)</span>, we need to check the following <span class="arithmatex">\(K\)</span> conditions:  </p>
+<p><br></p>
+<ul>
+<li><span class="arithmatex">\(v_{1},\ldots ,v_{i}\)</span> is a plausible completion of <span class="arithmatex">\(u_{1},\ldots ,u_{m}\)</span> for <span class="arithmatex">\(i = 1,..,K\)</span>  </li>
+</ul>
+<p><br></p>
+<p>Due to the parallelism inherent in checking the above K conditions, it
+can be achieved with one invocation of LM while generating K tokens
+requires K sequential invocations.</p>
+<p>For the overall speculative decoding scheme to be faster, the following
+parameters need to be chosen appropriately:</p>
+<ul>
+<li>
+<p>Relative capacity of DLM compared to the TLM needs be small enough
+    to generate fast speculation autoregressively and large enough to
+    generate plausible completion for the TLM.</p>
+</li>
+<li>
+<p>The length of speculation <span class="arithmatex">\(K\)</span> needs to be small enough to ensure
+    that both the single invocation of the TLM to check completion and
+    the time for the DLM to generate do not become too expensive
+    computationally.</p>
+</li>
+</ul>
+<p>More formally, given a prompt of <span class="arithmatex">\(u_{1}\ldots u_{m}\)</span> and a potential
+completion <span class="arithmatex">\(v_{1},\ldots ,v_{K}\)</span>, it is possible to efficiently
+evaluate the following conditional pdfs:</p>
+<p><br></p>
+<ul>
+<li>
+<p><span class="arithmatex">\(P_{LM}(\ .\ |u_{1}\ldots u_{m})\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(P_{LM}(\ .\ |u_{1}\ldots u_{m},\ v_{1})\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(P_{LM}(\ .\ |u_{1}\ldots u_{m},\ v_{1},\ldots v_{i - 1})\)</span> for <span class="arithmatex">\(i = 2\ldots K\)</span></p>
+</li>
+</ul>
+<p><br></p>
+<p>The above denotes one invocation of LM_with_KV$() with input of <span class="arithmatex">\(K\)</span>
+tokens <span class="arithmatex">\(v_{1},\ldots,v_{K}\)</span> and KV$ holding the Key-Value vectors of
+<span class="arithmatex">\(u_{1},\ldots ,u_{m}\)</span>. This invocation is also referred to as <em>scoring</em>
+the sequence of <span class="arithmatex">\(K\)</span> tokens <span class="arithmatex">\(v_{1},\ldots,v_{K}\)</span>.</p>
+<p>In summary, SpD relies on the fact that for small values of <span class="arithmatex">\(K\)</span>, the
+latency to score <span class="arithmatex">\(K\)</span> tokens is no different, or minimally higher,
+compared to autoregressively generating a single token because the
+computational units are underutilized during the AR decode stage.</p>
+<h3 id="components-of-speculative-decoding">Components of Speculative Decoding<a class="headerlink" href="#components-of-speculative-decoding" title="Permanent link">&para;</a></h3>
+<p>There are three functional components in SpD to produce <span class="arithmatex">\(n\)</span> subsequent
+tokens given a prompt of <em>m</em> tokens <span class="arithmatex">\(u_{1},\ldots ,u_{m}\)</span>.</p>
+<ol>
+<li>
+<p><strong>TLM</strong>: The LM from which we need to generate completion called
+    Target or True LM (TLM).</p>
+</li>
+<li>
+<p><strong>DLM</strong>: A smaller LM used to guess a K-token completion called
+    Draft LM (DLM), generating those tokens autoregressively one at a
+    time.</p>
+<ul>
+<li>
+<p><em>K</em> is a smaller number compared to <span class="arithmatex">\(n.\)</span> Since the DLM is small, the
+resulting increase in latency is expected to be minimal.</p>
+</li>
+<li>
+<p>The sequence generated by the DLM is the <em>speculated completion</em> for
+TLM.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>MRS</strong>: A probabilistic acceptance scheme to decide whether TLM
+    should accept the speculated completion or a prefix of it is called
+    Modified Rejection Sampling (MRS).</p>
+<ul>
+<li>This is the heart of the decoding process that guarantees the
+correctness of Speculative Sampling. Note that the speculated
+completion is likely to be a plausible completion from the
+perspective of DLM but may not be so for the TLM. So, the TLM
+may accept only a prefix of the speculation or even none of it.
+The acceptance decision is probabilistic in nature. The
+probabilistic reasoning underpinning the MRS is to ensure that
+the probability of acceptance of <span class="arithmatex">\(u_{1},.. ,u_{m},t_{1},..,t_{i}\)</span>
+indeed matches the probability TLM assigns to it
+<span class="arithmatex">\(P_{TLM}(u_{1},\ldots ,u_{m},t_{1}\ldots ,t_{i})\)</span>.</li>
+</ul>
+</li>
+</ol>
+<h3 id="process-of-speculative-decoding">Process of Speculative Decoding<a class="headerlink" href="#process-of-speculative-decoding" title="Permanent link">&para;</a></h3>
+<p>First, we begin with a simpler case where DLM and TLM use greedy
+sampling instead of the general multinomial sampling. This is simpler
+because all the probabilistic reasoning can be reduced to deterministic
+reasoning as the pdfs become 1-hot pdfs.</p>
+<p><a class="glightbox" href="../media/figure_3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="figure 3" src="../media/figure_3.png" /></a><br />
+<em>Figure 3: AR generation of K tokens from DLM</em></p>
+<ol>
+<li>
+<p>For the given prompt of <span class="arithmatex">\(m\)</span> tokens, the DLM will autoregressively
+generate <span class="arithmatex">\(K\)</span> tokens <span class="arithmatex">\(t_{1},\ldots ,t_{K}\)</span>, one at a time, with K
+invocations (as shown in Figure 3 above).</p>
+</li>
+<li>
+<p>The TLM will process sequence <span class="arithmatex">\(u_{1}, u_{2},\ldots u_{m}, t_{1}\ldots ,t_{K}\)</span> with one invocation of TLM and calculate 
+<span class="arithmatex">\(v_{1},\ldots ,v_{K+1}\)</span> (as shown in Figure 4 below). </p>
+<ul>
+<li><span class="arithmatex">\(v_{1}\)</span> is the next token predicted by TLM on <span class="arithmatex">\(u_{1}\ldots ,u_{m}\)</span>.</li>
+<li><span class="arithmatex">\(v_{i}\)</span> is the next token predicted by TLM on <span class="arithmatex">\(u_{1},u_{2},\ldots ,u_{m},t_{1},\ldots ,t_{i - 1}\)</span> for <span class="arithmatex">\(1 &lt; i \leq K + 1\)</span>.</li>
+</ul>
+</li>
+</ol>
+<p><a class="glightbox" href="../media/figure_4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="figure 4" src="../media/figure_4.png" /></a><br />
+<em>Figure 4: Single invocation of TLM on speculation</em></p>
+<ol>
+<li>
+<p>Modified Rejection Sampling (MRS) Algorithm: This component takes
+the <span class="arithmatex">\(K\)</span> speculated tokens from DLM <span class="arithmatex">\(t_{1},\ldots ,t_{K}\)</span> and
+the <span class="arithmatex">\(K + 1\)</span> tokens <span class="arithmatex">\(v_{1},\ldots ,v_{K + 1}\)</span> from TLM via the
+scoring process. The output is a desired plausible completion for
+the prompt <span class="arithmatex">\(u_{1}\ldots ,u_{m}\)</span>. It scans the speculated tokens left
+to right, one token at a time, to see whether it matches the
+corresponding token sampled by TLM during scoring. If it does, it is
+accepted as a plausible completion. If it does not, the process stops, 
+the token that came from TLM is taken as the alternative to the
+rejected one and the remaining speculation is rejected. If all are
+accepted, then an additional token is accepted. See Figure 7 for the
+possible acceptances when <span class="arithmatex">\(K = 3\)</span>.  </p>
+<div class="highlight"><pre><span></span><code>for (i=1, i &lt;= K; i++) {
+    # Sequentially scan the speculated tokens
+    if t[i] == v[i]:
+        accept(t[i]);    # matches what TLM predicted
+                         # same as accept v[i]
+                         # Idea is to accept what DLM speculated
+    else:
+        accept(v[i]);    # does not match. Accept what TLM predicted!
+        Break;           # exit loop
+if all t[i]&#39;s are accepted then accept v[K+1]
+</code></pre></div>
+<p><em>Figure 5: MRS with Greedy Sampling on DLM and TLM</em></p>
+</li>
+</ol>
+<p><a class="glightbox" href="../media/figure_6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="figure 6" src="../media/figure_6.png" /></a><br />
+<em>Figure 6: Potential completions from Speculation</em></p>
+<ol>
+<li>
+<p>At this point in time, we would have generated at least 1 and at
+    most <span class="arithmatex">\(K + 1\)</span> tokens for the TLM with just 1 invocation of TLM and <span class="arithmatex">\(K\)</span>
+    invocations of DLM.</p>
+</li>
+<li>
+<p>The above speculate-accept interaction is repeated until the required
+    number of <span class="arithmatex">\(n\)</span> tokens are generated.</p>
+</li>
+<li>
+<p>An important implementation detail which we do not elaborate here is
+    that the KV$ of DLM and TLM should be purged of the tokens that
+    were rejected.</p>
+</li>
+</ol>
+<h2 id="multinomial-sampling">Multinomial Sampling<a class="headerlink" href="#multinomial-sampling" title="Permanent link">&para;</a></h2>
+<p>Qualcomm Cloud AI 100 supports the general case when DLM and TLM do multinomial sampling. In this case, when TLM scores the input sequence and outputs conditional pdfs, the MRS scheme needs to make probabilistic decisions with appropriate probabilities, so that the completions are sampled from the desired target distributions. For further explanation on Multinomial Sampling, please see the <a href="#Appendix">Appendix</a>.</p>
+<p>In summary, SpD involves the use of a smaller capacity model (DLM)
+running autoregressively to speculate a multi-token completion. Since
+DLM is small, it can be executed much faster than TLM. The MRS algorithm
+validates the speculation as a plausible completion from TLM by invoking
+the TLM just once and accepting a prefix of the speculation. There is a
+theoretical guarantee that there is no accuracy loss due to the
+speculate-accept handshake process between the DLM and the TLM.</p>
+<h2 id="weight-only-quantization-using-microscaling-mx-formats">Weight-Only Quantization using Microscaling (Mx) Formats<a class="headerlink" href="#weight-only-quantization-using-microscaling-mx-formats" title="Permanent link">&para;</a></h2>
+<p>In addition to Speculative Sampling, Weight-only Quantization using
+Microscaling (Mx) Formats can also achieve ~2x speedup on LLM decoding.</p>
+<p>In 2023, AMD, Arm, Intel, Meta, Microsoft, NVIDIA, and Qualcomm formed
+the Microscaling Formats (MX) Alliance with the goal of creating and
+standardizing next-generation 6- and 4-bit data types for AI training
+and inferencing. Qualcomm Cloud AI 100 has implemented MxFP6 (a 6-bit
+datatype) as a weight compression format. When the user selects this
+compilation option, the compiler will automatically compress the weights
+from FP32 or FP16 into MxFP6 format during the offline compilation
+phase. Compressing in this form saves 61% of the size of the weights and
+thus reduces the pressure on DRAM capacity.</p>
+<p>At inference run time, the Qualcomm Cloud AI 100 performs on-the-fly
+decompression in software using its vector engine with an optimized
+decompression kernel. Decompression can be performed in parallel with
+weight fetching and computations, so the overhead is mostly hidden.
+After decompression, the calculations are performed as before in FP16
+precision. The use of FP16 is acceptable since the LLMs still remain
+DRAM constrained so that the compute is not a bottleneck. FP16 also
+allows the retention the higher precision activations which overcomes loss
+of accuracy from the quantization.</p>
+<h2 id="experimental-results">Experimental Results<a class="headerlink" href="#experimental-results" title="Permanent link">&para;</a></h2>
+<p>This section presents the details of the performance speedup achieved on
+Qualcomm Cloud AI 100 using both greedy SpD and MX6 weight compression
+with the baseline of no speculative decoding and with parameters in
+FP16.</p>
+<p>The speedup is reported on 3 different Qualcomm Cloud AI 100 variants:</p>
+<ul>
+<li>
+<p>Standard (75W TDP),</p>
+</li>
+<li>
+<p>Pro (75W TDP), and</p>
+</li>
+<li>
+<p>Ultra (150W TDP)</p>
+</li>
+</ul>
+<p>For diversity, we report the speedup on two networks CodeGen 1-7B mono
+and Llama 2-7B-chat-FT, each with different context lengths. CodeGen 1
+is a <a href="https://github.com/salesforce/CodeGen">family of models</a> for
+program synthesis. The <em>mono</em> subfamily is finetuned to produce python
+programs from specifications in natural language. The model Llama
+2-7B-chat-FT is a model fine-tuned by Qualcomm from Llama 2-7B from
+Meta.</p>
+<h3 id="acceleration-on-qualcomm-cloud-ai-100-ultra">Acceleration on Qualcomm Cloud AI 100 Ultra<a class="headerlink" href="#acceleration-on-qualcomm-cloud-ai-100-ultra" title="Permanent link">&para;</a></h3>
+<p>Figure 1, from the beginning of the blog, shows three runs of Llama 2
+7B-chat-FT for a particular prompt starting at the same time. The left
+column shows the execution of the model under a baseline condition with
+FP16 parameters; The middle column shows the model accelerated under MX6
+compression; The right column shows the model accelerated with both MX6
+compression and SpD.  </p>
+<p>The significant speedup is visible by the pace in which tokens are
+produced and completed in the right most column. Worth noting, the text
+highlighted blue in the MX6 + SpD column is the speculated completion
+from DLM that was accepted. Figure 7 documents the speedup in the metric of generated tokens per
+second (t/s) observed in Figure 1.</p>
+<p><a class="glightbox" href="../media/figure_7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="figure 7" src="../media/figure_7.png" /></a><br />
+<em>Figure 7: Llama 2-7B acceleration on Cloud AI 100 Ultra</em></p>
+<h3 id="speedup-on-qualcomm-cloud-ai-100-standard-and-pro">Speedup on Qualcomm Cloud AI 100 Standard and Pro<a class="headerlink" href="#speedup-on-qualcomm-cloud-ai-100-standard-and-pro" title="Permanent link">&para;</a></h3>
+<p>A similar range of speedups can be achieved on the Standard and Pro
+variations of Qualcomm Cloud AI 100, shown in Figure 8. </p>
+<p><a class="glightbox" href="../media/figure_8asm.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="figure 8a" src="../media/figure_8asm.png" /></a><a class="glightbox" href="../media/figure_8bsm.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="figure 8b" src="../media/figure_8bsm.png" /></a><br />
+<em>Figure 8: Range of speedups on Qualcomm Cloud AI 100 Standard and Pro</em></p>
+<h3 id="configurations">Configurations<a class="headerlink" href="#configurations" title="Permanent link">&para;</a></h3>
+<p>This section provides the configurations used to measure this speed up.  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: center;">CodeGen 1-7B</th>
+<th style="text-align: center;">Llama 2-7B Chat Fine Tuned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">TLM</td>
+<td style="text-align: center;">~7B parameters in MXFP6</td>
+<td style="text-align: center;">~7B parameters in MXFP6</td>
+</tr>
+<tr>
+<td style="text-align: center;">DLM</td>
+<td style="text-align: center;">~350M parameters in FP16</td>
+<td style="text-align: center;">115M parameters in FP16</td>
+</tr>
+<tr>
+<td style="text-align: center;">Max Prompt Length</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">128</td>
+</tr>
+<tr>
+<td style="text-align: center;">Max Generation Length</td>
+<td style="text-align: center;">224</td>
+<td style="text-align: center;">896</td>
+</tr>
+<tr>
+<td style="text-align: center;">Speculation Length (K)</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr>
+<td style="text-align: center;">Batch Size</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">Diverse set of prompts</td>
+<td style="text-align: center;">Hello World, BFS, <br>Topological Sort, <br>Tarjan’s SCC, Linear Regression</td>
+<td style="text-align: center;">Elicit information about weather, <br>trip guidance, restaurant suggestions, <br>car control, Music Search, Flight Search</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conclusions-and-next-steps">Conclusions and Next Steps<a class="headerlink" href="#conclusions-and-next-steps" title="Permanent link">&para;</a></h2>
+<p>Large Language Models can be accelerated by Speculative Decoding, increasing performance efficiency without a loss in accuracy. Weight compression using MXFP6 is another technique capable of speeding up LLMs 2x. Synergistically, both features together offer a multiplicative speedup of LLM decoding by a factor of ~4x. Both techniques are available on Qualcomm Cloud AI 100 inference accelerators, which can be utilized in <a href="https://aws.amazon.com/ec2/instance-types/dl2q/">Amazon AWS</a> and <a href="https://cirrascale.com/solutions-qualcomm-cloud-ai100.php">Cirrascale Cloud Services</a>.  </p>
+<p>Be sure to check out the model recipes provided for <a href="https://github.com/quic/cloud-ai-sdk/tree/1.12/models/language_processing/decoder/CodeGen-With-Speculative-Decoding">Speculative Decoding</a> in the Qualcomm <a href="https://github.com/quic/cloud-ai-sdk/">Cloud AI GitHub</a> repository to streamline your LLM workflow!</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">&para;</a></h2>
+<h3 id="what-are-the-requirements-on-the-draft-model">What are the requirements on the draft model?<a class="headerlink" href="#what-are-the-requirements-on-the-draft-model" title="Permanent link">&para;</a></h3>
+<p>Typically, the DLM should be a model with the same vocabulary as the TLM
+and the rule of thumb is for DLM to have 10x fewer parameters. Also
+preferable is that it is trained to do the same task as the DLM. The DLM
+could be in different precision than TLM.</p>
+<h3 id="where-do-i-get-the-draft-model">Where do I get the draft model?<a class="headerlink" href="#where-do-i-get-the-draft-model" title="Permanent link">&para;</a></h3>
+<p>Typically, when models are released, they are done in a series of models
+with increasing capacity. You may choose an appropriate lower-capacity
+model as a draft model and possibly at a lower precision as well.</p>
+<h3 id="is-there-any-accuracy-impact-because-of-speculated-decoding">Is there any accuracy impact because of speculated decoding?<a class="headerlink" href="#is-there-any-accuracy-impact-because-of-speculated-decoding" title="Permanent link">&para;</a></h3>
+<p>No. The MRS applied in this solution is proven to accept a speculation
+from TLM with the same probability with which the speculated text would
+have been generated by the TLM. So, probabilistically there is no
+difference.</p>
+<h3 id="what-performance-improvement-will-i-see-in-my-model-by-just-speculative-decoding-technique-alone">What performance improvement will I see in my model by just speculative decoding technique alone?<a class="headerlink" href="#what-performance-improvement-will-i-see-in-my-model-by-just-speculative-decoding-technique-alone" title="Permanent link">&para;</a></h3>
+<p>It depends on many factors. The rule of thumb is that it is typically 
+possible to achieve 1.5x to 2x. Besides the relative capacity of the
+draft model and speculation length, the performance improvement can
+depend on the type of prompt, the nature of completion, and the domain of
+application. We have seen code generations models - due to their
+structured output - show relatively more speed up. Common "easy"
+completions that DLM can produce will get accepted at a higher rate by
+the TLM. The speed up is expected to be robust with respect to increase in
+context length.</p>
+<h3 id="can-we-use-batch-size-1-to-further-improve-the-speedup-of-spd">Can we use batch size &gt; 1 to further improve the speedup of SpD?<a class="headerlink" href="#can-we-use-batch-size-1-to-further-improve-the-speedup-of-spd" title="Permanent link">&para;</a></h3>
+<p>Yes. Synergy is possible.</p>
+<p>In general, the maximum batch size that could be used depends on the
+latency target and the amount of storage available for the KV$,
+which scales linearly with the batch size. When SpD is deployed and latency target is not met, the speculation length <span class="arithmatex">\(K\)</span> may
+have to be adjusted as a function of batch size, as both SpD and batching
+try to exploit the same underutilized computational resources during the
+decode phase.</p>
+<p>Note that SpD can improve the Time per output token (TPOT) metric, and hence,
+the latency to complete a prompt that batching alone cannot do.</p>
+<h3 id="can-there-be-a-live-lock-situation-when-all-the-speculations-from-dlm-are-rejected-by-tlm-and-no-token-from-tlm-is-generated">Can there be a "live lock" situation when all the speculations from DLM are rejected by TLM and no token from TLM is generated?<a class="headerlink" href="#can-there-be-a-live-lock-situation-when-all-the-speculations-from-dlm-are-rejected-by-tlm-and-no-token-from-tlm-is-generated" title="Permanent link">&para;</a></h3>
+<p>No. In every speculate-verify cycle, the TLM always produces one valid
+token like it would happen on a normal autoregressive decode.</p>
+<h3 id="will-this-technique-help-with-improving-the-time-to-generate-the-first-token-from-tlm">Will this technique help with improving the time to generate the first token from TLM?<a class="headerlink" href="#will-this-technique-help-with-improving-the-time-to-generate-the-first-token-from-tlm" title="Permanent link">&para;</a></h3>
+<p>No. This technique only accelerates the decoding phase.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><a href="https://arxiv.org/pdf/2302.01318.pdf">Accelerating Large Language Model Decoding with Speculative
+    Sampling, Chen et al., 2023</a></p>
+</li>
+<li>
+<p><a href="https://developer.qualcomm.com/blog/qualcomm-cloud-ai-100-accelerates-large-language-model-inference-2x-using-microscaling-mx">Qualcomm Cloud AI 100 Accelerates Large Language Model Inference by ~2x Using Microscaling (Mx) Formats</a> Verrilli, 2023</p>
+</li>
+<li>
+<p><a href="https://arxiv.org/abs/2203.13474">CodeGen: An Open Large Language Model for Code with Multi-Turn Program Synthesis</a>\
+    <a href="https://enijkamp.github.io/">Erik Nijkamp</a>* et al., ICLR, 2023</p>
+</li>
+<li>
+<p><a href="https://ai.meta.com/research/publications/llama-2-open-foundation-and-fine-tuned-chat-models/">Llama 2: Open Foundation and Fine-Tuned Chat Models</a>,
+    Meta, 2023</p>
+</li>
+<li>
+<p><em>Qualcomm Cloud AI 100 Developer documentation: <a href="https://quic.github.io/cloud-ai-sdk-pages/latest/">https://quic.github.io/cloud-ai-sdk-pages/latest/</a></em></p>
+</li>
+<li>
+<p><em>Qualcomm Cloud AI 100 GitHub : <a href="https://github.com/quic/cloud-ai-sdk">https://github.com/quic/cloud-ai-sdk</a></em></p>
+</li>
+<li>
+<p><em>Qualcomm Cloud AI 100 on AWS: <a href="https://aws.amazon.com/ec2/instance-types/dl2q/">https://aws.amazon.com/ec2/instance-types/dl2q/</a></em></p>
+</li>
+<li>
+<p><em>Qualcomm Cloud AI 100 on Cirrascale Cloud Services: <a href="https://cirrascale.com/solutions-qualcomm-cloud-ai100.php">https://cirrascale.com/solutions-qualcomm-cloud-ai100.php</a></em>  </p>
+</li>
+</ol>
+<h2 id="appendix">Appendix<a class="headerlink" href="#appendix" title="Permanent link">&para;</a></h2>
+<h3 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h3>
+<p>This section gives details of the processing when TLM and DLM do not do
+greedy (Top-1) sampling. Instead TLM and DLM do general multinomial
+sampling from the next-token pdfs on the vocabulary.</p>
+<ol>
+<li>
+<p>For the given prompt of <span class="arithmatex">\(m\)</span> tokens, the DLM will autoregressively
+    generate <span class="arithmatex">\(K\)</span> tokens <span class="arithmatex">\(t_{1},\ldots,t_{K}\)</span> one at a time with <span class="arithmatex">\(K\)</span>
+    invocations calculating the probabilities
+    <span class="arithmatex">\(P_{DLM}(u_{1},u_{2},\ldots,u_{m},t_{1},\ldots,t_{i})\)</span> for
+    <span class="arithmatex">\(i = 1\ldots K\)</span>.</p>
+<ul>
+<li>Under greedy sampling these probabilities are 1.</li>
+</ul>
+</li>
+<li>
+<p>The TLM will score the sequence
+    <span class="arithmatex">\(u_{1},u_{2},\ldots,u_{m},t_{1},\ldots,t_{K}\)</span> with one invocation of TLM
+    (<a href="#figure-4">Figure 4</a> )and calculate:</p>
+<ul>
+<li>
+<p>The probabilities
+    <span class="arithmatex">\(P_{TLM}(u_{1},u_{2},\ldots,u_{m},t_{1},\ldots,t_{i})\)</span> for <span class="arithmatex">\(i = 1\ldots K\)</span></p>
+</li>
+<li>
+<p>The conditional probability distribution:
+    <span class="arithmatex">\(P_{TLM}(\ .\ |\ u_{1}\ldots,u_{m},v_{1},\ldots,v_{K})\)</span></p>
+</li>
+<li>
+<p>Under greedy sampling these probabilities are 1 and pdf is 1-hot</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Modified Rejection Sampling Algorithm:</p>
+<ul>
+<li>
+<p>This will sequentially check one token at a time whether to accept</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(t_{1}\)</span> as completion of <span class="arithmatex">\(u_{1},u_{2},\ldots,u_{m}\)</span>  </p>
+</li>
+<li>
+<p><span class="arithmatex">\(t_{i}\)</span> as completion of <span class="arithmatex">\(u_{1},u_{2},\ldots,u_{m},t_{1},\ldots,t_{i - 1}\)</span> for <span class="arithmatex">\(i = 2\ldots K\)</span></p>
+</li>
+</ul>
+</li>
+<li>
+<p>If <span class="arithmatex">\(t_{i}\)</span> is rejected, then all the subsequent speculated tokens
+<span class="arithmatex">\(t_{i + 1}\ldots t_{K}\)</span> will be rejected as well. In other words, only a
+prefix of speculation will be accepted. In particular, all of the
+speculated tokens could be rejected or accepted.</p>
+</li>
+<li>
+<p>In addition, one more completion tokens will be sampled from
+<span class="arithmatex">\(P_{TLM}(\ .\ |\ u_{1},u_{2},\ldots,u_{m},t_{1},\ldots,t_{i-1})\)</span> if 
+<span class="arithmatex">\(t_{i}\)</span> was rejected as an alternative to the rejected token. If all
+speculated tokens are accepted, then the additional token will be
+sampled from <span class="arithmatex">\(P_{TLM}(\ .\ |u_{1},u_{2},..u_{m},t_{1},\ldots,t_{K})\)</span>.
+This additional token is guaranteed to be a valid completion because
+it is sampled from <span class="arithmatex">\(P_{TLM}\)</span> itself.</p>
+</li>
+<li>
+<p>At this point in time, we would have generated at least 1 and at
+most <span class="arithmatex">\(K + 1\)</span> tokens for the TLM with just 1 invocation of TLM and <span class="arithmatex">\(K\)</span>
+invocations of DLM.</p>
+</li>
+<li>
+<p>The above speculate-accept interaction is repeated until required
+number of <span class="arithmatex">\(n\)</span> tokens are generated.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="modified-rejection-sampling-at-a-single-token-level">Modified Rejection Sampling at a single-token level<a class="headerlink" href="#modified-rejection-sampling-at-a-single-token-level" title="Permanent link">&para;</a></h3>
+<p>As mentioned above, with the speculated completion from DLM and its
+score from TLM, MRS scans the speculation sequentially one token at a
+time and decides to accept it or sample an alternative token from
+<span class="arithmatex">\(P_{TLM}\)</span>. Now we look in detail at the probabilistic decision process
+by which a single token <span class="arithmatex">\(t\)</span> following the prompt <span class="arithmatex">\(x\)</span> for the TLM is
+probabilistically sampled using a sample from DLM. This is an instance
+of a general problem of generating a sample from a pdf which is
+computationally more expensive when a sample from a different
+easier-to-sample distribution defined on the same support is available.
+When the two distributions are similar, we will be able to use the given
+sample itself as a sample from the desired pdf with high likelihood. The
+algorithm is presented in Figure 9 below. A proof may be found in <a href="https://arxiv.org/pdf/2302.01318.pdf">Accelerating Large Language Model Decoding
+with Speculative Sampling</a>, Chen, et al., 2023. </p>
+<p><br>
+<strong>Input</strong>:  </p>
+<ul>
+<li>
+<p>A speculated token sample from <span class="arithmatex">\(P_{DLM}(\ .\ |\ x\ )\)</span> : $t $</p>
+</li>
+<li>
+<p>The pdf <span class="arithmatex">\(P_{DLM}(\ .\ |\ x )\)</span> - Sampling is less expensive from this distribution</p>
+</li>
+<li>
+<p>The pdf <span class="arithmatex">\(P_{TLM}(\ .\ |\ x\ )\)</span> - Sampling is harder from this distribution</p>
+</li>
+</ul>
+<p><strong>Output</strong>: A token <span class="arithmatex">\(u\)</span> sampled from <span class="arithmatex">\(P_{TLM}(\ .\ |\ x\ )\)</span></p>
+<p><strong>Process</strong>:</p>
+<ol>
+<li>
+<p>Take token <span class="arithmatex">\(t\)</span> itself as <span class="arithmatex">\(u\)</span> with the probability
+    <span class="arithmatex">\(min\{ 1,\ P_{TLM}(\ t\ |\ x\ )/P_{DLM}(\ t\ |\ x\ )\}\)</span>.</p>
+</li>
+<li>
+<p>If <span class="arithmatex">\(t\)</span> was rejected, sample a different token from the pdf
+    <span class="arithmatex">\(( P_{TLM}(\ .\ |\ x\ ) - P_{DLM}(\ .\ |\ x\ ))_{+}\)</span>, where <span class="arithmatex">\(f(z)_{+}\)</span> is defined 
+    as <span class="arithmatex">\(\frac{ \max(0,\ f(z)) } {\Sigma_{y}\max(0,\ f(y)) }\)</span> 
+    is referred to as the residual pdf.  </p>
+</li>
+</ol>
+<p><em>Figure 9: MRS at a single token level</em><br />
+<br></p>
+<p>Now we try to give intuition behind the process shown in Figure 9 above. Restating
+the problem, <span class="arithmatex">\(P_{T}\)</span> is expensive to sample from while it is easier to
+sample from <span class="arithmatex">\(P_{D}.\)</span> We get a sample <span class="arithmatex">\(t\)</span> from <span class="arithmatex">\(P_{D}\)</span> whereas we
+actually want a sample from <span class="arithmatex">\(P_{T}\)</span>. And for economy, we would like to
+keep <span class="arithmatex">\(t\)</span> itself as a sample from <span class="arithmatex">\(P_{T}\)</span> if it is probabilistically
+acceptable.</p>
+<h3 id="mrs-greedy-p_tlm-p_dlm-are-1-hot">MRS Greedy: <span class="arithmatex">\(P_{TLM},\ P_{DLM}\)</span> are 1-hot<a class="headerlink" href="#mrs-greedy-p_tlm-p_dlm-are-1-hot" title="Permanent link">&para;</a></h3>
+<p>Let us begin with the simple case where <span class="arithmatex">\(P_{TLM}\)</span> and <span class="arithmatex">\(P_{DLM}\)</span> are the 
+result of Top-1 warping (greedy sampling), hence they will be 1-hot
+and sampling from them will always result in same tokens
+<span class="arithmatex">\(T_{TLM}\)</span> and <span class="arithmatex">\(T_{DLM}\)</span> respectively. In this case, intuition
+says that we should reject <span class="arithmatex">\(T_{DLM}\)</span> if it is different from
+<span class="arithmatex">\(T_{TLM}\)</span> as we are trying to sample from <span class="arithmatex">\(P_{TLM}\)</span> which always
+produces <span class="arithmatex">\(T_{TLM}\)</span>.</p>
+<p>The process given in Figure 9 indeed does the same: <span class="arithmatex">\(T_{DLM}\)</span> is
+taken as the sample with probability</p>
+<p><span class="arithmatex">\(min\{ 1,\ P_{TLM}(\ T_{DLM}\ |\ x\ )\ /\ P_{DLM}(\ T_{DLM}\ |\ x\ )\}\)</span></p>
+<p><span class="arithmatex">\(= \ min\{1,\ P_{TLM}(\ T_{DLM}\ |\ x\ )\}\)</span>, where <span class="arithmatex">\(P_{DLM}(\ T_{DLM}\ |\ x\ ) = 1\)</span></p>
+<p><span class="arithmatex">\(=\)</span> 1 or 0 depending on <span class="arithmatex">\(T_{DLM} = \ T_{TLM}\)</span></p>
+<p>If <span class="arithmatex">\(T_{DLM} \neq T_{TLM}\)</span>, then the proposal from DLM is
+rejected. To see, in this case, indeed <span class="arithmatex">\(T_{TLM}\)</span> gets picked, observe
+<span class="arithmatex">\((P_{TLM}(\ .\ |\ x\ ) - P_{DLM}(\ .\ |\ x\ ) )_{+}\)</span>
+has probability 1 on <span class="arithmatex">\(T_{TLM}\)</span> and 0 elsewhere.</p>
+<h3 id="mrs-general-p_tlm-p_dlm-are-general-pdfs">MRS General: <span class="arithmatex">\(P_{TLM}\ ,\ P_{DLM}\)</span> are general pdfs.<a class="headerlink" href="#mrs-general-p_tlm-p_dlm-are-general-pdfs" title="Permanent link">&para;</a></h3>
+<p>Now let us consider the general case where pdfs we are trying to match
+are not necessarily 1-hot.</p>
+<p>The intuition behind the process in Figure 9 is best illustrated
+through a toy example. In this example the vocabulary has 4 tokens
+<span class="arithmatex">\(\{ t_{1},t_{2},t_{3},t_{4}\}\)</span>. Let
+<span class="arithmatex">\(P_{D}(P_{DLM} )\)</span> and <span class="arithmatex">\(P_{T}(P_{TLM})\)</span> be the
+probability distributions given in the Figure 10.  </p>
+<p><br></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Token</th>
+<th style="text-align: center;"><span class="arithmatex">\(P_{D}\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(P_{T}\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(\max(0, P_{T} - P_{D})\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(\max(0, P_{T} - P_{D})\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\((P_{T} - P_{D})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em><span class="arithmatex">\(t_{1}\)</span></em></td>
+<td style="text-align: center;">0.4</td>
+<td style="text-align: center;">0.30</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><span class="arithmatex">\(t_{2}\)</span></em></td>
+<td style="text-align: center;">0.3</td>
+<td style="text-align: center;">0.45</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.15 / (0.15+0.05) = 0.75</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><span class="arithmatex">\(t_{3}\)</span></em></td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">0.10</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><span class="arithmatex">\(t_{4}\)</span></em></td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.05 / (0.15+0.05) = 0.25</td>
+</tr>
+</tbody>
+</table>
+<p><em>Figure 10 Toy Example for MRS</em></p>
+<p><br></p>
+<p>When a token <span class="arithmatex">\(t\)</span> is sampled from <span class="arithmatex">\(P_{D}\)</span>, the required processing will
+depend on whether <span class="arithmatex">\(P_{D}(t) \leq P_{T}(t)\)</span> or not. The tokens
+<span class="arithmatex">\(t_{1}\)</span> and <span class="arithmatex">\(t_{3}\)</span> have the
+property <span class="arithmatex">\(P_{D}(t) \leq P_{T}(t)\)</span> while the others <span class="arithmatex">\(t_{2}\)</span> and
+<span class="arithmatex">\(t_{4}\)</span> do not. Now we examine the two cases:</p>
+<p><strong>Case</strong> <span class="arithmatex">\(P_{D}(t) &gt; P_{T}(t):\)</span> Suppose the sample token from <span class="arithmatex">\(P_{D}\)</span>
+is <span class="arithmatex">\(t_{1}\)</span>. Processing is analogous if the sampled token was <span class="arithmatex">\(t_{3}\)</span>.</p>
+<p>Can <span class="arithmatex">\(t_{1}\)</span> be taken as a sample from <span class="arithmatex">\(P_{T}\)</span> ? No. Because according to
+<span class="arithmatex">\(P_{T}\)</span>, the token <span class="arithmatex">\(t_{1}\)</span> can only be sampled with probability 0.3
+while it has been sampled now with probability 0.4. Since we want to
+keep <span class="arithmatex">\(t_{1}\)</span> as much as possible, what we do is probabilistically
+reject <span class="arithmatex">\(t_{1}\)</span> to ensure it gets effectively accepted only with
+probability of 0.3:</p>
+<ul>
+<li>
+<p>So, keep <span class="arithmatex">\(t_{1}\)</span> as the sample from <span class="arithmatex">\(P_{T}\)</span> with the probability of
+    <span class="arithmatex">\(P_{T}(t_{1})/P_{D}(t_{1})\)</span> = 0.3 / 0.4 = 0.75 as per
+    step (1) of Figure 9 and look for another value as a sample from
+    <span class="arithmatex">\(P_{T}\)</span> with the remaining probability of 0.25. Note that now
+    <span class="arithmatex">\(t_{1}\)</span> has been effectively selected with probability 0.75*0.4 =
+    0.3 and that matches the required <span class="arithmatex">\(P_{T}(t_{1})\)</span>.</p>
+</li>
+<li>
+<p>What to do when <span class="arithmatex">\(t_{1}\)</span> was rejected, which happens with probability
+    0.25 ? We will pick <span class="arithmatex">\(t_{2}\)</span> or <span class="arithmatex">\(t_{4}\)</span> with probability 0.75 and
+    0.25 respectively, which is equal to sampling from
+    <span class="arithmatex">\((P_{T} - P_{D})_{+}\)</span>.   </p>
+<p><em>The reasoning behind this will become clearer after we examine the
+case sample from <span class="arithmatex">\(P_{D}\)</span> is <span class="arithmatex">\(t_{1}\)</span>.</em></p>
+</li>
+</ul>
+<p><strong>Case</strong> <span class="arithmatex">\(P_{D}(t) \leq P_{T}(t):\)</span> Now suppose the sample from
+<span class="arithmatex">\(P_{D}\)</span> is <span class="arithmatex">\(t_{2}\)</span>. Processing is analogous if the sampled token was
+<span class="arithmatex">\(t_{4}\)</span>.</p>
+<p>Can <span class="arithmatex">\(t_{2}\)</span> be taken as a sample from <span class="arithmatex">\(P_{T}\)</span> ?  Yes! Because according
+to <span class="arithmatex">\(P_{T}\)</span>, the token <span class="arithmatex">\(t_{2}\)</span> needs to be sampled with probability 0.45
+while it has been picked with probability 0.3 by <span class="arithmatex">\(P_{D}\)</span>. But if
+<span class="arithmatex">\(t_{2}\)</span> is picked <em>only</em> this case of <span class="arithmatex">\(P_{D}\)</span> picking <span class="arithmatex">\(t_{2}\)</span> then
+<span class="arithmatex">\(t_{2}\)</span> will not get sampled adequately enough. It needs to get sampled
+additionally when <span class="arithmatex">\(P_{D}\)</span> samples some other token and it was rejected
+during the probabilistic decision process.</p>
+<p>Now we see that,</p>
+<ul>
+<li>
+<p>if <span class="arithmatex">\(t_{2}\)</span> or <span class="arithmatex">\(t_{4}\)</span> ( tokens for which <span class="arithmatex">\(P_{D}(t) \leq P_{T}(t)\)</span> )
+    get sampled from <span class="arithmatex">\(P_{D}\)</span> they will be taken as samples from <span class="arithmatex">\(P_{T}\)</span>
+    immediately. But that is not enough. We need to provide additional
+    opportunities (probability mass) for <span class="arithmatex">\(t_{2}\)</span> and <span class="arithmatex">\(t_{4}\)</span> to be
+    selected.</p>
+<ul>
+<li>The additional opportunities are quantified by <span class="arithmatex">\(max(0,\ P_{T} - P_{D})\)</span></li>
+</ul>
+</li>
+<li>
+<p>These opportunities occur when <span class="arithmatex">\(t_{1}\)</span> or <span class="arithmatex">\(t_{3}\)</span> ( tokens for
+    which <span class="arithmatex">\(P_{D}(t) &gt; P_{T}(t)\)</span> ) get sampled from <span class="arithmatex">\(P_{D}\)</span> and are
+    rejected to be taken as such as samples from <span class="arithmatex">\(P_{T}\)</span>.</p>
+</li>
+<li>
+<p>These are quantified by <span class="arithmatex">\(max(0,\ P_{D} - P_{T})\)</span></p>
+</li>
+<li>
+<p>And clearly the needed and available opportunities match as one is
+    the negative of the other.</p>
+</li>
+<li>
+<p>So, whenever the proposed token either <span class="arithmatex">\(t_{1}\)</span> or <span class="arithmatex">\(t_{3}\)</span> is
+    rejected, an opportunity arises for one of the remaining tokens
+    <span class="arithmatex">\(t_{2}\)</span> or <span class="arithmatex">\(t_{4}\)</span> to be taken as sample from <span class="arithmatex">\(P_{T}\)</span>. But which
+    one should we choose? <span class="arithmatex">\(t_{2}\)</span> or <span class="arithmatex">\(t_{4}\)</span> ? This choice needs to be
+    probabilistic and proportional to the required probabilities to be
+    made up for them. In this example, <span class="arithmatex">\(t_{2}\)</span> and <span class="arithmatex">\(t_{4}\)</span> need to
+    make up probabilities 0.15 and 0.05 respectively. That is, the
+    tokens <span class="arithmatex">\(t_{2}\)</span> should be chosen 3 <span class="arithmatex">\(( = \frac{0.15}{0.05})\)</span> 
+    times more often than <span class="arithmatex">\(t_{4}\)</span>, which is equivalent to sampling 
+    from the residual pdf <span class="arithmatex">\((P_{T} - P_{D})_{+}\)</span>.</p>
+</li>
+</ul>
+<p>This completes the description of MRS in the general case of multinomial
+sampling done by DLM and TLM.</p>
+<p><em>Qualcomm branded products are products of Qualcomm Technologies, Inc. and/or its subsidiaries.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../Microscaling/microscaling/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../Text_Embeddings/" class="md-footer__link md-footer__link--next" aria-label="Next: Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/quic/cloud-ai-sdk"  target="_blank" rel="noopener">Qualcomm Innovation Center, Inc.</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/quic/cloud-ai-sdk" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence" target="_blank" rel="noopener" title="www.qualcomm.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M528.3 46.5H388.5c-48.1 0-89.9 33.3-100.4 80.3-10.6-47-52.3-80.3-100.4-80.3H48c-26.5 0-48 21.5-48 48v245.8c0 26.5 21.5 48 48 48h89.7c102.2 0 132.7 24.4 147.3 75 .7 2.8 5.2 2.8 6 0 14.7-50.6 45.2-75 147.3-75H528c26.5 0 48-21.5 48-48V94.6c0-26.4-21.3-47.9-47.7-48.1zM242 311.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5V289c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V251zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H78.2c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm259.3 121.7c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.9c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5V228c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5v22.9zm0-60.9c0 1.9-1.5 3.5-3.5 3.5H337.5c-1.9 0-3.5-1.5-3.5-3.5v-22.8c0-1.9 1.5-3.5 3.5-3.5h160.4c1.9 0 3.5 1.5 3.5 3.5V190z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
