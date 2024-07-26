@@ -633,8 +633,66 @@
   
   
   
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Installation/Docker/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_3_6" id="__nav_1_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../../Installation/Docker/Docker.md" class="md-nav__link">
+      <a href="../../../Installation/Docker/Docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -643,6 +701,35 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Installation/Docker/k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1093,9 +1180,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#creating-a-aic100-backend-enabled-triton-docker-image-using-aic100-development-kits" class="md-nav__link">
+  <a href="#creating-an-ai-100-backend-enabled-triton-docker-image-using-ai-100-development-kits" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating a AIC100 backend enabled Triton docker image using AIC100 development kits
+      Creating an AI 100 backend enabled Triton Docker image using AI 100 development kits
     </span>
   </a>
   
@@ -1122,9 +1209,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aic100-specific-parameters" class="md-nav__link">
+  <a href="#ai-100-specific-parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      AIC100 specific parameters
+      AI 100 specific parameters
     </span>
   </a>
   
@@ -1146,9 +1233,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aic100-specific-parameters_1" class="md-nav__link">
+  <a href="#ai-100-specific-parameters_1" class="md-nav__link">
     <span class="md-ellipsis">
-      AIC100 specific parameters
+      AI 100 specific parameters
     </span>
   </a>
   
@@ -2375,9 +2462,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#creating-a-aic100-backend-enabled-triton-docker-image-using-aic100-development-kits" class="md-nav__link">
+  <a href="#creating-an-ai-100-backend-enabled-triton-docker-image-using-ai-100-development-kits" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating a AIC100 backend enabled Triton docker image using AIC100 development kits
+      Creating an AI 100 backend enabled Triton Docker image using AI 100 development kits
     </span>
   </a>
   
@@ -2404,9 +2491,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aic100-specific-parameters" class="md-nav__link">
+  <a href="#ai-100-specific-parameters" class="md-nav__link">
     <span class="md-ellipsis">
-      AIC100 specific parameters
+      AI 100 specific parameters
     </span>
   </a>
   
@@ -2428,9 +2515,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aic100-specific-parameters_1" class="md-nav__link">
+  <a href="#ai-100-specific-parameters_1" class="md-nav__link">
     <span class="md-ellipsis">
-      AIC100 specific parameters
+      AI 100 specific parameters
     </span>
   </a>
   
@@ -2521,40 +2608,40 @@
 <h1 id="triton-inference-server">Triton Inference Server<a class="headerlink" href="#triton-inference-server" title="Permanent link">&para;</a></h1>
 <p>Triton Inference Server is an open source inference serving software that
 streamlines AI inferencing. </p>
-<p>AIC100 SDK enables two backends for inference execution workflow.  These backends, once
-used on a host with AIC100 cards, will detect the AIC100 cards during initialization
+<p>Cloud AI SDK enables two backends for inference execution workflow.  These backends, once
+used on a host with AI 100 cards, will detect the AI 100 cards during initialization
 and route the inferencing call (requested to Triton server) to the hardware.</p>
 <ul>
-<li>onnxruntime_onnx as platform with QAic EP(execution provider)</li>
-<li>QAic as a customized C++ backend</li>
+<li>onnxruntime_onnx as platform with QAic EP(execution provider) for deploying ONNX graphs.</li>
+<li>QAic as a customized C++ backend for deploying compiled binaries optimized for AIC.</li>
 </ul>
 <p><a class="glightbox" href="../../../../images/server_frontends.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../../images/server_frontends.png" /></a> </p>
-<h2 id="creating-a-aic100-backend-enabled-triton-docker-image-using-aic100-development-kits">Creating a AIC100 backend enabled Triton docker image using AIC100 development kits<a class="headerlink" href="#creating-a-aic100-backend-enabled-triton-docker-image-using-aic100-development-kits" title="Permanent link">&para;</a></h2>
-<p>In order to add a customized backends (to process inferencing on AIC100 hardware) into a Vanilla Triton server image,
-we need to run few scripts by passing sdk_path as parameters.
-"docker-build.sh" script will generate a docker image as output.This script is a part of apps-sdk contents and can be run after unzipping it.</p>
+<h2 id="creating-an-ai-100-backend-enabled-triton-docker-image-using-ai-100-development-kits">Creating an AI 100 backend enabled Triton Docker image using AI 100 development kits<a class="headerlink" href="#creating-an-ai-100-backend-enabled-triton-docker-image-using-ai-100-development-kits" title="Permanent link">&para;</a></h2>
+<p>In order to add customized backends (to process inferencing on AI 100 hardware) into a vanilla Triton server image,
+we need to run a few scripts by passing sdk_path as parameters.
+<code>docker-build.sh</code> script will generate a Docker image as output.This script is a part of Cloud AI Aps SDK contents and can be run after unzipping it.</p>
 <p><a class="glightbox" href="../../../../images/docker_workflow.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../../images/docker_workflow.png" /></a></p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sample&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>&lt;/path/to/app-sdk&gt;/tools/docker-build
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>sample&gt;<span class="w"> </span>python3<span class="w"> </span>build_image.py<span class="w"> </span>--tag<span class="w"> </span><span class="m">1</span>.11.0.46-triton<span class="w"> </span>--log_level<span class="w"> </span><span class="m">2</span><span class="w"> </span>--user_specification_file<span class="w"> </span>/opt/qti-aic/tools/docker-build-gen2/sample_user_specs/user_image_spec_triton_model_repo.json<span class="w"> </span>--apps-sdk<span class="w"> </span>/apps/sdk/path<span class="w"> </span>--platform-sdk<span class="w"> </span>/platform/sdk/path
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>sample&gt;<span class="w"> </span>python3<span class="w"> </span>build_image.py<span class="w"> </span>--tag<span class="w"> </span><span class="m">1</span>.16.1.29-triton<span class="w"> </span>--log_level<span class="w"> </span><span class="m">2</span><span class="w"> </span>--user_specification_file<span class="w"> </span>/opt/qti-aic/tools/docker-build-gen2/sample_user_specs/user_image_spec_triton_model_repo.json<span class="w"> </span>--apps-sdk<span class="w"> </span>/apps/sdk/path<span class="w"> </span>--platform-sdk<span class="w"> </span>/platform/sdk/path
 </code></pre></div>
-The above command may take 15-20 minutes to complete and generate incremental images for Triton docker image in local docker repository.</p>
+The above command may take 15-20 minutes to complete and generate incremental images for Triton Docker image in local Docker repository.</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sample&gt;<span class="w"> </span>docker<span class="w"> </span>image<span class="w"> </span>ls
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>REPOSITORY<span class="w">                                                                                                                      </span>TAG<span class="w">                 </span>IMAGE<span class="w"> </span>ID<span class="w">       </span>CREATED<span class="w">         </span>SIZE
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools-triton_model_repo<span class="w">               </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>a0968cf3711b<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span><span class="m">28</span>.2GB
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools<span class="w">                                 </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>038dc80fd8e4<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span><span class="m">27</span>.1GB
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton<span class="w">                                         </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>760fb9dc5314<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span>24GB
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime<span class="w">                                                </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>a47266156b7f<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span><span class="m">23</span>.9GB
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase<span class="w">                                                            </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>d620a1bdb6b6<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span><span class="m">20</span>.1GB
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps<span class="w">                                                                   </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>8c87eb44f2db<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span><span class="m">15</span>.3GB
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>qaic-x86_64-triton-release-py38-qaic_platform<span class="w">                                                                             </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>e3ba2ce282c1<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span><span class="m">14</span>.7GB
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>qaic-x86_64-triton-release-py38<span class="w">                                                                                           </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>73b225d7e358<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span><span class="m">14</span>.2GB
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>qaic-x86_64-triton-release<span class="w">                                                                                                </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>914fa376e865<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span><span class="m">14</span>.1GB
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>qaic-x86_64-triton<span class="w">                                                                                                        </span><span class="m">1</span>.11.0.46-triton<span class="w">          </span>2090680d4d59<span class="w">   </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">    </span><span class="m">14</span>.1GB
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools-triton_model_repo<span class="w">               </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>a0968cf3711b<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">28</span>.2GB
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools<span class="w">                                 </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>038dc80fd8e4<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">27</span>.1GB
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton<span class="w">                                         </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>760fb9dc5314<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span>24GB
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime<span class="w">                                                </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>a47266156b7f<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">23</span>.9GB
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase<span class="w">                                                            </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>d620a1bdb6b6<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">20</span>.1GB
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps<span class="w">                                                                   </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>8c87eb44f2db<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">15</span>.3GB
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>qaic-x86_64-triton-release-py38-qaic_platform<span class="w">                                                                             </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>e3ba2ce282c1<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">14</span>.7GB
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>qaic-x86_64-triton-release-py38<span class="w">                                                                                           </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>73b225d7e358<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">14</span>.2GB
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>qaic-x86_64-triton-release<span class="w">                                                                                                </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>914fa376e865<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">14</span>.1GB
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>qaic-x86_64-triton<span class="w">                                                                                                        </span><span class="m">1</span>.16.1.29-triton<span class="w">          </span>2090680d4d59<span class="w">   </span><span class="m">3</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">14</span>.1GB
 </code></pre></div>
-Docker can be launched using docker "run" command passing the desired image name.
-Please note that a shared memory argument(--shm-size) to pass for supporting ensembles and python backends.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sample&gt;<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>--shm-size<span class="o">=</span>4g<span class="w"> </span>--ipc<span class="o">=</span>host<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>&lt;triton-docker-image-name&gt;<span class="w"> </span>/bin/bash
+Docker can be launched using docker <code>run</code> command passing the desired image name.
+Please note the shared memory argument <code>--shm-size</code> for supporting ensembles and python backends.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sample&gt;<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>--shm-size<span class="o">=</span>4g<span class="w"> </span>--ipc<span class="o">=</span>host<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>&lt;triton-docker-image-name&gt;:&lt;tag&gt;<span class="w"> </span>/bin/bash
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>sample&gt;<span class="w"> </span>docker<span class="w"> </span>ps
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">                                                                                                            </span>COMMAND<span class="w">                  </span>CREATED<span class="w">      </span>STATUS<span class="w">      </span>PORTS<span class="w">     </span>NAMES
@@ -2564,17 +2651,17 @@ Please note that a shared memory argument(--shm-size) to pass for supporting ens
 <p>The model configuration file specifies the execution properties of a model.
 It indicates input/output structure, backend, batchsize, parameters, etc.  User needs to follow Triton's <a href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_repository.md">model repository</a> and <a href="https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_configuration.md">model configuration</a> rules while defining a config file.</p>
 <h3 id="model-configuration-onnxruntime">Model configuration - onnxruntime<a class="headerlink" href="#model-configuration-onnxruntime" title="Permanent link">&para;</a></h3>
-<p>For onnxruntime configuration, platform should be set to "onnxruntime_onnx".
-The "use_qaic" parameter should be passed and set to true.</p>
-<h4 id="aic100-specific-parameters">AIC100 specific parameters<a class="headerlink" href="#aic100-specific-parameters" title="Permanent link">&para;</a></h4>
+<p>For onnxruntime configuration, platform should be set to <code>onnxruntime_onnx</code>.
+The <code>use_qaic</code> parameter should be passed and set to true.</p>
+<h4 id="ai-100-specific-parameters">AI 100 specific parameters<a class="headerlink" href="#ai-100-specific-parameters" title="Permanent link">&para;</a></h4>
 <p>Parameters are user-provided key-value pairs which Triton will pass to backend runtime environment as variables and can be used in the backend processing logic.</p>
 <ul>
 <li>config : path for configuration file containing compiler options.</li>
-<li>device_id : id of AIC100 device on which inference is targeted. (not mandatory as the server auto picks the available device)</li>
+<li>device_id : id of AI 100 device on which inference is targeted. (not mandatory as the server auto picks the available device)</li>
 <li>use_qaic : flag to indicate to use qaic execution provider.</li>
 <li>share_session : flag to enable the use of single session of runtime object across model instances.</li>
 </ul>
-<p>sample example of a config.pbtxt</p>
+<p>sample example of a <code>config.pbtxt</code></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>name: &quot;resnet_onnx&quot;
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>platform: &quot;onnxruntime_onnx&quot;
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>max_batch_size : 16
@@ -2619,17 +2706,17 @@ The "use_qaic" parameter should be passed and set to true.</p>
 <a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>]
 </code></pre></div>
 <h3 id="model-configuration-qaic-backend">Model configuration - qaic backend<a class="headerlink" href="#model-configuration-qaic-backend" title="Permanent link">&para;</a></h3>
-<p>For qaic backend configuration, the "backend" parameter should be set to "qaic".</p>
-<h4 id="aic100-specific-parameters_1">AIC100 specific parameters<a class="headerlink" href="#aic100-specific-parameters_1" title="Permanent link">&para;</a></h4>
+<p>For qaic backend configuration, the <code>backend</code> parameter should be set to <code>qaic</code>.</p>
+<h4 id="ai-100-specific-parameters_1">AI 100 specific parameters<a class="headerlink" href="#ai-100-specific-parameters_1" title="Permanent link">&para;</a></h4>
 <p>Parameters are user-provided key-value pairs which Triton will pass to backend runtime environment as variables and can be used in processing logic of backend.</p>
 <p>Parameters are user-provided key-value pairs which Triton will pass to backend runtime environment as variables and can be used in processing logic of backend.</p>
 <ul>
-<li>qpc_path : path for compiled binary of model.(programqpc.bin) (if not provided the server searches for qpc in the model folder)</li>
-<li>device_id : id of AIC100 device on which inference is targeted. device is set 0 (not mandatory as the server auto picks the available device)</li>
+<li>qpc_path : path for compiled binary of model.(programqpc.bin) (if not provided the server searches for QPC in the model folder)</li>
+<li>device_id : id of AI 100 device on which inference is targeted. device is set 0 (not mandatory as the server auto picks the available device)</li>
 <li>set_size : size of inference queue for runtime,default is set to 20</li>
 <li>no_of_activations : flag to enable multiple activations of a model’s network,default is set to 1</li>
 </ul>
-<p>sample example of a config.pbtxt</p>
+<p>sample example of a <code>config.pbtxt</code></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>name: &quot;yolov5m_qaic&quot;
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>backend: &quot;qaic&quot;
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>max_batch_size : 4
@@ -2676,7 +2763,7 @@ The "use_qaic" parameter should be passed and set to true.</p>
 <a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>]
 </code></pre></div>
 <h2 id="launching-triton-server-inside-container">Launching Triton server inside container<a class="headerlink" href="#launching-triton-server-inside-container" title="Permanent link">&para;</a></h2>
-<p>To launch Triton server, execute the tritonserver binary within Triton docker with the model repository path.</p>
+<p>To launch Triton server, execute the <code>tritonserver</code> binary within Triton Docker with the model repository path.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/opt/tritonserver/bin/tritonserver<span class="w"> </span>--model-repository<span class="o">=</span>&lt;/path/to/repository&gt;
 </code></pre></div>
 <p><a class="glightbox" href="../../../../images/triton_launch_within_container.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image" src="../../../../images/triton_launch_within_container.png" /></a></p>
@@ -2690,34 +2777,38 @@ The "use_qaic" parameter should be passed and set to true.</p>
 <li>LLM support for LlamaForCausalLM, AutoModelForCausalLM categories.</li>
 </ul>
 <h3 id="triton-config_generation-tool">Triton Config_generation tool<a class="headerlink" href="#triton-config_generation-tool" title="Permanent link">&para;</a></h3>
-<p>Model configuration file (config.pbtxt) is required for each model to run on the triton server. The triton_config_generator.py tool helps to generate a minimal model configuration file if the programqpc.bin or model.onnx file is provided. The script can be found in /opt/qti-aic/integrations/triton/release-artifacts/config-generation-script path inside the container.</p>
-<p>The script takes in three arguments:
--   --model_repository: Model repository for which config.pbtxt needs to be generated (QAic backend)
--   --all: Generate config.pbtxt for Onnx (used with --model-repository)
--   --model_path: QAic model or Onnx model file path for which model folder needs to be generated.</p>
-<p>The model_repository argument can be passed, and the script goes through the models and generates config.pbtxt for models that do not contain config (the --all option needs to be passed if config needs to be generated for Onnx models) or model path can be provided to generate model folder structure with config.pbtxt using random model names.</p>
+<p>Model configuration file <code>config.pbtxt</code> is required for each model to run on the Triton server. The <code>triton_config_generator.py</code> tool helps to generate a minimal model configuration file if the <code>programqpc.bin</code> or <code>model.onnx</code> file is provided. The script can be found in "/opt/qti-aic/integrations/triton/release-artifacts/config-generation-script" path inside the container.</p>
+<p>The script takes three arguments:</p>
+<ul>
+<li>--model_repository: Model repository for which config.pbtxt needs to be generated (QAic backend)</li>
+<li>--all: Generate config.pbtxt for ONNX (used with --model-repository)</li>
+<li>--model_path: QAic model or ONNX model file path for which model folder needs to be generated.</li>
+</ul>
+<p>The <code>model_repository</code> argument can be passed, and the script goes through the models and generates <code>config.pbtxt</code> for models that do not contain config (the --all option needs to be passed if config needs to be generated for ONNX models) or model path can be provided to generate model folder structure with <code>config.pbtxt</code> using random model names.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<p>Triton example applications are released as part of the Apps SDK. Inside the triton docker container the sample model repositories are available at "/opt/qti-aic/aic-triton-model-repositories/"
+<p>Triton example applications are released as part of the Cloud AI Apps SDK. Inside the Triton Docker container the sample model repositories are available at "/opt/qti-aic/aic-triton-model-repositories/"
 - <code>--model-repository</code> option can be used to launch the models.</p>
 <h3 id="stable-diffusion">Stable diffusion<a class="headerlink" href="#stable-diffusion" title="Permanent link">&para;</a></h3>
-<p>1) If we built the docker with triton model repo application then the stable diffusion model repo is available at this path: "/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion".</p>
-<p>2) To generate a model repo inside a triton container:
-   - Run the generate_SD_repo.py script. The script is located at "/opt/qti-aic/integrations/triton/release-artifacts/stable-diffusion-ensemble", which will create a ensemble-stable-diffuison model repo</p>
-<p>3) Start the triton server "/opt/tritonserver/bin/tritonserver --model-repository=/path/to/ensemble-stable-diffusion" <br>
+<p>1) If we built the Docker with Triton model repo application then the stable diffusion model repo is available at this path: "/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion".</p>
+<p>2) To generate a model repo inside a Triton container:</p>
+<ul>
+<li>Run the <code>generate_SD_repo.py</code> script. The script is located at "/opt/qti-aic/integrations/triton/release-artifacts/stable-diffusion-ensemble", which will create a ensemble-stable-diffuison model repo</li>
+</ul>
+<p>3) Start the Triton server "/opt/tritonserver/bin/tritonserver --model-repository=/path/to/ensemble-stable-diffusion" <br>
    Example: "/opt/tritonserver/bin/tritonserver --model-repository=/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion"</p>
-<p>4) Triton server takes about 2 minutes to start on the first go as it needs to compile qpc.</p>
+<p>4) Triton server takes about 2 minutes to start on the first go as it needs to compile QPC.</p>
 <p>5) Run the client_example.py from the same container for testing purpose or client_example.py can also be copied to Triton client container and executed from there.</p>
 <h1 id="triton-llm">Triton LLM<a class="headerlink" href="#triton-llm" title="Permanent link">&para;</a></h1>
 <ul>
-<li>LLM serving through Triton is enabled using triton-qaic-backend-python</li>
-<li>It supports execution of qpc for Causal models, KV Cache models of LlamaForCausalLM, AutoModelForCausalLM categories.</li>
+<li>LLM serving through Triton is enabled using <code>triton-qaic-backend-python</code></li>
+<li>It supports execution of QPC binaries for Causal models, KV Cache models of LlamaForCausalLM, AutoModelForCausalLM categories.</li>
 <li>It supports two modes of server to client response - batch, decoupled (stream). In batch response mode, all of the generated tokens are cached and composed as a single response at the end of decode stage. In decoupled (stream) response mode, each generated token is sent to client as a separate response.</li>
 <li>Currently we include sample configurations for Mistral and Starcoder models.</li>
 <li>Sample client scripts are provided to test kv, causal models in stream-response, batch-response transaction modes.</li>
 </ul>
 <h2 id="instructions-to-launch-llm-models-on-triton-server">Instructions to launch LLM models on Triton server<a class="headerlink" href="#instructions-to-launch-llm-models-on-triton-server" title="Permanent link">&para;</a></h2>
-<h3 id="launch-triton-server-container">Launch triton server container<a class="headerlink" href="#launch-triton-server-container" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--shm-size<span class="o">=</span>4g<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>-v<span class="w"> </span>/path/to/custom/models/:/path/to/custom/models/<span class="w"> </span>docker-registry.qualcomm.com/qraniumtest/qranium:1.16.0.65-triton<span class="w"> </span>bash
+<h3 id="launch-triton-server-container">Launch Triton server container<a class="headerlink" href="#launch-triton-server-container" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--shm-size<span class="o">=</span>4g<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>-v<span class="w"> </span>/path/to/custom/models/:/path/to/custom/models/<span class="w"> </span>&lt;triton-docker-image-name&gt;:&lt;tag&gt;<span class="w"> </span>bash
 </code></pre></div>
 - qefficient virtual environment comprises compatible packages for compilation/execution of a wide range of LLMs. Activate this environment within the container.
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>.<span class="w"> </span>/opt/qeff-env/bin/activate
@@ -2756,13 +2847,13 @@ The "use_qaic" parameter should be passed and set to true.</p>
 </tbody>
 </table>
 <ul>
-<li>Pass in the qpc to generate_llm_model_repo.py script available at <strong>/opt/qti-aic/integrations/triton/release-artifacts/llm-models/</strong> within triton container.
+<li>Pass in the QPC to <code>generate_llm_model_repo.py</code> script available at <strong>/opt/qti-aic/integrations/triton/release-artifacts/llm-models/</strong> within Triton container.
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python<span class="w"> </span>generate_llm_model_repo.py<span class="w"> </span>--model_name<span class="w"> </span>mistral_7b<span class="w"> </span>--aic_binary_dir<span class="w"> </span>&lt;path/to/qpc&gt;<span class="w"> </span>--python_backend_dir<span class="w"> </span>/opt/qti-aic/integrations/triton/backends/qaic/qaic_backend_python/
 </code></pre></div></li>
 </ul>
 <h4 id="custom-models">Custom models<a class="headerlink" href="#custom-models" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>generate_llm_model_repo.py</strong> script uses a template to auto-generate config for custom models. Configure required parameters such as use_kv_cache, model_name, decoupled transaction policy through command line options to the script. Choosing model_type will configure use_kv_cache parameter. If not provided, it will be determined by loading qpc object which may take several minutes for large models. This creates a model folder for <custom_model> in  <strong>/opt/qti-aic/integrations/triton/release-artifacts/llm-models/llm_model_dir</strong>
+<li><code>generate_llm_model_repo.py</code> script uses a template to auto-generate config for custom models. Configure required parameters such as <code>use_kv_cache</code>, <code>model_name</code>, decoupled transaction policy through command line options to the script. Choosing <code>model_type</code> will configure <code>use_kv_cache</code> parameter. If not provided, it will be determined by loading QPC object which may take several minutes for large models. This creates a model folder for <custom_model> in  <strong>/opt/qti-aic/integrations/triton/release-artifacts/llm-models/llm_model_dir</strong>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python<span class="w"> </span>generate_llm_model_repo.py<span class="w"> </span>--model_name<span class="w"> </span>&lt;custom_model&gt;<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">                                  </span>--aic_binary_dir<span class="w"> </span>&lt;path/to/qpc&gt;<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">                                  </span>--hf_model_name<span class="w"> </span><span class="se">\</span>
@@ -2772,8 +2863,8 @@ The "use_qaic" parameter should be passed and set to true.</p>
 </ul>
 <h3 id="launch-tritonserver-and-load-models">Launch tritonserver and load models<a class="headerlink" href="#launch-tritonserver-and-load-models" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Pre-requisite: Users need to get access for necessary models from huggingface and login with huggingface token using <strong>'huggingface-cli login`</strong> before launching the server.</li>
-<li>Launch the triton server with <strong>llm_model_dir</strong>.
+<li>Pre-requisite: Users need to get access for necessary models from Hugging Face and login with Hugging Face token using <strong>'huggingface-cli login`</strong> before launching the server.</li>
+<li>Launch the Triton server with <strong>llm_model_dir</strong>.
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/opt/tritonserver/bin/tritonserver<span class="w"> </span>--model-repository<span class="o">=</span>&lt;path/to/llm_model_dir&gt;
 </code></pre></div></li>
 </ul>
@@ -2781,12 +2872,12 @@ The "use_qaic" parameter should be passed and set to true.</p>
 <h4 id="launch-client-container">Launch client container<a class="headerlink" href="#launch-client-container" title="Permanent link">&para;</a></h4>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>/path/to/unzipped/apps-sdk/integrations/triton/release-artifacts/llm-models/:/llm-models<span class="w"> </span>--net<span class="o">=</span>host<span class="w"> </span>nvcr.io/nvidia/tritonserver:22.12-py3-sdk<span class="w"> </span>bash
 </code></pre></div>
-- Once the server has started you can run example triton client (client_example_kv.py/client_example_causal.py) provided to submit inference requests to loaded models.
+- Once the server has started you can run example Triton client (client_example_kv.py/client_example_causal.py) provided to submit inference requests to loaded models.
 - Decoupled model transaction policy is supported only over gRPC protocol. Therefore, decoupled models (stream response) use gRPC clients whereas batch response mode uses HTTP client as a sample.
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># mistral_decoupled</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>python<span class="w"> </span>/llm-models/tests/stream-response/client_example_kv.py<span class="w"> </span>--prompt<span class="w"> </span><span class="s2">&quot;My name is&quot;</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># mistral_decoupled (qpc compiled for batch_size=2)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># mistral_decoupled (QPC compiled for batch_size=2)</span>
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>python<span class="w"> </span>/llm-models/tests/stream-response/client_example_kv.py<span class="w"> </span>--prompt<span class="w"> </span><span class="s2">&quot;My name is|Maroon bells&quot;</span>
 <a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
 <a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># mistral_7b</span>
@@ -2798,7 +2889,7 @@ The "use_qaic" parameter should be passed and set to true.</p>
 <a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="c1"># starcoder_15b</span>
 <a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>python<span class="w"> </span>/llm-models/tests/batch-response/client_example_causal.py<span class="w"> </span>--prompt<span class="w"> </span><span class="s2">&quot;Write a python program to print hello world&quot;</span>
 </code></pre></div></p>
-<p>Note: For batch-response tests, the default network timeout in client_example_kv.py, client_example_causal.py is configured as 10 min (600 sec), 100 min (6000 sec) respectively.</p>
+<p>Note: For batch-response tests, the default network timeout in <code>client_example_kv.py</code>, <code>client_example_causal.py</code> is configured as 10 min (600 sec), 100 min (6000 sec) respectively.</p>
 
 
 

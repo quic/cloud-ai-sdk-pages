@@ -41,21 +41,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://github.com/quic/cloud-ai-sdk/1.16/Getting-Started/Containers-Deployment/</loc>
-         <lastmod>2024-07-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://github.com/quic/cloud-ai-sdk/1.16/Getting-Started/Containers-Deployment/docker/Docker/</loc>
-         <lastmod>2024-07-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://github.com/quic/cloud-ai-sdk/1.16/Getting-Started/Containers-Deployment/k8s/k8s/</loc>
-         <lastmod>2024-07-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.16/Getting-Started/Features/</loc>
          <lastmod>2024-07-26</lastmod>
          <changefreq>daily</changefreq>
@@ -141,7 +126,22 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://github.com/quic/cloud-ai-sdk/1.16/Getting-Started/Installation/Docker/</loc>
+         <lastmod>2024-07-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://github.com/quic/cloud-ai-sdk/1.16/Getting-Started/Installation/Docker/Docker-rel-1.11/</loc>
+         <lastmod>2024-07-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.com/quic/cloud-ai-sdk/1.16/Getting-Started/Installation/Docker/Docker/</loc>
+         <lastmod>2024-07-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://github.com/quic/cloud-ai-sdk/1.16/Getting-Started/Installation/Docker/k8s/</loc>
          <lastmod>2024-07-26</lastmod>
          <changefreq>daily</changefreq>
     </url>

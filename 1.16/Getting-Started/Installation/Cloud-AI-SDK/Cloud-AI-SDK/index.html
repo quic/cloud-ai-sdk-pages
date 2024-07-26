@@ -732,8 +732,66 @@
   
   
   
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Docker/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Containers
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_3_6" id="__nav_1_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../Docker/Docker.md" class="md-nav__link">
+      <a href="../../Docker/Docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -742,6 +800,35 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Docker/k8s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubernetes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -2374,7 +2461,7 @@
 
 <h1 id="installation-cloud-ai-sdk">Installation - Cloud AI SDK<a class="headerlink" href="#installation-cloud-ai-sdk" title="Permanent link">&para;</a></h1>
 <h2 id="download-instructions">Download Instructions<a class="headerlink" href="#download-instructions" title="Permanent link">&para;</a></h2>
-<p>Version 1.12 onwards, Platform and Apps SDK can only be downloaded from <a href="https://qpm.qualcomm.com/">Qualcomm Package Manager</a>. </p>
+<p>Platform and Apps SDKs are available on <a href="https://qpm.qualcomm.com/">Qualcomm Package Manager</a>. </p>
 <ol>
 <li>login to <a href="https://qpm.qualcomm.com/">Qualcomm Package Manager</a>. First time users need to register for a Qualcomm ID. </li>
 <li>Click on <strong>Tools</strong> </li>
@@ -2397,11 +2484,11 @@
 </ul>
 </li>
 <li>For ARM64 hosts that support Google Android Debug Bridge (ADB):
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>- adb push &lt;Platform SDK zip file&gt; /data
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>- adb shell
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>- cd /data
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>- Unzip the downloaded zip file to a working directory
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>- cd to the working directory
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>adb<span class="w"> </span>push<span class="w"> </span>&lt;Platform<span class="w"> </span>SDK<span class="w"> </span>zip<span class="w"> </span>file&gt;<span class="w"> </span>/data
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>adb<span class="w"> </span>shell
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">cd</span><span class="w"> </span>/data
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Unzip<span class="w"> </span>the<span class="w"> </span>downloaded<span class="w"> </span>zip<span class="w"> </span>file<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>working<span class="w"> </span>directory
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">cd</span><span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>working<span class="w"> </span>directory
 </code></pre></div></li>
 </ul>
 </li>
@@ -2429,53 +2516,64 @@
 <a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>├── common
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│   ├── qaic-test-data
 <a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>│   └── sectools
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│       ├── bin
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│       ├── config
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>│       ├── example
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>│       ├── ext
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>│       ├── plugin
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>│       ├── resources
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>│       └── sectools
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>└── x86_64
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    ├── deb
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    │   ├── deb
-<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    │   ├── deb-docker
-<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    │   └── Workload
-<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>    ├── rpm
-<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    │   ├── rpm
-<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    │   ├── rpm-docker
-<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    │   └── Workload
-<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>    └── test_suite
-<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        ├── pcietool
-<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        └── powerstress
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>└── x86_64
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    ├── deb
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    │   ├── deb
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    │   ├── deb-docker
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    │   └── Workload
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    ├── rpm
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    │   ├── rpm
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    │   ├── rpm-docker
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    │   └── Workload
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    └── test_suite
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>        ├── pcietool
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        └── powerstress
 </code></pre></div></p>
-<p>Uninstall existing Platform SDK</p>
-<div class="highlight"><pre><span></span><code>```bash
-cd &lt;architecture&gt;/&lt;deb/rpm&gt;
-sudo ./uninstall.sh
-sync
-```
-</code></pre></div>
-<p>Run the install.sh script as root or with sudo to install with superuser permissions. Installation may take up to 30 mins depending on the number of Cloud AI cards in the server/VM. Cloud AI cards undergo resets several times during the installation. 
+<p>Uninstall existing Platform SDK
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;architecture&gt;/&lt;deb<span class="p">|</span>rpm&gt;
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>./uninstall.sh
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>sync
+</code></pre></div></p>
+<p>Run the install.sh script as root or with sudo to install with superuser permissions. Installation may take up to 30 mins depending on the number of Cloud AI cards in the server/VM. Cloud AI cards undergo resets several times during the installation. </p>
+<p>Ugprading to SDK 1.16 is a 2-step process:</p>
+<ol>
+<li>In the first step we need to prepare each SoC to accept the 1.16 SBL bootloader firmware</li>
+<li>In the second step we upgrade to the 1.16 SBL bootloader firmware</li>
+</ol>
+<p>For Hybrid boot cards (PCIe CEM form factor cards), run:
     <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>&lt;architecture&gt;/&lt;deb/rpm&gt;
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># For Hybrid boot cards (PCIe CEM form factor cards), run </span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>--auto_upgrade_sbl<span class="w"> </span>--ecc<span class="w"> </span><span class="nb">enable</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># For VM on ESXi hypervisor, run </span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>--auto_upgrade_sbl<span class="w"> </span>--datapath_polling<span class="w"> </span>–-ecc<span class="w"> </span><span class="nb">enable</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># For Flashless boot cards, run </span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>–-ecc<span class="w"> </span><span class="nb">enable</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># For VM on ESXi hypervisor, run </span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>--datapath_polling<span class="w"> </span>–-ecc<span class="w"> </span><span class="nb">enable</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>--no_auto_upgrade_sbl<span class="w">    </span><span class="c1"># For VM on ESXi hypervisor, also add the --datapath_polling option</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>--ecc<span class="w"> </span><span class="nb">enable</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># start Qmonitor server in background</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>sudo<span class="w"> </span>systemd-run<span class="w"> </span>--unit<span class="o">=</span>qmonitor-proxy<span class="w"> </span>/opt/qti-aic/tools/qaic-monitor-grpc-server
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># Allow server to initialize all devices</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>sleep<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1"># List QIDs in the system</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>sudo<span class="w"> </span>/opt/qti-aic/tools/qaic-util<span class="w"> </span>-q<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-e<span class="w"> </span>QID
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="c1"># Update SoC, repeat for all QIDs in the system.</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>sudo<span class="w"> </span>/opt/qti-aic/tools/qaic-firmware-updater<span class="w"> </span>-d<span class="w"> </span>&lt;QID&gt;<span class="w"> </span>-f<span class="w"> </span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="c1"># Reset cards.</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>sudo<span class="w"> </span>/opt/qti-aic/tools/qaic-util<span class="w"> </span>-e
+</code></pre></div></p>
+<p>For Flashless boot cards (less common), run:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>–-ecc<span class="w"> </span><span class="nb">enable</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># For VM on ESXi hypervisor, run </span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>--datapath_polling<span class="w"> </span>–-ecc<span class="w"> </span><span class="nb">enable</span>
 </code></pre></div></p>
 <p>On successful installation of the platform SDK, the contents shown below are stored in /opt/qti-aic:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>dev  drivers  examples  exec  firmware  services  test-data  tools
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>config  dev  examples  exec  firmware  lib  services  test-data  tools  versions
 </code></pre></div></p>
 <p>Check Platform SDK version using 
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cat /opt/qti-aic/versions/platform.xml
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/opt/qti-aic/tools/qaic-version-util
 </code></pre></div>
   Add user to the qaic group to allow command-line tools to run without sudo:
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo usermod -a -G qaic $USER
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>qaic<span class="w"> </span><span class="nv">$USER</span>
 </code></pre></div></p>
 <h3 id="verify-card-operation">Verify card operation<a class="headerlink" href="#verify-card-operation" title="Permanent link">&para;</a></h3>
 <p>Refer to <a href="../../Checklist/checklist/#verify-card-operation">Verify Card Operation</a></p>
@@ -2487,33 +2585,36 @@ sync
 <li>unzip the downloaded file. </li>
 <li>The Apps SDK (qaic-apps-<code>&lt;major.minor.patch.build version&gt;</code>) is composed of the following tree structure.  </li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>├── dev
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>│   ├── hexagon_docker_scripts
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>│   ├── hexagon_tools
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│   ├── inc
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│   ├── lib
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│   └── python
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>├── examples
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>│   ├── apps
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>│   └── scripts
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>├── exec
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>├── integrations
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>│   ├── qaic_onnxrt
-<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>│   └── triton
-<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>├── scripts
-<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>│   ├── qaic-model-configurator
-<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>│   └── qaic-prepare-model
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>├── tools
-<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>│   ├── custom-ops
-<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>│   ├── docker-build
-<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>│   ├── graph-analysis-engine
-<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>│   ├── opstats-profiling
-<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>│   ├── package-generator
-<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>│   ├── qaic-inference-optimizer
-<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>│   ├── qaic-pytools
-<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>│   ├── rcnn-exporter
-<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>│   └── smart-nms
-<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>└── versions
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>├── dev
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│   ├── hexagon_docker_scripts
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>│   ├── hexagon_tools
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>│   ├── inc
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>│   ├── lib
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>│   └── python
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>├── examples
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>│   ├── apps
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>│   └── scripts
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>├── exec
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>├── integrations
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>│   ├── kserve
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>│   ├── qaic_onnxrt
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>│   └── triton
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>├── scripts
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>│   ├── qaic-model-configurator
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>│   └── qaic-prepare-model
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>├── tools
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>│   ├── aic-manager
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>│   ├── custom-ops
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>│   ├── docker-build
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>│   ├── graph-analysis-engine
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>│   ├── k8s-device-plugin
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>│   ├── opstats-profiling
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>│   ├── package-generator
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>│   ├── qaic-inference-optimizer
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>│   ├── qaic-pytools
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>│   ├── rcnn-exporter
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>│   └── smart-nms
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>└── versions
 </code></pre></div>
 <h3 id="install-apps-sdk">Install Apps SDK<a class="headerlink" href="#install-apps-sdk" title="Permanent link">&para;</a></h3>
 <ul>
@@ -2527,8 +2628,8 @@ sync
     <code>cat /opt/qti-aic/versions/apps.xml</code></li>
 <li>
 <p>Apply chmod commands </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo chmod a+x /opt/qti-aic/dev/hexagon_tools/bin/*
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sudo chmod a+x /opt/qti-aic/exec/*
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sudo chmod a+x /opt/qti-aic/dev/hexagon_tools/bin/*
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sudo chmod a+x /opt/qti-aic/exec/*
 </code></pre></div>
 </li>
 </ul>
