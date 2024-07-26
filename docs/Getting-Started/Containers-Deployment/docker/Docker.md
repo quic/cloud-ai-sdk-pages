@@ -22,8 +22,8 @@ The Docker scripts are in the Apps SDK in the `tools/docker-build` folder. The s
     - Docker containers require the Cloud AI device drivers to communicate with the devices. Install the Platform SDK on the host bare metal OS or VM.
     - Unzip Apps SDK and the build scripts are located under `/tools/docker-build/`
 ```bash
-unzip qaic-apps-1.11.0.<>.zip
-cd qaic-apps-1.11.0.<>/tools/docker-build/
+unzip qaic-apps-1.16.0.<>.zip
+cd qaic-apps-1.16.0.<>/tools/docker-build/
 ```
 - Install python modules listed in requirements.txt, preferably in a virtual environment
 ```bash
@@ -61,19 +61,19 @@ Description <br>
 
 For Example:
 ```bash
-python3 build_image.py --user_specification_file ./sample_user_specs/user_image_spec_qaic.json --apps_sdk ~/qaic-apps-1.11.0.<>.zip \
---platform_sdk ~/qaic-platform-sdk-1.11.0.<>.zip --tag 1.11.0.<>
+python3 build_image.py --user_specification_file ./sample_user_specs/user_image_spec_qaic.json --apps_sdk ~/qaic-apps-1.16.0.<>.zip \
+--platform_sdk ~/qaic-platform-sdk-1.16.0.<>.zip --tag 1.16.0.<>
 ```
 
 To check the docker image created with above script: <br>
 ```bash
 $ docker images
 REPOSITORY                                                            TAG            IMAGE ID       CREATED        SIZE
-qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps             1.11.0.<>      f784c37d7f18   2 hours ago    4.25GB
-qaic-x86_64-ubuntu20-release-py38-qaic_platform				          1.11.0.<>      a4f8193202db   2 hours ago    3.64GB
-qaic-x86_64-ubuntu20-release-py38                                     1.11.0.<>      78000059a5aa   2 hours ago    3.12GB
-qaic-x86_64-ubuntu20-release                                          1.11.0.<>      cbdd424f4338   2 hours ago    3.1GB
-qaic-x86_64-ubuntu20                                                  1.11.0.<>      a38215c10e0b   2 hours ago    3.1GB
+qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps             1.16.0.<>      f784c37d7f18   2 hours ago    4.25GB
+qaic-x86_64-ubuntu20-release-py38-qaic_platform				          1.16.0.<>      a4f8193202db   2 hours ago    3.64GB
+qaic-x86_64-ubuntu20-release-py38                                     1.16.0.<>      78000059a5aa   2 hours ago    3.12GB
+qaic-x86_64-ubuntu20-release                                          1.16.0.<>      cbdd424f4338   2 hours ago    3.1GB
+qaic-x86_64-ubuntu20                                                  1.16.0.<>      a38215c10e0b   2 hours ago    3.1GB
 ```
 
 ### Supported Operating Systems
@@ -122,8 +122,8 @@ Example -
 {
     "applications": ["gae", "pytools", "aimet", "qinf", "pybase"],
     "sdk": {
-        "qaic_apps": "/path/to/qaic-apps-1.11.0.<>.zip",
-        "qaic_platform": "/path/to/qaic-platform-sdk-1.11.0.<>.zip"
+        "qaic_apps": "/path/to/qaic-apps-1.16.0.<>.zip",
+        "qaic_platform": "/path/to/qaic-platform-sdk-1.16.0.<>.zip"
     },
     "python_version": "py38",
     "base_image": "ubuntu20",
@@ -136,8 +136,8 @@ Minimal user specification to build the same image
 {
     "applications": ["gae", "aimet", "qinf"],
     "sdk": {
-        "qaic_apps": "/path/to/qaic-apps-1.11.0.<>.zip",
-        "qaic_platform": "/path/to/qaic-platform-sdk-1.11.0.<>.zip"
+        "qaic_apps": "/path/to/qaic-apps-1.16.0.<>.zip",
+        "qaic_platform": "/path/to/qaic-platform-sdk-1.16.0.<>.zip"
     },
     "external_dist_files": ["/path/to/aimetpro-1.26.0-RC7.torch-gpu-release.tar.gz"]
 }
@@ -169,10 +169,10 @@ Below is example for launching an x86_64 ubuntu20 image with python3.8 environme
 Run the container and map 1 or more qaic devices. (Or any other directory mapping using the -v option)
 ```bash
 # Passing 1 device
-docker run -dit --name qaic-ubuntu-test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.11.0.<>
+docker run -dit --name qaic-ubuntu-test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.16.0.<>
 
 # Passing 1 device and mapping a local folder
-docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.11.0.<>
+docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.16.0.<>
 ```
 
 #### Architecture selection

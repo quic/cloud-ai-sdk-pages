@@ -31,6 +31,15 @@ In AOT mode, compilation and execution are decoupled. Networks can be compiled a
 
 Both JIT and AOT are supported on x86-64 when Apps and Platform SDK are installed on the same server/VM. 
 
+### Hardware Requirements 
+
+- CPU - Server grade x86 or ARM multi-core CPU 
+- RAM - minimum 512 GB (recommend 768GB or higher)
+    - Required for the compilation of large models and corresponding configurations like batch size, context length etc. 
+- Storage - minimum 1TB (recommend 4TB)
+    - Large storage is recommended to store multiple models (and associated artifacts), serialized engines etc. 
+
+
 ### Supported Operating Systems, Hypervisors, and Platforms 
 The Cloud AI Platform SDK is compatible with the following operating systems (OS) and platforms.
 
@@ -38,18 +47,17 @@ The Cloud AI Platform SDK is compatible with the following operating systems (OS
 
 | **Operating systems**        | **Kernel**                          |
 | ---------------------------- | ----------------------------------- |
-| CentOS Linux 7               | Default Kernel or Linux Kernel 5.4.1|
-| Ubuntu 18.04                 | Default Kernel (GA or HWE)          |
 | Ubuntu 20.04                 | Default Kernel (GA or HWE)          |
 | Ubuntu 22.04                 | Default Kernel (GA or HWE)          |
-| Red Hat Enterprise Linux 7.9 | Default Kernel                      |
+| Ubuntu 24.04                 | Default Kernel (GA or HWE)          |
 | Red Hat Enterprise Linux 8.9 | Default Kernel                      |
 | Red Hat Enterprise Linux 9.3 | Default Kernel                      |
-| AWS Linux 2                  | Default Kernel                      |
+| AWS Linux 2                  | Amazon 5.10 Kernel                  |
 | AWS Linux 2023               | Default Kernel                      |
 | `Note1`: Arm is a trademark of Arm Limited (or its subsidiaries) in the US and/or elsewhere. |
 | `Note2`: Apps SDK is available only for x86-64 platforms. |
 | `Note3`: Ultra cards consume 4 DRM/Accel device resources per card. Kernels prior to 6.2 are limited to 64 DRM device resources for the entire system. Using Ubuntu 22.04 with the HWE kernel is recommended as the resource limit is 256 Accel devices. Deployments with large numbers of Ultra cards that do not follow this recommendation may not be able to use all the combined hardware resources of the Ultra cards. |
+| `Note4`: AWS Linux 2 support available only for x86-64 platforms. |
 
 #### Hypervisors
 Cloud AI only supports PCIe passthrough to a virtual machine. This means that the virtual machine completely owns the Cloud AI device. A single Cloud AI device cannot be shared between virtual machines or between a virtual machine and the native host. 

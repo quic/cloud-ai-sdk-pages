@@ -1,6 +1,6 @@
 # Installation Checklist
 
-First, check for [supported operating environments](../index.md#supported-operating-systems-hypervisors-and-platforms).
+First, check [Hardware requirements](../index.md#hardware-requirements) and [supported operating environments](../index.md#supported-operating-systems-hypervisors-and-platforms).
 
 ## Local Server Installation
 

@@ -202,6 +202,7 @@ To launch Triton server, execute the tritonserver binary within Triton docker wi
 - Auto device-picker
 - Support for ARM64
 - Support for auto complete configuration
+- LLM support for LlamaForCausalLM, AutoModelForCausalLM categories.
 
 ### Triton Config_generation tool
 Model configuration file (config.pbtxt) is required for each model to run on the triton server. The triton_config_generator.py tool helps to generate a minimal model configuration file if the programqpc.bin or model.onnx file is provided. The script can be found in /opt/qti-aic/integrations/triton/release-artifacts/config-generation-script path inside the container.
@@ -215,7 +216,6 @@ The model_repository argument can be passed, and the script goes through the mod
 
 ## Examples
 Triton example applications are released as part of the Apps SDK. Inside the triton docker container the sample model repositories are available at "/opt/qti-aic/aic-triton-model-repositories/"
-- Resnet101 and yolov5 models are available at "/opt/qti-aic/aic-triton-model-repositories/daisy-chained-ensembles"
 - `--model-repository` option can be used to launch the models.
  
 ### Stable diffusion
@@ -231,8 +231,80 @@ Triton example applications are released as part of the Apps SDK. Inside the tri
  
 5) Run the client_example.py from the same container for testing purpose or client_example.py can also be copied to Triton client container and executed from there.
 
+# Triton LLM
+- LLM serving through Triton is enabled using triton-qaic-backend-python
+- It supports execution of qpc for Causal models, KV Cache models of LlamaForCausalLM, AutoModelForCausalLM categories.
+- It supports two modes of server to client response - batch, decoupled (stream). In batch response mode, all of the generated tokens are cached and composed as a single response at the end of decode stage. In decoupled (stream) response mode, each generated token is sent to client as a separate response.
+- Currently we include sample configurations for Mistral and Starcoder models.
+- Sample client scripts are provided to test kv, causal models in stream-response, batch-response transaction modes.
+## Instructions to launch LLM models on Triton server
+### Launch triton server container
+```bash
+docker run -it --shm-size=4g --rm --privileged --net=host -v /path/to/custom/models/:/path/to/custom/models/ docker-registry.qualcomm.com/qraniumtest/qranium:1.16.0.65-triton bash
+```
+- qefficient virtual environment comprises compatible packages for compilation/execution of a wide range of LLMs. Activate this environment within the container.
+```bash
+. /opt/qeff-env/bin/activate
+```
 
+### Generating a model repository
 
+#### Sample models
+
+Model Folder  | Model Type | Response Type 
+--- |--- |---
+starcoder_15b | Causal | Batch 
+starcoder_decoupled | Causal | Decoupled (Stream) 
+mistral_7b | KV cache | Batch 
+mistral_decoupled | KV cache | Decoupled (Stream) 
+
+- Pass in the qpc to generate_llm_model_repo.py script available at **/opt/qti-aic/integrations/triton/release-artifacts/llm-models/** within triton container.
+```bash
+python generate_llm_model_repo.py --model_name mistral_7b --aic_binary_dir <path/to/qpc> --python_backend_dir /opt/qti-aic/integrations/triton/backends/qaic/qaic_backend_python/
+```
+#### Custom models
+- **generate_llm_model_repo.py** script uses a template to auto-generate config for custom models. Configure required parameters such as use_kv_cache, model_name, decoupled transaction policy through command line options to the script. Choosing model_type will configure use_kv_cache parameter. If not provided, it will be determined by loading qpc object which may take several minutes for large models. This creates a model folder for <custom_model> in  **/opt/qti-aic/integrations/triton/release-artifacts/llm-models/llm_model_dir**
+```bash
+python generate_llm_model_repo.py --model_name <custom_model> \
+                                  --aic_binary_dir <path/to/qpc> \
+                                  --hf_model_name \
+                                  --model_type <causal/kv_cache> \
+                                  --decoupled
+```
+
+### Launch tritonserver and load models
+- Pre-requisite: Users need to get access for necessary models from huggingface and login with huggingface token using **'huggingface-cli login`** before launching the server.
+- Launch the triton server with **llm_model_dir**.
+```bash
+/opt/tritonserver/bin/tritonserver --model-repository=<path/to/llm_model_dir>
+```
+
+### Running the client
+#### Launch client container
+```bash
+docker run -it --rm -v /path/to/unzipped/apps-sdk/integrations/triton/release-artifacts/llm-models/:/llm-models --net=host nvcr.io/nvidia/tritonserver:22.12-py3-sdk bash
+```
+- Once the server has started you can run example triton client (client_example_kv.py/client_example_causal.py) provided to submit inference requests to loaded models.
+- Decoupled model transaction policy is supported only over gRPC protocol. Therefore, decoupled models (stream response) use gRPC clients whereas batch response mode uses HTTP client as a sample.
+```bash
+
+# mistral_decoupled
+python /llm-models/tests/stream-response/client_example_kv.py --prompt "My name is"
+ 
+# mistral_decoupled (qpc compiled for batch_size=2)
+python /llm-models/tests/stream-response/client_example_kv.py --prompt "My name is|Maroon bells"
+ 
+# mistral_7b
+python /llm-models/tests/batch-response/client_example_kv.py --prompt "My name is"
+ 
+# starcoder_decoupled
+python /llm-models/tests/stream-response/client_example_causal.py --prompt "Write a python program to print hello world"
+ 
+# starcoder_15b
+python /llm-models/tests/batch-response/client_example_causal.py --prompt "Write a python program to print hello world"
+```
+
+Note: For batch-response tests, the default network timeout in client_example_kv.py, client_example_causal.py is configured as 10 min (600 sec), 100 min (6000 sec) respectively.
 
 
 
