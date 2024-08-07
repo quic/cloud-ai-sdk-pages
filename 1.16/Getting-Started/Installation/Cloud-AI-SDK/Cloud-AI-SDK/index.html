@@ -2559,7 +2559,7 @@
 <a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>sudo<span class="w"> </span>/opt/qti-aic/tools/qaic-firmware-updater<span class="w"> </span>-d<span class="w"> </span>&lt;QID&gt;<span class="w"> </span>-f<span class="w"> </span>
 <a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
 <a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="c1"># Reset cards.</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>sudo<span class="w"> </span>/opt/qti-aic/tools/qaic-util<span class="w"> </span>-e
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>sudo<span class="w"> </span>/opt/qti-aic/tools/qaic-util<span class="w"> </span>-s
 </code></pre></div></p>
 <p>For Flashless boot cards (less common), run:
     <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>./install.sh<span class="w"> </span>–-ecc<span class="w"> </span><span class="nb">enable</span>
@@ -2570,7 +2570,7 @@
     <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>config  dev  examples  exec  firmware  lib  services  test-data  tools  versions
 </code></pre></div></p>
 <p>Check Platform SDK version using 
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/opt/qti-aic/tools/qaic-version-util
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>/opt/qti-aic/tools/qaic-version-util<span class="w"> </span>--platform
 </code></pre></div>
   Add user to the qaic group to allow command-line tools to run without sudo:
     <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>qaic<span class="w"> </span><span class="nv">$USER</span>
@@ -2625,11 +2625,12 @@
 <li>On successful installation of the Apps SDK, the contents are stored to the /opt/qti-aic path under the dev and exec directories:<br>
     <code>dev exec integrations scripts</code></li>
 <li>Check the Apps SDK version with the following command <br>
-    <code>cat /opt/qti-aic/versions/apps.xml</code></li>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sudo<span class="w"> </span>/opt/qti-aic/tools/qaic-version-util<span class="w"> </span>--apps
+</code></pre></div></li>
 <li>
 <p>Apply chmod commands </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sudo chmod a+x /opt/qti-aic/dev/hexagon_tools/bin/*
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sudo chmod a+x /opt/qti-aic/exec/*
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo chmod a+x /opt/qti-aic/dev/hexagon_tools/bin/*
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>sudo chmod a+x /opt/qti-aic/exec/*
 </code></pre></div>
 </li>
 </ul>
