@@ -102,7 +102,7 @@ Platform and Apps SDKs are available on [Qualcomm Package Manager](https://qpm.q
     sudo /opt/qti-aic/tools/qaic-firmware-updater -d <QID> -f 
 
     # Reset cards.
-    sudo /opt/qti-aic/tools/qaic-util -e
+    sudo /opt/qti-aic/tools/qaic-util -s
     ```
 
   For Flashless boot cards (less common), run:
@@ -119,7 +119,7 @@ Platform and Apps SDKs are available on [Qualcomm Package Manager](https://qpm.q
   
   Check Platform SDK version using 
     ```bash
-    /opt/qti-aic/tools/qaic-version-util
+    sudo /opt/qti-aic/tools/qaic-version-util --platform
     ```
   Add user to the qaic group to allow command-line tools to run without sudo:
     ```bash
@@ -179,7 +179,9 @@ The Apps SDK is only available for x86-64 Linux-based hosts. For ARM64-based Qua
   - On successful installation of the Apps SDK, the contents are stored to the /opt/qti-aic path under the dev and exec directories:<br>
     ```dev exec integrations scripts```
   - Check the Apps SDK version with the following command <br>
-    ```cat /opt/qti-aic/versions/apps.xml```
+    ```bash
+    sudo /opt/qti-aic/tools/qaic-version-util --apps
+    ```
   - Apply chmod commands 
     
     ```

@@ -9,7 +9,7 @@ For host systems using AMD chipsets, ensure that the IOMMU feature is enabled in
 
 ## Ubuntu on x86-64
 
-- Install Ubuntu 18.04, 20.04 or 22.04 with default kernel and minimum options
+- Install Ubuntu 18.04, 20.04, 22.04 or 24.04 with default kernel and minimum options
 -	Install the following packages:
 
 ???+ note 
