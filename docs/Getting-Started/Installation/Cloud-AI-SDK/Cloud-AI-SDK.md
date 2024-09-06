@@ -77,7 +77,7 @@ Platform and Apps SDKs are available on [Qualcomm Package Manager](https://qpm.q
 
   Run the install.sh script as root or with sudo to install with superuser permissions. Installation may take up to 30 mins depending on the number of Cloud AI cards in the server/VM. Cloud AI cards undergo resets several times during the installation. 
 
-  Ugprading to SDK 1.16 is a 2-step process:
+  Upgrading to SDK 1.16 is a 2-step process:
 
   1. In the first step we need to prepare each SoC to accept the 1.16 SBL bootloader firmware
   2. In the second step we upgrade to the 1.16 SBL bootloader firmware

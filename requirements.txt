@@ -3,3 +3,4 @@ mkdocs-material
 mkdocs-material-extensions
 mkdocs-table-reader-plugin
 mkdocs-glightbox
+mike

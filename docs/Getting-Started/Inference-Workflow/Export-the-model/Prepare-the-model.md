@@ -10,7 +10,7 @@ Checkout the Model Export page on details on exporting the model from one framew
 
 For detailed usage of the tool, refer to this [link](https://docs.qualcomm.com/bundle/publicresource/topics/80-PT790-993B/network-preparation.html#network-preparation_Introduction_modelprep)
 
-![stack](https://github.qualcomm.com/storage/user/12947/files/14699282-ab8b-420a-b6d3-588040362f7b)
+![image](../../../images/model_preparator_diagram.png)
 
 usage: Sample Config Details are 
 For Single model:
@@ -204,7 +204,7 @@ Tool location in the SDK: "*/opt/qti-aic/tools/qaic-pytools*"
             * This includes all tensor-array operators like (TensorArray, TensorArrayWrite, TensorArrayRead, TensorArrayGather, TensorArrayScatter, and so on). This optimization replaces tensor-array operators with relevant known and supported operators.
     * For most of the NLP models, we have tokenization encodings of the inputs which we do in the host and pass the tokenized inputs to the model.
     
-![pre_plugin](https://github.qualcomm.com/storage/user/12947/files/16b79343-1a7b-4bd2-9fdb-33698e89b2c7)
+![image](../../../images/tf_optimizer.png)
 
 
 * **POST_PLUGIN**

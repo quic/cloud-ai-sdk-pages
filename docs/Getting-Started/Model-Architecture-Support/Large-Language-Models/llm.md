@@ -6,7 +6,12 @@ LLMs understand context, syntactic structures, and semantic nuances within textu
 
 The transformer architecture, introduced in the paper "Attention is All You Need" has become the foundation for many state-of-the-art language models. This paper discusses Encoder-Decoder architecture. However, many language models use Encoder only or Decoder only architectures as well.
 
-In the following section, we will discuss the end-to-end workflow (from onboarding to execution of models) of **decoder architecture models**.
+In the following section, we will discuss the end-to-end workflow (from onboarding to execution of models) of **decoder architecture models**. 
+
+Please note that Qualcomm's [Efficient Transformers](https://github.com/quic/efficient-transformers) library abtracts away a lot of the steps detailed below. In most cases, developers only need to use the APIs from this library to get a model working end to end.
+
+In addition, the [vLLM](https://github.com/vllm-project/vllm) inference and serving engine can be used with the qaic backend (i.e. use AI100 cards for inference). Please see [here]((../../Installation/vLLM/vLLM.md)) for more details on installation and usage.
+
 
 ## Decoder-only Models
 

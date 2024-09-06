@@ -84,6 +84,7 @@ nav:
         - Getting-Started/Installation/Docker/index.md
         - Docker: Getting-Started/Installation/Docker/Docker.md
         - Kubernetes: Getting-Started/Installation/Docker/k8s.md
+      - vLLM: Getting-Started/Installation/vLLM/vLLM.md
       - AWS: Getting-Started/Installation/AWS/aws.md
     - Inference Workflow:
       - Getting-Started/Inference-Workflow/index.md

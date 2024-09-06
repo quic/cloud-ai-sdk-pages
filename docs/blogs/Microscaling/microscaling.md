@@ -56,7 +56,7 @@ Table 2 shows experimental results for various workloads on the Qualcomm Cloud A
 
 The MXFP6 weight compression feature is available in the 1.12 release of the Qualcomm Cloud AI 100 software and runs on a DL2q instance in AWS EC2 today. MxFP delivers up to 79% increase in tokens per second for 2K context length and enables models such as OPT-13B to fit on a single card in the DLq2 instance. Each DL2q instance can run 8 instances of OPT-13B.
 
-[Visit Qualcomm® Cloud AI 100 Github](https://github.qualcomm.com/qranium/cloud-ai) to learn more and download SDK.
+[Visit Qualcomm® Cloud AI 100 Github](https://github.com/quic/cloud-ai-sdk) to learn more and download SDK.
 
 
 <br />
