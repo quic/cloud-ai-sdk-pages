@@ -41,10 +41,10 @@ The AI 100 Ultra card has a PCIe switch between the 4 SoCs on the card. In a ser
 
 ### Card configuration 
 
-1. Disable PCIe Switch ACS to enable P2P communication between PCIe ports. See instructions [here](https://github.com/quic/cloud-ai-sdk/tree/1.12/utils/multi-device). 
+1. Disable PCIe Switch ACS to enable P2P communication between PCIe ports. See instructions [here](https://github.com/quic/cloud-ai-sdk/tree/1.17/utils/multi-device). 
 
 2. Enable multi-device partitioning on all the SoCs. 
-    Download enable_mdp.json from [here](https://github.com/quic/cloud-ai-sdk/tree/1.12/utils/multi-device). 
+    Download enable_mdp.json from [here](https://github.com/quic/cloud-ai-sdk/tree/1.17/utils/multi-device). 
     ```
     systemd-run --unit=qmonitor-proxy /opt/qti-aic/tools/qaic-monitor-grpc-server
     /opt/qti-aic/tools/qaic-monitor-json -i enable_mdp.json​ 
