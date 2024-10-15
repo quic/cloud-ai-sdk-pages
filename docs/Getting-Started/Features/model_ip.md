@@ -2,7 +2,7 @@
 
 Model IP tools and scripts help establish model confidentiality and integrity by encrypting AI models on the customer premises, send them to the device and then decrypted in the device memory before we run Inferences. 
 
-## Encryption/decryption of QPCs:
+## Encryption/decryption of QPCs
 
 ### High level view of end-to-end implementation Phase, Activities and Stages
 ![](../../images/model-ip-flow.png)
@@ -23,7 +23,7 @@ Note:
 ### High level view of sequence of operations to generate final encrypted QPC
 ![](../../images/gen-encrypted-QPC.png)
 
-## Steps to generate encrypted QPC:
+## Steps to generate encrypted QPC
 
 ### 1. Prerequisites
 - Apps and Platform SDK >= 1.17,
@@ -290,7 +290,7 @@ Example:
 /opt/qti-aic/tools/qaic-encrypt encrypt-model --qpc /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-quant-resnet50/programqpc.bin --mek MEK.dat --output-dir ./encryptqpc --pub-keys pub0.dat pub1.dat pub2.dat pub3.dat
 ```
 
-## Side effects:
+## Side effects
 - Increased QPC load times
 - Since decryption time is more, for big models one need to increase the default timeout values before execution.
 	Below are the commands to increase the default timeout values,
@@ -301,5 +301,5 @@ Example:
 	echo 600000 > /sys/module/qaic/parameters/mhi_timeout_ms
  	```
 
-## Limitations:
+## Limitations
 - Slow decryption in initial release
