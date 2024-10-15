@@ -833,6 +833,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#benchmarking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmarking
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1419,6 +1428,8 @@
       
         
       
+        
+      
     
     
       
@@ -1585,6 +1596,77 @@
   
   <span class="md-ellipsis">
     Model Sharding
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_6_4" id="__nav_1_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Model IP
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Model IP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Features/model_ip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model IP
   </span>
   
 
@@ -2437,6 +2519,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#benchmarking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benchmarking
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2476,32 +2567,41 @@
 </code></pre></div>
 <h3 id="installing-from-source">Installing from source<a class="headerlink" href="#installing-from-source" title="Permanent link">&para;</a></h3>
 <p>vLLM with qaic backend support can be installed by applying a patch on top of the open source vLLM repo</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># Create a python virtual enviornment
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python3.8 -m venv qaic-vllm-venv
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>source qaic-vllm-venv/bin/activate
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a># Install the current release version of QEfficient (vLLLM with qaic support requires QEfficient for model exporting and compilation)
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>pip install -U pip
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>pip install git+https://github.com/quic/efficient-transformers@release/v1.16
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a># Clone the vLLM repo, and apply the patch for qaic backend support
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>git clone https://github.com/vllm-project/vllm.git
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>cd vllm
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>git checkout bc8ad68455ce41ba672764f4a53df5a87d1dbe99
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>git apply /opt/qti-aic/integrations/vllm/qaic_vllm.patch
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># Add user to qaic group to access Cloud AI devices without root
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>sudo usermod -aG qaic $USER
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>newgrp qaic
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># Create a python virtual enviornment
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>python3.8 -m venv qaic-vllm-venv
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>source qaic-vllm-venv/bin/activate
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a># Install the current release version of QEfficient (vLLLM with qaic support requires QEfficient for model exporting and compilation)
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>pip install -U pip
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>pip install git+https://github.com/quic/efficient-transformers@release/v1.17
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>pip install outlines==0.0.32
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>pip install ray
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a># Clone the vLLM repo, and apply the patch for qaic backend support
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>git clone https://github.com/vllm-project/vllm.git
 <a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a># Set environment variables and install
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>export VLLM_BUILD_WITH_QAIC=True
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>pip install -e .
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a># Run a sample inference
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>python examples/offline_inference_qaic.py
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>cd vllm
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>git checkout bc8ad68455ce41ba672764f4a53df5a87d1dbe99
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>git apply /opt/qti-aic/integrations/vllm/qaic_vllm.patch
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a># Set environment variables and install
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>export VLLM_BUILD_WITH_QAIC=True
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>pip install -e .
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a># Use older FastAPI version to avoid pydantic error with OpenAI endpoints
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>pip install fastapi==0.112.2
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a># Run a sample inference
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>python examples/offline_inference_qaic.py
 </code></pre></div>
 <h2 id="server-endpoints">Server Endpoints<a class="headerlink" href="#server-endpoints" title="Permanent link">&para;</a></h2>
 <p>vLLM provides capabilities to start a FastAPI server to run LLM inference. Here is an example to use qaic backend (i.e. use the AI100 cards for inference). Please replace the host name and port number</p>
@@ -2513,10 +2613,16 @@
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>python3 vllm/examples/api_client.py --host &lt;host_name&gt; --port &lt;port_num&gt; --prompt &quot;My name is&quot; --stream
 </code></pre></div>
 <p>Similarly, an OpenAI compatible server can be invoked as follows</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3 -m vllm.entrypoints.openai.api_server --host &lt;host_name&gt; --port &lt;port_num&gt; --model TinyLlama/TinyLlama-1.1
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>B-Chat-v1.0 --max-model-len 256 --max-num-seq 4 --max-seq_len-to-capture 128 --device qaic --block-size 32 --
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>quantization mxfp6 --kv-cache-dtype mxint8
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3 -m vllm.entrypoints.openai.api_server --host &lt;host_name&gt; --port &lt;port_num&gt; --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 --max-model-len 256 --max-num-seq 4 --max-seq_len-to-capture 128 --device qaic --block-size 32 --quantization mxfp6 --kv-cache-dtype mxint8
 </code></pre></div>
+<h2 id="benchmarking">Benchmarking<a class="headerlink" href="#benchmarking" title="Permanent link">&para;</a></h2>
+<p>vLLM provides benchmarking scripts to measure serving, latency and throughput performance. Here's an example for serving performance. First, start an OpenAI compatible endpoint using the steps in the previous section.  Please replace the host name and port number.</p>
+<p>Download the dataset:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>wget https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/resolve/main/ShareGPT_V3_unfiltered_cleaned_split.json
+</code></pre></div></p>
+<p>Start benchmarking:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python3 ./vllm/benchmarks/benchmark_serving.py --backend openai --base-url http://&lt;host&gt;:&lt;port&gt; --dataset-name=sharegpt --dataset-path=./ShareGPT_V3_unfiltered_cleaned_split.json --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 --seed 12345
+</code></pre></div></p>
 
 
 

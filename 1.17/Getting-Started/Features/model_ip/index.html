@@ -8,26 +8,28 @@
       
       
       
-        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.17/blogs/AmberChat/">
+        <link rel="canonical" href="https://github.com/quic/cloud-ai-sdk/1.17/Getting-Started/Features/model_ip/">
       
       
-        <link rel="prev" href="../Text_Embeddings/">
+        <link rel="prev" href="../model_sharding/">
       
       
+        <link rel="next" href="../../System-Management/system-management/">
       
-      <link rel="icon" href="../../images/favicon.png">
+      
+      <link rel="icon" href="../../../images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
     
     
       
-        <title>Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances - Cloud AI 100</title>
+        <title>Model IP - Cloud AI 100</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.3cba04c6.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
   
@@ -54,18 +56,18 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../custom.css">
+      <link rel="stylesheet" href="../../../custom.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -74,7 +76,7 @@
     .gdesc-inner { font-size: 0.75rem; }
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -93,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#accelerate-inference-of-fully-transparent-open-source-llms-from-llm360-on-qualcomm-cloud-ai-100-dl2q-instances" class="md-skip">
+        <a href="#model-ip" class="md-skip">
           Skip to content
         </a>
       
@@ -113,9 +115,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+    <a href="../../.." title="Cloud AI 100" class="md-header__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -132,7 +134,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
+              Model IP
             
           </span>
         </div>
@@ -226,11 +228,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../Getting-Started/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
           
   
     
@@ -250,7 +254,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../API/" class="md-tabs__link">
+        <a href="../../../API/" class="md-tabs__link">
           
   
     
@@ -270,7 +274,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../FAQ/" class="md-tabs__link">
+        <a href="../../../FAQ/" class="md-tabs__link">
           
   
     
@@ -286,13 +290,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../Train_Anywhere/train_anywhere/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../blogs/Train_Anywhere/train_anywhere/" class="md-tabs__link">
           
   
     
@@ -333,9 +335,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
+    <a href="../../.." title="Cloud AI 100" class="md-nav__button md-logo" aria-label="Cloud AI 100" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     Cloud AI 100
@@ -347,6 +349,8 @@
       
   
   
+    
+  
   
   
     
@@ -375,19 +379,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Getting-Started/" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -398,13 +405,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             User Guide
@@ -441,7 +448,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Getting-Started/Quick-Start-Guide/" class="md-nav__link ">
+            <a href="../../Quick-Start-Guide/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -512,7 +519,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Getting-Started/Installation/" class="md-nav__link ">
+            <a href="../../Installation/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -545,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Checklist/checklist/" class="md-nav__link">
+      <a href="../../Installation/Checklist/checklist/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -566,7 +573,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
+      <a href="../../Installation/Pre-requisites/pre-requisites/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -587,7 +594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
+      <a href="../../Installation/Cloud-AI-SDK/Cloud-AI-SDK/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -608,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Hypervisors/hypervisor/" class="md-nav__link">
+      <a href="../../Installation/Hypervisors/hypervisor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -654,7 +661,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Getting-Started/Installation/Docker/" class="md-nav__link ">
+            <a href="../../Installation/Docker/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -687,7 +694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Docker/Docker/" class="md-nav__link">
+      <a href="../../Installation/Docker/Docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -708,7 +715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/Docker/k8s/" class="md-nav__link">
+      <a href="../../Installation/Docker/k8s/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -737,7 +744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/vLLM/vLLM/" class="md-nav__link">
+      <a href="../../Installation/vLLM/vLLM/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -758,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Installation/AWS/aws/" class="md-nav__link">
+      <a href="../../Installation/AWS/aws/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -814,7 +821,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Getting-Started/Inference-Workflow/" class="md-nav__link ">
+            <a href="../../Inference-Workflow/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -893,7 +900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
+      <a href="../../Inference-Workflow/Export-the-model/Export-the-Model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -914,7 +921,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
+      <a href="../../Inference-Workflow/Export-the-model/Operator-and-Datatype-support/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -935,7 +942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
+      <a href="../../Inference-Workflow/Export-the-model/Prepare-the-model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1008,7 +1015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-compilation/Compile-the-Model/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1029,7 +1036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-compilation/Tune-performance/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-compilation/Tune-performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1104,7 +1111,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-execution/model-execution-options/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1125,7 +1132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-execution/Inference-Profiling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1146,7 +1153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
+      <a href="../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1206,7 +1213,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Getting-Started/Model-Architecture-Support/" class="md-nav__link ">
+            <a href="../../Model-Architecture-Support/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1281,7 +1288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
+      <a href="../../Model-Architecture-Support/Large-Language-Models/llm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1315,6 +1322,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1336,16 +1345,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Getting-Started/Features/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1362,7 +1371,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1_6">
             <span class="md-nav__icon md-icon"></span>
             Features
@@ -1420,7 +1429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Features/custom_ops/" class="md-nav__link">
+      <a href="../custom_ops/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1491,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/Features/model_sharding/" class="md-nav__link">
+      <a href="../model_sharding/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1517,8 +1526,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -1530,11 +1541,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_4" checked>
         
           
           <label class="md-nav__link" for="__nav_1_6_4" id="__nav_1_6_4_label" tabindex="0">
@@ -1548,7 +1559,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1_6_4">
             <span class="md-nav__icon md-icon"></span>
             Model IP
@@ -1559,10 +1570,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../Getting-Started/Features/model_ip/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Model IP
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1571,6 +1602,269 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#encryptiondecryption-of-qpcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encryption/decryption of QPCs:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encryption/decryption of QPCs:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-level-view-of-end-to-end-implementation-phase-activities-and-stages" class="md-nav__link">
+    <span class="md-ellipsis">
+      High level view of end-to-end implementation Phase, Activities and Stages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trust-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trust Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-level-view-of-sequence-of-operations-to-generate-final-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      High level view of sequence of operations to generate final encrypted QPC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steps-to-generate-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to generate encrypted QPC:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps to generate encrypted QPC:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perform-soc-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perform SOC Reset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-grpc-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start the grpc server
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-generate-mek-model-encryption-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Generate MEK (Model Encryption Key)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-encrypt-qpc-using-above-generated-mek" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Encrypt qpc using above generated MEK
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-device-attestation-generate-session-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Device attestation (generate session key):
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Device attestation (generate session key):">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-of-the-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start of the script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#end-of-the-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      End of the script
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-generate-fully-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Generate fully encrypted QPC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usecases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usecases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usecases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-session-becomes-invalid-example-device-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Session becomes invalid (example: Device Reset)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-single-command-to-generate-fully-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Single command to generate fully encrypted QPC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-multi-device-partitioning-mdp-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Multi Device Partitioning (MDP) Example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Multi Device Partitioning (MDP) Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-generate-mek" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Generate MEK:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-device-attestation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Device attestation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-single-command-to-generate-fully-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Single command to generate fully encrypted QPC:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Side effects:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1641,7 +1935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Getting-Started/System-Management/system-management/" class="md-nav__link">
+      <a href="../../System-Management/system-management/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1691,7 +1985,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Getting-Started/Architecture/" class="md-nav__link ">
+            <a href="../../Architecture/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1748,7 +2042,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Getting-Started/Glossary/" class="md-nav__link ">
+            <a href="../../Glossary/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1818,7 +2112,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../API/" class="md-nav__link ">
+            <a href="../../../API/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1895,7 +2189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Python-API/qaic/qaic/" class="md-nav__link">
+      <a href="../../../Python-API/qaic/qaic/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1916,7 +2210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Python-API/qaicrt/class_util/" class="md-nav__link">
+      <a href="../../../Python-API/qaicrt/class_util/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1991,7 +2285,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Cpp-API/example/" class="md-nav__link">
+      <a href="../../../Cpp-API/example/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2012,7 +2306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Cpp-API/features/" class="md-nav__link">
+      <a href="../../../Cpp-API/features/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2033,7 +2327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Cpp-API/runtime/" class="md-nav__link">
+      <a href="../../../Cpp-API/runtime/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2104,7 +2398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
+      <a href="../../../ONNXRT%20QAIC/onnxruntime/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2161,7 +2455,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../FAQ/" class="md-nav__link ">
+            <a href="../../../FAQ/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2193,10 +2487,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -2213,20 +2505,17 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -2237,7 +2526,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Blogs
@@ -2251,7 +2540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Train_Anywhere/train_anywhere/" class="md-nav__link">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2272,7 +2561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Microscaling/microscaling/" class="md-nav__link">
+      <a href="../../../blogs/Microscaling/microscaling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2293,7 +2582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Speculative_Decode/spec_decode_ai100/" class="md-nav__link">
+      <a href="../../../blogs/Speculative_Decode/spec_decode_ai100/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2314,7 +2603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Text_Embeddings/" class="md-nav__link">
+      <a href="../../../blogs/Text_Embeddings/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2332,30 +2621,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../blogs/AmberChat/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2364,62 +2633,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#qualcomm-cloud-ai-100-optimizations-for-llm-inference" class="md-nav__link">
-    <span class="md-ellipsis">
-      Qualcomm Cloud AI 100 Optimizations for LLM Inference:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-numbers-on-qualcomm-cloud-ai-100-standard-sku" class="md-nav__link">
-    <span class="md-ellipsis">
-      Performance numbers on Qualcomm Cloud AI 100 Standard SKU:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sample-prompts-and-generated-responses" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sample Prompts and Generated Responses:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References:
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2459,36 +2672,243 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qualcomm-cloud-ai-100-optimizations-for-llm-inference" class="md-nav__link">
+  <a href="#encryptiondecryption-of-qpcs" class="md-nav__link">
     <span class="md-ellipsis">
-      Qualcomm Cloud AI 100 Optimizations for LLM Inference:
+      Encryption/decryption of QPCs:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Encryption/decryption of QPCs:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-level-view-of-end-to-end-implementation-phase-activities-and-stages" class="md-nav__link">
+    <span class="md-ellipsis">
+      High level view of end-to-end implementation Phase, Activities and Stages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trust-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trust Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-level-view-of-sequence-of-operations-to-generate-final-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      High level view of sequence of operations to generate final encrypted QPC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#steps-to-generate-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to generate encrypted QPC:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps to generate encrypted QPC:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#perform-soc-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perform SOC Reset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-grpc-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start the grpc server
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-generate-mek-model-encryption-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Generate MEK (Model Encryption Key)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-encrypt-qpc-using-above-generated-mek" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Encrypt qpc using above generated MEK
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-device-attestation-generate-session-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Device attestation (generate session key):
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Device attestation (generate session key):">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-of-the-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start of the script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#end-of-the-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      End of the script
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-generate-fully-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Generate fully encrypted QPC
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usecases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usecases
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usecases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-session-becomes-invalid-example-device-reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Session becomes invalid (example: Device Reset)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-single-command-to-generate-fully-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Single command to generate fully encrypted QPC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-multi-device-partitioning-mdp-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Multi Device Partitioning (MDP) Example
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Multi Device Partitioning (MDP) Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-generate-mek" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Generate MEK:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-device-attestation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Device attestation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-single-command-to-generate-fully-encrypted-qpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Single command to generate fully encrypted QPC:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Side effects:
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-numbers-on-qualcomm-cloud-ai-100-standard-sku" class="md-nav__link">
+  <a href="#limitations" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance numbers on Qualcomm Cloud AI 100 Standard SKU:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sample-prompts-and-generated-responses" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sample Prompts and Generated Responses:
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References:
+      Limitations:
     </span>
   </a>
   
@@ -2509,174 +2929,250 @@
                   
 
 
-<h1 id="accelerate-inference-of-fully-transparent-open-source-llms-from-llm360-on-qualcomm-cloud-ai-100-dl2q-instances">Accelerate Inference of Fully Transparent Open-Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances<a class="headerlink" href="#accelerate-inference-of-fully-transparent-open-source-llms-from-llm360-on-qualcomm-cloud-ai-100-dl2q-instances" title="Permanent link">&para;</a></h1>
-<p>Posted By Ravi Sivalingam</p>
-<p>Many popular Large Language Models (LLMs) are closed and/or limited by
-their licensing to specific use-cases, which limits the democratization
-of AI progress. <a href="https://www.llm360.ai/">LLM360</a> is a joint effort
-of Petuum, <a href="https://mbzuai.ac.ae/">MBZUAI</a>, and Cerebras, with a focus
-on providing fully accessible and open-source LLMs.
-<a href="https://huggingface.co/LLM360/Amber">Amber</a> and
-<a href="https://huggingface.co/LLM360/AmberChat">AmberChat</a> are two such
-open-source LLMs released under the LLM360 initiative.
-<a href="https://huggingface.co/LLM360/Amber">Amber-7B</a> is a foundation English
-language model, following the Llama2-7B architecture, and
-<a href="https://huggingface.co/LLM360/AmberChat">AmberChat-7B</a> is the
-instruction fine-tuned version for chat applications.</p>
-<p>As part of Qualcomm Technologies' "Developer First" strategy and in
-general support of open-source initiatives, the Qualcomm Cloud AI 100
-inference accelerator now supports the Amber and AmberChat models, which
-are accelerated using microscaling formats and on-device caching of
-key-value tensors. You can run these models on Qualcomm Cloud AI 100
-Standard cards using the <a href="https://aws.amazon.com/ec2/instance-types/dl2q/">DL2q
-instances</a> on AWS EC2
-in a few simple steps. Check out the <a href="https://github.com/quic/cloud-ai-sdk/tree/1.12/models/language_processing/decoder/LlamaForCausalLM">model recipe on our Qualcomm Cloud
-AI 100 Github
-page</a>
-to run the Amber or AmberChat models.</p>
-<h3 id="qualcomm-cloud-ai-100-optimizations-for-llm-inference">Qualcomm Cloud AI 100 Optimizations for LLM Inference:<a class="headerlink" href="#qualcomm-cloud-ai-100-optimizations-for-llm-inference" title="Permanent link">&para;</a></h3>
-<p>A variety of compute and memory optimizations in both the hardware and
-software deliver the best-in-class performance-per-TCO$ for LLMs on
-Qualcomm Cloud AI 100. While these are covered in earlier articles
-<a href="https://developer.qualcomm.com/blog/power-efficient-acceleration-large-language-models-qualcomm-cloud-ai-sdk">[2]</a>
-<a href="https://developer.qualcomm.com/blog/train-anywhere-infer-qualcomm-cloud-ai-100">[3]</a>,
-two key optimizations to highlight specifically for these models are:</p>
+<h1 id="model-ip">Model IP<a class="headerlink" href="#model-ip" title="Permanent link">&para;</a></h1>
+<p>Model IP tools and scripts help establish model confidentiality and integrity by encrypting AI models on the customer premises, send them to the device and then decrypted in the device memory before we run Inferences. </p>
+<h2 id="encryptiondecryption-of-qpcs">Encryption/decryption of QPCs:<a class="headerlink" href="#encryptiondecryption-of-qpcs" title="Permanent link">&para;</a></h2>
+<h3 id="high-level-view-of-end-to-end-implementation-phase-activities-and-stages">High level view of end-to-end implementation Phase, Activities and Stages<a class="headerlink" href="#high-level-view-of-end-to-end-implementation-phase-activities-and-stages" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../images/model-ip-flow.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/model-ip-flow.png" /></a></p>
+<h3 id="trust-architecture">Trust Architecture<a class="headerlink" href="#trust-architecture" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../images/Trust-Architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/Trust-Architecture.png" /></a></p>
+<p>Here</p>
 <ul>
+<li>Model Owner/User, QWES Cloud, AIC100 card are all trusted.</li>
+<li>Host machine on which LRT + KMD are running is un-trusted.</li>
+</ul>
+<p>Note:</p>
+<ul>
+<li>Generate MEK, Encrypt QPC using MEK, Device Attestation (Generate session public key), all needs to be done on Trusted machine and not on the host system which is running LRT + KMD.</li>
+<li>The qaic-encrypt and attestation tools are released as part of the Apps SDK.</li>
+</ul>
+<h3 id="high-level-view-of-sequence-of-operations-to-generate-final-encrypted-qpc">High level view of sequence of operations to generate final encrypted QPC<a class="headerlink" href="#high-level-view-of-sequence-of-operations-to-generate-final-encrypted-qpc" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="../../../images/gen-encrypted-QPC.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/gen-encrypted-QPC.png" /></a></p>
+<h2 id="steps-to-generate-encrypted-qpc">Steps to generate encrypted QPC:<a class="headerlink" href="#steps-to-generate-encrypted-qpc" title="Permanent link">&para;</a></h2>
+<h3 id="1-prerequisites">1. Prerequisites<a class="headerlink" href="#1-prerequisites" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Apps and Platform SDK &gt;= 1.17,</li>
+<li>python3.8,</li>
+<li>protobuf==4.21.12,</li>
+<li>grpcio==1.54.3</li>
+</ul>
+<h4 id="perform-soc-reset">Perform SOC Reset<a class="headerlink" href="#perform-soc-reset" title="Permanent link">&para;</a></h4>
+<p>Required before encrypting and running new model.</p>
+<p>Example:  <br />
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo su 
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>echo 1 &gt; /sys/bus/mhi/devices/mhi&lt;MHI ID&gt;/soc_reset
+</code></pre></div>
+Identify the MHI ID associated with the QID.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo /opt/qti-aic/tools/qaic-util -q | grep -e MHI -e QID
+</code></pre></div></p>
+<h4 id="start-the-grpc-server">Start the grpc server<a class="headerlink" href="#start-the-grpc-server" title="Permanent link">&para;</a></h4>
+<p>Start the grpc server in background, <code>qaic-remote-proxy</code> service should be running in the host for remote attestation to work.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>systemd-run --unit=qaic-remote-proxy /opt/qti-aic/tools/qaic-remote-session-server
+</code></pre></div>
+Note:
+To stop background service when not required use below command,
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>systemctl stop qaic-remote-proxy
+</code></pre></div></p>
+<h3 id="2-generate-mek-model-encryption-key">2. Generate MEK (Model Encryption Key)<a class="headerlink" href="#2-generate-mek-model-encryption-key" title="Permanent link">&para;</a></h3>
+<p>Model owner/customer will use their algorithm to generate MEK key from random byte stream, which must be a 128-bit (16 byte) AES key. Store the MEK key in .dat file (example: MEK.dat).</p>
+<p>Below are the steps with pseudo script used to illustrate the flow,</p>
+<p>Note: Remove if any old .dat, .bin files are present.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rm -rf *.dat *.bin temp
+</code></pre></div>
+Steps to generate MEK key:
+- Run the generate MEK key script: <br>
+  This a pseudo script, which will be replaced by Model owner/customer.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3 mek_gen.py
+</code></pre></div>
+Above script generates key in <code>hexadecimal form</code>.</p>
+<ul>
+<li>Store the MEK key in .dat file:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>mekHex=`&lt;hexadecimal form generated above&gt;`
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>echo -n &quot;$mekHex&quot; | xxd -r -p &gt; MEK.dat
+</code></pre></div></li>
+</ul>
+<h3 id="3-encrypt-qpc-using-above-generated-mek">3. Encrypt qpc using above generated MEK<a class="headerlink" href="#3-encrypt-qpc-using-above-generated-mek" title="Permanent link">&para;</a></h3>
+<p>At this stage we encrypt relevant qpc segments using MEK key and the tool used here is <code>qaic-encrypt encrypt-model</code>.</p>
+<p>Note:
+Resulting encryption is not tied to User Session.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>qaic-encrypt encrypt-model --qpc [path to programqpc.bin] --mek [model encryption key] --output-dir [output directory]
+</code></pre></div></p>
+<p>Example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/opt/qti-aic/tools/qaic-encrypt encrypt-model --qpc /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-quant-resnet50/programqpc.bin --mek MEK.dat --output-dir ./encryptqpc/
+</code></pre></div></p>
+<p>Usage:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>./qaic-encrypt encrypt-model --help
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Usage: qaic-encrypt encrypt-model [OPTIONS] --qpc &lt;FILE&gt; --mek &lt;FILE&gt; --output-dir &lt;DIR&gt;
+</code></pre></div>
+Options:</p>
+<div class="highlight"><pre><span></span><code>  --qpc &lt;FILE&gt;           Path to QPC file
+  --mek &lt;FILE&gt;           Path to MEK file
+  --output-dir &lt;DIR&gt;     Output Directory
+  --pub-keys &lt;FILES&gt;...  Device Public Keys
+  --help                 Print help
+</code></pre></div>
+<h3 id="4-device-attestation-generate-session-key">4. Device attestation (generate session key):<a class="headerlink" href="#4-device-attestation-generate-session-key" title="Permanent link">&para;</a></h3>
+<p>Here session key is <code>Public Key</code> genereated by device and sent to user in Attesation Report. First one should create a session and generate session public key by passing the host ip and device id(s) (for which public key needs to be generated) to the <code>QAicRemoteAttestationClient.py</code> script.</p>
+<p>Below is a reference script, which uses host ip and device id to generate the session public key using attestation script <code>QAicRemoteAttestationClient.py</code>.</p>
+<h5 id="start-of-the-script">Start of the script<a class="headerlink" href="#start-of-the-script" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>remoteHostIP=&lt;host-ip-address&gt;
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>deviceId=0
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>ATTESTTATION_PYTHON_SCRIPT=/opt/qti-aic/tools/qaic-encrypt/QAicRemoteAttestationClient.py
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>#Python venv to Grpc python client
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>if [ -n &quot;$(python3.8 --version)&quot; ] 2&gt;/dev/null; then
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>  echo &#39;python 3.8 is installed&#39;
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>  python3.8 -m venv &quot;./.py3-venv&quot;
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>else
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>  echo &#39;Please install Python 3.8&#39;
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>  exit 1
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>fi
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>VENV_PYTHON3=&quot;./.py3-venv/bin/python3&quot;
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>$VENV_PYTHON3 -m pip install protobuf==4.21.12 grpcio==1.54.3$VENV_PYTHON3 
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>cat &gt; request.dat &lt;&lt; EOF
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>anycontent
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>EOF
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>#Get public key from device
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>$VENV_PYTHON3 ${ATTESTTATION_PYTHON_SCRIPT} --ip ${remoteHostIP} -d ${deviceId} -i request.dat -o pub.dat
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>rm -f request.dat
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>echo &quot;Public key received from device&quot;
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>echo &quot;-------------------------------------------&quot;
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>hexdump -C pub.dat 
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>echo &quot;-------------------------------------------&quot;
+</code></pre></div>
+<h5 id="end-of-the-script">End of the script<a class="headerlink" href="#end-of-the-script" title="Permanent link">&para;</a></h5>
+<p>This will create and store session public key in the <code>pub.dat</code> file.</p>
+<p>Usage:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python3.8 ./QAicRemoteAttestationClient.py --help
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>usage: QAicRemoteAttestationClient.py [-h] [--ip IP] [--port PORT] [--device DEVICE] [--print_json] [--attestation_request ATTESTATION_REQUEST]
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>                                      [--attestation_report ATTESTATION_REPORT]
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>optional arguments:
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  --ip IP               IP Address of QAic Remote host (default localhost)
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  --port PORT           QAic Remote GRPC Port (default 62473)
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  --device DEVICE, -d DEVICE
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>                        Qranium device ID
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  --print_json, -j      Print Protobuf messages in json format
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  --attestation_request ATTESTATION_REQUEST, -i ATTESTATION_REQUEST
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>                        Input file path containing attestation request
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>  --attestation_report ATTESTATION_REPORT, -o ATTESTATION_REPORT
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>                        Output file path to store attestation report (default report.dat)
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>-h, --help            show this help message and exit
+</code></pre></div>
+Note: qaic-remote-session-server should be running in the host, where aic100 devices are connected.</p>
+<h3 id="5-generate-fully-encrypted-qpc">5. Generate fully encrypted QPC<a class="headerlink" href="#5-generate-fully-encrypted-qpc" title="Permanent link">&para;</a></h3>
+<p>The <code>qaic-encrypt</code> will take input as <code>previously encrypted qpc segments</code>, <code>model encryption key (MEK)</code> and <code>session public keys</code> to generate fully encrypted QPC.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>qaic-encrypt encrypt-with-session-keys --input-dir [path containing previously encrypted qpc segments] --mek [model encryption key] --pub-keys [session public keys]
+</code></pre></div></p>
+<p>Example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/opt/qti-aic/tools/qaic-encrypt encrypt-with-session-keys --input-dir ./encryptqpc/ --mek MEK.dat --pub-keys pub.dat
+</code></pre></div>
+Usage:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>./qaic-encrypt encrypt-with-session-keys -h
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Usage: qaic-encrypt encrypt-with-session-keys [OPTIONS] --input-dir &lt;DIR&gt; --mek &lt;FILE&gt;
+</code></pre></div>
+Options:</p>
+<div class="highlight"><pre><span></span><code>  --input-dir &lt;DIR&gt;      Path containing previously encrypted QPC Segments
+  --mek &lt;FILE&gt;
+  --pub-keys &lt;FILES&gt;...  Device Public Keys
+  --help                 Print help
+</code></pre></div>
+<h2 id="usecases">Usecases<a class="headerlink" href="#usecases" title="Permanent link">&para;</a></h2>
+<h3 id="1-session-becomes-invalid-example-device-reset">1. Session becomes invalid (example: Device Reset)<a class="headerlink" href="#1-session-becomes-invalid-example-device-reset" title="Permanent link">&para;</a></h3>
+<p>Above we went through sections <code>Generated MEK -- &gt; Encrypted relevant QPC segments --&gt; Did device attestation to generate session public key then -- &gt; Generated fully encrypted QPC</code> In case the user session becomes invalid (for eg: during a device Reset, then one can follow below steps</p>
+<ol>
 <li>
-<p><strong>Microscaling Format:</strong> The model weights are compressed to MXFP6
-    using the new microscaling formats <a href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">(Open Compute Project MX
-    Specifications
-    [4])</a>
-    to reduce weight memory footprint and to boost the effective memory
-    bandwidth of the system. The computations are performed in FP16. For
-    more details, check out our <a href="https://developer.qualcomm.com/blog/qualcomm-cloud-ai-100-accelerates-large-language-model-inference-2x-using-microscaling-mx">blog on Microscaling Formats
-    [5]</a></p>
+<p>Generate new session public key (Refer to the above section 3 <code>Device attestation</code> on how to generate session public key).</p>
 </li>
 <li>
-<p><strong>On-device Caching</strong> of key-value tensors for past tokens over the
-    model's entire context length to:</p>
-<ul>
-<li>Avoid re-computation during the autoregressive generation in LLMs
-and</li>
-<li>Avoid movement of numerous large key-value tensors back and forth
-between host and device.</li>
-</ul>
+<p>Using <code>qaic-encrypt wrap-mek</code> option one can wrap MEK with the new session public key.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>qaic-encrypt wrap-mek --mek [path to mek] --pub-keys [path to session public keys] --output-dir [store wrapped MEK(s)]
+</code></pre></div>
+Example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>qaic-encrypt wrap-mek --mek MEK.dat --pub-keys pub.dat --output-dir ./wrappedMEK
+</code></pre></div></p>
+<p>Note: The output folder will have <code>wrapped MEK</code> and <code>config.json</code> with MEK related to Device number.</p>
+<p>Usage:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>./qaic-encrypt wrap-mek --help
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Usage: qaic-encrypt wrap-mek [OPTIONS] --mek &lt;FILE&gt; --output-dir &lt;DIR&gt;
+</code></pre></div></p>
+<p>Options:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>        --mek &lt;FILE&gt;           Path to MEK file
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>        --pub-keys &lt;FILES&gt;...  Device Public Keys
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>        --output-dir &lt;DIR&gt;     Output directory to store wrapped MEK(s)
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>        --help                 Print help
+</code></pre></div>
+3. To generate fully encrypted QPC tied to current user session, one can use <code>qaic-encrypt replace-mek</code> which swaps out the previous MEK inside QPC(s) sequentially.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>qaic-encrypt replace-mek --encrypted-qpc [path to fully encrypted qpc] --wrapped-meks [path to wrapped-meks] --output-dir [New encrypted qpc]
+</code></pre></div>
+Example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>qaic-encrypt replace-mek --encrypted-qpc ./encryptqpc --wrapped-meks ./wrappedMEK/ --output-dir ./newEncryptedQPC
+</code></pre></div></p>
+<p>Usage:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>./qaic-encrypt replace-mek –help
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>Usage: qaic-encrypt replace-mek [OPTIONS] --encrypted-qpc &lt;FILE&gt; --output-dir &lt;DIR&gt;
+</code></pre></div></p>
+<p>Options:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>--encrypted-qpc &lt;FILE&gt;
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    Path to QPC file
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>--wrapped-meks &lt;DIRS&gt;...
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>        Dir Path to Wrapped MEK file(s)
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    Must contain MEK.encrypt, MEK.nonce and MEK.pub
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    `wrap-mek` subcommand can generate wrapped MEK from device public key
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>    NOTE: For MQ QPC mdp_meta_info segment sequence will be used to map wrapped MEKs with inner QPCs.
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>--output-dir &lt;DIR&gt;
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>    Output directory to store new programqpc
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>--help
+</code></pre></div></p>
 </li>
+</ol>
+<h3 id="2-single-command-to-generate-fully-encrypted-qpc">2. Single command to generate fully encrypted QPC<a class="headerlink" href="#2-single-command-to-generate-fully-encrypted-qpc" title="Permanent link">&para;</a></h3>
+<p>This gives convenience to the user to get fully encrypted QPC in one single command. The <code>qaic-encrypt encrypt-model</code> will take input as <code>qpc</code>, <code>model encryption key (MEK)</code> and <code>session public keys</code> to generate fully encrypted QPC.</p>
+<p>Steps for single command to generate fully encrypted QPC.
+- Model owner/customer will generate MEK and Session public key.
+  Refer to the previous sections on <code>Generate MEK (Model Encryption Key)</code> and <code>Device attestation</code>.
+- Run <code>qaic-encrypt encrypt-model</code> to generate fully encrypted QPC.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>qaic-encrypt encrypt-model --qpc [path to programqpc.bin] --mek [model encryption key] --output-dir [output directory] --pub-keys [session public keys]
+</code></pre></div>
+Example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>/opt/qti-aic/tools/qaic-encrypt encrypt-model --qpc /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-quant-resnet50/programqpc.bin --mek MEK.dat --output-dir ./encryptqpc --pub-keys pub.dat
+</code></pre></div></p>
+<h3 id="3-multi-device-partitioning-mdp-example">3. Multi Device Partitioning (MDP) Example<a class="headerlink" href="#3-multi-device-partitioning-mdp-example" title="Permanent link">&para;</a></h3>
+<p>This section walks through steps showing what the flow look like incase of "MDP", here in this example we are assuming 4 devices.</p>
+<h4 id="1-generate-mek">1. Generate MEK:<a class="headerlink" href="#1-generate-mek" title="Permanent link">&para;</a></h4>
+<p>Follow above section <code>1) Generate MEK (Model Encryption Key)</code> to generate MEK.</p>
+<h4 id="2-device-attestation">2. Device attestation:<a class="headerlink" href="#2-device-attestation" title="Permanent link">&para;</a></h4>
+<p>Follow above section <code>Device attestation (generate session key)</code> to generate <code>public key</code> for each device (device Id=0,1,2,3). Run the script 4 times using the same MEK generated in step1 and pass the respective device ID. Store the public key as <code>pub0.dat</code>,<code>pub1.dat</code>,<code>pub2.dat</code> and <code>pub3.dat</code>.</p>
+<h4 id="3-single-command-to-generate-fully-encrypted-qpc">3. Single command to generate fully encrypted QPC:<a class="headerlink" href="#3-single-command-to-generate-fully-encrypted-qpc" title="Permanent link">&para;</a></h4>
+<p>Here, we will use single command to generate fully encrypted QPC, by passing above generated <code>MEK</code> and <code>public keys</code>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>qaic-encrypt encrypt-model --qpc [path to programqpc.bin] --mek [model encryption key] --output-dir [output directory] --pub-keys [session public keys]
+</code></pre></div>
+Example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>/opt/qti-aic/tools/qaic-encrypt encrypt-model --qpc /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-quant-resnet50/programqpc.bin --mek MEK.dat --output-dir ./encryptqpc --pub-keys pub0.dat pub1.dat pub2.dat pub3.dat
+</code></pre></div></p>
+<h2 id="side-effects">Side effects:<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Increased QPC load times</li>
+<li>Since decryption time is more, for big models one need to increase the default timeout values before execution.
+    Below are the commands to increase the default timeout values,
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>echo 2400 &gt; /sys/module/qaic/parameters/control_resp_timeout_s
+</code></pre></div>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>echo 600000 &gt; /sys/module/qaic/parameters/mhi_timeout_ms
+</code></pre></div></li>
 </ul>
-<p>As LLM inference especially in the decode phase is primarily
-memory-bound, these optimizations significantly boost the LLM
-performance and improve the end-user experience in an inference
-application deployed using these LLMs.</p>
-<h3 id="performance-numbers-on-qualcomm-cloud-ai-100-standard-sku">Performance numbers on Qualcomm Cloud AI 100 Standard SKU:<a class="headerlink" href="#performance-numbers-on-qualcomm-cloud-ai-100-standard-sku" title="Permanent link">&para;</a></h3>
-<p>The performance of AmberChat-7B on a single Cloud AI 100 Standard SKU
-for a batchsize of 1 is listed in the table below. Note that Amber and
-AmberChat have the same architecture, so their performance should be
-identical. A single DL2q instance contains 8 Standard SKU cards, so we
-can run 8 replicas of these models on a single instance, 1 on each
-card. We can further increase the throughput performance by
-increasing the batchsize.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: center;">Model</th>
-<th style="text-align: center;">Device</th>
-<th style="text-align: center;">Precision<br>of Weights</th>
-<th style="text-align: center;">Replicas</th>
-<th style="text-align: center;">Batch Size</th>
-<th style="text-align: center;">Compiled<br>Prompt Length</th>
-<th style="text-align: center;">Maximum<br>Context Length</th>
-<th style="text-align: center;">Prefill<br>Latency (sec)</th>
-<th style="text-align: center;">Decode<br>Throughput (tok/s)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;">AmberChat-7B</td>
-<td style="text-align: center;">1x STD SKU</td>
-<td style="text-align: center;">MXFP6</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">2048</td>
-<td style="text-align: center;">1.33</td>
-<td style="text-align: center;">14.9</td>
-</tr>
-<tr>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">8x STD SKU DL2q</td>
-<td style="text-align: center;">MXFP6</td>
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">2048</td>
-<td style="text-align: center;">1.33</td>
-<td style="text-align: center;">119.2</td>
-</tr>
-</tbody>
-</table>
-<h3 id="sample-prompts-and-generated-responses">Sample Prompts and Generated Responses:<a class="headerlink" href="#sample-prompts-and-generated-responses" title="Permanent link">&para;</a></h3>
-<p>Here are some sample prompts and the corresponding responses generated
-by AmberChat-7B. We used the prompt template from the model's
-HuggingFace Model Card:</p>
-<p><strong>Prompt Template:</strong></p>
-<p>A chat between a curious human and an artificial intelligence assistant.
-The assistant gives helpful, detailed, and polite answers to the
-human's questions.</p>
-<p>### Human: {prompt}</p>
-<p>### Assistant:</p>
-<p><strong>Prompt:</strong> How do I mount a TV to drywall safely?</p>
-<p><strong>Response:</strong> To mount a TV to dry wall safely, you will need the
-following tools:</p>
-<ol>
-<li>A drill</li>
-<li>Wall anchors</li>
-<li>Screws</li>
-<li>A stud finder</li>
-<li>A level</li>
-<li>A screwdriver</li>
-<li>A stud mounting bracket</li>
-<li>A TV mounting bracket</li>
-</ol>
-<p>Here are the steps to mount a TV to dry wall safely:</p>
-<ol>
-<li>Use a stud finder to locate the studs in the wall where you want to mount the TV.</li>
-<li>Use a level to make sure the TV is level before mounting it.</li>
-<li>Drill holes in the dry wall where the wall anchors will go.</li>
-<li>Insert the wall anchors into the holes and screw them into the studs.</li>
-<li>Use screws to secure the TV mounting bracket to the wall anchors.</li>
-<li>Place the TV on the mounting bracket and adjust the level until it is straight.</li>
-<li>Secure the TV to the mounting bracket with screws.</li>
-<li>Use a screwdriver to tighten the screws and make sure the TV is secure.</li>
-</ol>
-<p>It is important to make sure the TV is securely mounted to the wall to prevent it from falling and causing injury or damage.</p>
-<p><br></p>
-<p><strong>Prompt:</strong> Happy is to sad as calm is to _.</p>
-<p><strong>Response:</strong> Angry.</p>
-<p><br></p>
-<p><strong>Prompt:</strong> Got any creative ideas for a 10 year old's birthday?</p>
-<p><strong>Response:</strong> Sure, how about a DIY spa day at home? The birthday girl
-can invite her friends over and each girl can create their own spa
-treatment using items like face masks, bath salts, and nail polish. You
-could even set up a DIY manicure and pedicure station with nail polish
-and nail art supplies. The girls can also play relaxing music and enjoy
-some snacks while they pamper themselves. It's a fun and creative way
-to celebrate a birthday!</p>
-<h3 id="references">References:<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
-<p>[1] Z. Liu, et al. "<a href="https://arxiv.org/abs/2312.06550"><em>LLM360: Towards Fully Transparent Open-Source
-LLMs</em></a>", arXiv preprint
-arXiv:2312.06550, 2023.</p>
-<p>[2] <em>"Power-efficient acceleration for large language models --
-Qualcomm Cloud AI SDK"</em>,
-<a href="https://developer.qualcomm.com/blog/power-efficient-acceleration-large-language-models-qualcomm-cloud-ai-sdk">https://developer.qualcomm.com/blog/power-efficient-acceleration-large-language-models-qualcomm-cloud-ai-sdk</a></p>
-<p>[3] "<em>Train anywhere, Infer on Qualcomm Cloud AI 100</em>",
-<a href="https://developer.qualcomm.com/blog/train-anywhere-infer-qualcomm-cloud-ai-100">https://developer.qualcomm.com/blog/train-anywhere-infer-qualcomm-cloud-ai-100</a></p>
-<p>[4] Open Compute Project (OCP) Microscaling Formats (MX)
-Specifications.
-<a href="https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf">https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf</a></p>
-<p>[5] "<em>Qualcomm Cloud AI 100 Accelerates Large Language Model Inference
-by ~2x Using Microscaling (Mx) Formats</em>",
-<a href="https://developer.qualcomm.com/blog/qualcomm-cloud-ai-100-accelerates-large-language-model-inference-2x-using-microscaling-mx">https://developer.qualcomm.com/blog/qualcomm-cloud-ai-100-accelerates-large-language-model-inference-2x-using-microscaling-mx</a></p>
-<p><em>Qualcomm branded products are products of Qualcomm Technologies, Inc. and/or its subsidiaries.</em></p>
+<h2 id="limitations">Limitations:<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Slow decryption in initial release</li>
+</ul>
 
 
 
@@ -2714,7 +3210,7 @@ by ~2x Using Microscaling (Mx) Formats</em>",
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../Text_Embeddings/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances">
+          <a href="../model_sharding/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Model Sharding">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -2724,11 +3220,27 @@ by ~2x Using Microscaling (Mx) Formats</em>",
                 Previous
               </span>
               <div class="md-ellipsis">
-                Extremely Low-Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances
+                Model Sharding
               </div>
             </div>
           </a>
         
+        
+          
+          <a href="../../System-Management/system-management/" class="md-footer__link md-footer__link--next" aria-label="Next: System Management">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                System Management
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
@@ -2786,12 +3298,12 @@ by ~2x Using Microscaling (Mx) Formats</em>",
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="../../../javascripts/mathjax.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
