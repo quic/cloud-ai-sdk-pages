@@ -109,6 +109,8 @@ nav:
         - Getting-Started/Features/custom_ops.md
       - Model Sharding:
         - Getting-Started/Features/model_sharding.md
+      - Model IP:
+        - Getting-Started/Features/model_ip.md
     - System Management:
       - Getting-Started/System-Management/system-management.md
     - Architecture:

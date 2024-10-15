@@ -5,5 +5,5 @@ This section provides insights into the Cloud AI SDK capabilities to enable high
 - [Data Types](../Inference-Workflow/Export-the-model/Operator-and-Datatype-support.md#datatype-support)
 - [Custom Operators](./custom_ops.md)
 - [Model Sharding](./model_sharding.md) 
-
+- [Model IP](./model_ip.md)
 
