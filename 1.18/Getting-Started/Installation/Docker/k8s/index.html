@@ -2564,7 +2564,7 @@
 </ul>
 <h2 id="feature">Feature:<a class="headerlink" href="#feature" title="Permanent link">&para;</a></h2>
 <h3 id="how-to-allocate-cloud-ai-100-resources">How to allocate Cloud AI 100 resources:<a class="headerlink" href="#how-to-allocate-cloud-ai-100-resources" title="Permanent link">&para;</a></h3>
-<p>Allocation can be done either using <code>qaic</code> or based on <code>qaic-&lt;sku&gt;</code> (std | pro | ultra | ultra-plus)</p>
+<p>Allocation can be done either using <code>qaic</code> or based on <code>qaic-&lt;sku&gt;</code> (std | pro | ultra)</p>
 <ul>
 <li><code>qaic</code> setting doesn't look for what type of SKU is present, it just allocates the available resources.</li>
 <li><code>qaic-&lt;sku&gt;</code> setting will help to allocate resources based on SKU.</li>
@@ -2572,7 +2572,7 @@
 <p>In the <code>qaic-device-plugin.yml</code> file, we <code>set</code> or <code>not set</code> this flag <code>QAIC_SKU_BASED_RESOURCE_ENABLED</code> for <code>qaic-&lt;sku&gt;</code> or <code>qaic</code> resources.</p>
 <p>Example:</p>
 <p><a class="glightbox" href="../../../../images/SKU-based-plugIn.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../images/SKU-based-plugIn.png" /></a> </p>
-<p>In the <code>deploy-qaic-single.yaml</code> file, user would specify the devices that's supported, like <code>qaic | qaic-std | qaic-pro | qaic-ultra | qaic-ultra-plus</code>.</p>
+<p>In the <code>deploy-qaic-single.yaml</code> file, user would specify the devices that's supported, like <code>qaic | qaic-std | qaic-pro | qaic-ultra</code>.</p>
 <p>Example:</p>
 <p><a class="glightbox" href="../../../../images/SKU-based-Deploy.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../images/SKU-based-Deploy.png" /></a> </p>
 <p>Prerequisites for deployment:</p>
