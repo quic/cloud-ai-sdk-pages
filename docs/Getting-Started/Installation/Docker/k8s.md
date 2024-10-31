@@ -53,7 +53,7 @@ The Cloud AI 100 k8s device plugin can be found at *qaic-apps-1.x.y.z/common/too
 ## Feature:
 
 ### How to allocate Cloud AI 100 resources:
-Allocation can be done either using `qaic` or based on `qaic-<sku>` (std | pro | ultra | ultra-plus)
+Allocation can be done either using `qaic` or based on `qaic-<sku>` (std | pro | ultra)
 
 - `qaic` setting doesn't look for what type of SKU is present, it just allocates the available resources.
 - `qaic-<sku>` setting will help to allocate resources based on SKU.
@@ -64,7 +64,7 @@ Example:
 
 ![](../../../images/SKU-based-plugIn.png) 
 
-In the `deploy-qaic-single.yaml` file, user would specify the devices that's supported, like `qaic | qaic-std | qaic-pro | qaic-ultra | qaic-ultra-plus`.
+In the `deploy-qaic-single.yaml` file, user would specify the devices that's supported, like `qaic | qaic-std | qaic-pro | qaic-ultra`.
 
 Example:
 
