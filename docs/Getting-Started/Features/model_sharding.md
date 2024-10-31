@@ -9,9 +9,9 @@ There are 2 primary use cases of model sharding via tensor slicing.
 - Optimize performance (latency/throughput) for models that can fit within a single SoC but still benefit from tensor-slicing.  
 
 ## Architecture 
-For tensor slicing to achieve the best performance (latency/throughput), the server architecture in particular, accelerator card inter-connect performance is critical. The image below shows 8 *AI 100 Ultra accelerator cards* connected via a PCIe switch to the host. There are two approaches regarding card-to-card communication.  
+For tensor slicing to achieve the best performance (latency/throughput), the server architecture in particular, accelerator card inter-connect performance is critical. The image below shows 8 *AI 100 Ultra accelerator cards* connected via PCIe switches to the host. There are two approaches regarding card-to-card communication.
 
-- P2P communication between the cards through a PCIe switch. This architecture provides the best performance. 
+- P2P communication between the cards through a PCIe switch. This architecture provides the best performance.
 - Multi-device through host: Card to card communication happens through the host. This approach will have inferior performance compared to P2P.  
 
 This sample configuration allows model sharding via tensor slicing across 8 cards (typically used for > 15B parameter models).     
@@ -19,8 +19,8 @@ This sample configuration allows model sharding via tensor slicing across 8 card
 ![](../../images/multi_device_arch.png)
 
 ### Tensor Slicing
-Model operations are split across muliple SoCs (maximum across 16 SoCs in P2P config). The image provides a sample graph execution that is tensor sliced across 4 AI 100 accelerator cards. As seen from the image, there is a lot of inter-card traffic across models layers. Inter-card data bandwidth available plays a critical role in the performance. Hence, the need to enable P2P inter-card communication via PCIe switch. 
-The AI 100 Ultra card has a PCIe switch between the 4 SoCs on the card. In a server with many AI 100 accelerators the PCIe hierarchy plays a critical role in the performance.  
+Model operations are split across muliple SoCs (maximum across 16 SoCs in P2P config). The image provides a sample graph execution that is tensor sliced across 4 AI 100 Ultra accelerator cards. As seen from the image, there is a lot of inter-card traffic across models layers. Inter-card data bandwidth available plays a critical role in the performance. Hence, the need to enable P2P inter-card communication via PCIe switch.
+The AI 100 Ultra card has a PCIe switch between the 4 SoCs on the card. In a server with many AI 100 accelerators the PCIe hierarchy plays a critical role in the performance.
 
 
 ![](../../images/tensor_slicing_eg.png)
@@ -30,7 +30,9 @@ The AI 100 Ultra card has a PCIe switch between the 4 SoCs on the card. In a ser
 
 ### Pre-requisites 
 
-- Host should be able to support large BAR sizes. Each AI 100 accelerator card requires 2+ GB of BAR space per SoC.  
+- A minimum of 4 AI 100 Ultra cards is recommended per PCIe switch.
+- The PCIe switch shall meet the maximum bandwidth requirements per lane for all cards connected to the switch.
+- Host should be able to support large BAR sizes. Each AI 100 accelerator card requires 2+ GB of BAR space per SoC.
 - BAR region 4 for *every* AI 100 SoC is 2G (**size=2G** as shown below).  
     ```
     lspci -s <PCIe address of AI 100 SoC> -vv | grep "Region 4"
@@ -40,27 +42,23 @@ The AI 100 Ultra card has a PCIe switch between the 4 SoCs on the card. In a ser
     If the region 4 for every SoC is not 2G, contact your System Integrator.
 
 ### Card configuration 
+Enable multi-device partitioning (MDP) on all the SoCs using `--setup_mdp all` option while installing the platform SDK.
 
-1. Disable PCIe Switch ACS to enable P2P communication between PCIe ports. See instructions [here](https://github.com/quic/cloud-ai-sdk/tree/1.17/utils/multi-device). 
+```
+sudo ./install.sh --setup_mdp all
+```
+Example output:
+```
+Enabling MDP support system wide.
+Disabling ACS. Required to enable MDP P2P.
+Increasing mmap limit (max_map_count) to 2048000.vm.max_map_count = 2048000 #qaic
+Increasing openfiles limit to 1048576.Installation is successful.
+```
+`Note`: This will enable mdp, disable acs, increase the mmap limit & ulimit value.
 
-2. Enable multi-device partitioning on all the SoCs. 
-    Download enable_mdp.json from [here](https://github.com/quic/cloud-ai-sdk/tree/1.17/utils/multi-device). 
-    ```
-    systemd-run --unit=qmonitor-proxy /opt/qti-aic/tools/qaic-monitor-grpc-server
-    /opt/qti-aic/tools/qaic-monitor-json -i enable_mdp.json​ 
-    ```
+Enable multi-device partitioning (MDP) on all the SoCs can also be done using `qaic-util`, for more details please refer to `qaic-util` user guide [qaic_util](https://docs.qualcomm.com/bundle/resource/topics/80-PT790-995E/qaic_utility.html)
 
-    Reset all the SoCs in the server.  
-    ```
-    sudo /opt/qti-aic/tools/qaic-util -s
-    ```
-3. Verify that multi-device partitioning (MDP) feature is enabled for **all** devices.
-
-    ```
-    /opt/qti-aic/tools/qaic-util -q | grep MDP
-
-    ```
-    `MDP+` indicates that multi-device feature is enabled on the device. 
+`Note`: This will enable mdp and disable acs.
 
 ## Compilation 
 Model partitioning across multiple devices is done by the compiler. The user is required to specify the number of SoCs/devices and the connectivity between the devices. Here a few examples of the device partition config files based on the connectivity and number of devices. The device partition config file is passed to the compiler `qaic-exec` CLI. 
@@ -138,12 +136,21 @@ To compile the model with the tensor sliced configurations, pass the device pari
 	-network-specialization-config=specializations.json \
 	-retained-state \
 	-convert-to-fp16 \
+    -mxfp6-matmul \
 	-aic-num-cores=${CORES} \
 	-custom-IO-list-file=${model_name}/custom_io.yaml \
 	-compile-only \
-	-aic-binary-dir=qpc/${model_name}-${BS}bs-${PL}pl-${CL}cl-${CORES}c-${SOCS}soc-${MX} \
+	-aic-binary-dir=qpc/${model_name}-${BS}bs-${PL}pl-${CL}cl-${CORES}c-${SOCS}soc-mxfp6 \
 	<b>-mdp-load-partition-config=mdp.json</b>
 </pre>
+
+Where:
+
+- <b>CORES</b> is the number of NSP cores per AI 100 SoC, typically 16
+- <b>BS</b> is batch size
+- <b>PL</b> is the prompt length
+- <b>CL</b> is the context length
+- <b>SOCS</b> is the number of AI 100 SoCs (4 per Ultra Accelerator, or 1 per Std/Pro Accelerator)
 
 ## Execution 
 Refer to [Cloud-ai-sdk](https://github.com/quic/cloud-ai-sdk/tree/1.12/models/language_processing/decoder/LlamaForCausalLM#multi-soc-1) example for executing inference on multi-SoCs. 
@@ -152,14 +159,5 @@ Refer to [Cloud-ai-sdk](https://github.com/quic/cloud-ai-sdk/tree/1.12/models/la
 ## Recommendations
 
 For very large models which are compiled for inter-SoC communication through the host, the host memory requirements can be large. If inference fails due to host or device resource exhaustion, try below options. 
-
-- Increase the maximum number of memory mappings allowed for a process from the default value of 65k 
-    ```
-    sudo bash -c "sysctl -w 'vm.max_map_count=2048000'"
-    ```
-    Verify the new setting using 
-    ```
-    cat /proc/sys/vm/max_map_count
-    ```
 
 - Increase system memory (RAM) to 1TB and CPU count to 32 cores or higher. 

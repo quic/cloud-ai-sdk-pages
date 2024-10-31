@@ -109,10 +109,10 @@ nav:
         - Getting-Started/Features/custom_ops.md
       - Model Sharding:
         - Getting-Started/Features/model_sharding.md
-      - Model IP:
-        - Getting-Started/Features/model_ip.md
     - System Management:
       - Getting-Started/System-Management/system-management.md
+      - AIC-manager:
+        - Getting-Started/System-Management/aic-manager/index.md
     - Architecture:
       - Getting-Started/Architecture/index.md
     - Glossary:

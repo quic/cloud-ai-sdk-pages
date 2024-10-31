@@ -11,19 +11,24 @@ Cloud AI Platform SDK installation is required for `qaic-util` usage.
 
 `QID` a.k.a `deviceID` are indentifiers (integers) assigned to each AI 100 SoC present in the system. Note that certain SKUs may contain more than one AI 100 SoC per Card. 
 
-`qaic-util` displays information in 2 formats:
+`qaic-util` displays information in 3 formats:
 
-- vertical format where cards/SoCs are queried once and the parameters are listed one per line. 
+- detailed view where cards/SoCs are queried once and the parameters are listed one per line.
 ```
 sudo /opt/qti-aic/tools/qaic-util -q 
 sudo /opt/qti-aic/tools/qaic-util -q  -d <QID#> #To display information for a specific `QID`
 ```
 - tabular format where certain parameters (compute, IO, power, temperature etc) are listed in a tabular format, refreshed every 'n' seconds (user input)
 ```
-sudo /opt/qti-aic/tools/qaic-util -q -t 1 
+sudo /opt/qti-aic/tools/qaic-util -t 1 
+sudo /opt/qti-aic/tools/qaic-util -t 1 -d <QID#> #To display information for a specific `QID`
 ```
 
-`-d` flag can be used to display information for a specific `QID`
+- tree format where certain parameters (PCIe BDF address, MHI ID, device node name, status) are listed in a tree structure organized by card.  This view is useful for understanding the PCIe topology and visualizing multi-soc cards like Cloud AI 100 Ultra.
+```
+sudo /opt/qti-aic/tools/qaic-util -r
+sudo /opt/qti-aic/tools/qaic-util -r -v # View detailed PCIe topology
+```
 
 `qaic-util`, provides --filter(-f) option along with -q and -t options, which can filter by certain device properties. Also to dump output to the .json file by using -j option.
 
@@ -63,12 +68,12 @@ QID 3
 
 [**Verify the function**](../Installation/Checklist/checklist.md#verify-card-healthfunction) steps can be used to run a sample workload on `QIDs` to ensure HW/SW is funtioning correctly. 
 
-
 ## SoC Reset 
-Developers can reset the `QIDs` using `soc_reset` sysfs node to recover the SoCs if they are in `Error` condition. These are the steps to issue a `soc_reset`. 
+Developers can reset the `QIDs` to recover the SoCs if they are in `Error` condition. The specific `soc_reset` can be done using either `MHI ID` or `pci address` of the `QID`. Also, there is an option to reset all the `QIDs`. Below are the steps to issue a `soc_reset`. 
 
-1. Identify the `MHI ID` associated with the `QID`
+1. Reset using the `MHI ID` associated with the `QID`. <br>
 
+    - Identify the `MHI ID` associated with the `QID`
     ```
     sudo /opt/qti-aic/tools/qaic-util -q | grep -e MHI -e QID
     ```
@@ -76,8 +81,9 @@ Developers can reset the `QIDs` using `soc_reset` sysfs node to recover the SoCs
 
     ???+ note
         MHI and QID do **not** always map to the same integer. It is imperative for developers to identify the mapping first before issuing the `soc_reset`
+    
+    Output example:
     ```
-    sudo /opt/qti-aic/tools/qaic-util -q | grep -e MHI -e QID
     QID 0
             MHI ID:0
     QID 1
@@ -88,20 +94,45 @@ Developers can reset the `QIDs` using `soc_reset` sysfs node to recover the SoCs
             MHI ID:3
 
     ```
-
-2. Issue `soc_reset` to the `MHI ID` identified in step 1. 
-
+    
+    - Issue `soc_reset` using the `MHI ID` associated with the `QID`. 
     ```
     sudo su 
     echo 1 > /sys/bus/mhi/devices/mhi<MHI ID>/soc_reset  #MHI ID is 0,1,2...  
     ```
 
+
+2. Reset using the `pci address` associated with the `QID`. <br>
+
+    - Find the `pci address` associated with the `QID`.
+    ```
+    sudo /opt/qti-aic/tools/qaic-util -q -d 1 | grep -iw "pci address"
+    ```
+    Output example:
+    ```
+    PCI Address:0000:2d:00.0
+    ```
+
+    - Issue `soc_reset` using the `pci address` associated with the `QID`.
+    ```
+    sudo /opt/qti-aic/tools/qaic-util -s -p 0000:2d:00.0
+    ```
+    Output example:
+    ```
+    Resetting 0000:2d:00.0:
+    0000:2d:00.0 success
+    ```
+
+3. Reset all QIDs.
+    ```
+    sudo /opt/qti-aic/tools/qaic-util -s
+    ```
+    
     [Verify the health/function](../Installation/Checklist/checklist.md#verify-card-healthfunction) of the SoCs/Cards after a `soc_reset`. 
 
 
-
 ## Advanced System Management 
-For advanced system management details, refer to [Cloud AI Card Management](https://docs.qualcomm.com/bundle/resource/topics/80-PT790-995B) 
+For advanced system management details, refer to [Cloud AI Card Management](https://docs.qualcomm.com/bundle/resource/topics/80-PT790-995E)
 
 This document is shared with System Integrators and covers the following topics. 
 

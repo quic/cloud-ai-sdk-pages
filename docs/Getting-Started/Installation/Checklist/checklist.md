@@ -27,9 +27,10 @@ First, check [Hardware requirements](../index.md#hardware-requirements) and [sup
   - Check device nodes:
   ```
   ls /dev/mhi*
-  /dev/mhi0_QAIC_DIAG  /dev/mhi0_QAIC_TIMESYNC /dev/mhi0_QAIC_QDSS /dev/mhi1_QAIC_DIAG
+  mhi0_QAIC_DIAG   mhi1_QAIC_DIAG  mhi2_QAIC_DIAG
+  mhi0_QAIC_QDSS   mhi1_QAIC_QDSS  mhi2_QAIC_QDSS
   ```
-    - For every card, QAIC_DIAG, QAIC_TIMESYNC, QAIC_QDSS and QAIC_DIAG nodes are created. 
+    - For every card, QAIC_DIAG, QAIC_QDSS nodes are created. 
     - If mhi* folders do not exist, double-check the [MSI settings](../Pre-requisites/pre-requisites.md#message-signaled-interrupts) in UEFI/BIOS setup
 
   - Check card health and status with [qaic-util](../../System-Management/system-management.md)

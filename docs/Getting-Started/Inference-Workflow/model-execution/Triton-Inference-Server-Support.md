@@ -1,50 +1,43 @@
 # Triton Inference Server
 
-Triton Inference Server is an open source inference serving software that
+Triton Inference Server 2.48.0 (r24.07) is an open source inference serving software that
 streamlines AI inferencing. 
 
-Cloud AI SDK enables two backends for inference execution workflow.  These backends, once
+Cloud AI SDK enables multiple backends for inference execution workflow.  These backends, once
 used on a host with AI 100 cards, will detect the AI 100 cards during initialization
 and route the inferencing call (requested to Triton server) to the hardware.
 
-- onnxruntime_onnx as platform with QAic EP(execution provider) for deploying ONNX graphs.
+- onnxruntime_onnx (v1.18.1) as platform with QAic EP(execution provider) for deploying ONNX graphs.
 - QAic as a customized C++ backend for deploying compiled binaries optimized for AIC.
+- Python backends for LLMs and embedding models also support AIC execution.
+- vLLM backend also supports AIC execution.
 
-![image](../../../images/server_frontends.png) 
+![image](../../../images/triton_backends.png) 
 
 
 ## Creating an AI 100 backend enabled Triton Docker image using AI 100 development kits
 
 In order to add customized backends (to process inferencing on AI 100 hardware) into a vanilla Triton server image,
 we need to run a few scripts by passing sdk_path as parameters.
-`docker-build.sh` script will generate a Docker image as output.This script is a part of Cloud AI Aps SDK contents and can be run after unzipping it.
+`build_image.py` script will generate a Docker image as output. This script is a part of Cloud AI Apps SDK contents and can be run after unzipping it.
 
 ![image](../../../images/docker_workflow.png)
 
 
 ```bash
 
-sample> cd </path/to/app-sdk>/tools/docker-build
+sample> cd </path/to/apps-sdk>/common/tools/docker-build
 
-sample> python3 build_image.py --tag 1.16.1.29-triton --log_level 2 --user_specification_file /opt/qti-aic/tools/docker-build-gen2/sample_user_specs/user_image_spec_triton_model_repo.json --apps-sdk /apps/sdk/path --platform-sdk /platform/sdk/path
- 
+sample> python3 build_image.py --tag 1.18-triton --log_level 2 --user_specification_file </path/to/apps-sdk>/common/tools/docker-build/sample_user_specs/user_image_spec_triton_model_repo.json --apps-sdk /apps/sdk/path.zip --platform-sdk /platform/sdk/path.zip
 ```
-The above command may take 15-20 minutes to complete and generate incremental images for Triton Docker image in local Docker repository.
+The above command may take 15-20 minutes to complete and generate Triton Docker image in local Docker repository.
 
 ```bash
 
 sample> docker image ls
-REPOSITORY                                                                                                                      TAG                 IMAGE ID       CREATED         SIZE
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools-triton_model_repo               1.16.1.29-triton          a0968cf3711b   3 days ago      28.2GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools                                 1.16.1.29-triton          038dc80fd8e4   3 days ago      27.1GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton                                         1.16.1.29-triton          760fb9dc5314   3 days ago      24GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime                                                1.16.1.29-triton          a47266156b7f   3 days ago      23.9GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase                                                            1.16.1.29-triton          d620a1bdb6b6   3 days ago      20.1GB
-qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps                                                                   1.16.1.29-triton          8c87eb44f2db   3 days ago      15.3GB
-qaic-x86_64-triton-release-py38-qaic_platform                                                                             1.16.1.29-triton          e3ba2ce282c1   3 days ago      14.7GB
-qaic-x86_64-triton-release-py38                                                                                           1.16.1.29-triton          73b225d7e358   3 days ago      14.2GB
-qaic-x86_64-triton-release                                                                                                1.16.1.29-triton          914fa376e865   3 days ago      14.1GB
-qaic-x86_64-triton                                                                                                        1.16.1.29-triton          2090680d4d59   3 days ago      14.1GB
+REPOSITORY                                                                                                                                  TAG                 IMAGE ID       CREATED         SIZE
+qaic-x86_64-triton-py38-release-qaic_platform-qaic_apps-qaic_python-pybase-pytools-vllm-onnxruntime-triton-triton_model_repo               1.18-triton          a0968cf3711b   3 days ago      27.3GB
+
 
 ```
 Docker can be launched using docker `run` command passing the desired image name.
@@ -55,8 +48,8 @@ Please note the shared memory argument `--shm-size` for supporting ensembles and
 sample> docker run -it --rm --privileged --shm-size=4g --ipc=host --net=host <triton-docker-image-name>:<tag> /bin/bash
 
 sample> docker ps
-CONTAINER ID   IMAGE                                                                                                            COMMAND                  CREATED      STATUS      PORTS     NAMES
-b88d5eb98187   qaic-x86_64-triton-release-py38-qaic_platform-qaic_apps-pybase-onnxruntime-triton-pytools-triton_model_repo      "/opt/tritonserver/n…"   2 days ago   Up 2 days             thirsty_beaver
+CONTAINER ID   IMAGE                                                                                                                              COMMAND                  CREATED      STATUS      PORTS     NAMES
+b88d5eb98187   qaic-x86_64-triton-py38-release-qaic_platform-qaic_apps-qaic_python-pybase-pytools-vllm-onnxruntime-triton-triton_model_repo      "/opt/tritonserver/n…"   2 days ago   Up 2 days             thirsty_beaver
 
 ```
 
@@ -184,27 +177,7 @@ instance_group [
   }
 ]
 ```
-
-## Launching Triton server inside container
-To launch Triton server, execute the `tritonserver` binary within Triton Docker with the model repository path.
-
-```bash
-/opt/tritonserver/bin/tritonserver --model-repository=</path/to/repository>
-```
-
-![image](../../../images/triton_launch_within_container.png)
-
-
-## Supported Features
-
-- Model Ensemble
-- Dynamic Batching
-- Auto device-picker
-- Support for ARM64
-- Support for auto complete configuration
-- LLM support for LlamaForCausalLM, AutoModelForCausalLM categories.
-
-### Triton Config_generation tool
+### Triton Config generation tool
 Model configuration file `config.pbtxt` is required for each model to run on the Triton server. The `triton_config_generator.py` tool helps to generate a minimal model configuration file if the `programqpc.bin` or `model.onnx` file is provided. The script can be found in "/opt/qti-aic/integrations/triton/release-artifacts/config-generation-script" path inside the container.
 
 The script takes three arguments:
@@ -215,25 +188,16 @@ The script takes three arguments:
 
 The `model_repository` argument can be passed, and the script goes through the models and generates `config.pbtxt` for models that do not contain config (the --all option needs to be passed if config needs to be generated for ONNX models) or model path can be provided to generate model folder structure with `config.pbtxt` using random model names.
 
-## Examples
-Triton example applications are released as part of the Cloud AI Apps SDK. Inside the Triton Docker container the sample model repositories are available at "/opt/qti-aic/aic-triton-model-repositories/"
-- `--model-repository` option can be used to launch the models.
- 
-### Stable diffusion
-1) If we built the Docker with Triton model repo application then the stable diffusion model repo is available at this path: "/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion".
- 
-2) To generate a model repo inside a Triton container:
+## Launching Triton server inside container
+To launch Triton server, execute the `tritonserver` binary within Triton Docker with the model repository path.
 
-   - Run the `generate_SD_repo.py` script. The script is located at "/opt/qti-aic/integrations/triton/release-artifacts/stable-diffusion-ensemble", which will create a ensemble-stable-diffuison model repo
- 
-3) Start the Triton server "/opt/tritonserver/bin/tritonserver --model-repository=/path/to/ensemble-stable-diffusion" <br>
-   Example: "/opt/tritonserver/bin/tritonserver --model-repository=/opt/qti-aic/aic-triton-model-repositories/ensemble-stable-diffusion"
- 
-4) Triton server takes about 2 minutes to start on the first go as it needs to compile QPC.
- 
-5) Run the client_example.py from the same container for testing purpose or client_example.py can also be copied to Triton client container and executed from there.
+```bash
+/opt/tritonserver/bin/tritonserver --model-repository=</path/to/repository>
+```
 
-# Triton LLM
+![image](../../../images/triton_launch_within_container.png)
+
+# Triton Python backend for LLMs
 - LLM serving through Triton is enabled using `triton-qaic-backend-python`
 - It supports execution of QPC binaries for Causal models, KV Cache models of LlamaForCausalLM, AutoModelForCausalLM categories.
 - It supports two modes of server to client response - batch, decoupled (stream). In batch response mode, all of the generated tokens are cached and composed as a single response at the end of decode stage. In decoupled (stream) response mode, each generated token is sent to client as a separate response.
@@ -308,12 +272,156 @@ python /llm-models/tests/batch-response/client_example_causal.py --prompt "Write
 
 Note: For batch-response tests, the default network timeout in `client_example_kv.py`, `client_example_causal.py` is configured as 10 min (600 sec), 100 min (6000 sec) respectively.
 
+```
+# User can also use generate API to do inferencing from Triton client container
+curl -X POST localhost:8000/v2/models/mistral_7b/generate -d '{"prompt": "My name is","id": "42"}'
+```
+
+# Triton Python backend for Embedding models
+
+- Triton qaic python backend for embedding models supports execution of qpc for BERT style models. For list of supported models refer to - [cloud-ai-sdk/models/language_processing/encoder/README.md at quic/cloud-ai-sdk · GitHub](https://github.com/quic/cloud-ai-sdk/blob/1.17/models/language_processing/encoder/lut_nlp_models.csv)
+- We use compiled binary generated by qaic-exec for serving embedding models through triton python backend.
+- We include sample client scripts for models with sentence embeddings as outputs
+
+## Instructions to launch embedding models on Triton server
+### Launch Triton server container
+```bash
+docker run -it --shm-size=4g --rm --privileged --net=host -v /path/to/workspace/:/path/to/workspace/ <triton-docker-image-name>:<tag> bash
+```
+### Generating a model repository
+- `generate_embedding_model_repo.py` script will be available at location - /opt/qti-aic/integrations/triton/release-artifacts/embedding-models/
+- This script uses a template to auto-generate config for custom models. Configure required parameters such as model_name, aic_binary_dir, hf_model_name through command line options to generate_embedding_model_repo.py script.
+- A model folder, identified by model_name provided, will be created in required format under embedding_model_dir at /opt/qti-aic/integrations/triton/release-artifacts/embedding-models/ 
+config.pbtxt
+``` bash
+python generate_embedding_model_repo.py -h
+ 
+usage: generate_embedding_model_repo.py [-h] --model_name MODEL_NAME --aic_binary_dir AIC_BINARY_DIR
+                                        [--python_backend_dir PYTHON_BACKEND_DIR] --hf_model_name
+                                        HF_MODEL_NAME [--max_prompt_length MAX_PROMPT_LENGTH]
+                                        [--max_batch_size MAX_BATCH_SIZE] [--num_instances NUM_INSTANCES]
+ 
+options:
+  -h, --help            show this help message and exit
+  --model_name MODEL_NAME
+                        Name of the model to generate model repo(bert-base-cased)
+  --aic_binary_dir AIC_BINARY_DIR
+                        Path to QPC(programqpc.bin) directory
+  --python_backend_dir PYTHON_BACKEND_DIR
+                        Path to Qaic Python Backend Directory for Embedding models
+  --hf_model_name HF_MODEL_NAME
+                        Name of the model as identified on huggingface(google-bert/bert-base-cased)
+  --max_prompt_length MAX_PROMPT_LENGTH
+                        Set maximum prompt length that tokenizer should support
+  --max_batch_size MAX_BATCH_SIZE
+                        Set maximum number of samples that should be allowed to process at same time.
+                        Configure as a value less than or equal to batch size of compiled binary
+  --num_instances NUM_INSTANCES
+                        Set instance count. Each instance uses 1 activation on AI100 device. Max
+                        supported instance count is limited by NSP available.
+ Optional: Copy the model folder to /path/to/workspace, mapped to host path, to reuse the generated model repo for future runs.
+```
+
+### Launch tritonserver and load models
+- Pre-requisite: Users may need to get access for necessary models from huggingface and login with huggingface token using 'huggingface-cli login` before launching the server.
+- Launch the triton server with embedding_model_dir.  
+```bash
+/opt/tritonserver/bin/tritonserver --model-repository=<path/to/embedding_model_dir>
+```
+### Running the client
+#### Launch client container
+```bash
+docker run -it --rm -v /path/to/unzipped/apps-sdk/common/integrations/triton/release-artifacts/embedding-models/tests:/embedding-models/tests --net=host nvcr.io/nvidia/tritonserver:24.07-py3-sdk bash
+```
+##### Run client examples
+- Once the server has started you can use the example triton client tests (http_client_example.py, grpc_client_example.py, http_api_example.py) provided to inference with models loaded.
+``` bash
+# httpclient example with bert-base-cased model loaded on server
+python /embedding-models/tests/http_client_example.py --prompt "Earthquakes in this region are uncommon but not unexpected. It’s likely people near the epicenter are going to feel aftershocks for this earthquake in the magnitude 2-3 range, and there’s a small chance there can be an earthquake as large or larger, following an earthquake like this, Paul Earle, a seismologist at the USGS Earthquake Hazards Program told reporters. In terms of our operations, this is a routine earthquake. Immediately we knew this would be of high interest and important to people who don’t feel earthquakes a lot." --model_name bert-base-cased
+ 
+# qpc compiled for batch_size>=2
+python /embedding-models/tests/http_client_example.py --prompt "Earthquakes in this region are uncommon but not unexpected. It’s likely people near the epicenter are going to feel aftershocks for this earthquake in the magnitude 2-3 range, and there’s a small chance there can be an earthquake as large or larger, following an earthquake like this, Paul Earle, a seismologist at the USGS Earthquake Hazards Program told reporters. In terms of our operations, this is a routine earthquake. Immediately we knew this would be of high interest and important to people who don’t feel earthquakes a lot.|Earthquakes in this region are uncommon but not unexpected. It’s likely people near the epicenter are going to feel aftershocks for this earthquake in the magnitude 2-3 range, and there’s a small chance there can be an earthquake as large or larger, following an earthquake like this, Paul Earle, a seismologist at the USGS Earthquake Hazards Program told reporters. In terms of our operations, this is a routine earthquake. Immediately we knew this would be of high interest and important to people who don’t feel earthquakes a lot." --model_name bert-base-cased
+
+# http api example with bert-base-cased model loaded on server
+python /embedding-models/tests/http_api_example.py --prompt 'Earthquakes in this region are uncommon but not unexpected. It’s likely people near the epicenter are going to feel aftershocks for this earthquake in the magnitude 2-3 range, and there’s a small chance there can be an earthquake as large or larger, following an earthquake like this, Paul Earle, a seismologist at the USGS Earthquake Hazards Program told reporters. In terms of our operations, this is a routine earthquake. Immediately we knew this would be of high interest and important to people who don’t feel earthquakes a lot.' -m bert-base-cased -u http://localhost:8000/v2/models/bert-base-cased/infer
+```
+##### Benchmarking
+Use GitHub - triton-inference-server/perf_analyzer for benchmarking
+```bash
+# perf analyzer example with bert-base-cased model
+# binary compiled for batch size=8, cores=2
+# num_instances/instance count set to 7 in config.pbtxt.
+
+perf_analyzer -m bert-base-cased --string-data 'Earthquakes in this region are uncommon but not unexpected. It’s likely people near the epicenter are going to feel aftershocks for this earthquake in the magnitude 2-3 range, and there’s a small chance there can be an earthquake as large or larger, following an earthquake like this, Paul Earle, a seismologist at the USGS Earthquake Hazards Program told reporters. In terms of our operations, this is a routine earthquake. Immediately we knew this would be of high interest and important to people who don’t feel earthquakes a lot.' -b 8 --shape prompt:1 -p 10000 --concurrency 7:35:7
+```
+# vLLM Backend for Triton
+- vLLM (0.6.0) backend for Triton is a python based backend designed to run [supported models](https://github.com/quic/efficient-transformers/blob/release/v1.18/docs/source/validate.md) on the vLLM AsyncEngine.
+
+## Instructions to launch vLLM models
+- Sample model repository for TinyLlama model is generated at `"/opt/qti-aic/aic-triton-model-repositories/vllm_model"` while building Triton docker with triton_model_repo application using [Docker](../../Installation/Docker/Docker.md). You can use this as is or change the model by changing model value in model.json
+- model.json represents a key-value dictionary that is fed to the vLLM's AsyncEngine. Please modify the model.json as per need.
+- model.json sample parameters.
+```bash
+{
+    "model": "model_name",
+    "device_group": [0,1,2,3,4], # device_id for execution
+    "max_num_seqs": <decode_bsz>, # Decode batch size
+    "max_model_len": <ctx_len>, # Max Context length
+    "max_seq_len_to_capture": <seq_len>, # Sequence length
+    "quantization": "mxfp6", # Quantization
+    "kv_cache_dtype": "mxint8", # KV cache compression
+    "device": "qaic"
+}
+```
+- Sample [config.pbtxt](https://github.com/triton-inference-server/vllm_backend/blob/r24.07/samples/model_repository/vllm_model/config.pbtxt) 
+- Activate the vllm virtual environment before launching the triton server 
+```bash 
+source /opt/vllm-env/bin/activate 
+```
+
+```
+# Configure number of cores as per NSP availibility
+export VLLM_QAIC_NUM_CORES=16
+```
+- Launch the triton server 
+```bash
+ /opt/tritonserver/bin/tritonserver --model-repository=/opt/qti-aic/aic-triton-model-repositories/vllm_model 
+ ```
+- The Triton server takes a few minutes(depends on the model) to download and compile the model.
+- Sample [Client](https://github.com/triton-inference-server/vllm_backend/blob/r24.07/samples/client.py) script is available in the sample model repository (built as part of the Triton container using qaic-docker) "/opt/qti-aic/aic-triton-model-repositories/vllm_model/vllm_model".
+- The sample client script (client.py) can be used to interface with the Triton/vLLM inference server, and can be executed from the Triton client environment.
+- User can also use generate API to do inferencing from Triton client container 
+```bash
+ curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "My name is","parameters":{"stream":false, "temperature": 0, "max_tokens":1000}}'
+ ```
+
+# Supported Features
+
+- Model Ensemble(Qaic Backend, onnxruntime)
+- Dynamic Batching(Qaic Backend, onnxruntime)
+- Auto device-picker
+- Support for auto complete configuration
+- LLM support for LlamaForCausalLM, AutoModelForCausalLM categories.
+- [vLLM](../../Installation/vLLM/vLLM.md) (0.6.0) support for AIC execution.
+- [Generate Extension](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/protocol/extension_generate.html)
 
 
+# Examples
+Triton example applications are released as part of the Cloud AI Apps SDK. Inside the Triton Docker container the sample model repositories are available at "/opt/qti-aic/aic-triton-model-repositories/"
+- `--model-repository` option can be used to launch the models.
+ 
+### Stable diffusion
+1) To generate a Stable Diffusion model repository inside a Triton container:
 
-
-
-
+   - Make sure you have access to gated repository [Stable Diffusion](https://huggingface.co/benjamin-paine/stable-diffusion-v1-5)
+   - huggingface-cli login can be done before you run the script or, `--auth_token` option can be passed while running the script eg: `python generate_SD_repo.py --auth_token=<hf_token>`
+   - Run the `generate_SD_repo.py` script. The script is located at "/opt/qti-aic/integrations/triton/release-artifacts/stable-diffusion-ensemble", which will create a ensemble-stable-diffuison model repo
+ 
+3) Start the Triton server "/opt/tritonserver/bin/tritonserver --model-repository=/path/to/ensemble-stable-diffusion"
+ 
+4) Triton server takes about 2 minutes to start on the first go as it needs to compile QPC.
+ 
+5) Use client_example.py for testing purpose.
 
 
 

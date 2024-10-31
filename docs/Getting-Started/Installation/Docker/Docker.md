@@ -2,7 +2,7 @@
 
 Docker allows users to build, test, and deploy applications through software containers. Docker for Cloud AI 100 packages the Platform SDK, Apps SDK (x86-64 only), libraries, system tools, etc., which enables the user to navigate the inference workflow seamlessly. 
 
-The Docker scripts are in the Apps SDK in the `tools/docker-build` folder. The scripts to build a QAic Docker image are composed of the following structure.
+The Docker scripts are in the Apps SDK in the `common/tools/docker-build/` folder. The scripts to build a QAic Docker image are composed of the following structure.
 ```
 ├── build_image.py
 ├── config
@@ -19,12 +19,13 @@ The Docker scripts are in the Apps SDK in the `tools/docker-build` folder. The s
 
 ## Setup and System Pre-requisistes
 - Packages: python3.8, docker v23+ (https://docs.docker.com/engine/install/)
+- Optional: Follow post-install instructions to run `docker` as non-root user: https://docs.docker.com/engine/install/linux-postinstall/.  Otherwise, `docker` command and `build_image.py` scripts must be prefaced with `sudo`.
 - Download Apps SDK and Platform SDK from Qualcomm site.
     - Docker containers require the Cloud AI device drivers to communicate with the devices. Install the Platform SDK on the host bare metal OS or VM.
-    - Unzip Apps SDK and the build scripts are located under `/tools/docker-build/`
+    - Unzip Apps SDK and the build scripts are located under `common/tools/docker-build/`
 ```bash
-unzip qaic-apps-1.16.1.<>.zip
-cd qaic-apps-1.16.1.<>/tools/docker-build/
+unzip qaic-apps-1.18.2.<>.zip
+cd qaic-apps-1.18.2.<>/common/tools/docker-build/
 ```
 - Install python modules listed in requirements.txt, preferably in a virtual environment
 ```bash
@@ -62,19 +63,19 @@ Description <br>
 
 For Example:
 ```bash
-python3 build_image.py --user_specification_file ./sample_user_specs/user_image_spec_qaic.json --apps_sdk ~/qaic-apps-1.16.1.<>.zip \
---platform_sdk ~/qaic-platform-sdk-1.16.1.<>.zip --tag 1.16.1.<>
+python3 build_image.py --user_specification_file ./sample_user_specs/user_image_spec_qaic.json --apps_sdk ~/qaic-apps-1.18.2.<>.zip \
+--platform_sdk ~/qaic-platform-sdk-1.18.2.<>.zip --tag 1.18.2.<>
 ```
 
 To check the docker image created with above script: <br>
 ```bash
 $ docker images
 REPOSITORY                                                            TAG            IMAGE ID       CREATED        SIZE
-qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps             1.16.1.<>      f784c37d7f18   2 hours ago    4.25GB
-qaic-x86_64-ubuntu20-release-py38-qaic_platform				          1.16.1.<>      a4f8193202db   2 hours ago    3.64GB
-qaic-x86_64-ubuntu20-release-py38                                     1.16.1.<>      78000059a5aa   2 hours ago    3.12GB
-qaic-x86_64-ubuntu20-release                                          1.16.1.<>      cbdd424f4338   2 hours ago    3.1GB
-qaic-x86_64-ubuntu20                                                  1.16.1.<>      a38215c10e0b   2 hours ago    3.1GB
+qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps             1.18.2.<>      f784c37d7f18   2 hours ago    4.25GB
+qaic-x86_64-ubuntu20-release-py38-qaic_platform				          1.18.2.<>      a4f8193202db   2 hours ago    3.64GB
+qaic-x86_64-ubuntu20-release-py38                                     1.18.2.<>      78000059a5aa   2 hours ago    3.12GB
+qaic-x86_64-ubuntu20-release                                          1.18.2.<>      cbdd424f4338   2 hours ago    3.1GB
+qaic-x86_64-ubuntu20                                                  1.18.2.<>      a38215c10e0b   2 hours ago    3.1GB
 ```
 
 ### Supported Operating Systems
@@ -128,8 +129,8 @@ Example -
 {
     "applications": ["gae", "pytools", "aimet", "qinf", "pybase"],
     "sdk": {
-        "qaic_apps": "/path/to/qaic-apps-1.16.1.<>.zip",
-        "qaic_platform": "/path/to/qaic-platform-sdk-1.16.1.<>.zip"
+        "qaic_apps": "/path/to/qaic-apps-1.18.2.<>.zip",
+        "qaic_platform": "/path/to/qaic-platform-sdk-1.18.2.<>.zip"
     },
     "python_version": "py38",
     "base_image": "ubuntu20",
@@ -142,8 +143,8 @@ Minimal user specification to build the same image
 {
     "applications": ["gae", "aimet", "qinf"],
     "sdk": {
-        "qaic_apps": "/path/to/qaic-apps-1.16.1.<>.zip",
-        "qaic_platform": "/path/to/qaic-platform-sdk-1.16.1.<>.zip"
+        "qaic_apps": "/path/to/qaic-apps-1.18.2.<>.zip",
+        "qaic_platform": "/path/to/qaic-platform-sdk-1.18.2.<>.zip"
     },
     "external_dist_files": ["/path/to/aimetpro-1.26.0-RC7.torch-gpu-release.tar.gz"]
 }
@@ -175,10 +176,10 @@ Below is example for launching an x86_64 ubuntu20 image with python3.8 environme
 Run the container and map 1 or more qaic devices. (Or any other directory mapping using the -v option)
 ```bash
 # Passing 1 device
-docker run -dit --name qaic-ubuntu-test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.16.1.<>
+docker run -dit --name qaic-ubuntu-test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.18.2.<>
 
 # Passing 1 device and mapping a local folder
-docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.16.1.<>
+docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/accel/accel0 qaic-x86_64-ubuntu20-release-py38-qaic_platform-qaic_apps:1.18.2.<>
 ```
 
 #### Architecture selection

@@ -1,0 +1,84 @@
+# Examples & How To
+
+## AICM and Prometheus
+
+Prometheus is an open-source systems monitoring toolkit that collects and stores metrics as time series data, allowing for flexible queries and real-time alerting.<br>
+AICM can serve data in a prometheus-ready syntax.<br>
+This is possible using the following endpoints for:<br>
+1. Health and PCIe Metrics - `/aicm/health_data/prometheus_health_metrics`<br>
+2. Reliability, Availability, Serviceability (RAS) Error Metrics - `/aicm/health_data/prometheus_ras_metrics`<br>
+
+
+After obtaining the prometheus executable at [Prometheus](https://prometheus.io) it is possible to run the tool with a suitable configuration file
+```
+/prometheus --config.file=./prometheus.yml
+```
+
+To set up the integration the user just needs to describe the scraping job to Prometheus.
+Here an example of a possible `prometheus.yml` file.
+
+```yaml
+global:
+  scrape_interval: 2s
+  scrape_timeout: 2s
+
+scrape_configs:
+  - job_name: 'health_polling'
+    static_configs:
+      - targets: ['127.0.0.1:4321']
+    metrics_path: '/aicm/health_data/prometheus_health_metrics'
+    basic_auth:
+      username: 'admin'
+      password: 'password'
+  - job_name: 'ras_polling'
+    static_configs:
+      - targets: ['127.0.0.1:4321']
+    metrics_path: '/aicm/health_data/prometheus_ras_metrics'
+    scrape_interval: 10s
+    scrape_timeout: 2s
+    basic_auth:
+      username: 'admin'
+      password: 'password'
+```
+Here we setup the scrape configs for the `health_polling` and `ras_polling` jobs and then we provide the basic_auth information.
+More detailed configurations can be seen here [Prometheus Configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).<br>
+As of now, **the suggested maximum rate depends on the amount of cards connected to the hosts**.
+
+Rates from **5s to 250ms** will work depending on the number of cards connected.
+The `scrape_duration_seconds` metrics in prometheus can help select the best `scrape_interval` and `scrape_timeout` values.
+
+![scrape_duration](./resources/scrape_durations.png)
+
+## AICM and Grafana
+
+Grafana is an open source software that enables exploring, querying, alerting and visualizing the metrics collected.
+The tool and docs can be obtained at [Grafana](https://grafana.com/)
+Prometheus-Grafana integration with AICM is a possible way to convert the time-series based metrics into insightful visualization.
+
+In the `/examples` we provide an interactive and dynamic dashboard created using Grafana and Prometheus as data source.<br>
+This example dashboard was built with **Grafana 10.3.3**.
+
+The example dashboard can be imported by following the import dashboard guide at:<br>
+[Grafana import guide](https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/import-dashboards/)
+
+Here is the overview of the dashboard **AICM Sample Dashboard** which gives visualization of various metrics served by Prometheus.
+The dashboard allows the user to select from the available remote hosts to view metrics for a single board or all the AIC devices.
+
+![Grafana_Sample_Dashboard_Image1](./resources/Image1_AICM_Sample_Dashboard.png)<br>
+
+![Grafana_Sample_Dashboard_Image2](./resources/Image2_AICM_Sample_Dashboard.png)<br>
+
+![Grafana_Sample_Dashboard_Image3](./resources/Image3_AICM_Sample_Dashboard.png)<br>
+
+![Grafana_Sample_Dashboard_Image4](./resources/Image4_AICM_Sample_Dashboard.png)<br>
+
+Each panel shows a category of metrics, for example, NSP metrics, SOC metrics, Power metrics, RAS metrics etc., in appropriate forms of visualization as time-series, stat, gauges etc.
+
+Users can use this example as inspiration to create their own personalized dashboard to meet their specific needs.
+
+## Other Tools
+
+Grafana and Prometheus are the most popular tool to achieve visualization of metrics.
+These are not the only ones, and since AICM is serving REST API, any other tool can be used to create dashboards or toolkit.
+
+A simple example is present in `/examples/` where Streamlit is used to create a simple dashboard.

@@ -165,19 +165,23 @@ output_dir: './resnet_qpc'
 
 ### API List (Function variables for session object)
 
-Session class has following methods.
+Session class has the following methods and parameters.
 
-#### backend_options()	
+#### backend_options
 
 **Returns**
 
 A dict of options that can be configured after creating session	
 
 ```py title='Usage example'
-backend_options_dict = session.backend_options()
+backend_options_dict = session.backend_options
 ```
 
-#### get_metrics()	
+#### get_metrics
+
+```py
+get_metrics()
+```
 
 **Returns**
 
@@ -201,27 +205,31 @@ A dictionary containing the following metrics:
 metrics_dict = session.get_metrics()
 ```
 
-#### model_input_shape_dict()	
+#### model_input_shape_dict
 
 **Returns**
 
 A dict with input_name as key and input_shape, input_type as values 	
 
 ```py title='Usage example'
-input_shape_dict = session.model_input_shape_dict()	
+input_shape_dict = session.model_input_shape_dict
 ```
 
-#### model_output_shape_dict()	
+#### model_output_shape_dict
 
 **Returns**
 
 A dict with output_name as key and output_shape, output_type as values 	
 
 ```py title='Usage example'
-output_shape_dict = session.model_output_shape_dict()
+output_shape_dict = session.model_output_shape_dict
 ```
 
-#### print_metrics()
+#### print_metrics
+
+```py
+print_metrics()
+```
 
 **Returns**
 
@@ -252,15 +260,19 @@ Average latency / inference time observed is 0.0012380756316316324 s
 
 #### print_profile_data	
 
+```py
+print_profile_data(n)
+```
+
 **Returns**
 
  `None`
 
 ```py title='Usage example'
-session.print_profile_data(n)	
+session.print_profile_data(10)
 ```
 
-Print profiling data for the first n iterations
+Print profiling data for the first 10 iterations
 
 ???+ note
     This function only works when 'enable_profiling' is set to True for the Session.
@@ -282,7 +294,11 @@ Sample Output:
 
 ```
 
-#### reset()	
+#### reset
+
+```py
+reset(**kwargs)
+```
 
 **Returns**
 
@@ -294,7 +310,11 @@ session.reset()
 
 Releases all the device resources acquired by session 
 
-#### setup()	
+#### setup
+
+```py
+setup()
+```
 
 **Returns**
 
@@ -308,7 +328,11 @@ Loads the network to the device.
 
 Network is usually loaded during first call of run. If this is called before that, network will be already loaded when first run is called.
 
-#### run(input_dict)	
+#### run
+
+```py
+run(input_dict)
+```
 
 **Returns**
 
@@ -321,14 +345,18 @@ output = session.run(input_dict)
 input_dict should have input_name as key and value should be a numpy array
 
 
-#### run_benchmark()	
+#### run_benchmark
+
+```py
+run_benchmark(num_inferences=0, inf_time=None, input_dict=None)
+```
 
 **Returns**
 
-inf_completed: Total number of inferences run
-inf_rate: Inf/Sec of the model
-inf_time: total time taken to run inferences
-batch_size: Batch Size used by model
+* inf_completed: Total number of inferences run
+* inf_rate: Inf/Sec of the model
+* inf_time: total time taken to run inferences
+* batch_size: Batch Size used by model
 
 ```py title='Usage example'
 inf_completed, inf_rate, inf_time, batch_size = session.run_benchmark()	
@@ -337,17 +365,21 @@ inf_completed, inf_rate, inf_time, batch_size = session.run_benchmark()
 
 It accepts following args:
 
-num_inferences: num of inferences to run in benchmarking. Default 40
-inf_time: duration for which inference is to be run in seconds. Default None
-input_dict: Input to be used in inference. Default random
+* num_inferences: num of inferences to run in benchmarking. Default 40
+* inf_time: duration for which inference is to be run in seconds. Default None
+* input_dict: Input to be used in inference. Default random
 
 ???+ note
     num_inferences and time cannot be used together.
 
-This API uses C++ benchmarking APIs and doesn't take into account python overheads
+This API uses C++ benchmarking APIs and doesn't take into account Python overheads
 
 
-#### update_backend_options(**kwargs)	
+#### update_backend_options
+
+```py
+update_backend_options(**kwargs)
+```
 
 **Returns**
 
@@ -361,4 +393,4 @@ Update option specified in kwargs
 
 For example:
 
- `num_activation`, `dev_id`, `set_size` can be configured with this API.
+ `num_activations`, `dev_id`, `set_size` can be configured with this API.

@@ -8,7 +8,7 @@ Machine learning applications built for the Cloud AI 100 accelerator can be cont
 
 ## K8s device plugin 
 
-The Cloud AI 100 k8s device plugin can be found at *qaic-apps-1.x.y.z/tools/k8s-device-plugin* in the Cloud AI 100 Apps SDK. The *qaic-k8s-device-plugin* is composed of the following tree structure. 
+The Cloud AI 100 k8s device plugin can be found at *qaic-apps-1.x.y.z/common/tools/k8s-device-plugin* in the Cloud AI 100 Apps SDK. The *qaic-k8s-device-plugin* is composed of the following tree structure. 
 
 ```
 ├── Apache_License
@@ -39,7 +39,7 @@ The Cloud AI 100 k8s device plugin can be found at *qaic-apps-1.x.y.z/tools/k8s-
 
 ```
 
-Contents of the qaic-k8s-device-plugin package:
+## Contents of the qaic-k8s-device-plugin package:
 
 - QAic K8s Device Plugin
     - Sends the kubelet the list of AI 100 devices it manages.
@@ -49,7 +49,27 @@ Contents of the qaic-k8s-device-plugin package:
 - Deployment scripts (YAML)
     - Device Plugin Deployment Script (deploys Qaic K8s Device Plugin as daemonset)
     - Sample AI 100 Workload Deployment Script
-    
+
+## Feature:
+
+### How to allocate Cloud AI 100 resources:
+Allocation can be done either using `qaic` or based on `qaic-<sku>` (std | pro | ultra | ultra-plus)
+
+- `qaic` setting doesn't look for what type of SKU is present, it just allocates the available resources.
+- `qaic-<sku>` setting will help to allocate resources based on SKU.
+
+In the `qaic-device-plugin.yml` file, we `set` or `not set` this flag `QAIC_SKU_BASED_RESOURCE_ENABLED` for `qaic-<sku>` or `qaic` resources.
+
+Example:
+
+![](../../../images/SKU-based-plugIn.png) 
+
+In the `deploy-qaic-single.yaml` file, user would specify the devices that's supported, like `qaic | qaic-std | qaic-pro | qaic-ultra | qaic-ultra-plus`.
+
+Example:
+
+![](../../../images/SKU-based-Deploy.png) 
+
 Prerequisites for deployment:
 
 - Platform SDK installed on Kubernetes Worker Node
