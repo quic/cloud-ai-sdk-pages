@@ -1,0 +1,72 @@
+Model,Field Name,Description
+HealthDataModel,dev_status,Status of the device
+HealthDataModel,mhi_id,MHI ID
+HealthDataModel,pci_address,PCI Address of the device
+HealthDataModel,pci_info,PCI Info
+HealthDataModel,max_link_speed,Max Link Speed
+HealthDataModel,max_link_width,Max Link Width
+HealthDataModel,current_link_speed,Current Link Speed
+HealthDataModel,current_link_width,Current Link Width
+HealthDataModel,dev_link,Dev Link Name
+HealthDataModel,hw_version,Hardware version
+HealthDataModel,hw_serial_string,HW Serial Number
+HealthDataModel,fw_version,Firmware version
+HealthDataModel,fw_qc_image_version,Qualcomm firmware identification string
+HealthDataModel,fw_oem_image_version,OEM custom firmware identification string
+HealthDataModel,fw_image_variant,"Firmware image variant, e.g. debug, release, etc"
+HealthDataModel,device_capabilities,Device Firmware Features
+HealthDataModel,current_boot_interface,Boot Interface
+HealthDataModel,nsp_version,NSP version
+HealthDataModel,nsp_qc_image_version,NSP Image string
+HealthDataModel,nsp_oem_image_version,Image string provided by OEM
+HealthDataModel,nsp_image_variant,"NSP image variant, e.g. debug, release"
+HealthDataModel,dram_total_kb,Total RAM in system in KB
+HealthDataModel,dram_free_kb,Amount of RAM free in KB
+HealthDataModel,dram_fragmentation_percentage,Percentage of DRAM fragmentation
+HealthDataModel,vc_total,Total number of virtual channels on the system
+HealthDataModel,vc_free,Number of available virtual channels
+HealthDataModel,pc_total,Total number of Physical Channels
+HealthDataModel,pc_reserved,Number of reserved Physical Channels
+HealthDataModel,nsp_total,Number of neural processors on the system
+HealthDataModel,nsp_free,Number of available neural processors
+HealthDataModel,dram_bw_KBps,"DRAM bandwidth in Kbytes/second, averaged over last ~100 ms"
+HealthDataModel,mcid_total,Total number of multicast IDs available on the system
+HealthDataModel,mcid_free,Number of available multicast IDs
+HealthDataModel,semaphore_total,Total number of semaphores available on the system
+HealthDataModel,semaphore_free,Number of available semaphores
+HealthDataModel,num_constant_loaded,"Number of constants loaded, each load of constants increments by 1"
+HealthDataModel,num_constant_in_use,Number of loaded constants that are actively used by networks running on the system
+HealthDataModel,num_networks_loaded,Number of neural networks loaded in memory on the system
+HealthDataModel,num_networks_active,Number of neural networks currently actively computing on the system
+HealthDataModel,neural_processor_frequency_Mhz,"Nominal operating frequency of the neural processors, all processors are having the same max clock"
+HealthDataModel,ddr_frequency_Mhz,Nominal operating frequency of DDR memory
+HealthDataModel,compute_noc_frequency_Mhz,Nominal operating frequency of compute network on chip
+HealthDataModel,memory_noc_frequency_Mhz,Nominal operating frequency of memory network on chip
+HealthDataModel,system_noc_frequency_Mhz,Nominal operating frequency of system network on chip
+HealthDataModel,metadata_version,Metadata version
+HealthDataModel,nnc_protocol_version,NNC protocol version
+HealthDataModel,sbl_image,SBL image string
+HealthDataModel,pvs_image_version,PVS image version
+HealthDataModel,nsp_defective_pg_mask,Defective NSP mask
+HealthDataModel,num_retired_ddr_pages,Number of retired ddr pages
+HealthDataModel,need_reset_to_retire_pages,Reset required to retire pending pages
+HealthDataModel,board_serial,Board serial
+HealthDataModel,soc_temparature_degree_C,SOC temperature in Degree Celsius
+HealthDataModel,board_power_watts,Board power in Watts
+HealthDataModel,tdp_cap_watts,Thermal Design Power cap in Watts
+HealthDataModel,sku_type,SKU Type
+HealthDataModel,complex_id,Complex ID
+HealthDataModel,soc_power_watts,SOC Power in Watts
+HealthDataModel,soc_tdp_cap_watts,SOC Thermal Design Power cap in Watts
+PciDataModel,byte_count_rx,Bytes received on PCIE
+PciDataModel,byte_count_tx,Bytes sent on PCIE
+DdrBwDataModel,byte_count_total,Sum of the NSP individual byte count
+DdrBwDataModel_NspDdrBwDataModel,byte_count,DDR Byte Count for this NSP
+RasErrorsDataModel,ras_ddr_correctable_error_count,Count of Correctable Errors received from ras_ddr
+RasErrorsDataModel,ras_ddr_uncorrectable_error_count,Count of Uncorrectable Errors received from ras_ddr
+RasErrorsDataModel,ras_mcw_correctable_error_count,Count of Correctable Errors received from ras_mcw
+RasErrorsDataModel,ras_mcw_uncorrectable_error_count,Count of Uncorrectable Errors received from ras_mcw
+RasErrorsDataModel,ras_imem_correctable_error_count,Count of Correctable Errors received from ras_imem
+RasErrorsDataModel,ras_imem_uncorrectable_error_count,Count of Uncorrectable Errors received from ras_imem
+RasErrorsDataModel,ras_nsp_correctable_error_count,Count of Correctable Errors received from ras_nsp
+RasErrorsDataModel,ras_nsp_uncorrectable_error_count,Count of Uncorrectable Errors received from ras_nsp
