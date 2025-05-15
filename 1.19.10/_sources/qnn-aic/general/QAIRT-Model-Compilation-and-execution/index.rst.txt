@@ -1,0 +1,88 @@
+QAIRT Model Compilation and execution
+*************************************
+
+Compilation
+-----------
+
+QAIRT Compilation on Cloud AI backend  includes the below steps:
+
+-  Converter: Converts the given model into DLC format
+-  Quantization (Optional): Quantizes a DLC model as per requirement
+-  Context Binary:  Converts the DLC into the executable format compatible for Cloud AI backend
+
+Section 10.3 shows integration workflow for the above.
+
+QAIRT Converter
+'''''''''''''''
+
+Refer to QAIRT Converter in  `converters.html <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/converters.html>`__ for more details
+
+Cloud AI backend uses `QAIRT Converter <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/converters.html#qairt-converter>`__
+ 
+Example on Cloud AI Backend
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+Example for converting a yolov5s.onnx Onnx model to a DLC for Cloud AI backend with
+
+-  No automatic simplification of the model
+-  Bias bit width in float as 32
+-  preserve IO datatype of the source model
+
+  ::
+
+    qairt-converter --input_network yolov5s.onnx --output_path yolov5s_model.dlc --float_bias_bitwidth 32 --preserve_io_datatype --onnx_defer_loading --onnx_skip_simplification
+
+Quantization
+''''''''''''
+
+Please refer to QAIRT Quantizer section in `quantization.html <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/quantization.html>`__ for more details
+
+Cloud AI backend uses `QAIRT Quantizer <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/quantization.html#qairt-quantizer>`__
+
+Example on Cloud AI Backend
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+Example for quantizing DLC yolov5s_model.dlc to quantized DLC for Cloud AI backend with 
+
+-  quantization schema to use for parameters and activations set as unsignedsymmetric
+-  bitwidth as 16 for float tensors
+-  preserve IO datatype of the source model
+-  input data specifying the raw inputs
+
+  ::
+
+    qairt-quantizer --input_dlc yolov5s_model.dlc --output_dlc yolov5s_model_quantized.dlc --preserve_io_datatype --use_native_input_files --input_list file_input_list.txt --act_quantizer_schema unsignedsymmetric --param_quantizer_schema unsignedsymmetric --target_backend AIC --float_bitwidth 16
+
+QAIRT Context binary
+''''''''''''''''''''
+
+Refer to `qnn-context-binary-generator <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qnn-context-binary-generator>`__
+
+Example on Cloud AI Backend
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+Example for creating a context binary for Cloud AI backend with
+
+-  yolov5s_model.dlc as input
+-  qnnContextBin.bin as output which is placed at OUTPUT_DIR_PATH
+
+  ::
+
+    qnn-context-binary-generator --binary_file qnnContextBin --model libQnnModelDlc.so --backend libQnnAic.so --output_dir OUTPUT_DIR_PATH --config_file qnn_aic_config.json --dlc_path yolov5s_model.dlc --log_level error
+
+Execution
+---------
+
+Refer `qnn-net-run <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qnn-net-run>`__ for steps on executing the binary on Cloud AI 100
+
+The `qnn-profile-viewer <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qnn-profile-viewer>`__ tool is used to parse profiling data that is generated using qnn-net-run
+
+Example on Cloud AI Backend
+'''''''''''''''''''''''''''
+
+Example for executing the context binary qnnContextBin.bin on the Cloud AI backend
+
+  ::
+
+    qnn-net-run --backend libQnnAic.so --input_list qnn_list.txt --log_level error --profiling_level basic --retrieve_context qnnContextBin.bin --config_file qnn_net_runner_config.json --use_native_input_files
+

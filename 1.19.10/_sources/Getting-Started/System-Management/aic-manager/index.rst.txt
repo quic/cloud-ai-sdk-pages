@@ -1,0 +1,72 @@
+AIC-manager
+===========
+
+Overview
+--------
+
+AICM provides APIs that retrieve metrics from AIC devices, which can be
+utilized by various management tools or external frameworks to create
+dashboards for administration.
+
+The objectives of AICM are to:
+
+-  **Collect Telemetry**: Gather telemetry data from AIC Cards and serve
+   it in a user-friendly manner.
+-  **Monitor Health**: Monitor card health and perform a series of
+   diagnostic tests to provide reports. *(In progress)*
+-  **Enforce Policies/Configurations**: Apply configurations to AIC
+   cards based on different conditions. *(In progress)*
+
+AICM files are located in:
+
+::
+
+   /opt/qti-aic/tools/aic-manager
+
+User Guide
+----------
+
+:doc:`User Guide <user-guide/index>`
+
+Feature Overview
+----------------
+
+:doc:`Overview <feature-overview/index>`
+
+--------------
+
+AICMI (AICM CLI)
+----------------
+
+:doc:`AICMI <cli/index>`
+
+--------------
+
+Examples and How-to
+-------------------
+
+:doc:`Examples <examples-how-to-guides/index>`
+
+--------------
+
+API Documentation
+-----------------
+
+You can access the API documentation in several ways:
+
+Swagger UI
+~~~~~~~~~~
+
+`Swagger UI <https://swagger.io/tools/swagger-ui/>`__ enables users to
+visualize and interact with the APIs. When operational, AICM provides a
+Swagger UI interface accessible at ``<IP>:<PORT>/docs``.
+
+Redoc
+~~~~~
+
+You can achieve the same using
+`Redoc <https://github.com/Redocly/redoc>`__. When operational, AICM
+provides a Redoc interface accessible at ``<IP>:<PORT>/redoc``.
+
+Please replace ``<IP>:<PORT>`` with the actual IP address and port
+number where AICM is running.

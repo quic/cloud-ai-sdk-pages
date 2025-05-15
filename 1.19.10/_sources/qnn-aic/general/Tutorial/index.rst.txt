@@ -1,0 +1,333 @@
+Tutorial
+********
+
+Example on how to compile and execute a non-LLM
+-----------------------------------------------
+
+Below is an example on compiling and executing a Non-LLM model i.e.  BertLarge model with fp16 precision
+
+-  Convert the input model network BERT_MLCommons_Flexible_BS_SL.onnx with
+
+   -  sequence length as 128
+   -  batch size as 4
+   -  bitwidth as 16 for float tensors
+   -  float bias bitwidth as 32
+   -  with the output as model.dlc 
+  
+  ::
+
+    qairt-converter --input_network BERT_MLCommons_Flexible_BS_SL.onnx --output_path model.dlc --onnx_define_symbol batch_size 4 --onnx_define_symbol seg_length 128 --onnx_skip_simplification --float_bias_bitwidth 32 --preserve_io_datatype --onnx_defer_loading --float_bitwidth 16
+
+-  Create a context binary with input as model.dlc created in the converter stage
+
+   -  With output as qnnGraphDLC.bin
+
+  ::
+
+    qnn-context-binary-generator --binary_file qnnGraphDLC --model libQnnModelDlc.so --backend libQnnAic.so --output_dir OUTPUT_PATH --config_file qnn_config.json --dlc_path model.dlc --log_level debug
+
+
+  -  qnn_config.json contents:
+
+     .. dropdown:: qnn_config.json
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+     
+            .. code-block:: json
+            
+              {
+                "backend_extensions": {
+                  "config_file_path": "qnn_aic_map.json",
+                  "shared_library_path": "libQnnAicNetRunExtensions.so"
+                }
+              }
+
+  -  qnn_aic_map.json contents:
+
+     .. dropdown:: qnn_aic_map.json
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+     
+            .. code-block:: json
+            
+              {
+                "compiler_VTCM_working_set_limit_ratio": 1.0,
+                "compiler_hardware_version": "2.0",
+                "compiler_num_of_cores": 2,
+                "compiler_perfWarnings": true,
+                "compiler_printPerfMetrics": false,
+                "compiler_stat_level": 40,
+                "compiler_stats_batch_size": 4,
+                "graph_names": [
+                    "model"
+                ]
+              }
+
+
+-  Execute the qnnGraphDLC.bin the context-binary stage to run inference on the Cloud AI backend
+
+  ::
+
+    qnn-net-run --backend libQnnAic.so --input_list qnn_list.txt --log_level error --profiling_level basic --retrieve_context qnnGraphDLC.bin --config_file qnn_net_runner_config.json --use_native_input_files
+
+
+  -  qnn_list.txt contents:
+
+     .. dropdown:: qnn_list.txt
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+     
+            ::
+            
+             input_ids:=input_ids.raw 
+             input_mask:=input_mask.raw 
+             segment_ids:=segment_ids.raw
+
+  -  qnn_net_runner_config.json  contents
+
+     .. dropdown:: qnn_net_runner_config.json
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+     
+            .. code-block:: json
+             
+               {
+                 "backend_extensions": {
+                   "config_file_path": "qnn_net_runner_backend_options.json",
+                   "shared_library_path": "libQnnAicNetRunExtensions.so"
+                 }
+               }
+
+  -  qnn_net_runner_backend_options.json contents
+
+     .. dropdown:: qnn_net_runner_backend_options.json
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+
+            .. code-block:: json
+            
+             {
+              "runtime_num_activations": 7, 
+              "runtime_threads_per_queue": 4, 
+              "runtime_device_ids": [5]
+             }
+
+
+Example on how to compile and execute LLM
+-----------------------------------------
+
+Below is an example on compiling and executing a LLM model i.e. gpt-j-6b model 
+
+-  Convert the model gpt-j-6b.onnx with
+
+ -  batch size 1
+ -  sequence length 128
+ -  Context length 256
+ -  Output is model.dlc
+
+  ::
+
+    qairt-converter --input_network gpt-j-6b.onnx --output_path model.dlc --io_config qnn_customIO_config.yaml --float_bitwidth 16 --preserve_io_datatype --onnx_skip_simplification --float_bias_bitwidth 32 --onnx_defer_loading
+
+ -  qnn_customIO_config.yaml  file Sample Schema:
+
+    .. dropdown:: qnn_customIO_config.yaml
+       :color: light
+       :class-container: sd-border-1
+       :icon: code
+    
+       .. code-block:: yaml
+    
+        Input Tensor Configuration:
+        - Name: input_ids
+          Desired Model Parameters:
+          DataType: int64
+          Shape: (1, 128),(1, 1) →  (prefill_batch_size,prefill_seq_len)(decode_batch_size,decode_seq_len)
+        - Name: position_ids
+          Desired Model Parameters:
+          DataType: int64
+          Shape: (1, 128),(1, 1) →  (prefill_batch_size,prefill_seq_len)(decode_batch_size,decode_seq_len)
+    
+        - Name: past_key.0
+          Desired Model Parameters:
+          DataType: uint8
+          Shape: (1, 16, 256, 256) → (batch_size,16,seq_len,256)
+        - Name: past_value.0
+          Desired Model Parameters:
+          DataType: uint8
+          Shape: (1, 16, 256, 256)
+    
+        Output Tensor Configuration:
+        - Name: logits
+          Desired Model Parameters:
+          DataType: float32
+        - Name: past_key.0_RetainedState
+          Desired Model Parameters:
+          DataType: float16
+        - Name: past_value.0_RetainedState
+          Desired Model Parameters:
+          DataType: float16
+
+-  Generate context binary with model.dlc as input which was created at converter stage
+
+ -  qnngraph.serialized.bin and programqpc.bin are generated as output
+
+  ::
+
+    qnn-context-binary-generator --binary_file qnngraph.serialized --backend libQnnAic.so --output_dir OUTPUT_PATH --config_file qnn_config.json --data_format_config data_format_config.json --backend_binary programqpc.bin --model libQnnModelDlc.so --dlc_path model.dlc
+
+ -  qnn_config.json contents:
+
+    .. dropdown:: qnn_config.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+    
+           .. code-block:: json
+          
+             {
+               "backend_extensions": {
+                "config_file_path": "qnn_aic_map.json",
+                "shared_library_path": "libQnnAicNetRunExtensions.so"
+               }
+             }
+
+ -  qnn_aic_map.json contents:
+
+    .. dropdown:: qnn_aic_map.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           ::
+	      
+             {
+               "compiler_PMU_recipe_opt": "KernelUtil",
+               "compiler_compilation_target": "hardware",
+               "compiler_convert_to_FP16": true,
+               "compiler_do_DDR_to_multicast": false,
+               "compiler_enable_depth_first": true,
+               "compiler_hardware_version": "2.0",
+               "compiler_max_out_channel_split": "1",
+               "compiler_mdp_load_partition_config": tensor_slicing.json",
+               "compiler_mxfp6_matmul_weights": true,
+               "compiler_eval_gathernd_consts" : true,
+               "compiler_mxint8_mdp_io": true,
+               "compiler_num_of_cores": 16,
+               "compiler_perfWarnings": true,
+               "compiler_printDDRStats": true,
+               "compiler_printPerfMetrics": true,
+               "compiler_retained_state": true,
+               "compiler_stat_level": 50,
+               "compiler_stats_batch_size": 1,
+               "compiler_time_passes": true,
+               "graph_names": [
+                 "model_configuration_1",
+                 "model_configuration_2"
+               ]
+             }
+
+ -  tensor_slicing.json below contains partition across 4 devices when using multi device partitioning feature
+
+    .. dropdown:: tensor_slicing.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           .. code-block:: json
+
+             {
+               "connections": [
+                 {
+                     "devices": [
+                         0,
+                         1,
+                         2,
+                         3
+                     ],
+                     "type": "p2p"
+                 }
+               ],
+               "partitions": [
+                 {
+                     "name": "Partition0",
+                     "devices": [
+                         {
+                             "deviceId": 0
+                         },
+                         {
+                             "deviceId": 1
+                         },
+                         {
+                             "deviceId": 2
+                         },
+                         {
+                             "deviceId": 3
+                         }
+                     ]
+                   }
+                 ]
+               }
+
+ -  data_format_config.json below is needed for seting KVCache precision as MXINT8
+
+    .. dropdown:: data_format_config.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           .. code-block:: json
+
+            {
+              "graphs": [
+                {
+                  "graph_name": "model_configuration_1",
+                  "tensors": [
+                    {
+                      "tensor_name": "past_key_0",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_value_0",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_key_0_RetainedState",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_value_0_RetainedState",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    }
+                  ]
+                },
+                {
+                  "graph_name": "model_configuration_2",
+                  "tensors": [
+                    {
+                      "tensor_name": "past_key_0",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_value_0",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_key_0_RetainedState",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_value_0_RetainedState",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    }
+                  ]
+                }
+              ]
+            }
+
+-  Using the programqpc.bin generated above execute the LLM using vLLM

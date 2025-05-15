@@ -1,0 +1,3625 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../../_static/favicon.ico">
+    
+    
+      
+        <title>vLLM - Qualcomm® Cloud AI SDK User Guide</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_immaterial_theme.813663d4a0a048e28.min.css?v=f4bc32d8" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=62d18361" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=62d18361" />
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-header__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../../_static/logo.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Qualcomm® Cloud AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              vLLM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../index.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">User Guide</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../Python-API/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../FAQ/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">FAQ</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">Blogs</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-nav__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../../_static/logo.png" alt="logo">
+    </a>
+    Qualcomm® Cloud AI SDK User Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">User Guide</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">User Guide</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        <span class="md-ellipsis">Introduction</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quick-Start-Guide/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Quick Start Guide</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../index.html"><span class="md-ellipsis">Installation</span></a>
+          
+            <label for="__nav_1_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Installation</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Checklist/checklist/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Checklist</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pre-requisites/pre-requisites/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Pre-<wbr>requisites</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud-AI-SDK/Cloud-AI-SDK/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Cloud AI SDK</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hypervisors/hypervisor/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Hypervisors</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3_5" type="checkbox" id="__nav_1_3_5" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Docker/index.html"><span class="md-ellipsis">Containers</span></a>
+          
+            <label for="__nav_1_3_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Containers" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Containers</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Docker/Docker/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Docker</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Docker/k8s/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Kubernetes</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Triton Inference Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">v<wbr>LLM</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">v<wbr>LLM</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">Installation</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-built-docker-image-with-vllm-support" class="md-nav__link">
+    <span title="pre-built docker image with vllm support (reference label)" class="md-ellipsis">Pre-<wbr>Built Docker image with v<wbr>LLM support</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-build-steps" class="md-nav__link">
+    <span title="docker build steps (reference label)" class="md-ellipsis">Docker build steps</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-run-steps" class="md-nav__link">
+    <span title="docker run steps (reference label)" class="md-ellipsis">Docker run steps</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-from-source" class="md-nav__link">
+    <span title="installing from source (reference label)" class="md-ellipsis">Installing from source</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-example-scripts" class="md-nav__link">
+    <span title="running example scripts (reference label)" class="md-ellipsis">Running Example Scripts</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Example Scripts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-a-sample-inference" class="md-nav__link">
+    <span title="running a sample inference (reference label)" class="md-ellipsis">Running a sample inference</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-fp8-models" class="md-nav__link">
+    <span title="for fp8 models (reference label)" class="md-ellipsis">For FP8 models</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefix-caching-support-with-vllm" class="md-nav__link">
+    <span title="prefix caching support with vllm (reference label)" class="md-ellipsis">Prefix Caching Support with v<wbr>LLM</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prefix Caching Support with vLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-relevant-for-prefix-caching" class="md-nav__link">
+    <span title="parameters relevant for prefix caching (reference label)" class="md-ellipsis">Parameters relevant for Prefix Caching</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-code-for-prefix-caching" class="md-nav__link">
+    <span title="example code for prefix caching (reference label)" class="md-ellipsis">Example Code for Prefix Caching</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speculative-decoding-spd-support-with-vllm" class="md-nav__link">
+    <span title="speculative decoding (spd) support with vllm (reference label)" class="md-ellipsis">Speculative Decoding <wbr>(Sp<wbr>D) Support with v<wbr>LLM</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Speculative Decoding (SpD) Support with vLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitations-1" class="md-nav__link">
+    <span title="limitations-1 (reference label)" class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-relevant-for-spd" class="md-nav__link">
+    <span title="parameters relevant for spd (reference label)" class="md-ellipsis">Parameters relevant for Sp<wbr>D</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-qaic-spd-run-settings" class="md-nav__link">
+    <span title="default qaic spd run settings (reference label)" class="md-ellipsis">Default QAIC Sp<wbr>D run settings</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-code-for-spd" class="md-nav__link">
+    <span title="example code for spd (reference label)" class="md-ellipsis">Example Code for Sp<wbr>D</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multimodality-support-with-vllm" class="md-nav__link">
+    <span title="multimodality support with vllm (reference label)" class="md-ellipsis">Multimodality Support with v<wbr>LLM</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multimodality Support with vLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id2" class="md-nav__link">
+    <span class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#models-supported-with-qaic" class="md-nav__link">
+    <span title="models supported with qaic (reference label)" class="md-ellipsis">Models supported with QAIC</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vllm-flags-and-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">v<wbr>LLM flags and environment variables</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dual-qpc-approach" class="md-nav__link">
+    <span title="dual qpc approach (reference label)" class="md-ellipsis">Dual QPC Approach</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dual QPC Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-code-and-run-command" class="md-nav__link">
+    <span class="md-ellipsis">Example Code and Run Command</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-qpc-approach" class="md-nav__link">
+    <span title="single qpc approach (reference label)" class="md-ellipsis">Single QPC Approach</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Single QPC Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-code-and-run-command-1" class="md-nav__link">
+    <span title="example-code-and-run-command-1 (reference label)" class="md-ellipsis">Example Code and Run Command</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations-2" class="md-nav__link">
+    <span title="limitations-2 (reference label)" class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lorax-support-with-vllm" class="md-nav__link">
+    <span title="lorax support with vllm (reference label)" class="md-ellipsis">Lo<wbr>RAX Support with v<wbr>LLM</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoRAX Support with vLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitations-3" class="md-nav__link">
+    <span title="limitations-3 (reference label)" class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-relevant-for-lorax" class="md-nav__link">
+    <span title="parameters relevant for lorax (reference label)" class="md-ellipsis">Parameters relevant for Lo<wbr>RAX</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-code-for-lorax" class="md-nav__link">
+    <span title="example code for lorax (reference label)" class="md-ellipsis">Example Code for Lo<wbr>RAX</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-endpoints" class="md-nav__link">
+    <span title="server endpoints (reference label)" class="md-ellipsis">Server Endpoints</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmarking" class="md-nav__link">
+    <span title="benchmarking (reference label)" class="md-ellipsis">Benchmarking</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vllm-input-arguments-for-qaic" class="md-nav__link">
+    <span title="vllm input arguments for qaic (reference label)" class="md-ellipsis">v<wbr>LLM input arguments for QAIC</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vLLM input arguments for QAIC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#override-arguments-that-can-be-modified" class="md-nav__link">
+    <span title="override arguments that can be modified (reference label)" class="md-ellipsis">Override Arguments that can be modified</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Override Arguments that can be modified">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-inferencing" class="md-nav__link">
+    <span title="cli inferencing (reference label)" class="md-ellipsis">CLI inferencing</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-object-inferencing" class="md-nav__link">
+    <span title="python object inferencing (reference label)" class="md-ellipsis">Python object inferencing</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id6" class="md-nav__link">
+    <span title="vllm flags and environment variables (reference label)" class="md-ellipsis">v<wbr>LLM flags and environment variables</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vLLM flags and environment variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avoiding-cpu-oversubscription-via-vllm-qaic-max-cpu-threads" class="md-nav__link">
+    <span title="avoiding cpu oversubscription via vllm_qaic_max_cpu_threads (reference label)" class="md-ellipsis">Avoiding CPU oversubscription via VLLM_<wbr>QAIC_<wbr>MAX_<wbr>CPU_<wbr>THREADS</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vllm-deployment-using-kserve" class="md-nav__link">
+    <span title="vllm deployment using kserve (reference label)" class="md-ellipsis">v<wbr>LLM Deployment using Kserve</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vLLM Deployment using Kserve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-notes" class="md-nav__link">
+    <span title="initial notes: (reference label)" class="md-ellipsis">Initial Notes:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span title="resources: (reference label)" class="md-ellipsis">Resources:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    <span title="assumptions: (reference label)" class="md-ellipsis">Assumptions:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-device-plugin-deployment" class="md-nav__link">
+    <span title="kubernetes device plugin deployment: (reference label)" class="md-ellipsis">Kubernetes Device Plugin Deployment:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifications-to-current-files" class="md-nav__link">
+    <span title="modifications to current files: (reference label)" class="md-ellipsis">Modifications to current files:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-have-time-out-problem" class="md-nav__link">
+    <span title="if you have time out problem (reference label)" class="md-ellipsis">If you have time out problem</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-instructions" class="md-nav__link">
+    <span title="setup instructions: (reference label)" class="md-ellipsis">Setup Instructions:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference-instructions-example-cmds" class="md-nav__link">
+    <span title="inference instructions:(example cmds) (reference label)" class="md-ellipsis">Inference Instructions:<wbr><wbr>(Example cmds)</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inference Instructions:(Example cmds)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws" class="md-nav__link">
+    <span title="aws (reference label)" class="md-ellipsis">AWS</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-different-aws-terminal-on-same-host-after-this" class="md-nav__link">
+    <span title="start different aws terminal on same host after this (reference label)" class="md-ellipsis">Start different AWS terminal on same host after this</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minikube" class="md-nav__link">
+    <span title="minikube (reference label)" class="md-ellipsis">Minikube</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AWS/aws/index.html" class="md-nav__link">
+        <span class="md-ellipsis">AWS</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TGI/tgi/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Text Generation Inference</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/index.html"><span class="md-ellipsis">Inference Workflow</span></a>
+          
+            <label for="__nav_1_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Inference Workflow" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Inference Workflow</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_1" type="checkbox" id="__nav_1_4_1" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/Export-the-model/index.html"><span class="md-ellipsis">Export the Model</span></a>
+          
+            <label for="__nav_1_4_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Export the Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Export the Model</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Export-the-Model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Exporting ONNX Model from Different Frameworks</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Operator-and-Datatype-support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Operator and Datatype support</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Prepare-the-model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Introduction to the Model Preparator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_2" type="checkbox" id="__nav_1_4_2" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/model-compilation/index.html"><span class="md-ellipsis">Compile the Model</span></a>
+          
+            <label for="__nav_1_4_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Compile the Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Compile the Model</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-compilation/Compile-the-Model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Compile the Model</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-compilation/Tune-performance/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Tune Performance</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_3" type="checkbox" id="__nav_1_4_3" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/model-execution/index.html"><span class="md-ellipsis">Execute the QPC</span></a>
+          
+            <label for="__nav_1_4_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Execute the QPC" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Execute the QPC</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/model-execution-options/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Execute the QPC</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/Inference-Profiling/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Inference Profiling</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PyTorch-Workflow/Eager-Mode-Finetune/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Pytorch Workflow</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Model-Architecture-Support/index.html"><span class="md-ellipsis">Model Architecture Support</span></a>
+          
+            <label for="__nav_1_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Model Architecture Support" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Model Architecture Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Model-Architecture-Support/Large-Language-Models/llm/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Large Language Models <wbr>(LLMs)</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Features/index.html"><span class="md-ellipsis">Features</span></a>
+          
+            <label for="__nav_1_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Features</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Features/custom_ops/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Custom Operations <wbr>(C++)</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Features/model_sharding/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Model Sharding</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../System-Management/index.html"><span class="md-ellipsis">System Management</span></a>
+          
+            <label for="__nav_1_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="System Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">System Management</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System-Management/system-management/index.html" class="md-nav__link">
+        <span class="md-ellipsis">System Management</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System-Management/aic-manager/index.html" class="md-nav__link">
+        <span class="md-ellipsis">AIC-<wbr>manager</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Architecture/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Architecture</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_10" type="checkbox" id="__nav_1_10" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../qnn-aic/general/index.html"><span class="md-ellipsis">QAIRT SDK</span></a>
+          
+            <label for="__nav_1_10">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="QAIRT SDK" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_10">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">QAIRT SDK</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-SDK-Installation/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT SDK Installation</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-Software-architecture/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Software architecture</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-Integration-Workflow/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Integration Workflow</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-Model-Compilation-and-execution/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Model Compilation and execution</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/Tutorial/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Tutorial</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/Precision-support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Precision support</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/Supported-Operations/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Supported Operations</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/Addition-of-Custom-op/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Addition of Custom-<wbr>op</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-Tools/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/APIs/index.html" class="md-nav__link">
+        <span class="md-ellipsis">APIs</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Glossary/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Glossary</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../Python-API/index.html"><span class="md-ellipsis">Python API</span></a>
+          
+            <label for="__nav_2_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Python API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Python API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaic/qaic/index.html" class="md-nav__link">
+        <span class="md-ellipsis">qaic package</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaicrt/class_util/index.html" class="md-nav__link">
+        <span class="md-ellipsis">class Util</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaicrt/class_InferenceBenchmarkSet/index.html" class="md-nav__link">
+        <span class="md-ellipsis">class Inference<wbr>Benchmark<wbr>Set</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../Cpp-API/index.html"><span class="md-ellipsis">CPP API</span></a>
+          
+            <label for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="CPP API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">CPP API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/example/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Inference<wbr>Set IO Example</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/features/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Features</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/runtime/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../ONNXRT%20QAIC/index.html"><span class="md-ellipsis">ONNX Runtime</span></a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="ONNX Runtime" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">ONNX Runtime</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ONNXRT%20QAIC/onnxruntime/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIC execution provider</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">FAQ</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">FAQ</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FAQ/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Frequently Asked Questions</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Blogs</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Blogs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Blogs</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Train anywhere, Infer on Qualcomm® Cloud AI 100</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Speculative_Decode/spec_decode_ai100/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Quadruple LLM Decoding Performance with Speculative Decoding <wbr>(Sp<wbr>D) and Microscaling <wbr>(MX) Formats</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/AmberChat/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Accelerate Inference of Fully Transparent Open-<wbr>Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Text_Embeddings/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Extremely Low-<wbr>Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Microscaling/microscaling/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Accelerate Large Language Model Inference by ~2x Using Microscaling <wbr>(Mx) Formats</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">Installation</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-built-docker-image-with-vllm-support" class="md-nav__link">
+    <span title="pre-built docker image with vllm support (reference label)" class="md-ellipsis">Pre-<wbr>Built Docker image with v<wbr>LLM support</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-build-steps" class="md-nav__link">
+    <span title="docker build steps (reference label)" class="md-ellipsis">Docker build steps</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-run-steps" class="md-nav__link">
+    <span title="docker run steps (reference label)" class="md-ellipsis">Docker run steps</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-from-source" class="md-nav__link">
+    <span title="installing from source (reference label)" class="md-ellipsis">Installing from source</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-example-scripts" class="md-nav__link">
+    <span title="running example scripts (reference label)" class="md-ellipsis">Running Example Scripts</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Example Scripts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-a-sample-inference" class="md-nav__link">
+    <span title="running a sample inference (reference label)" class="md-ellipsis">Running a sample inference</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-fp8-models" class="md-nav__link">
+    <span title="for fp8 models (reference label)" class="md-ellipsis">For FP8 models</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prefix-caching-support-with-vllm" class="md-nav__link">
+    <span title="prefix caching support with vllm (reference label)" class="md-ellipsis">Prefix Caching Support with v<wbr>LLM</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prefix Caching Support with vLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-relevant-for-prefix-caching" class="md-nav__link">
+    <span title="parameters relevant for prefix caching (reference label)" class="md-ellipsis">Parameters relevant for Prefix Caching</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-code-for-prefix-caching" class="md-nav__link">
+    <span title="example code for prefix caching (reference label)" class="md-ellipsis">Example Code for Prefix Caching</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#speculative-decoding-spd-support-with-vllm" class="md-nav__link">
+    <span title="speculative decoding (spd) support with vllm (reference label)" class="md-ellipsis">Speculative Decoding <wbr>(Sp<wbr>D) Support with v<wbr>LLM</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Speculative Decoding (SpD) Support with vLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitations-1" class="md-nav__link">
+    <span title="limitations-1 (reference label)" class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-relevant-for-spd" class="md-nav__link">
+    <span title="parameters relevant for spd (reference label)" class="md-ellipsis">Parameters relevant for Sp<wbr>D</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-qaic-spd-run-settings" class="md-nav__link">
+    <span title="default qaic spd run settings (reference label)" class="md-ellipsis">Default QAIC Sp<wbr>D run settings</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-code-for-spd" class="md-nav__link">
+    <span title="example code for spd (reference label)" class="md-ellipsis">Example Code for Sp<wbr>D</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multimodality-support-with-vllm" class="md-nav__link">
+    <span title="multimodality support with vllm (reference label)" class="md-ellipsis">Multimodality Support with v<wbr>LLM</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multimodality Support with vLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id2" class="md-nav__link">
+    <span class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#models-supported-with-qaic" class="md-nav__link">
+    <span title="models supported with qaic (reference label)" class="md-ellipsis">Models supported with QAIC</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vllm-flags-and-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">v<wbr>LLM flags and environment variables</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dual-qpc-approach" class="md-nav__link">
+    <span title="dual qpc approach (reference label)" class="md-ellipsis">Dual QPC Approach</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dual QPC Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-code-and-run-command" class="md-nav__link">
+    <span class="md-ellipsis">Example Code and Run Command</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-qpc-approach" class="md-nav__link">
+    <span title="single qpc approach (reference label)" class="md-ellipsis">Single QPC Approach</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Single QPC Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-code-and-run-command-1" class="md-nav__link">
+    <span title="example-code-and-run-command-1 (reference label)" class="md-ellipsis">Example Code and Run Command</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations-2" class="md-nav__link">
+    <span title="limitations-2 (reference label)" class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lorax-support-with-vllm" class="md-nav__link">
+    <span title="lorax support with vllm (reference label)" class="md-ellipsis">Lo<wbr>RAX Support with v<wbr>LLM</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LoRAX Support with vLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limitations-3" class="md-nav__link">
+    <span title="limitations-3 (reference label)" class="md-ellipsis">Limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters-relevant-for-lorax" class="md-nav__link">
+    <span title="parameters relevant for lorax (reference label)" class="md-ellipsis">Parameters relevant for Lo<wbr>RAX</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-code-for-lorax" class="md-nav__link">
+    <span title="example code for lorax (reference label)" class="md-ellipsis">Example Code for Lo<wbr>RAX</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-endpoints" class="md-nav__link">
+    <span title="server endpoints (reference label)" class="md-ellipsis">Server Endpoints</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmarking" class="md-nav__link">
+    <span title="benchmarking (reference label)" class="md-ellipsis">Benchmarking</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vllm-input-arguments-for-qaic" class="md-nav__link">
+    <span title="vllm input arguments for qaic (reference label)" class="md-ellipsis">v<wbr>LLM input arguments for QAIC</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vLLM input arguments for QAIC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#override-arguments-that-can-be-modified" class="md-nav__link">
+    <span title="override arguments that can be modified (reference label)" class="md-ellipsis">Override Arguments that can be modified</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Override Arguments that can be modified">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli-inferencing" class="md-nav__link">
+    <span title="cli inferencing (reference label)" class="md-ellipsis">CLI inferencing</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-object-inferencing" class="md-nav__link">
+    <span title="python object inferencing (reference label)" class="md-ellipsis">Python object inferencing</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#id6" class="md-nav__link">
+    <span title="vllm flags and environment variables (reference label)" class="md-ellipsis">v<wbr>LLM flags and environment variables</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vLLM flags and environment variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avoiding-cpu-oversubscription-via-vllm-qaic-max-cpu-threads" class="md-nav__link">
+    <span title="avoiding cpu oversubscription via vllm_qaic_max_cpu_threads (reference label)" class="md-ellipsis">Avoiding CPU oversubscription via VLLM_<wbr>QAIC_<wbr>MAX_<wbr>CPU_<wbr>THREADS</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vllm-deployment-using-kserve" class="md-nav__link">
+    <span title="vllm deployment using kserve (reference label)" class="md-ellipsis">v<wbr>LLM Deployment using Kserve</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="vLLM Deployment using Kserve">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-notes" class="md-nav__link">
+    <span title="initial notes: (reference label)" class="md-ellipsis">Initial Notes:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span title="resources: (reference label)" class="md-ellipsis">Resources:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    <span title="assumptions: (reference label)" class="md-ellipsis">Assumptions:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-device-plugin-deployment" class="md-nav__link">
+    <span title="kubernetes device plugin deployment: (reference label)" class="md-ellipsis">Kubernetes Device Plugin Deployment:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifications-to-current-files" class="md-nav__link">
+    <span title="modifications to current files: (reference label)" class="md-ellipsis">Modifications to current files:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-have-time-out-problem" class="md-nav__link">
+    <span title="if you have time out problem (reference label)" class="md-ellipsis">If you have time out problem</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-instructions" class="md-nav__link">
+    <span title="setup instructions: (reference label)" class="md-ellipsis">Setup Instructions:<wbr></span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference-instructions-example-cmds" class="md-nav__link">
+    <span title="inference instructions:(example cmds) (reference label)" class="md-ellipsis">Inference Instructions:<wbr><wbr>(Example cmds)</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inference Instructions:(Example cmds)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws" class="md-nav__link">
+    <span title="aws (reference label)" class="md-ellipsis">AWS</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AWS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-different-aws-terminal-on-same-host-after-this" class="md-nav__link">
+    <span title="start different aws terminal on same host after this (reference label)" class="md-ellipsis">Start different AWS terminal on same host after this</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minikube" class="md-nav__link">
+    <span title="minikube (reference label)" class="md-ellipsis">Minikube</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="vllm"><span id="reference-to-vllm"></span>vLLM<a class="headerlink" href="#vllm" title="Permalink to this heading">¶</a></h1>
+<p>This guide demonstrates how to add AI 100 backend support to the
+<a class="reference external" href="https://github.com/vllm-project/vllm">vLLM</a> open-source library,
+which simplifies the creation of OpenAI-compatible web endpoints and
+provides features like continuous batching and other optimizations for
+LLM inference and serving.</p>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<h3 id="pre-built-docker-image-with-vllm-support">Pre-Built Docker image with vLLM support<a class="headerlink" href="#pre-built-docker-image-with-vllm-support" title="Permalink to this heading">¶</a></h3>
+<p>Pre-built Docker images for Cloud AI with vLLM support are available in the
+<a class="reference external" href="https://github.com/quic/cloud-ai-containers/pkgs/container/cloud_ai_inference_ubuntu22">cloud-ai-containers</a> GitHub repo.</p>
+<h3 id="docker-build-steps">Docker build steps<a class="headerlink" href="#docker-build-steps" title="Permalink to this heading">¶</a></h3>
+<p>Follow these steps to build your own Docker image for Cloud AI with vLLM support.</p>
+<p>Refer to this page for
+<a class="reference external" href="../Docker/Docker.md#setup-and-system-pre-requisistes">prerequisites</a>
+prior to building the docker image that includes the vLLM installation</p>
+<p>Build the docker image which includes the vLLM installation using the
+build_image.py script.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">cd</span> <span class="o">&lt;/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">apps</span><span class="o">-</span><span class="n">sdk</span><span class="o">&gt;/</span><span class="n">common</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">build</span><span class="o">/</span>
+
+<span class="n">python3</span> <span class="n">build_image</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">user_specification_file</span> <span class="o">./</span><span class="n">sample_user_specs</span><span class="o">/</span><span class="n">user_image_spec_vllm</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">apps_sdk</span> <span class="n">path_to_apps_sdk_zip_file</span> <span class="o">--</span><span class="n">platform_sdk</span> <span class="n">path_to_platform_sdk_zip_file</span> <span class="o">--</span><span class="n">tag</span> <span class="mf">1.19.8.0</span>
+</code></pre></div>
+</div>
+<p>This should create a docker image with vLLM installed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">ubuntu</span><span class="nd">@host</span><span class="p">:</span><span class="o">~</span><span class="c1"># docker image ls</span>
+<span class="n">REPOSITORY</span>                                                                      <span class="n">TAG</span>                           <span class="n">IMAGE</span> <span class="n">ID</span>       <span class="n">CREATED</span>         <span class="n">SIZE</span>
+<span class="n">qaic</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">ubuntu20</span><span class="o">-</span><span class="n">py310</span><span class="o">-</span><span class="n">py38</span><span class="o">-</span><span class="n">release</span><span class="o">-</span><span class="n">qaic_platform</span><span class="o">-</span><span class="n">qaic_apps</span><span class="o">-</span><span class="n">pybase</span><span class="o">-</span><span class="n">pytools</span><span class="o">-</span><span class="n">vllm</span>   <span class="mf">1.19.8.0</span>                      <span class="mf">3e4811</span><span class="n">ba18ae</span>   <span class="mi">3</span> <span class="n">hours</span> <span class="n">ago</span>     <span class="mf">7.05</span><span class="n">GB</span>
+</code></pre></div>
+</div>
+<h3 id="docker-run-steps">Docker run steps<a class="headerlink" href="#docker-run-steps" title="Permalink to this heading">¶</a></h3>
+<p>Once the Docker image is downloaded or built, refer to instructions
+<a class="reference external" href="../Docker/Docker.md#command">here</a> to launch the container and map
+Cloud AI devices to the container.</p>
+<p>After the container is launched, activate the virtual environment and
+run a sample inference using the example script provided.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">vllm</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+
+<span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">integrations</span><span class="o">/</span><span class="n">vllm</span><span class="o">/</span>
+<span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">offline_inference_qaic</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div>
+</div>
+<h3 id="installing-from-source">Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this heading">¶</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2">
+<input checked type="radio" id="__tabbed_1_1" name="__tabbed_1"><input type="radio" id="__tabbed_1_2" name="__tabbed_1"><div class="tabbed-labels docutils">
+<label class="tabbed-label" for="__tabbed_1_1">
+x86_64</label><label class="tabbed-label" for="__tabbed_1_2">
+AArch64</label></div>
+<div class="tabbed-content docutils">
+<div class="tabbed-block docutils">
+<p>vLLM with qaic backend support can be installed by applying a patch on
+top of the open source vLLM repo.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code># Add user to qaic group to access Cloud AI devices without root
+sudo usermod -aG qaic $USER
+newgrp qaic
+
+# Create a python virtual enviornment
+python3.10 -m venv qaic-vllm-venv
+
+source qaic-vllm-venv/bin/activate
+
+# Install the current release version of `Qualcomm Efficient-Transformers &lt;https://github.com/quic/efficient-transformers&gt;`_ (vLLM with qaic support requires efficient-transformers for model exporting and compilation)
+pip install -U pip
+
+pip install git+https://github.com/quic/efficient-transformers@release/v1.19.3_fp8_update
+
+# Clone the vLLM repo, and apply the patch for qaic backend support
+git clone https://github.com/vllm-project/vllm.git
+
+cd vllm
+
+git checkout v0.7.0
+
+git apply /opt/qti-aic/integrations/vllm/qaic_vllm.patch
+
+# Set environment variables and install
+export VLLM_TARGET_DEVICE=&quot;qaic&quot;
+
+pip install -e .
+
+# Run a sample inference
+python examples/offline_inference/qaic.py
+</code></pre></div>
+</div>
+</div>
+<div class="tabbed-block docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code># Add user to qaic group to access Cloud AI devices without root
+sudo usermod -aG qaic $USER
+newgrp qaic
+
+# Create a python virtual enviornment
+python3.10 -m venv qaic-vllm-venv
+
+source qaic-vllm-venv/bin/activate
+
+# Install the current release version of `Qualcomm Efficient-Transformers &lt;https://github.com/quic/efficient-transformers&gt;`_ (vLLM with qaic support requires efficient-transformers for model exporting and compilation)
+pip install -U pip
+
+pip install git+https://github.com/quic/efficient-transformers@release/v1.19.3_fp8_update
+
+# Install Triton for AArch64
+mkdir triton-3.0.0;
+cd triton-3.0.0;
+git clone https://github.com/triton-lang/triton.git -b release/3.0.x --depth=1;
+
+# LLVM git cloning:
+
+cp /triton-3.0.0/triton/cmake/llvm-hash.txt .
+
+mkdir llvm-main &amp;&amp; cd llvm-main
+export LLVM_HASH=&quot;$(cat /path_to/triton-3.0.0/triton/cmake/llvm-hash.txt)&quot;
+
+git clone --recursive https://github.com/llvm/llvm-project.git -b main
+cd llvm-project &amp;&amp; git checkout ${LLVM_HASH}
+
+# LLVM building:
+pip install ninja cmake
+mkdir llvm-project/build; cd llvm-project/build;
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_ASSERTIONS=ON ../llvm -DLLVM_ENABLE_PROJECTS=&quot;mlir;llvm&quot; -DLLVM_TARGETS_TO_BUILD=&quot;host;NVPTX;AMDGPU&quot;; ninja;
+
+
+# Triton building:
+cd /path_to/triton-3.0.0/triton/python;
+export LLVM_BUILD_DIR=/path_to/llvm-main/llvm-project/build;
+export LLVM_INCLUDE_DIRS=$LLVM_BUILD_DIR/include; \
+export LLVM_LIBRARY_DIR=$LLVM_BUILD_DIR/lib; \
+export LLVM_SYSPATH=$LLVM_BUILD_DIR; \
+pip wheel .
+
+pip install triton-3.0.0-cp310-cp310-linux_aarch64.whl .This is for Python 3.10, we can download the same for Python 3.8 as well.
+
+# Clone the vLLM repo, and apply the patch for qaic backend support
+git clone https://github.com/vllm-project/vllm.git
+
+cd vllm
+
+git checkout v0.7.0
+
+git apply /opt/qti-aic/integrations/vllm/qaic_vllm.patch
+
+# Set environment variables and install
+export VLLM_TARGET_DEVICE=&quot;qaic&quot;
+
+pip install -e .
+
+# Run a sample inference
+python examples/offline_inference/qaic.py
+</code></pre></div>
+</div>
+</div>
+</div>
+</div><h2 id="running-example-scripts">Running Example Scripts<a class="headerlink" href="#running-example-scripts" title="Permalink to this heading">¶</a></h2>
+<h3 id="running-a-sample-inference">Running a sample inference<a class="headerlink" href="#running-a-sample-inference" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">offline_inference</span><span class="o">/</span><span class="n">qaic</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div>
+</div>
+<h3 id="for-fp8-models">For FP8 models<a class="headerlink" href="#for-fp8-models" title="Permalink to this heading">¶</a></h3>
+<p>It’s recommended to use dtype mxfp6 and kvcache mxint8 for FP8 models.</p>
+<h3 id="prefix-caching-support-with-vllm">Prefix Caching Support with vLLM<a class="headerlink" href="#prefix-caching-support-with-vllm" title="Permalink to this heading">¶</a></h3>
+<h4 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>QAIC vLLM does not support PagedAttention as of now. So, QAIC Prefix
+Caching can not share the same block between two sequences running
+simultaneously in the same decode batch.</p></li>
+<li><p>QAIC Prefix Caching can not currently be enabled along with any of
+the following features: SpD, multimodality, or LoRAX.</p></li>
+</ul>
+<h4 id="parameters-relevant-for-prefix-caching">Parameters relevant for Prefix Caching<a class="headerlink" href="#parameters-relevant-for-prefix-caching" title="Permalink to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input Arg</p></th>
+<th class="head"><p>Setting Required for Qaic runs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable-prefix-caching</p></td>
+<td><p>Set this flag to True to enable
+prefix caching for qaic</p></td>
+</tr>
+<tr class="row-odd"><td><p>num-gpu-blocks-override</p></td>
+<td><p>Use this flag in case the user
+wants to maintain the KV cache of
+more users than the decode batch
+size (max-num-seqs)</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="example-code-for-prefix-caching">Example Code for Prefix Caching<a class="headerlink" href="#example-code-for-prefix-caching" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">offline_inference</span><span class="o">/</span><span class="n">qaic_prefix_caching</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div>
+</div>
+<h3 id="speculative-decoding-spd-support-with-vllm">Speculative Decoding (SpD) Support with vLLM<a class="headerlink" href="#speculative-decoding-spd-support-with-vllm" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Currently, SpD via draft model is supported.</p></li>
+</ul>
+<h4 id="limitations-1"><span id="id1"></span>Limitations<a class="headerlink" href="#limitations-1" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>SpD via Medusa, EAGLE or PLD is not supported yet.</p></li>
+</ul>
+<h4 id="parameters-relevant-for-spd">Parameters relevant for SpD<a class="headerlink" href="#parameters-relevant-for-spd" title="Permalink to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input Arg</p></th>
+<th class="head"><p>Setting Required for Qaic runs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>speculative-model</p></td>
+<td><p>Provide the draft model to be
+used</p></td>
+</tr>
+<tr class="row-odd"><td><p>num-speculative-tokens</p></td>
+<td><p>The number of speculative tokens
+to sample from the draft model in
+speculative decoding.</p></td>
+</tr>
+<tr class="row-even"><td><p>spec-decoding-acceptance-method</p></td>
+<td><p>Specify the acceptance method to
+use during draft token
+verification in speculative
+decoding. Two types of acceptance
+routines are supported: 1)
+‘rejection_sampler’ which does
+not allow changing the acceptance
+rate of draft tokens, 2)
+‘typical_acceptance_sampler’
+which is configurable, allowing
+for a higher acceptance rate at
+the cost of lower quality, and
+vice versa.</p></td>
+</tr>
+<tr class="row-odd"><td><p>speculative-model-override-qaic-config</p></td>
+<td><p>Initialize non default qaic
+config or override default qaic
+config that are specific to Qaic
+devices, for speculative draft
+model, this argument will be used
+to configure the qaic config that
+can not be fully gathered from
+the vLLM arguments.</p></td>
+</tr>
+<tr class="row-even"><td><p>override-qaic-config</p></td>
+<td><p>Initialize non default qaic
+config or override default qaic
+config that are specific to Qaic
+devices. In case of SpD, this is
+applied to target model.</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="default-qaic-spd-run-settings">Default QAIC SpD run settings<a class="headerlink" href="#default-qaic-spd-run-settings" title="Permalink to this heading">¶</a></h4>
+<p>Always compiles for 1 Ultra card by default assuming both draft and
+target models are running on the same card: with 8 core each. To use
+different hardware configurations, use override-qaic-config or
+speculative-overrride-config.</p>
+<h4 id="example-code-for-spd">Example Code for SpD<a class="headerlink" href="#example-code-for-spd" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">offline_inference</span><span class="o">/</span><span class="n">qaic_spd_pld</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div>
+</div>
+<h3 id="multimodality-support-with-vllm">Multimodality Support with vLLM<a class="headerlink" href="#multimodality-support-with-vllm" title="Permalink to this heading">¶</a></h3>
+<h4 id="id2">Limitations<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Current support is only for single batch, single image.</p></li>
+<li><p>Multimodality does not support Prefix Caching, SPD, Continuous batching, prefill chucking or LoRA.</p></li>
+<li><p>Open-AI multi-modal APIs are only supported for single QPC approach.</p></li>
+<li><p>Due to limitations in the model meta-llama/Llama-3.2-11B-Vision itself, it only accepts prompts for text completion. For more generic questions, please use meta-llama/Llama-3.2-11B-Vision-Instruct instead.</p></li>
+</ul>
+<h4 id="models-supported-with-qaic">Models supported with QAIC<a class="headerlink" href="#models-supported-with-qaic" title="Permalink to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model Family</p></th>
+<th class="head"><p>Supported Models</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Modality</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>InternVLChatModel</p></td>
+<td><p>OpenGVLab/InternVL2_5-1B</p></td>
+<td><p>Vision-Language
+image, text</p></td>
+<td><p>image+text,</p></td>
+</tr>
+<tr class="row-odd"><td><p>LLaVA-1.5</p></td>
+<td><p>llava-hf/llava-1.5-7b-hf</p></td>
+<td><p>Vision-Language
+Model</p></td>
+<td><p>image+text,
+image, text</p></td>
+</tr>
+<tr class="row-even"><td><p>Llama 3.2</p></td>
+<td><p>meta-llama/Llama-3.2-11B-Vision,
+meta-llama/Llama-3.2-11B-Vision-Instruct</p></td>
+<td><p>Vision-Language
+Model</p></td>
+<td><p>image+text,
+image, text</p></td>
+</tr>
+<tr class="row-odd"><td><p>Whisper</p></td>
+<td><p>openai/whisper-tiny.en,
+openai/whisper-large</p></td>
+<td><p>Audio model</p></td>
+<td><p>audio</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="vllm-flags-and-environment-variables">vLLM flags and environment variables<a class="headerlink" href="#vllm-flags-and-environment-variables" title="Permalink to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input Arg</p></th>
+<th class="head"><p>Default Value</p></th>
+<th class="head"><p>Setting Required for
+Qaic runs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>VLLM_QAIC_QPC_PATH</p></td>
+<td><p>None</p></td>
+<td><p>Set this flag with
+the path to qpc. VLLM
+loads the qpc
+directly from the
+path provided and
+will not compile the
+model. For the dual
+QPC approach for
+multimodality,
+provide both QPC
+paths separated by a
+colon:
+`
+<cite>path/to/vision_qpc:p
+ath/to/language_qpc`</cite></p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="dual-qpc-approach">Dual QPC Approach<a class="headerlink" href="#dual-qpc-approach" title="Permalink to this heading">¶</a></h4>
+<p>For vision-language models, vLLM supports two approaches:
+kv_offload=True (dual QPCs approach) and kv_offload=False (single QPC
+approach)</p>
+<p>The dual QPCs approach is the recommended method. It splits the model to
+perform image encoding and output generation in two different QPCs.</p>
+<p>In vLLM, to support dual QPC, one LLM is initialized for the embedding
+task and runs encoding to produce image representations. A second LLM is
+initialized for the generation task and runs generation to produce
+completions for the input prompts. The first LLM’s outputs are passed to
+the second LLM via the host in this case. To enable the dual QPC
+approach, each of the two LLMs must be provided with
+<code class="docutils literal notranslate"><span class="pre">override_qaic_config={&quot;kv_offload&quot;:</span> <span class="pre">True}</span></code> during initialization.</p>
+<p>The diagram below explains the dual QPCs approach in comparison to the
+single QPC approach.</p>
+<img alt="../../../../_images/564f2e1f-e565-4843-8ea3-9f284785b730.png" src="../../../../_images/564f2e1f-e565-4843-8ea3-9f284785b730.png" />
+<h5 id="example-code-and-run-command">Example Code and Run Command<a class="headerlink" href="#example-code-and-run-command" title="Permalink to this heading">¶</a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">offline_inference</span><span class="o">/</span><span class="n">qaic_vision_language_kv_offload</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">image</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">huggingface</span><span class="o">.</span><span class="n">co</span><span class="o">/</span><span class="n">datasets</span><span class="o">/</span><span class="n">huggingface</span><span class="o">/</span><span class="n">documentation</span><span class="o">-</span><span class="n">images</span><span class="o">/</span><span class="n">resolve</span><span class="o">/</span><span class="mi">0052</span><span class="n">a70beed5bf71b92610a43a52df6d286cd5f3</span><span class="o">/</span><span class="n">diffusers</span><span class="o">/</span><span class="n">rabbit</span><span class="o">.</span><span class="n">jpg</span> <span class="o">--</span><span class="n">question</span> <span class="s2">&quot;What&#39;s in the image?&quot;</span> <span class="o">-</span><span class="n">m</span> <span class="n">internvl_chat</span> <span class="o">--</span><span class="n">num</span><span class="o">-</span><span class="n">prompt</span> <span class="mi">1</span>
+</code></pre></div>
+</div>
+<h4 id="single-qpc-approach">Single QPC Approach<a class="headerlink" href="#single-qpc-approach" title="Permalink to this heading">¶</a></h4>
+<p>In single QPC approach, a single QPC will perform both image encoding
+and output generation, so only one LLM needs to be initialized. The
+Whisper model is supported only through the single QPC approach.</p>
+<h5 id="example-code-and-run-command-1"><span id="id3"></span>Example Code and Run Command<a class="headerlink" href="#example-code-and-run-command-1" title="Permalink to this heading">¶</a></h5>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">offline_inference</span><span class="o">/</span><span class="n">qaic_vision_language</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">image</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">huggingface</span><span class="o">.</span><span class="n">co</span><span class="o">/</span><span class="n">datasets</span><span class="o">/</span><span class="n">huggingface</span><span class="o">/</span><span class="n">documentation</span><span class="o">-</span><span class="n">images</span><span class="o">/</span><span class="n">resolve</span><span class="o">/</span><span class="mi">0052</span><span class="n">a70beed5bf71b92610a43a52df6d286cd5f3</span><span class="o">/</span><span class="n">diffusers</span><span class="o">/</span><span class="n">rabbit</span><span class="o">.</span><span class="n">jpg</span> <span class="o">--</span><span class="n">question</span> <span class="s2">&quot;What&#39;s in the image?&quot;</span> <span class="o">-</span><span class="n">m</span> <span class="n">internvl_chat</span> <span class="o">--</span><span class="n">num</span><span class="o">-</span><span class="n">prompt</span> <span class="mi">1</span>
+
+<span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">offline_inference</span><span class="o">/</span><span class="n">qaic_whisper</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">filepath</span> <span class="n">PATH_TO_AUDIO_FILE</span><span class="o">.</span>
+</code></pre></div>
+</div>
+<h4 id="limitations-2"><span id="id4"></span>Limitations<a class="headerlink" href="#limitations-2" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Current support is only for single batch, single image.</p></li>
+<li><p>Multimodality does not support Prefix Caching, SPD, Continuous
+batching, prefill chucking or LoRA.</p></li>
+<li><p>Open-AI multi-modal APIs are only supported for single QPC approach.</p></li>
+<li><p>Due to limitations in the model meta-llama/Llama-3.2-11B-Vision
+itself, it only accepts prompts for text completion. For more generic
+questions, please use meta-llama/Llama-3.2-11B-Vision-Instruct
+instead.</p></li>
+</ul>
+<h3 id="lorax-support-with-vllm">LoRAX Support with vLLM<a class="headerlink" href="#lorax-support-with-vllm" title="Permalink to this heading">¶</a></h3>
+<h4 id="limitations-3"><span id="id5"></span>Limitations<a class="headerlink" href="#limitations-3" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>The compiled adapters should have their weights applied to the same
+set of target projection layers and modules. The supported modules
+are limited to {“q_proj”, “k_proj”, “v_proj”, “o_proj”}. Modules such
+as {“up_proj”, “down_proj”, “gate_proj”} are not yet supported.</p></li>
+</ul>
+<h4 id="parameters-relevant-for-lorax">Parameters relevant for LoRAX<a class="headerlink" href="#parameters-relevant-for-lorax" title="Permalink to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input Arg</p></th>
+<th class="head"><p>Setting Required for Qaic runs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enable_lora</p></td>
+<td><p>Enable the LoRAX feature by
+setting this to True</p></td>
+</tr>
+<tr class="row-odd"><td><p>max_loras</p></td>
+<td><p>The maximum number of Lora
+adapters that can run within a
+batch. It should always be set to
+match the number of adapters
+compiled with the base model.</p></td>
+</tr>
+<tr class="row-even"><td><p>lora_modules</p></td>
+<td><p>A list of LoRAModulePath objects,
+each containing a name (Lora
+adapter name) and a path
+(snapshot download path for the
+adapter repository), should be
+provided. The list must include
+all adapters intended to be
+compiled with the base model.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Create a LoRA request as follows and pass it to the generate API call.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">lora_requests</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">LoRARequest</span><span class="p">(</span>
+        <span class="n">lora_name</span><span class="o">=</span><span class="n">repo_id</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lora_int_id</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">lora_path</span><span class="o">=</span><span class="n">snapshot_download</span><span class="p">(</span><span class="n">repo_id</span><span class="o">=</span><span class="n">repo_id</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prompts</span><span class="p">))</span>
+<span class="p">]</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">prompts</span><span class="p">,</span> <span class="n">sampling_params</span><span class="p">,</span> <span class="n">lora_request</span><span class="o">=</span><span class="n">lora_requests</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Note: The maximum adapters to be compiled is by default 128, if want to
+increase, the size should be set through
+<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">VLLM_QAIC_LORA_MAX_ID_SUPPORTED=XXX</span></code></p>
+<h4 id="example-code-for-lorax">Example Code for LoRAX<a class="headerlink" href="#example-code-for-lorax" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">python</span> <span class="n">vllm</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">test_qaic</span><span class="o">/</span><span class="n">lora</span><span class="o">/</span><span class="n">example_offline_inference_qaic_lora</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div>
+</div>
+<h2 id="server-endpoints">Server Endpoints<a class="headerlink" href="#server-endpoints" title="Permalink to this heading">¶</a></h2>
+<p>vLLM provides capabilities to start a FastAPI server to run LLM
+inference. Here is an example to use qaic backend (i.e. use the AI 100
+cards for inference).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Need to increase max open files to serve multiple requests</span>
+<span class="n">ulimit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1048576</span>
+
+<span class="c1"># Start the server</span>
+<span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">vllm</span><span class="o">.</span><span class="n">entrypoints</span><span class="o">.</span><span class="n">api_server</span> <span class="o">--</span><span class="n">host</span> <span class="mf">127.0.0.1</span> <span class="o">--</span><span class="n">port</span> <span class="mi">8000</span> <span class="o">--</span><span class="n">model</span> <span class="n">TinyLlama</span><span class="o">/</span><span class="n">TinyLlama</span><span class="o">-</span><span class="mf">1.1</span><span class="n">B</span><span class="o">-</span><span class="n">Chat</span><span class="o">-</span><span class="n">v1</span><span class="mf">.0</span> <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">model</span><span class="o">-</span><span class="nb">len</span> <span class="mi">256</span> <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">num</span><span class="o">-</span><span class="n">seq</span> <span class="mi">16</span> <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">seq_len</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">capture</span> <span class="mi">128</span> <span class="o">--</span><span class="n">device</span> <span class="n">qaic</span> <span class="o">--</span><span class="n">block</span><span class="o">-</span><span class="n">size</span> <span class="mi">32</span> <span class="o">--</span><span class="n">quantization</span> <span class="n">mxfp6</span> <span class="o">--</span><span class="n">kv</span><span class="o">-</span><span class="n">cache</span><span class="o">-</span><span class="n">dtype</span> <span class="n">mxint8</span>
+
+<span class="c1"># Client request</span>
+<span class="n">python3</span> <span class="n">examples</span><span class="o">/</span><span class="n">api_client</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">host</span> <span class="mf">127.0.0.1</span> <span class="o">--</span><span class="n">port</span> <span class="mi">8000</span> <span class="o">--</span><span class="n">prompt</span> <span class="s2">&quot;My name is&quot;</span> <span class="o">--</span><span class="n">stream</span>
+</code></pre></div>
+</div>
+<p>Similarly, an OpenAI compatible server can be invoked as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Need to increase max open files to serve multiple requests</span>
+<span class="n">ulimit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1048576</span>
+
+<span class="c1"># Start the server</span>
+<span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">vllm</span><span class="o">.</span><span class="n">entrypoints</span><span class="o">.</span><span class="n">openai</span><span class="o">.</span><span class="n">api_server</span> <span class="o">--</span><span class="n">host</span> <span class="mf">127.0.0.1</span> <span class="o">--</span><span class="n">port</span> <span class="mi">8000</span> <span class="o">--</span><span class="n">model</span> <span class="n">TinyLlama</span><span class="o">/</span><span class="n">TinyLlama</span><span class="o">-</span><span class="mf">1.1</span><span class="n">B</span><span class="o">-</span><span class="n">Chat</span><span class="o">-</span><span class="n">v1</span><span class="mf">.0</span> <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">model</span><span class="o">-</span><span class="nb">len</span> <span class="mi">256</span> <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">num</span><span class="o">-</span><span class="n">seq</span> <span class="mi">16</span> <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">seq_len</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">capture</span> <span class="mi">128</span> <span class="o">--</span><span class="n">device</span> <span class="n">qaic</span> <span class="o">--</span><span class="n">block</span><span class="o">-</span><span class="n">size</span> <span class="mi">32</span> <span class="o">--</span><span class="n">quantization</span> <span class="n">mxfp6</span> <span class="o">--</span><span class="n">kv</span><span class="o">-</span><span class="n">cache</span><span class="o">-</span><span class="n">dtype</span> <span class="n">mxint8</span>
+
+<span class="c1"># Client request</span>
+<span class="n">python3</span> <span class="n">examples</span><span class="o">/</span><span class="n">openai_chat_completion_client</span><span class="o">.</span><span class="n">py</span>
+</code></pre></div>
+</div>
+<h2 id="benchmarking">Benchmarking<a class="headerlink" href="#benchmarking" title="Permalink to this heading">¶</a></h2>
+<p>vLLM provides benchmarking scripts to measure serving, latency and
+throughput performance. Here’s an example for serving performance.
+First, start an OpenAI compatible endpoint using the steps in the
+previous section.</p>
+<p>Download the dataset:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">huggingface</span><span class="o">.</span><span class="n">co</span><span class="o">/</span><span class="n">datasets</span><span class="o">/</span><span class="n">anon8231489123</span><span class="o">/</span><span class="n">ShareGPT_Vicuna_unfiltered</span><span class="o">/</span><span class="n">resolve</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">ShareGPT_V3_unfiltered_cleaned_split</span><span class="o">.</span><span class="n">json</span>
+</code></pre></div>
+</div>
+<p>Start benchmarking the OpenAI endpoint</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Start benchmarking</span>
+<span class="n">python3</span> <span class="n">benchmarks</span><span class="o">/</span><span class="n">benchmark_serving</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">backend</span> <span class="n">openai</span> <span class="o">--</span><span class="n">base</span><span class="o">-</span><span class="n">url</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">8000</span> <span class="o">--</span><span class="n">dataset</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="n">sharegpt</span> <span class="o">--</span><span class="n">dataset</span><span class="o">-</span><span class="n">path</span><span class="o">=./</span><span class="n">ShareGPT_V3_unfiltered_cleaned_split</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">sharegpt</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="nb">len</span> <span class="mi">128</span> <span class="o">--</span><span class="n">sharegpt</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">model</span><span class="o">-</span><span class="nb">len</span> <span class="mi">256</span> <span class="o">--</span><span class="n">model</span> <span class="n">TinyLlama</span><span class="o">/</span><span class="n">TinyLlama</span><span class="o">-</span><span class="mf">1.1</span><span class="n">B</span><span class="o">-</span><span class="n">Chat</span><span class="o">-</span><span class="n">v1</span><span class="mf">.0</span> <span class="o">--</span><span class="n">seed</span> <span class="mi">12345</span>
+</code></pre></div>
+</div>
+<h2 id="vllm-input-arguments-for-qaic">vLLM input arguments for QAIC<a class="headerlink" href="#vllm-input-arguments-for-qaic" title="Permalink to this heading">¶</a></h2>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input Arg</p></th>
+<th class="head"><p>Default Value</p></th>
+<th class="head"><p>Setting Required for
+Qaic runs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>model</p></td>
+<td><p>None</p></td>
+<td><p>Hugging face model
+name or model path</p></td>
+</tr>
+<tr class="row-odd"><td><p>max-num-seqs</p></td>
+<td><p>256</p></td>
+<td><p>Decode batch size</p></td>
+</tr>
+<tr class="row-even"><td><p>max-model-len</p></td>
+<td><p>2048</p></td>
+<td><p>Context length</p></td>
+</tr>
+<tr class="row-odd"><td><p>max-seq-len-to-capture</p></td>
+<td><p>None</p></td>
+<td><p>Sequence length</p></td>
+</tr>
+<tr class="row-even"><td><p>device</p></td>
+<td><p>“auto”</p></td>
+<td><p>“auto” or “qaic” -
+Qualcomm AI cloud
+devices will be used,
+if VLLM is installed
+correctly for qaic</p></td>
+</tr>
+<tr class="row-odd"><td><p>device-group</p></td>
+<td><p>[0]</p></td>
+<td><p>List of device ids to
+be used for
+execution; Ultra -
+0,1,2,3; Ultra+ -
+0,1,2,3,4,5,6,7</p></td>
+</tr>
+<tr class="row-even"><td><p>quantization</p></td>
+<td><p>“auto”</p></td>
+<td><p>“auto” - No weight
+quantization (FP16);
+“mxfp6” - Weight are
+quantized with mxfp6</p></td>
+</tr>
+<tr class="row-odd"><td><p>kv-cache-dtype</p></td>
+<td><p>“auto”</p></td>
+<td><p>“auto” - No KV Cache
+compression (FP16);
+“mxint8” - KV Cache
+compressed using
+mxint8 format</p></td>
+</tr>
+<tr class="row-even"><td><p>block-size</p></td>
+<td><p>“max-model-len”</p></td>
+<td><p>set same as context
+length or
+“max_model_len”</p></td>
+</tr>
+<tr class="row-odd"><td><p>disable-log-stats</p></td>
+<td><p>True</p></td>
+<td><p>True - print
+performance stats;
+False - disable
+performance stats</p></td>
+</tr>
+<tr class="row-even"><td><p>num-gpu-blocks-override</p></td>
+<td><p>“max-num-seqs”</p></td>
+<td><p>set same as
+“max_num_seqs” or
+decode batch size</p></td>
+</tr>
+<tr class="row-odd"><td><p>tensor-parallel-size</p></td>
+<td><p>1</p></td>
+<td><p>vLLM implementation
+of Tensor slicing
+using collective
+communication library
+is not supported,
+instead Tensor
+Slicing is supported
+inherently using QAIC
+AOT approach. To use
+TS&gt;1 please provide
+right set of
+device_ids in
+device_group
+arguments. It is
+recommend not to
+enable vLLM default
+TS implementation
+using
+“-
+tensor-parallel-size”
+argument</p></td>
+</tr>
+<tr class="row-even"><td><p>gpu-memory-utilization</p></td>
+<td><p>0.90</p></td>
+<td><p>vLLM scheduler is
+modified to use full
+GPU memory for kv
+cache, there is no
+way to limit GPU KV
+Cache usage, so it is
+recommended not to
+limit GPU memory
+using
+“-gp
+u-memory-utilization”
+argument</p></td>
+</tr>
+<tr class="row-odd"><td><p>enable-chunked-prefill</p></td>
+<td><p>False</p></td>
+<td><p>Chunked prefill is
+supported by default
+in QAIC model runner
+implemention, not
+using default
+chunking logic in
+vLLM scheduler class,
+thus it is
+recommended not to
+enable chunking using
+“-en
+able-chunked-prefill”
+argument</p></td>
+</tr>
+<tr class="row-even"><td><p>use-v2-block-manager</p></td>
+<td><p>False</p></td>
+<td><p>Set this flag to True
+for enabling prefix
+caching. Prefix
+caching is currently</p></td>
+</tr>
+<tr class="row-odd"><td><p>enable-prefix-caching</p></td>
+<td><p>False</p></td>
+<td><p>Set this flag to True
+to enable prefix
+caching for qaic</p></td>
+</tr>
+<tr class="row-even"><td><p>override-qaic-config</p></td>
+<td><p>None</p></td>
+<td><p>Initialize non
+default qaic config
+or override default
+qaic config that are
+specific to Qaic
+devices, for
+speculative draft
+model, this argument
+will be used to
+configure the qaic
+config that can not
+be fully gathered
+from the vLLM
+arguments</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="override-arguments-that-can-be-modified">Override Arguments that can be modified<a class="headerlink" href="#override-arguments-that-can-be-modified" title="Permalink to this heading">¶</a></h3>
+<p>override-qaic-config = <code class="docutils literal notranslate"><span class="pre">&lt;Compiler</span> <span class="pre">cfg</span> <span class="pre">for</span> <span class="pre">target</span> <span class="pre">model&gt;</span></code></p>
+<p>Using this interface user can override default attributes such as, -
+num_cores, dfs, mos, device_group, qpc_path, mxfp6_matmul,
+mxint8_kv_cache, device_group, and other compiler options.</p>
+<h4 id="cli-inferencing">CLI inferencing<a class="headerlink" href="#cli-inferencing" title="Permalink to this heading">¶</a></h4>
+<p>Single space between attributes, no space within attribute and value
+pair during running on command line arguments.</p>
+<p>Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">--</span><span class="n">override</span><span class="o">-</span><span class="n">qaic</span><span class="o">-</span><span class="n">config</span> <span class="o">=</span> <span class="s2">&quot;num_cores=4 mxfp6_matmul=True mos=1 device_group=0,1,2,3&quot;</span>
+</code></pre></div>
+</div>
+<p>Note: Only provide attributes which need to be overridden.</p>
+<h4 id="python-object-inferencing">Python object inferencing<a class="headerlink" href="#python-object-inferencing" title="Permalink to this heading">¶</a></h4>
+<p>Override arguments can also be passed as input during LLM object
+creation.</p>
+<p>Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">override_qaic_config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;num_cores&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;mxfp6_matmul&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span>  <span class="s1">&#39;mos&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+</code></pre></div>
+</div>
+<p>Note: Only provide attributes which need to be overridden.</p>
+<h2 id="id6">vLLM flags and environment variables<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input Arg</p></th>
+<th class="head"><p>Default Value</p></th>
+<th class="head"><p>Setting Required for
+Qaic runs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>VLLM_QAIC_QPC_PATH</p></td>
+<td><p>None</p></td>
+<td><p>Set this flag with
+the path to qpc. vLLM
+loads the qpc
+directly from the
+path provided and
+will not compile the
+model</p></td>
+</tr>
+<tr class="row-odd"><td><p>VLLM_QAIC_MOS</p></td>
+<td><p>None</p></td>
+<td><p>Set MOS value</p></td>
+</tr>
+<tr class="row-even"><td><p>VLLM_QAIC_DFS_EN</p></td>
+<td><p>None</p></td>
+<td><p>Enable compiler depth
+first</p></td>
+</tr>
+<tr class="row-odd"><td><p>VLLM_QAIC_QID</p></td>
+<td><p>None</p></td>
+<td><p>Manually set QID for
+qaic devices</p></td>
+</tr>
+<tr class="row-even"><td><p>VLLM_QAIC_NUM_CORES</p></td>
+<td><p>None</p></td>
+<td><p>Set num_cores example
+14 or 16</p></td>
+</tr>
+<tr class="row-odd"><td><p>VLLM_QAIC_COMPILER_ARGS</p></td>
+<td><p>None</p></td>
+<td><p>Set additional
+compiler arguments
+through this
+environment variable</p></td>
+</tr>
+<tr class="row-even"><td><p>VLLM_QAIC_MAX_CPU_THREADS</p></td>
+<td><p>None</p></td>
+<td><p>Avoid
+oversubscription of
+CPU threads, during
+multi-instance
+execution. By default
+there is no limit, if
+user set an
+environment variable
+<a class="reference internal" href="#vllm">VLLM</a>
+QAIC_MAX_CPU_THREADS,
+then number of cpu
+thread running
+pytorch sampling on
+cpu is limited, to
+avoid
+over-subscription.
+The contention is
+amplified when
+running in a
+container where CPU
+limits can cause
+throttling.</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="avoiding-cpu-oversubscription-via-vllm-qaic-max-cpu-threads">Avoiding CPU oversubscription via VLLM_QAIC_MAX_CPU_THREADS<a class="headerlink" href="#avoiding-cpu-oversubscription-via-vllm-qaic-max-cpu-threads" title="Permalink to this heading">¶</a></h3>
+<p>CPU oversubscription refers to a situation where the total number of
+CPUs allocated to a system exceeds the total number of CPUs available on
+the hardware. This leads to severe contention for CPU resources. In such
+cases, there is frequent switching between processes, which increases
+processes switching overhead and decreases overall system efficiency. In
+containers where multiple instances of vLLM can cause oversubscription,
+limiting the concurrent CPU threads is a good way to avoid
+oversubscription.</p>
+<p>Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">export</span> <span class="n">VLLM_QAIC_MAX_CPU_THREADS</span><span class="o">=</span><span class="mi">8</span>
+</code></pre></div>
+</div>
+<h2 id="vllm-deployment-using-kserve">vLLM Deployment using Kserve<a class="headerlink" href="#vllm-deployment-using-kserve" title="Permalink to this heading">¶</a></h2>
+<p>Readme and config file related to vLLM can be found at
+<code class="docutils literal notranslate"><span class="pre">/path/to/apps-sdk/common/integrations/kserve/vLLM</span></code></p>
+<h3 id="initial-notes">Initial Notes:<a class="headerlink" href="#initial-notes" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>quick_install.sh and yaml files for AWS deployment are available in
+aws_files directory and for minikube deployment in minikube_files
+directory.</p></li>
+<li><p>vLLM Docker container need to be built from
+<code class="docutils literal notranslate"><span class="pre">/path/to/apps-sdk/common/tools/docker-build</span></code>.</p></li>
+<li><p>Instructions to build vLLM Container are available at
+<code class="docutils literal notranslate"><span class="pre">/path/to/apps-sdk/common/tools/docker-build</span></code>. Sample cmd:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>python3<span class="w"> </span>build_image.py<span class="w"> </span>--tag<span class="w"> </span><span class="m">1</span>.11.0.46-vllm<span class="w"> </span>--log_level<span class="w"> </span><span class="m">2</span><span class="w"> </span>--user_specification_file<span class="w"> </span>/opt/qti-aic/tools/docker-build-gen2/sample_user_specs/user_image_spec_vllm.json<span class="w"> </span>--apps-sdk<span class="w"> </span>/apps/sdk/path<span class="w"> </span>--platform-sdk<span class="w"> </span>/platform/sdk/path
+</code></pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Sample user_specification_file should look like.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="s2">&quot;base_image&quot;</span><span class="p">:</span> <span class="s2">&quot;ubuntu20&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;applications&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;vllm&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;python_version&quot;</span><span class="p">:</span> <span class="s2">&quot;py310&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sdk&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;qaic_apps&quot;</span><span class="p">:</span> <span class="s2">&quot;required&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;qaic_platform&quot;</span><span class="p">:</span> <span class="s2">&quot;required&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="resources">Resources:<a class="headerlink" href="#resources" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Instructions to setup peristent volumes for the Kubernetes pods:
+<a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/">https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/</a></p></li>
+<li><p>Instructions on using AWS ECR (Elastic Container Service)
+<a class="reference external" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html">https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html</a></p></li>
+</ol>
+<h3 id="assumptions">Assumptions:<a class="headerlink" href="#assumptions" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>An available AI 100 machine with EKS service or Minikube service
+deployed</p></li>
+<li><p>You are aware on how to deploy and pull image from Elastic Container
+Service and familiar with APPS-SDK.</p></li>
+<li><p>You have basic knowledge on mounting volume on kubernetes pods. Check
+out point “1” in resources.</p></li>
+<li><p>vLLM Docker container is available as mentioned in Initial Notes.</p></li>
+</ol>
+<h3 id="kubernetes-device-plugin-deployment">Kubernetes Device Plugin Deployment:<a class="headerlink" href="#kubernetes-device-plugin-deployment" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Plugin available at /path/to/apps-sdk/tools/k8s-device-plugin/</p></li>
+<li><p>Run: <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">build_image.sh</span></code></p></li>
+<li><p>The above will create an ubuntu18 (x86) based container.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">images</span></code> and check that you see:
+qaic-k8s-device-plugin:v1.0.0</p></li>
+<li><p>Install the device plugin:
+<code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">qaic-device-plugin.yml</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">describe</span> <span class="pre">node</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">qaic</span></code> - You should see positive
+integer values for the first 2 lines. Now you can track them in the
+full output.</p></li>
+</ol>
+<h3 id="modifications-to-current-files">Modifications to current files:<a class="headerlink" href="#modifications-to-current-files" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Build vLLM Docker container using /path/to/apps-sdk/tool/docker-build.</p></li>
+<li><p>Modify kserve_runtimes.yaml file: for
+<code class="docutils literal notranslate"><span class="pre">metadata:</span> <span class="pre">name:</span> <span class="pre">kserve-vllmserver</span></code> where <code class="docutils literal notranslate"><span class="pre">spec.containers.args</span></code>
+has value <code class="docutils literal notranslate"><span class="pre">vllmserver</span></code>, replace <code class="docutils literal notranslate"><span class="pre">spec.container.image</span></code> to the
+name of vLLM image built in step 1.</p></li>
+<li><p>Deploy the vLLM image on AWS Elastic Container or any public Docker
+repository, so that it can be pulled by Kserve for inferencing. Or
+make sure its available in local Docker registry.</p></li>
+<li><p>Modify inference.yaml file to point it to correct vLLM image built,
+make sure the image is available locally or you are pulling it from
+Docker public library.</p>
+<ul class="simple">
+<li><p>If using Minikube then you need to setup imagePullSecret and
+update it accordingly in inference.yaml</p></li>
+</ul>
+</li>
+<li><p>Modify the <code class="docutils literal notranslate"><span class="pre">resources</span></code> in inference.yaml to adjust to your system
+specifications.</p></li>
+<li><p>Modify the conatiner args in inference.yaml accordingly to pass
+arguments to vLLM server.</p></li>
+</ol>
+<h3 id="if-you-have-time-out-problem">If you have time out problem<a class="headerlink" href="#if-you-have-time-out-problem" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>You need to create a vLLM Docker image with models already available
+inside the conatiner and then launch the model.</p></li>
+<li><p>Make sure the respective models are available inside the vLLM
+container.</p>
+<ul class="simple">
+<li><p>Docker can be commited to store the model
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span> <span class="pre">&lt;container_id&gt;</span> <span class="pre">kserve-vllm-model</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kserve-vllm-model</span></code> image can be used as a base image for the
+pod.</p></li>
+</ul>
+</li>
+</ol>
+<h3 id="setup-instructions">Setup Instructions:<a class="headerlink" href="#setup-instructions" title="Permalink to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Make sure you have all the requirements and modifications mentioned
+above.</p></li>
+<li><p>bash quick_install.sh</p></li>
+<li><p>kubectl apply -f inference.yaml</p></li>
+<li><p>For Minikube deployments only: kubectl apply -f minikube-service.yaml</p></li>
+</ol>
+<h3 id="inference-instructions-example-cmds">Inference Instructions:(Example cmds)<a class="headerlink" href="#inference-instructions-example-cmds" title="Permalink to this heading">¶</a></h3>
+<h4 id="aws">AWS<a class="headerlink" href="#aws" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>SERVICE_NAME=kserve-vllm-model</p></li>
+<li><dl class="simple">
+<dt>SERVICE_HOSTNAME=$(kubectl get inferenceservice $SERVICE_NAME -o</dt><dd><p>jsonpath=’{.status.url}’ | cut -d “/” -f 3)</p>
+</dd>
+</dl>
+</li>
+<li><p>MODEL_NAME=<code class="docutils literal notranslate"><span class="pre">&lt;model_name&gt;</span></code></p></li>
+<li><dl class="simple">
+<dt>INGRESS_GATEWAY_SERVICE=$(kubectl get svc -namespace istio-system</dt><dd><p>-selector=”app=istio-ingressgateway” -output
+jsonpath=’{.items[0].metadata.name}’)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>kubectl port-forward -namespace istio-system</dt><dd><p>svc/${INGRESS_GATEWAY_SERVICE} 8000:80</p>
+</dd>
+</dl>
+</li>
+</ul>
+<h5 id="start-different-aws-terminal-on-same-host-after-this">Start different AWS terminal on same host after this<a class="headerlink" href="#start-different-aws-terminal-on-same-host-after-this" title="Permalink to this heading">¶</a></h5>
+<ul class="simple">
+<li><p>export INGRESS_HOST=localhost</p></li>
+<li><p>export INGRESS_PORT=80</p></li>
+<li><dl class="simple">
+<dt>For single inference</dt><dd><p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-H</span> <span class="pre">&quot;Accept:</span> <span class="pre">application/json&quot;</span> <span class="pre">-H</span> <span class="pre">&quot;Content-type:</span> <span class="pre">application/json&quot;</span> <span class="pre">-X</span> <span class="pre">POST</span> <span class="pre">-d</span> <span class="pre">'{&quot;prompt&quot;:</span> <span class="pre">&quot;My</span> <span class="pre">name</span> <span class="pre">is&quot;,</span> <span class="pre">&quot;max_tokens&quot;:10,</span> <span class="pre">&quot;temperature&quot;:0.7}'</span> <span class="pre">-H</span> <span class="pre">Host:${SERVICE_HOSTNAME}</span> <span class="pre">&quot;http://${INGRESS_HOST}:${INGRESS_PORT}/v2/models/{$MODEL_NAME}/generate&quot;</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>To test autoscaling</dt><dd><p><code class="docutils literal notranslate"><span class="pre">hey</span> <span class="pre">-n</span> <span class="pre">10000</span> <span class="pre">-c</span> <span class="pre">100</span> <span class="pre">-q</span> <span class="pre">1</span> <span class="pre">-m</span> <span class="pre">POST</span> <span class="pre">-host</span> <span class="pre">${SERVICE_HOSTNAME}</span> <span class="pre">-d</span> <span class="pre">'{&quot;prompt&quot;:</span> <span class="pre">&quot;My</span> <span class="pre">name</span> <span class="pre">is&quot;,</span> <span class="pre">&quot;max_tokens&quot;:10,</span> <span class="pre">&quot;temperature&quot;:0.7}'</span> <span class="pre">&quot;http://${INGRESS_HOST}:${INGRESS_PORT}/v2/models/{$MODEL_NAME}/generate&quot;</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+<h4 id="minikube">Minikube<a class="headerlink" href="#minikube" title="Permalink to this heading">¶</a></h4>
+<ul>
+<li><p>Start Minikube with <code class="docutils literal notranslate"><span class="pre">minikube</span> <span class="pre">start</span> <span class="pre">--driver=none</span></code></p></li>
+<li><p>Install Kserve</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">cd</span> <span class="n">minikube_files</span>
+<span class="n">bash</span> <span class="n">quick_install</span><span class="o">.</span><span class="n">sh</span>
+</code></pre></div>
+</div>
+</li>
+<li><p>Apply the qaic-device-plugin.yml (from section Kubernetes Device
+Plugin Deployment)</p></li>
+<li><p>Apply the pull secret if required (To pull the image from public
+Docker registry). <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span> <span class="pre">-f</span> <span class="pre">pull-secret.yaml</span></code></p></li>
+<li><p>Apply inference.yaml <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span> <span class="pre">-f</span> <span class="pre">inference.yaml</span></code></p></li>
+<li><p>Verify if the pods are up and running <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">pods</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">NAME</span>                                                              <span class="n">READY</span>    <span class="n">STATUS</span>    <span class="n">RESTARTS</span>    <span class="n">AGE</span>
+<span class="n">kserve</span><span class="o">-</span><span class="n">vllm</span><span class="o">-</span><span class="n">model</span><span class="o">-</span><span class="n">predictor</span><span class="o">-</span><span class="n">default</span><span class="o">-</span><span class="mi">00001</span><span class="o">-</span><span class="n">deployment</span><span class="o">-</span><span class="mi">85</span><span class="n">bdb6b48rbq</span>   <span class="mi">2</span><span class="o">/</span><span class="mi">2</span>     <span class="n">Running</span>   <span class="mi">0</span>          <span class="mi">45</span><span class="n">m</span>
+</code></pre></div>
+</div>
+</li>
+<li><p>Apply inference-service yaml file
+<code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span> <span class="pre">-f</span> <span class="pre">minikube-service.yaml</span></code></p></li>
+<li><p>Start a seperate terminal to create a minikube tunnel</p>
+<ul class="simple">
+<li><p>Create a tunnel between minikube and host machine
+<code class="docutils literal notranslate"><span class="pre">minikube</span> <span class="pre">tunnel</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">svc</span></code> gives you the service and external IP to connect
+for inferencing.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>NAME                                              TYPE           CLUSTER-IP      EXTERNAL-IP              PORT(S)               AGE
+kserve-vllm-model-external                       LoadBalancer   10.104.86.212   10.104.86.212            80:32335/TCP           47m``
+</code></pre></div>
+</div>
+</li>
+<li><p>Make sure proper ports are setup and exposed for
+inferencing.(Modifications to yaml file might be required)</p></li>
+<li><p>Use curl command to do inferencing from host machine.
+Sample cmd:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">EXTERNAL</span><span class="o">-</span><span class="n">IP</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">80</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">completions</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Content-Type: application/json&quot;</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;Authorization: Bearer token-abc123&quot;</span> <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{ &quot;model&quot;: &quot;&lt;MODEL_NAME&gt;&quot;,   &quot;prompt&quot;: &quot;My name is&quot;,   &quot;max_tokens&quot;: 50 }&#39;</span>
+</code></pre></div>
+</div>
+</li>
+<li><p>Use hey command to verify autoscaling.
+Sample cmd:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">hey</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10000</span> <span class="o">-</span><span class="n">c</span> <span class="mi">100</span> <span class="o">-</span><span class="n">q</span> <span class="mi">1</span> <span class="o">-</span><span class="n">m</span> <span class="n">POST</span> <span class="o">-</span><span class="n">T</span> <span class="s2">&quot;application/json&quot;</span> <span class="n">http</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">EXTERNAL</span><span class="o">-</span><span class="n">IP</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">80</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">completions</span> <span class="o">-</span><span class="n">d</span>  <span class="s1">&#39;{ &quot;model&quot;: &lt;MODEL_NAME&gt;,   &quot;prompt&quot;: &quot;My name is&quot;,   &quot;max_tokens&quot;: 50 }&#39;</span>
+</code></pre></div>
+</div>
+</li>
+</ul>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Triton Inference Server" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Triton Inference Server
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../AWS/aws/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: AWS" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              AWS
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2025 Qualcomm Innovation Center, Inc.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    7.1.2.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": ["latest"], "title": "1.19.10", "version": "1.19.10"}, {"aliases": [], "title": "1.19.8", "version": "1.19.8"}, {"aliases": [], "title": "1.19", "version": "1.19"}, {"aliases": [], "title": "1.18", "version": "1.18"}, {"aliases": [], "title": "1.17", "version": "1.17"}, {"aliases": [], "title": "1.16", "version": "1.16"}, {"aliases": [], "title": "1.15", "version": "1.15"}], "versionPath": null}}</script>
+    
+      
+        <script src="../../../../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../../_static/design-tabs.js?v=36754332"></script>
+    
+  </body>
+</html>

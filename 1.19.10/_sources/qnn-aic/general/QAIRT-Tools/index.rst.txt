@@ -1,0 +1,361 @@
+QAIRT Tools
+***********
+
+Accuracy Evaluator
+------------------
+
+Refer to qairt-accuracy-evaluator section in `qairt-accuracy-evaluator-(beta) <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qairt-accuracy-evaluator-(beta)>`__
+
+This tool can be used only for Non-LLMs for Cloud AI backend.
+
+Example on Cloud AI Backend
+'''''''''''''''''''''''''''
+
+Example of running EfficientNet_b0 model with fp16 precision with Accuracy Evaluator
+
+-  Install packages mentioned in `additional-packages-for-evaluating-model-accuracy <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/linux_setup.html#step-6-(optional):-additional-packages-for-evaluating-model-accuracy>`__
+
+-  Run qairt-accuracy-evaluator for model EfficientNet_b0 model 
+ -  With config efficientNet_b0_config.yaml  
+ -  Cleanup intermediate files
+ -  On device id 5
+ -  Run for inference with schema tag "qnn_fp16"
+
+  ::
+
+    qairt-accuracy-evaluator -config efficientNet_b0_config.yaml -cleanup intermediate -inference_schema_tag qnn_fp16 -work_dir WORKING_DIR_PATH -silent -device_id 5
+
+ -  efficientNet_b0_config.yaml  
+
+    .. dropdown:: efficientNet_b0_config.yaml
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           .. code-block:: yaml
+           
+            model:
+             info:
+                 desc: EfficientNet-b0 reference public model used.
+                 batchsize: 1
+             globals:
+                 count: -1
+                 calib: -1
+                 npi_file: efficientNet_b0_config.json
+             dataset:
+                 name: ILSVRC2012
+                 path: '/home/ml-datasets/imageNet/'
+                 inputlist_file: inputlist.txt
+                 annotation_file: ground_truth.txt
+                 calibration:
+                     type: dataset
+                     file: calibration.txt
+                 transformations:
+                     - plugin:
+                         name: filter_dataset
+                         params:
+                             random: False
+                             max_inputs: $count
+                             max_calib: $calib
+             preprocessing:
+                 transformations:
+                     - plugin:
+                             name: resize
+                             params:
+                                 library: torchvision
+                                 dims: 224, 224
+                                 interp: bicubic
+                                 type: imagenet
+                                 typecasting_required: False
+                     - plugin:
+                             name: crop
+                             params:
+                                 library: torchvision
+                                 dims: 224,224
+                                 typecasting_required: False
+                     - plugin:
+                             name: normalize
+                             params:
+                                 library: torchvision
+                                 normalize_first: True
+                                 means:
+                                     R: 0.485
+                                     G: 0.456
+                                     B: 0.406
+                                 std:
+                                     R: 0.229
+                                     G: 0.224
+                                     B: 0.225
+                     - plugin:
+                             name: create_batch
+             inference-engine:
+                 model_path: public/efficientnet/efficientnet-b0.onnx
+                 inference_schemas:
+                     - inference_schema:
+                         name: qnn
+                         precision: fp32
+                         target_arch: x86_64-linux-clang
+                         backend: cpu
+                         tag: qnn_fp32,ci
+                     - inference_schema:
+                         name: qnn
+                         precision: fp16
+                         target_arch: x86_64-linux-clang
+                         backend: aic
+                         tag: qnn_fp16,ci
+                         backend_extensions:
+                            compiler_perfWarnings: True
+                         netrun_params:
+                            use_native_input_data: True
+                            use_native_output_data: True
+                         converter_params:
+                            float_bitwidth: 16
+                            float_bias_bitwidth: 32
+                            preserve_io_datatype: True
+                     - inference_schema:
+                         name: qnn
+                         precision: quant
+                         target_arch: x86_64-linux-clang
+                         backend: aic
+                         tag: qnn_int8_mp,ci
+                         converter_params:
+                            float_bias_bitwidth: 32
+                            quantization_overrides: $npi_file
+                         backend_extensions:
+                            compiler_perfWarnings: true
+                            compiler_num_of_cores: 1
+                            compiler_overlap_split_factor: 1
+                            compiler_perfWarnings: True
+                            runtime_num_activations: 14
+                            runtime_threads_per_queue: 4
+                         quantizer_params:
+                            bias_bitwidth: 32
+                            float_bias_bitwidth: 32
+                            act_quantizer_calibration: percentile
+                            act_quantizer_schema: asymmetric
+                            param_quantizer_schema: symmetric
+                            percentile_calibration_value: 99.998
+                            use_per_channel_quantization: True
+                            preserve_io_datatype: True
+                         netrun_params:
+                            use_native_input_data: True
+                            use_native_output_data: True
+                 inputs_info:
+                     - input.1:
+                         type: float32
+                         shape: ["*", 3, 299, 299]
+                 outputs_info:
+                     - _666:
+                         type: float32
+                         shape: ["*", 1000]
+             metrics:
+                 transformations:
+                 - plugin:
+                         name: topk
+                         params:
+                             kval: 1,5
+                             round: 7
+    
+
+ -  efficientNet_b0_config.yaml is provided to retain few nodes in higher precision to maintain accuracy
+
+    .. dropdown:: efficientNet_b0_config.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           .. code-block:: json
+
+             {
+              "activation_encodings": {
+                  "_380": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_381": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_417": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_418": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_398": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_399": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_367": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_368": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_366": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_364": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_365": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_384": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_382": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_383": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_362": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_363": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_387": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_388": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_385": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_386": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_454": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_455": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ]
+              },
+              "param_encodings": {}
+             }
+
+
+Accuracy Debugger
+-----------------
+
+Refer to qairt-accuracy-debugger section in `qairt-accuracy-debugger-(beta) <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qairt-accuracy-debugger-(beta)>`__
+
+It is supported only Non-LLMs for Cloud AI backend
+
+Example on Cloud AI Backend
+'''''''''''''''''''''''''''
+
+Example of running EfficientNet_b0 model with fp16 precision with Accuracy Evaluator
+
+-  EfficientNetB0 Framework_Runner stage to get intermediate ouputs with onnx
+
+ -  Model efficientnet-b0.onnx
+ -  For input tensor "'input.1' 1,3,224,224 input.raw float32"
+ -  Output tensor "666"
+
+  ::
+
+   qairt-accuracy-debugger --framework_runner --framework onnx --model_path efficientnet-b0.onnx --working_dir RUNNER_WORKING_DIR --output_dirname fw_runner --disable_graph_optimization --verbose --input_tensor 'input.1' 1,3,224,224 input.raw float32 --output_tensor '666'  
+
+-  EfficientNetB0 Inference_Engine stage for INT8 precision to get the intermedicate output with QAIRT engine with Cloud AI as backend
+
+ -  For runtime "aic" backend(Cloud AI)
+ -  Host type x86
+ -  For input tensor "'input.1' 1,3,224,224 input.raw float32"
+ -  Output tensor "666"
+ -  Symmetric quantization to be used parameter and activations 
+
+  ::
+
+   qairt-accuracy-debugger --inference_engine --model_path efficientnet-b0.onnx --runtime aic --architecture x86_64-linux-clang --input_list qnn_efficientNet_b0_list.txt --calibration_input_list qnn_efficientNet_b0_list.txt --working_dir INF_WORKING_DIR --output_dirname InferenceResults --executor_type QAIRT --engine_path SDK_PATH --verbose --host_device x86 --profiling_level basic --log_level error --debug_mode_off --bias_bitwidth 32 --param_quantizer_schema symmetric --act_quantizer_schema symmetric --param_quantizer_calibration min-max --use_per_channel_quantization --input_tensor 'input.1' 1,3,224,224 input.raw float32 --output_tensor '666'  "
+
+ -  Input list qnn_efficientNet_b0_list.txt
+
+  ::
+
+   input:=/PATH_TO_MODEL_INPUT/model-inputs/inputs/224x224/batch_size_1/./input.raw
+
+-  EfficientNetB0 Verification stage for Int8 precision to compare outputs generated by framework runner (onnx) and Inference Engine(cloud AI backend) using CosineSimilarity 
+
+ -  Use verifier as CosineSimilarity
+ -  Outputs will be available at WORKING_DIR
+
+  ::
+
+   qairt-accuracy-debugger --verification --default_verifier CosineSimilarity --working_dir WORKING_DIR --verbose --golden_output_reference_directory RUNNER_WORKING_DIR --inference_results INF_WORKING_DIR/InferenceResults/output/Result_0/'
+
+Hyper-Tuner
+-----------
+
+.. include:: Hypertuner/index.rst
+

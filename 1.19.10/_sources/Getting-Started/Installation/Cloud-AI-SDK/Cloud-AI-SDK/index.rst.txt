@@ -1,0 +1,418 @@
+.. _reference-to-cloud-ai-sdk:
+
+Cloud AI SDK
+============
+
+SDK Installation
+----------------
+
+The Platform and Apps SDKs are targeted for Linux-based platforms. 
+The SDKs can be installed natively on Linux operating systems. 
+Containers and orchestration are also supported through Docker and Kubernetes.
+Virtual machines, including KVM, ESXi, and Hyper-V, are also supported.
+This section covers:
+
+-  Installation of the SDKs across multiple Linux distributions
+-  Building a Docker image with the SDKs and third-party packages for a
+   seamless execution of QAic inference tools/workflow
+-  Setting up KVM, ESXi, and Hyper-V, and installation of SDKs
+
+Compilation and Execution modes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apps and Platform SDKs enable just-in-time (JIT) or ahead-of-time (AOT)
+compilation and execution on x86-64 and AArch64 platforms.
+
+In JIT mode, compilation and execution are tightly coupled and require
+Apps and Platform SDKs to be installed on the same system/VM.
+
+In AOT mode, compilation and execution are decoupled. Networks can be
+compiled ahead-of-time and the compiled networks can be deployed on
+x86-64 or AArch64 with Platform SDK.
+
+Both JIT and AOT are supported when Apps and Platform SDK are
+installed on the same server/VM.
+
+.. _reference-to-hardware-requirements:
+
+Hardware Requirements
+~~~~~~~~~~~~~~~~~~~~~
+
+- CPU - Server grade x86 or ARM multi-core CPU
+- RAM - minimum 512 GB (recommend 768GB or higher)
+
+  - Required for the compilation of large models and corresponding configurations like batch size, context length etc.
+- Storage - minimum 1TB (recommend 4TB)
+
+  - Large storage is recommended to store multiple models (and associated artifacts), serialized engines etc.
+
+.. _reference-to-Supported-Operating-Systems:
+
+Supported Operating Systems, Hypervisors, and Platforms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Cloud AI Platform SDK is compatible with the following operating
+systems (OS) and platforms.
+
+Operating Systems
+^^^^^^^^^^^^^^^^^^
+
++-------------------------------+---------------------------------------+
+| **Operating systems**         | **Kernel**                            |
++===============================+=======================================+
+| Ubuntu 20.04                  | Default Kernel (GA or HWE)            |
++-------------------------------+---------------------------------------+
+| Ubuntu 22.04                  | Default Kernel (GA or HWE)            |
++-------------------------------+---------------------------------------+
+| Ubuntu 24.04                  | Default Kernel (GA or HWE)            |
++-------------------------------+---------------------------------------+
+| Red Hat Enterprise Linux 8.10 | Default Kernel                        |
++-------------------------------+---------------------------------------+
+| Red Hat Enterprise Linux 9.5  | Default Kernel                        |
++-------------------------------+---------------------------------------+
+| Amazon Linux 2                | Amazon 5.10 Kernel                    |
++-------------------------------+---------------------------------------+
+| Amazon Linux 2023             | Default Kernel                        |
++-------------------------------+---------------------------------------+
+
++-------------------------------+---------------------------------------+
+| ``Note1``: Arm is a trademark                                         |
+| of Arm Limited (or its                                                |
+| subsidiaries) in the US                                               |
+| and/or elsewhere.                                                     |
++-------------------------------+---------------------------------------+
+| ``Note2``: Ultra cards                                                |
+| consume 4 DRM/Accel device                                            |
+| resources per card. Kernels                                           |
+| prior to 6.2 are limited to                                           |
+| 64 DRM device resources for                                           |
+| the entire system. Using                                              |
+| Ubuntu 22.04 with the HWE                                             |
+| kernel is recommended as the                                          |
+| resource limit is 256 Accel                                           |
+| devices. Deployments with                                             |
+| large numbers of Ultra cards                                          |
+| that do not follow this                                               |
+| recommendation may not be                                             |
+| able to use all the combined                                          |
+| hardware resources of the                                             |
+| Ultra cards.                                                          |
++-------------------------------+---------------------------------------+
+| ``Note3``: Amazon Linux 2                                             |
+| support available only for                                            |
+| x86-64 platforms.                                                     |
++-------------------------------+---------------------------------------+
+
+Hypervisors
+^^^^^^^^^^^^
+
+Cloud AI only supports PCIe passthrough to a virtual machine. This means
+that the virtual machine completely owns the Cloud AI device. A single
+Cloud AI device cannot be shared between virtual machines or between a
+virtual machine and the native host.
+
+
++------------------------------------------------+---------------------+--------------+
+|Hypervisor	                                 |       x86-64        |    AArch64   |
++================================================+=====================+==============+
+|KVM	                                         |           ✔         |      ✗       |
++------------------------------------------------+---------------------+--------------+
+|Hyper-V	                                 |           ✔         |      ✗       |
++------------------------------------------------+---------------------+--------------+
+|ESXi	                                         |           ✔         |      ✗       |
++------------------------------------------------+---------------------+--------------+
+|Xen	                                         |           ✔         |      ✗       |
++------------------------------------------------+---------------------+--------------+
+|``Note`` Cloud AI SDKs are not required to be installed on the hypervisor.           |
+|All the Cloud AI software/SDKs are installed on the guest VMs.	                      |
++-------------------------------------------------------------------------------------+
+
+SDK Download Instructions
+-------------------------
+
+Version 1.12 onwards, Platform and Apps SDK can only be downloaded from
+`Qualcomm Package Manager <https://qpm.qualcomm.com/>`__.
+
+1. login to `Qualcomm Package Manager <https://qpm.qualcomm.com/>`__.
+   First time users need to register for a Qualcomm ID.
+2. Click on **Tools**
+3. | In the Filter pane on the left, **check Linux** and **uncheck
+     Windows**.
+   | In the search box, type **Cloud AI**.
+   | Click on **Qualcomm® Cloud AI Products** to reveal the SDKs
+     available.
+
+4. | For Platform SDK, click **Qualcomm® Cloud AI Platform SDK**.
+   | For Apps SDK, click **Qualcomm® Cloud AI Apps SDK**.
+
+5. Two drop down lists are present, one for the OS and one for the
+   version of the SDK. Select **Linux (Debian)** and **SDK Version** from the
+   drop down lists. 
+
+.. image:: ../../../../images/qpm_download_sdk.png
+
+6. Click the **Download** button to download the SDK.
+
+.. _reference-to-platform-sdk:
+
+Platform SDK
+-------------
+
+-  | The downloaded Platform SDK file is named
+     **aic_platform.Core.<majorversion.minorversion.patchversion.buildversion>.Linux-AnyCPU.zip**.
+   | For example: aic\_platform.Core.1.19.10.0.Linux-AnyCPU.zip.
+
+-  On the host machine, log in as root or use ``sudo`` to have the right
+   permissions to complete installation
+-  Copy the Platform SDK downloaded from the Qualcomm Portal to the host
+   machine
+-  Log in to the host machine (ssh or local terminal)
+-  Unzip the downloaded zip file to a working directory
+-  ``cd`` to the working directory
+
+.. info::
+   :collapsible: open
+
+   The Platform SDK contains collaterals for x86-rpm, x86-deb, aarch64-rpm 
+   and aarch64-deb. Confirm the architecture and linux package format that 
+   works for your setup.                                                   
+
+
+The Platform SDK (qaic-platform-sdk-``<major.minor.patch.build>``) is
+composed of the following tree structure.
+
+::
+
+    ├── aarch64
+    │   ├── deb
+    │   │   ├── deb
+    │   │   ├── deb-docker
+    │   │   ├── deb-perf
+    │   │   └── Workload
+    │   ├── rpm
+    │   │   ├── rpm
+    │   │   ├── rpm-docker
+    │   │   ├── rpm-perf
+    │   │   └── Workload
+    │   └── test_suite
+    │       ├── pcietool
+    │       └── powerstress
+    ├── common
+    │   ├── qaic-test-data
+    │   └── sectools
+    └── x86_64
+        ├── deb
+        │   ├── deb
+        │   ├── deb-docker
+        │   └── Workload
+        ├── rpm
+        │   ├── rpm
+        │   ├── rpm-docker
+        │   └── Workload
+        └── test_suite
+            ├── pcietool
+            └── powerstress
+
+Uninstall existing Platform SDK
+
+::
+
+    cd <architecture>/<deb/rpm>
+    sudo ./uninstall.sh
+    sync
+   
+Run the install.sh script as root or with sudo to install with superuser
+permissions. Installation may take up to 30 mins depending on the number
+of Cloud AI cards in the server/VM. Cloud AI cards undergo resets
+several times during the installation.
+
+Upgrading to SDK 1.19 is a 2-step process:
+
+1. In the first step we need to prepare each SoC to accept the 1.19 SBL
+   bootloader firmware
+2. In the second step we upgrade to the 1.19 SBL bootloader firmware
+
+For Hybrid boot cards (PCIe CEM form factor cards), run:
+
+::
+
+   cd <architecture>/<deb/rpm>
+
+   sudo ./install.sh --no_auto_upgrade_sbl    # For VM on ESXi hypervisor, also add the --datapath_polling option
+   sudo ./install.sh --ecc enable
+
+   # Allow server to initialize all devices
+   sleep 10
+
+   # List QIDs in the system
+   sudo /opt/qti-aic/tools/qaic-util -q | grep -e QID
+
+   # Update SoC, repeat for all QIDs in the system.
+   sudo /opt/qti-aic/tools/qaic-firmware-updater -d <QID> -f 
+
+   # Reset cards.
+   sudo /opt/qti-aic/tools/qaic-util -s
+
+To check qmonitor service is active or inactive - use the below command
+
+::
+
+   ```
+   sudo systemctl is-active qmonitor-proxy
+   ```
+
+In case you need to stop and start Qmonitor server, please use below
+commands.
+
+::
+
+   sudo /opt/qti-aic/scripts/qaic-monitor-service.sh stop
+
+   sudo /opt/qti-aic/scripts/qaic-monitor-service.sh start
+
+For Flashless boot cards (less common), run:
+
+::
+
+   sudo ./install.sh --ecc enable   
+   # For VM on ESXi hypervisor, run
+   sudo ./install.sh --datapath_polling --ecc enable
+
+To enable mdp, disable acs, increase the mmap limit & ulimit value, use
+``--setup_mdp all`` option. 
+
+::
+
+  sudo ./install.sh --setup_mdp all
+
+On successful installation of the platform SDK, the contents shown below
+are stored in /opt/qti-aic:
+
+::
+
+    config  dev  examples  exec  firmware  lib  services  test-data  tools  versions
+
+Check Platform SDK version using
+
+::
+
+    sudo /opt/qti-aic/tools/qaic-version-util --platform
+
+Add user to the qaic group to allow command-line tools to run without
+sudo:
+
+::
+
+    sudo usermod -a -G qaic $USER
+
+Verify card operation
+~~~~~~~~~~~~~~~~~~~~~~
+
+Refer to :ref:`Verify Card
+Operation <reference-to-checklist>`
+
+.. _reference-to-apps-sdk:
+
+Apps SDK
+---------
+
+
+-  The downloaded Apps SDK file is named
+   **aic_apps.Core.<majorversion.minorversion.patchversion.buildversion>.Linux-AnyCPU.zip**.
+   For example: aic_apps.Core.1.19.10.0.Linux-AnyCPU.zip.
+-  Copy the SDK over to the linux host machine.
+-  unzip the downloaded file.
+
+.. info::
+   :collapsible: open
+
+   The Apps SDK contains collaterals for AArch64 and x86-64. Confirm the architecture and linux package format that works for your setup. 
+
+-  The Apps SDK (qaic-apps-``<major.minor.patch.build version>``) is
+   composed of the following tree structure.
+
+::
+
+   ├── aarch64
+   │   ├── deb
+   │   │   ├── dev
+   │   │   │   ├── hexagon_tools
+   │   │   │   └── lib
+   │   │   ├── exec
+   │   │   |   ├── qaic-exec
+   │   │   |   └── qaic-opstats
+   │   │   ├── qaic-encrypt
+   │   │   |   ├── qaic_verify_attestation
+   │   │   |   └── qwes_certs
+   │   │   ├── scripts
+   │   │   |   └── qaic-model-configurator
+   │   │   ├── tools
+   │   │   |   ├── custom-ops
+   │   │   |   └── smart-nms
+   │   │   └── versions
+   ├── common
+   │   ├── dev
+   │   |   ├── inc
+   │   |   ├── lib
+   │   |   └── python
+   │   ├── examples
+   │   |   ├── apps
+   │   |   └── scripts
+   │   ├── integrations
+   │   |   ├── kserve
+   │   |   ├── qaic_onnxrt
+   │   |   ├── tgi
+   │   |   ├── triton
+   │   |   └── vllm
+   │   ├── scripts
+   │   |   └── qaic-prepare-model
+   │   ├── tools
+   │   |   ├── aic-manager
+   │   |   ├── docker-build
+   │   |   ├── graph-analysis-engine
+   │   |   ├── k8s-device-plugin
+   │   |   ├── opstats-profiling
+   │   |   ├── package-generator
+   │   |   ├── qaic-inference-optimizer
+   │   |   ├── qaic-pytools
+   │   |   ├── rcnn-exporter
+   │   |   └── qaic-version-util
+   ├── x86_64
+   │   ├── deb
+   │   |   ├── dev
+   │   |   ├── exec
+   │   |   ├── qaic-encrypt
+   │   |   ├── scripts
+   │   |   ├── tools
+   │   |   └── versions
+   │   ├── rpm
+   │   |   ├── dev
+   │   |   ├── exec
+   │   |   ├── qaic-encrypt
+   │   |   ├── scripts
+   │   |   ├── tools
+   │   |   └── versions
+
+Install Apps SDK
+~~~~~~~~~~~~~~~~~
+
+-  | Uninstall existing Apps SDK
+   | ``sudo ./uninstall.sh``
+
+-  | Run the install.sh script as root or with sudo to install with root
+     permissions.
+   | ``sudo ./install.sh --enable-qaic-pytools``
+
+-  | On successful installation of the Apps SDK, the contents are stored
+     to the /opt/qti-aic path under the dev and exec directories:
+   | ``dev exec integrations scripts``
+
+-  | Check the Apps SDK version with the following command
+   | ``cat /opt/qti-aic/versions/apps.xml``
+
+-  Apply chmod commands
+
+   ::
+
+       sudo chmod a+x /opt/qti-aic/dev/hexagon_tools/bin/*
+       sudo chmod a+x /opt/qti-aic/exec/*

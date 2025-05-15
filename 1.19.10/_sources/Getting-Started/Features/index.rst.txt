@@ -1,0 +1,17 @@
+Features
+========
+
+This section provides insights into the Cloud AI SDK capabilities to
+enable high-performance inference and improve development/deployment of
+deep learning inference on Cloud AI accelerators.
+
+-  :ref:`Data Types <reference_to_datatype_support>`
+-  :doc:`Custom Operators <custom_ops/index>`
+-  :doc:`Model Sharding <./model_sharding/index>`
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   custom_ops/index
+   model_sharding/index

@@ -1,0 +1,2789 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../_static/favicon.ico">
+    
+    
+      
+        <title>Custom Operations (C++) - Qualcomm® Cloud AI SDK User Guide</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.813663d4a0a048e28.min.css?v=f4bc32d8" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=62d18361" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=62d18361" />
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#custom-operations-workflow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-header__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../_static/logo.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Qualcomm® Cloud AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Custom Operations (C++)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../index.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">User Guide</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../Python-API/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../FAQ/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">FAQ</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">Blogs</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-nav__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../_static/logo.png" alt="logo">
+    </a>
+    Qualcomm® Cloud AI SDK User Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">User Guide</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">User Guide</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        <span class="md-ellipsis">Introduction</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Quick-Start-Guide/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Quick Start Guide</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Installation/index.html"><span class="md-ellipsis">Installation</span></a>
+          
+            <label for="__nav_1_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Installation</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Checklist/checklist/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Checklist</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Pre-requisites/pre-requisites/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Pre-<wbr>requisites</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Cloud-AI-SDK/Cloud-AI-SDK/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Cloud AI SDK</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Hypervisors/hypervisor/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Hypervisors</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3_5" type="checkbox" id="__nav_1_3_5" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Installation/Docker/index.html"><span class="md-ellipsis">Containers</span></a>
+          
+            <label for="__nav_1_3_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Containers" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Containers</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Docker/Docker/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Docker</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/Docker/k8s/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Kubernetes</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Triton Inference Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/vLLM/vLLM/index.html" class="md-nav__link">
+        <span class="md-ellipsis">v<wbr>LLM</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/AWS/aws/index.html" class="md-nav__link">
+        <span class="md-ellipsis">AWS</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Installation/TGI/tgi/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Text Generation Inference</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Inference-Workflow/index.html"><span class="md-ellipsis">Inference Workflow</span></a>
+          
+            <label for="__nav_1_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Inference Workflow" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Inference Workflow</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_1" type="checkbox" id="__nav_1_4_1" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Inference-Workflow/Export-the-model/index.html"><span class="md-ellipsis">Export the Model</span></a>
+          
+            <label for="__nav_1_4_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Export the Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Export the Model</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/Export-the-model/Export-the-Model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Exporting ONNX Model from Different Frameworks</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/Export-the-model/Operator-and-Datatype-support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Operator and Datatype support</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/Export-the-model/Prepare-the-model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Introduction to the Model Preparator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_2" type="checkbox" id="__nav_1_4_2" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Inference-Workflow/model-compilation/index.html"><span class="md-ellipsis">Compile the Model</span></a>
+          
+            <label for="__nav_1_4_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Compile the Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Compile the Model</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-compilation/Compile-the-Model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Compile the Model</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-compilation/Tune-performance/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Tune Performance</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_3" type="checkbox" id="__nav_1_4_3" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Inference-Workflow/model-execution/index.html"><span class="md-ellipsis">Execute the QPC</span></a>
+          
+            <label for="__nav_1_4_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Execute the QPC" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Execute the QPC</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-execution/model-execution-options/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Execute the QPC</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Inference-Workflow/model-execution/Inference-Profiling/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Inference Profiling</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PyTorch-Workflow/Eager-Mode-Finetune/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Pytorch Workflow</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Model-Architecture-Support/index.html"><span class="md-ellipsis">Model Architecture Support</span></a>
+          
+            <label for="__nav_1_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Model Architecture Support" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Model Architecture Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Model-Architecture-Support/Large-Language-Models/llm/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Large Language Models <wbr>(LLMs)</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../index.html"><span class="md-ellipsis">Features</span></a>
+          
+            <label for="__nav_1_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Features</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Custom Operations <wbr>(C++)</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Custom Operations <wbr>(C++)</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operations-workflow" class="md-nav__link">
+    <span title="custom operations workflow (reference label)" class="md-ellipsis">Custom Operations workflow</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operation-package" class="md-nav__link">
+    <span title="custom operation package (reference label)" class="md-ellipsis">Custom Operation package</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-a-custom-operation" class="md-nav__link">
+    <span title="modeling a custom operation (reference label)" class="md-ellipsis">Modeling a custom operation</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-file" class="md-nav__link">
+    <span title="configuration file (reference label)" class="md-ellipsis">Configuration File</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-operation-functions" class="md-nav__link">
+    <span title="custom operation functions (reference label)" class="md-ellipsis">Custom Operation Functions</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verification-function" class="md-nav__link">
+    <span title="verification function (reference label)" class="md-ellipsis">Verification Function</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shape-inference-function" class="md-nav__link">
+    <span title="shape inference function (reference label)" class="md-ellipsis">Shape Inference Function</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-function" class="md-nav__link">
+    <span title="selection function (reference label)" class="md-ellipsis">Selection Function</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-operation-implementations" class="md-nav__link">
+    <span title="custom operation implementations (reference label)" class="md-ellipsis">Custom Operation Implementations</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpreter-implementation" class="md-nav__link">
+    <span title="interpreter implementation (reference label)" class="md-ellipsis">Interpreter Implementation</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreter Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-information-and-implementations" class="md-nav__link">
+    <span title="configuration information and implementations (reference label)" class="md-ellipsis">Configuration information and implementations</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aic-implementation" class="md-nav__link">
+    <span title="aic implementation (reference label)" class="md-ellipsis">AIC Implementation</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AIC Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-information-and-aic-implementations" class="md-nav__link">
+    <span title="configuration information and aic implementations (reference label)" class="md-ellipsis">Configuration information and AIC implementations</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-tiled-custom-ops" class="md-nav__link">
+    <span title="writing tiled custom ops (reference label)" class="md-ellipsis">Writing tiled custom ops</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requesting-scratch-memory" class="md-nav__link">
+    <span title="requesting scratch memory (reference label)" class="md-ellipsis">Requesting scratch memory</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-configuration-for-the-aic-backend" class="md-nav__link">
+    <span title="memory configuration for the aic backend (reference label)" class="md-ellipsis">Memory configuration for the AIC backend</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronize-threads-on-the-aic-backend" class="md-nav__link">
+    <span title="synchronize threads on the aic backend (reference label)" class="md-ellipsis">Synchronize threads on the AIC backend</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-messages-on-aic-backend" class="md-nav__link">
+    <span title="logging messages on aic backend (reference label)" class="md-ellipsis">Logging messages on AIC backend</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datatype-support" class="md-nav__link">
+    <span class="md-ellipsis">Datatype support</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capabilities-and-limitations" class="md-nav__link">
+    <span title="capabilities and limitations (reference label)" class="md-ellipsis">Capabilities and limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qualcomm-hexagon-hvx-documentation" class="md-nav__link">
+    <span title="qualcomm hexagon hvx documentation (reference label)" class="md-ellipsis">Qualcomm Hexagon HVX documentation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    <span class="md-ellipsis">Compilation</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">Examples</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_sharding/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Model Sharding</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../System-Management/index.html"><span class="md-ellipsis">System Management</span></a>
+          
+            <label for="__nav_1_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="System Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">System Management</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../System-Management/system-management/index.html" class="md-nav__link">
+        <span class="md-ellipsis">System Management</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../System-Management/aic-manager/index.html" class="md-nav__link">
+        <span class="md-ellipsis">AIC-<wbr>manager</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Architecture/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Architecture</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_10" type="checkbox" id="__nav_1_10" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../qnn-aic/general/index.html"><span class="md-ellipsis">QAIRT SDK</span></a>
+          
+            <label for="__nav_1_10">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="QAIRT SDK" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_10">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">QAIRT SDK</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/QAIRT-SDK-Installation/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT SDK Installation</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/QAIRT-Software-architecture/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Software architecture</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/QAIRT-Integration-Workflow/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Integration Workflow</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/QAIRT-Model-Compilation-and-execution/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Model Compilation and execution</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/Tutorial/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Tutorial</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/Precision-support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Precision support</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/Supported-Operations/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Supported Operations</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/Addition-of-Custom-op/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Addition of Custom-<wbr>op</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/QAIRT-Tools/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../qnn-aic/general/APIs/index.html" class="md-nav__link">
+        <span class="md-ellipsis">APIs</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Glossary/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Glossary</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Python-API/index.html"><span class="md-ellipsis">Python API</span></a>
+          
+            <label for="__nav_2_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Python API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Python API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaic/qaic/index.html" class="md-nav__link">
+        <span class="md-ellipsis">qaic package</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaicrt/class_util/index.html" class="md-nav__link">
+        <span class="md-ellipsis">class Util</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaicrt/class_InferenceBenchmarkSet/index.html" class="md-nav__link">
+        <span class="md-ellipsis">class Inference<wbr>Benchmark<wbr>Set</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Cpp-API/index.html"><span class="md-ellipsis">CPP API</span></a>
+          
+            <label for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="CPP API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">CPP API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/example/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Inference<wbr>Set IO Example</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/features/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Features</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/runtime/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../ONNXRT%20QAIC/index.html"><span class="md-ellipsis">ONNX Runtime</span></a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="ONNX Runtime" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">ONNX Runtime</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ONNXRT%20QAIC/onnxruntime/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIC execution provider</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">FAQ</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">FAQ</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Frequently Asked Questions</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Blogs</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Blogs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Blogs</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Train anywhere, Infer on Qualcomm® Cloud AI 100</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Speculative_Decode/spec_decode_ai100/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Quadruple LLM Decoding Performance with Speculative Decoding <wbr>(Sp<wbr>D) and Microscaling <wbr>(MX) Formats</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/AmberChat/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Accelerate Inference of Fully Transparent Open-<wbr>Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Text_Embeddings/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Extremely Low-<wbr>Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Microscaling/microscaling/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Accelerate Large Language Model Inference by ~2x Using Microscaling <wbr>(Mx) Formats</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operations-workflow" class="md-nav__link">
+    <span title="custom operations workflow (reference label)" class="md-ellipsis">Custom Operations workflow</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-operation-package" class="md-nav__link">
+    <span title="custom operation package (reference label)" class="md-ellipsis">Custom Operation package</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-a-custom-operation" class="md-nav__link">
+    <span title="modeling a custom operation (reference label)" class="md-ellipsis">Modeling a custom operation</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-file" class="md-nav__link">
+    <span title="configuration file (reference label)" class="md-ellipsis">Configuration File</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-operation-functions" class="md-nav__link">
+    <span title="custom operation functions (reference label)" class="md-ellipsis">Custom Operation Functions</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verification-function" class="md-nav__link">
+    <span title="verification function (reference label)" class="md-ellipsis">Verification Function</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shape-inference-function" class="md-nav__link">
+    <span title="shape inference function (reference label)" class="md-ellipsis">Shape Inference Function</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-function" class="md-nav__link">
+    <span title="selection function (reference label)" class="md-ellipsis">Selection Function</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-operation-implementations" class="md-nav__link">
+    <span title="custom operation implementations (reference label)" class="md-ellipsis">Custom Operation Implementations</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Operation Implementations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpreter-implementation" class="md-nav__link">
+    <span title="interpreter implementation (reference label)" class="md-ellipsis">Interpreter Implementation</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreter Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-information-and-implementations" class="md-nav__link">
+    <span title="configuration information and implementations (reference label)" class="md-ellipsis">Configuration information and implementations</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aic-implementation" class="md-nav__link">
+    <span title="aic implementation (reference label)" class="md-ellipsis">AIC Implementation</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AIC Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-information-and-aic-implementations" class="md-nav__link">
+    <span title="configuration information and aic implementations (reference label)" class="md-ellipsis">Configuration information and AIC implementations</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-tiled-custom-ops" class="md-nav__link">
+    <span title="writing tiled custom ops (reference label)" class="md-ellipsis">Writing tiled custom ops</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requesting-scratch-memory" class="md-nav__link">
+    <span title="requesting scratch memory (reference label)" class="md-ellipsis">Requesting scratch memory</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-configuration-for-the-aic-backend" class="md-nav__link">
+    <span title="memory configuration for the aic backend (reference label)" class="md-ellipsis">Memory configuration for the AIC backend</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronize-threads-on-the-aic-backend" class="md-nav__link">
+    <span title="synchronize threads on the aic backend (reference label)" class="md-ellipsis">Synchronize threads on the AIC backend</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-messages-on-aic-backend" class="md-nav__link">
+    <span title="logging messages on aic backend (reference label)" class="md-ellipsis">Logging messages on AIC backend</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datatype-support" class="md-nav__link">
+    <span class="md-ellipsis">Datatype support</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capabilities-and-limitations" class="md-nav__link">
+    <span title="capabilities and limitations (reference label)" class="md-ellipsis">Capabilities and limitations</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qualcomm-hexagon-hvx-documentation" class="md-nav__link">
+    <span title="qualcomm hexagon hvx documentation (reference label)" class="md-ellipsis">Qualcomm Hexagon HVX documentation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    <span class="md-ellipsis">Compilation</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">Examples</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="custom-operations-c">Custom Operations (C++)<a class="headerlink" href="#custom-operations-c" title="Permalink to this heading">¶</a></h1>
+<p>Custom operation allows users to add an operation into the graph, which
+is unknown to Cloud AI (aka QAic) Compiler. For example, a certain graph
+is not part of the operation set supported for the various models that
+the compiler knows to load and compile. As will be described later in
+the page, with custom operations, users can <em>register</em> a new operation
+prior to loading/defining the graph, and then use this new operation in
+the new graph created. QAic Compiler will use the registration
+information to create a Graph which can be compiled.</p>
+<figure class="align-default">
+<img alt="image" src="../../../_images/custom_operations_1.png" />
+</figure>
+<p>As an example, ONNX node definition supports <strong>Domains</strong>. A user can
+create an ONNX model file which has nodes that come from the non-default
+domain, register these nodes definition in QAic Compiler.</p>
+<h2 id="custom-operations-workflow">Custom Operations workflow<a class="headerlink" href="#custom-operations-workflow" title="Permalink to this heading">¶</a></h2>
+<p>There are three high-level stages to create and work with a custom
+operation.</p>
+<figure class="align-default">
+<img alt="image" src="../../../_images/custom_operations_2.png" />
+</figure>
+<p>The first stage is to create the custom operation in one of the machine
+learning frameworks such as PyTorch or TensorFlown.
+After creating this operation, it is added to a machine learning model
+and the model is trained. The resulted model trained is stored for
+inference - either as ONNX file, Torchscript, TensorFlow savedmodel, or
+else. For each framework/trained-model, the way to specify a custom
+operation is a bit different, and as such the way QAic Compiler knows to
+identify the custom operation varies. Current version supports Custom
+Operations for ONNX Models. More details on it below.</p>
+<p>The second stage is to prepare a package for the custom operation/s,
+which contains:</p>
+<ul class="simple">
+<li><p>The information needed for QAic Compiler to integrate the operations
+in the ML graph.</p></li>
+<li><p>Implementations to be used when compiling the graph to a binary. The
+content of this stage is explained in details on next sections.</p></li>
+</ul>
+<p>The third stage is compilation. In order to compile a model that has the
+custom operation inside, the operation package needs to be registered
+first. After successful registration, the model can be loaded and
+compiled using <strong>qaic-exec</strong>.</p>
+<h2 id="custom-operation-package">Custom Operation package<a class="headerlink" href="#custom-operation-package" title="Permalink to this heading">¶</a></h2>
+<p>The custom operations package is prepared by the developer, and contains
+all files needed to register operations within the compiler. Custom
+operations package is tagged with a version number to ensure that users
+custom op package is compatible with the installed Apps SDK.</p>
+<p>As described in previous section, the developer created a custom
+operation in a machine learning framework, and used it to train a model,
+and export a model with this custom op. The files in the custom
+operations package are used by the QAic Compiler to compile that model
+into a binary.</p>
+<p>The drawing below shows the content of a package, and the next sections
+describe each component in details.</p>
+<figure class="align-default">
+<img alt="image" src="../../../_images/custom_operations_4.png" />
+</figure>
+<p>Briefly:</p>
+<ul class="simple">
+<li><p>The configuration file describes the version number, custom
+operations and related files, and is used by the QAic Compiler to
+bootstrap the package, registering its content within the compiler.</p></li>
+<li><p>Custom Op Function files (<code class="docutils literal notranslate"><span class="pre">Foo1OpFunc.so</span></code>, <code class="docutils literal notranslate"><span class="pre">Foo2OpFunc.so</span></code>)
+contain utility functions used by the compiler during compilation of
+the model.</p></li>
+<li><p>Implementation files contain the implementations of the operations
+for different compilation targets. Also, per operation it is possible
+to provide multiple implementations (selected by the <code class="docutils literal notranslate"><span class="pre">selection</span></code>
+function - see below).</p></li>
+</ul>
+<p>Although the custom op package can be written as described in the next
+sections, it is recommended to use the utility script provided here -
+<em>/opt/qti-aic/tools/custom-op/gen_custom_op_package.py</em> to generate
+skeleton structure of the above described custom op package. Script
+takes in a ONNX or Tensorflow model and generates package for each
+custom operation present in the input model. For more details run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">python3</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">custom</span><span class="o">-</span><span class="n">op</span><span class="o">/</span><span class="n">gen_custom_op_package</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">help</span>
+</code></pre></div>
+</div>
+<p>After the skeleton code is generated for custom ops, user needs to write
+the necesary functionality that is specific to custom op, like the the
+kernel, verification, selection, shape inference function as described
+in the next sections.</p>
+<h3 id="modeling-a-custom-operation">Modeling a custom operation<a class="headerlink" href="#modeling-a-custom-operation" title="Permalink to this heading">¶</a></h3>
+<p>To better understand the content of the package, this section briefly
+discusses what is needed to model any machine learning operation, so
+that it can be placed in a graph and compiled. The folloiwng drawing
+shows modeling of one operation.</p>
+<figure class="align-default">
+<img alt="image" src="../../../_images/custom_operations_5.png" />
+</figure>
+<p><strong>Operation Info</strong> block represents the modeling of the operation itself
+as a <em>black box</em> which needs to be connected inside a graph. In order to
+do that, need to provide basic information on the operation (name,
+type), as well as describing the inputs, outputs and parameters of the
+operation.</p>
+<figure class="align-default">
+<img alt="image" src="../../../_images/custom_operations_6.png" />
+</figure>
+<p>Any operation in a machine learning graph (not just custom operations)
+can be modeled by defining its set of inputs, outputs and parameters.
+The inputs and outputs are tensors. Inputs come from the operations
+before this one, and outputs are the tensors created by the operation,
+and provided to the operation/s that come afterwards. For the inputs and
+outputs, the developer needs to specify the maximal rank supported by
+the operation. The actual values per dimension will be populated by the
+compiler during graph creation Parameters are the constant values
+provided to the operation as part of the configuration: for example,
+kernel size, alpha value, and so on. Parameters can be scalar (single
+value) or a vector of values.</p>
+<p>In addition to the Operation Info, the modeling of the operation
+includes a collection of utility functions and implementations.</p>
+<p><strong>Utility functions</strong> help the compiler during the compilation. The
+developer is required to implement the following functions.</p>
+<ul class="simple">
+<li><p>Verification function: receives a set of inputs, outputs and
+parameters, populated with actual values that the operation is going
+to work on. The function should validate that the values are correct
+and the operation can support this combination.</p></li>
+<li><p>Shape inference function: receives a set of inputs and parameters,
+populated with actual values that the operation is going to work on.
+The function is doing shape inference of the outputs: for example, it
+returns what will be the tensor size on each dimension.</p></li>
+<li><p>Selection function: receives a set of inputs, outputs and parameters,
+populated with actual values that the operation is going to work on.
+In addition it receives the compilation target (AIC or Interpreter).
+The function returns a string containing the name of the adequate
+implementation to use for this configuration. More details on that
+below.</p></li>
+</ul>
+<h3 id="configuration-file">Configuration File<a class="headerlink" href="#configuration-file" title="Permalink to this heading">¶</a></h3>
+<p>The configuration file is part of the custom operation package provided
+by the developer. There is a single configuration file which provides
+the required information for all operations in package. The file is YAML
+formatted. Below is an example of a configuration file for a single
+operation.</p>
+<figure class="align-default">
+<img alt="image" src="../../../_images/custom_operations_7.png" />
+</figure>
+<p>Configuration file contains a <code class="docutils literal notranslate"><span class="pre">version</span></code> number which indicates the
+custom op package version. It is used by the compiler to verify
+compatibility of custom op pakage and the installed Apps SDK.</p>
+<p>Operations are described in <code class="docutils literal notranslate"><span class="pre">CustomOps</span></code> section. Each operation
+section has the following:</p>
+<ul class="simple">
+<li><p>Operation Info, defining the operation <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">type</span></code>,
+<code class="docutils literal notranslate"><span class="pre">inputs</span></code>, <code class="docutils literal notranslate"><span class="pre">outputs</span></code> and <code class="docutils literal notranslate"><span class="pre">params</span></code>.</p>
+<ul>
+<li><p>For each input / output, the relevant fields are the <code class="docutils literal notranslate"><span class="pre">name</span></code> and
+<code class="docutils literal notranslate"><span class="pre">maxDims</span></code> (maximal rank of the tensor)</p></li>
+<li><p>For input, there is also optional constant field, which can be
+true/false, to indicate if it is a constant.</p></li>
+<li><p>For each param, the relevant fields are <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">datatype</span></code>
+(bool/float/int), <code class="docutils literal notranslate"><span class="pre">scalar</span></code> (true/false).</p></li>
+<li><p>If param <code class="docutils literal notranslate"><span class="pre">scalar</span></code> field is <code class="docutils literal notranslate"><span class="pre">false</span></code>, meaning this is an array
+(1d vector), and then need to provide <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p></li>
+<li><p>Optionally, user can request for scratch memory which can be used
+to store and load intermediate computations inside the kernel.</p></li>
+</ul>
+</li>
+<li><p>Location of the custom operation functions</p></li>
+<li><p>Implementations</p></li>
+</ul>
+<p>The information provided per implementation is:</p>
+<ul class="simple">
+<li><p>target <code class="docutils literal notranslate"><span class="pre">Backend</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type</span></code>: used by the backend during selection process (see
+explanation next).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">impl</span></code>: location of the implementation file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config</span></code> (optional): additional information on this implementation,
+to be used by the backend.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compilerArgs</span></code> (optional): hexagon-clang compiler options specific
+to the AIC backend implementation. This can be used to specify
+additional include directories, compile time MACROS, and so on. User
+is responsible for passing valid compilation options using this
+field.</p></li>
+</ul>
+<p>The configuration file can provide the information for multiple
+operations. in this case, each operation is defined in a separated YAML
+section. Below is an example for how such configuration file would look
+like.</p>
+<figure class="align-default">
+<img alt="image" src="../../../_images/custom_operations_8.png" />
+</figure>
+<h3 id="custom-operation-functions">Custom Operation Functions<a class="headerlink" href="#custom-operation-functions" title="Permalink to this heading">¶</a></h3>
+<p>The developer is required to provide a shared library which has three
+functions: Verification, Shape inference, and selection. The path to the
+shared library, as well as the library name, is specified in
+<code class="docutils literal notranslate"><span class="pre">functionsLibrary</span></code> field of the configuration file.</p>
+<p>The API of these functions is C, and defined in <em>CustomOpFunctions.h</em>.
+The types used are defined in <em>CustomOpTypes.h</em>.</p>
+<h4 id="verification-function">Verification Function<a class="headerlink" href="#verification-function" title="Permalink to this heading">¶</a></h4>
+<p>The verification function is used by the compiler at graph construction
+stage, to validate that the custom operation implementation supports the
+combination of inputs, outputs, and parameters.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="n">C</span><span class="o">++</span><span class="p">}</span>
+   <span class="nb">bool</span> <span class="n">customOpVerify</span><span class="p">(</span><span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numInputs</span><span class="p">,</span>
+                       <span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">outputs</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numOutputs</span><span class="p">,</span>
+                       <span class="n">CustomOpParam</span> <span class="o">*</span><span class="n">params</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numParams</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h4 id="shape-inference-function">Shape Inference Function<a class="headerlink" href="#shape-inference-function" title="Permalink to this heading">¶</a></h4>
+<p>The shape inference function is used by the compiler at graph
+construction stage to receive the output dimensions expected by the
+custom operation.</p>
+<p>In some models, specifying the output dimensions is optional. As such,
+the compiler has no way to known what will be the output dimensions of a
+custom operation (for internal known operations, it has shape inference
+functions).</p>
+<p>The function receives the input dimensions and parameters, and is
+expected to fill in the correct output dimensions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="n">C</span><span class="o">++</span><span class="p">}</span>
+   <span class="nb">bool</span> <span class="n">customOpInferShape</span><span class="p">(</span><span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">outputs</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">numOutputs</span><span class="p">,</span>
+                           <span class="n">const</span> <span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">numInputs</span><span class="p">,</span>
+                           <span class="n">const</span> <span class="n">CustomOpParam</span> <span class="o">*</span><span class="n">params</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">numParams</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h4 id="selection-function">Selection Function<a class="headerlink" href="#selection-function" title="Permalink to this heading">¶</a></h4>
+<p>By design, the Custom Op functionality allows user to provide multiple
+implementations suitable for different configurations.</p>
+<p>For example, provide implementation for float vs one for integer,
+provide specialized implementation for specific parameter value, and so
+on.</p>
+<p>The developer implements this function to return the adequate <em>flavor</em>
+of custom op implementation based on the node configuration (inputs,
+outputs, parameters) The returned string represents the flavor. Used by
+the Backend Op repository to select the proper implementation based on
+configuration info (see details on config info).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="n">C</span><span class="o">++</span><span class="p">}</span>
+   <span class="n">const</span> <span class="n">char</span> \<span class="o">*</span><span class="n">customOpSelectImpl</span><span class="p">(</span><span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numInputs</span><span class="p">,</span>
+                                   <span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">outputs</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numOutputs</span><span class="p">,</span>
+                                   <span class="n">CustomOpParam</span> <span class="o">*</span><span class="n">params</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numParams</span><span class="p">,</span>
+                                   <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">backend</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="custom-operation-implementations">Custom Operation Implementations<a class="headerlink" href="#custom-operation-implementations" title="Permalink to this heading">¶</a></h3>
+<p>The developer is required to provide suitable implementations for the
+compilation targets (Interpreter, AIC) and correctly register them in
+the configuration file.</p>
+<p>This section describes the implementations signatures and relation with
+the configuration file. The SDK comes with custom op examples which show
+how such implementations look like, and how do they get build</p>
+<h4 id="interpreter-implementation">Interpreter Implementation<a class="headerlink" href="#interpreter-implementation" title="Permalink to this heading">¶</a></h4>
+<p>The interpreter implementation is provided to the compiler as a shared
+library (or collection of shared libraries). Each shared library can
+contain multiple versions (flavors) of implementations of the operation,
+refered onwards as <em>kernels</em>. A kernel is selected at model compilation
+time by the selection function. The developer is responsible for
+compilation of these shared libraries. As the interface is C, the shared
+libraries can be compiled by various compilers (GCC, CLANG, and so on).
+In addition, as these shared libraries are running on the Host CPU, the
+developer can open files, dump results, use stdout/stderr for printing
+debug messages, and so on. This makes the Interpreter implementation a
+very effective way for debugging the operation functionality as part of
+model execution.</p>
+<p>The signature of the kernel (implementation) is generic, and fits any
+custom operation. It contains array of input tensors, array of output
+tensors, array of parameters and a pointer to custom op context.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="n">C</span><span class="o">++</span><span class="p">}</span>
+   <span class="n">typedef</span> <span class="n">void</span> <span class="p">(</span><span class="o">*</span><span class="n">customOpInterpreterKernel_t</span><span class="p">)(</span>
+                  <span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numInputs</span><span class="p">,</span>
+                  <span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">outputs</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numOutputs</span><span class="p">,</span>
+                  <span class="n">CustomOpParam</span> <span class="o">*</span><span class="n">params</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numParams</span><span class="p">,</span>
+                  <span class="n">CustomOpContext</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>The signature is defined in
+<em>/opt/qti-aic/dev/inc/CustomOpInterpreterInterface.h</em></p></li>
+<li><p>The relevant types defined in <em>/opt/qti-aic/dev/inc/CustomOpTypes.h</em></p></li>
+<li><p>CustomOpContext is defined in
+<em>/opt/qti-aic/dev/inc/CustomOpContext.h</em></p></li>
+</ul>
+<p>Note that the order of inputs, outputs and parameters has to match the
+order defined in the configuration file. During the model compilation,
+the compiler is organizing the inputs, outputs and params passed to the
+kernel based on that order.</p>
+<p>When creating an implementation, the developer needs to create a kernel
+(or multiple kernels) which has the signature as above and compile it
+into a shared library. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="n">C</span><span class="o">++</span><span class="p">}</span>
+   <span class="n">void</span> <span class="n">customFoo</span> <span class="p">(</span><span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numInputs</span><span class="p">,</span>
+                   <span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">outputs</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numOutputs</span><span class="p">,</span>
+                   <span class="n">CustomOpParam</span> <span class="o">*</span><span class="n">params</span><span class="p">,</span> <span class="n">int32_t</span> <span class="n">numParams</span><span class="p">,</span>
+                   <span class="n">CustomOpContext</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span> <span class="p">{</span>
+   <span class="o">//</span> <span class="n">Foo</span> <span class="n">implementation</span> <span class="ow">is</span> <span class="n">here</span>
+   <span class="p">}</span>
+</code></pre></div>
+</div>
+<p>The next section explains how the mapping between library / kernel name
+and compile-time selection is happening.</p>
+<h5 id="configuration-information-and-implementations">Configuration information and implementations<a class="headerlink" href="#configuration-information-and-implementations" title="Permalink to this heading">¶</a></h5>
+<p>The Compiler uses the information in the <em>implementations</em> section of
+the configuration file, together with the developers provided selection
+function, to allocate the proper implementation/kernel and use it. When
+the target is interpreter, and the compiler encounters a custom
+operation, it does the following:</p>
+<ul>
+<li><p>Calls the selection function.</p></li>
+<li><p>Based on returned string, looks for the specific implementation in
+the <em>implementations</em> section, by trying to make the <code class="docutils literal notranslate"><span class="pre">type</span></code> field
+of each.</p></li>
+<li><p>Once found, opens the shared library which appears under <code class="docutils literal notranslate"><span class="pre">impl</span></code>
+field.</p></li>
+<li><p>Next, tries to get a function pointer (using <code class="docutils literal notranslate"><span class="pre">dlsym()</span></code>), using the
+name specified in type.</p>
+<figure class="align-default">
+<img alt="image" src="../../../_images/custom_operations_9.png" />
+</figure>
+</li>
+</ul>
+<p>As such, developers needs to make sure that the kernel names in the
+code/shared-library match the string appears in the type field.</p>
+<h4 id="aic-implementation">AIC Implementation<a class="headerlink" href="#aic-implementation" title="Permalink to this heading">¶</a></h4>
+<p>The AIC implementation is provided as a C/C++ file. Just like in the
+case of interpreter target, the developer can provide a file (or
+multiple files) with multiple kernels (implementations) of the custom
+operation. The AIC compilation target API is similar to the Interpreter
+API, except for an additional thread identifier, <code class="docutils literal notranslate"><span class="pre">threadId</span></code>, passed to
+it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="n">C</span><span class="o">++</span><span class="p">}</span>
+   <span class="n">typedef</span> <span class="n">void</span> <span class="p">(</span><span class="o">*</span><span class="n">customOpAICKernel_t</span><span class="p">)(</span>
+                  <span class="n">const</span> <span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">numInputs</span><span class="p">,</span>
+                  <span class="n">const</span> <span class="n">CustomOpIOTensor</span> <span class="o">*</span><span class="n">outputs</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">numOutputs</span><span class="p">,</span>
+                  <span class="n">const</span> <span class="n">CustomOpParam</span> <span class="o">*</span><span class="n">params</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">numParams</span><span class="p">,</span>
+                  <span class="n">const</span> <span class="n">CustomOpContext</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">threadID</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p><strong>threadID</strong>: Developer can use up to 4 threads available on the AI
+Core. When the compiler generates the code, it will call the
+implementation 4 times, one time from each thread, passing to it the
+current threadID. This allows the compiler to maximize performance
+during compilation by taking full advantage of the HW. AIC
+implementation signature is defined in
+<em>/opt/qti-aic/dev/inc/CustomOpAICInterface.h</em>.</p>
+<h5 id="configuration-information-and-aic-implementations">Configuration information and AIC implementations<a class="headerlink" href="#configuration-information-and-aic-implementations" title="Permalink to this heading">¶</a></h5>
+<p>Similarly to the Interpreter target, when compiling to AIC target the
+Compiler uses the information in the <em>implementations</em> section of the
+configuration file, together with the developers provided selection
+function, to allocate the proper implementation/kernel and use it.</p>
+<ul>
+<li><p>Calls the selection function.</p></li>
+<li><p>Based on returned string, looks for the specific implementation in
+the <em>implementations</em> section, by trying to make the <code class="docutils literal notranslate"><span class="pre">type</span></code> field
+of each.</p></li>
+<li><p>Once found, looks for the C/C++ file in <code class="docutils literal notranslate"><span class="pre">impl</span></code> field.</p></li>
+<li><p>Next, tries to find a kernel using the name specified in <code class="docutils literal notranslate"><span class="pre">type</span></code>.</p>
+<figure class="align-default">
+<img alt="image" src="../../../_images/custom_operations_10.png" />
+</figure>
+</li>
+</ul>
+<h4 id="writing-tiled-custom-ops">Writing tiled custom ops<a class="headerlink" href="#writing-tiled-custom-ops" title="Permalink to this heading">¶</a></h4>
+<p>Custom operations, by default, are configured to compile and run on one
+NSP. Custom ops can be configured to run in a tiled manner so that
+computation, along with inputs and outputs, can be split and distributed
+across multiple NSPs. Computing on tiled inputs and outputs helps boost
+performance as computation is split to execute in parallel on multiple
+NSPs with reduced memory footprint. Steps that should be followed to
+tile an operation are outlined below.</p>
+<ul class="simple">
+<li><p>Specify tilability of each output of the CustomOp. This is done by
+configuring fields of <code class="docutils literal notranslate"><span class="pre">TileConfig</span></code> datastructure accessible in
+<code class="docutils literal notranslate"><span class="pre">customOpSetTileConfig</span></code> function. This step describes two things:</p></li>
+<li><p>axis along which an output can be sliced to form tiles, and</p></li>
+<li><p>alignment requirement for each axis that should be considered before
+slicing an output to form a tile. See
+<em>/opt/qti-aic/dev/inc/CutomOpTileCon8fig.h</em> for details.</p></li>
+<li><p>Provide the mapping of each output tile to its corresponding input
+tiles using <code class="docutils literal notranslate"><span class="pre">customOpMapTiles</span></code> function. Compiler uses each outputs
+<code class="docutils literal notranslate"><span class="pre">TileConfig</span></code> information to determine its tile size. The tiled
+outputs are made available in the <code class="docutils literal notranslate"><span class="pre">customOpMapTiles</span></code> function so
+that user can provide a mapping of output tiles to corresponding
+input tiles. For example, if compiler splits each output of a custom
+op into N tiles then <code class="docutils literal notranslate"><span class="pre">customOpMapTiles</span></code> will be invoked N times,
+once per output tile.</p></li>
+</ul>
+<p>If the parameters configured by the user in <code class="docutils literal notranslate"><span class="pre">customOpSetTileConfig</span></code>
+and <code class="docutils literal notranslate"><span class="pre">customOpMapTiles</span></code> are valid then compiler will tile the custom
+operation, else the op will not be tiled.</p>
+<p><strong>Note</strong>: NSP cores on the AIC hardware do not have a shared memory. So,
+when an op is tiled, it is important to make sure that all the necessary
+dependency on inputs to compute a tiled output is mapped accurately in
+<code class="docutils literal notranslate"><span class="pre">customOpMapTiles</span></code> function.</p>
+<h4 id="requesting-scratch-memory">Requesting scratch memory<a class="headerlink" href="#requesting-scratch-memory" title="Permalink to this heading">¶</a></h4>
+<p>Custom operations may require scratch memory to store and load
+intermediate computations within the kernel. User can request for such
+scratch memory in the configuration file under <em>Operation Info</em> section
+by specifying the <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code> of the required buffer(s) as
+follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">scratchBuffers</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">scratchBuf1</span>
+    <span class="n">size</span><span class="p">:</span> <span class="mi">1024</span>  <span class="c1"># size in bytes.</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">scratchBuf2</span>
+    <span class="n">size</span><span class="p">:</span> <span class="mi">2048</span>  <span class="c1"># size in bytes.</span>
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>Scratch buffers, allocated by the compiler, exist throughout the
+lifespan of custom op function call, but content is not preserved
+between calls.</p></li>
+<li><p>Compiler makes an effort to allocate these buffers in the device
+VTCM. However, its allocation in the VTCM is not gauranteed.</p></li>
+<li><p>Scratch buffers are accessible only within custom op implementation
+through the <code class="docutils literal notranslate"><span class="pre">CustomOpContext*</span></code>, which is available to every
+implementation.</p></li>
+<li><p>Scratch buffers remain untiled even when the custom op is tiled and
+the scratch buffer size requested by the user is available to each
+tiled custom op.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="n">C</span><span class="o">++</span><span class="p">}</span>
+   <span class="nb">float</span> <span class="o">*</span><span class="n">buf1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span> <span class="o">*</span><span class="p">)</span><span class="n">customOpContext</span><span class="o">-&gt;</span><span class="n">scratchBuffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">buf</span><span class="p">;</span>
+   <span class="nb">int</span> <span class="o">*</span><span class="n">buf2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span> <span class="o">*</span><span class="p">)</span><span class="n">customOpContext</span><span class="o">-&gt;</span><span class="n">scratchBuffers</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">buf</span><span class="p">;</span>
+   <span class="nb">int</span> <span class="n">buf1Size</span> <span class="o">=</span> <span class="n">customOpContext</span><span class="o">-&gt;</span><span class="n">scratchBuffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">;</span>
+   <span class="nb">int</span> <span class="n">buf2Size</span> <span class="o">=</span> <span class="n">customOpContext</span><span class="o">-&gt;</span><span class="n">scratchBuffers</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h4 id="memory-configuration-for-the-aic-backend">Memory configuration for the AIC backend<a class="headerlink" href="#memory-configuration-for-the-aic-backend" title="Permalink to this heading">¶</a></h4>
+<p>VTCM, DDR and CacheableDDR memory locations are available on the device.
+<code class="docutils literal notranslate"><span class="pre">memoryConfig</span></code> in the yaml configuration file can be used to specify a
+memory placement preference for each input, output and scratch buffer
+associated with custom op so that compiler can prioritize buffer
+placement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">-</span> <span class="n">implementation</span>
+  <span class="o">-</span> <span class="n">backend</span><span class="p">:</span> <span class="n">AIC</span>
+      <span class="nb">type</span><span class="p">:</span> <span class="n">funcName</span>
+      <span class="n">impl</span><span class="p">:</span> <span class="n">fileName</span><span class="o">.</span><span class="n">cpp</span>
+      <span class="n">memoryConfig</span><span class="p">:</span>
+        <span class="c1">#DDR/VTCM/CacheableDDR: [&lt;comma separated list of in/out/scratch names&gt;]</span>
+        <span class="n">DDR</span><span class="p">:</span> <span class="p">[</span><span class="n">inName1</span><span class="p">,</span> <span class="n">outName2</span><span class="p">]</span>
+        <span class="n">CacheableDDR</span><span class="p">:</span> <span class="p">[</span><span class="n">inName2</span><span class="p">]</span>
+        <span class="n">VTCM</span><span class="p">:</span> <span class="p">[</span><span class="n">scratchBufName1</span><span class="p">]</span>
+        <span class="n">requiredFor</span><span class="p">:</span> <span class="p">[</span><span class="n">inName2</span><span class="p">,</span> <span class="n">scratchBufName1</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<p>Three preference lists, <code class="docutils literal notranslate"><span class="pre">VTCM</span></code>, <code class="docutils literal notranslate"><span class="pre">DDR</span></code> and <code class="docutils literal notranslate"><span class="pre">CacheableDDR</span></code>, as shown
+above, are available. If an input, output, or scratch buffer is listed
+under <code class="docutils literal notranslate"><span class="pre">VTCM</span></code> list, compiler will make an effort to place the listed
+buffer in the devices VTCM location. However, the placement in VTCM is
+not guaranteed by the compiler. Same holds true for the entries in the
+rn whenever the user preferred memory configuration is not satisfied
+during model compilation.</p>
+<p>If placement of a particular buffer in the specified memory location is
+a stringent requirement then user can indicate it to the compiler using
+<code class="docutils literal notranslate"><span class="pre">requiredFor</span></code> list. If compiler fails to allocate a buffer that is
+listed in <code class="docutils literal notranslate"><span class="pre">requiredFor</span></code> list as per the preference, then model
+compilation will fail with an error message.</p>
+<p>Altering the default memory configuration may change overall performance
+of the model as the memory locations are also used by the compiler for
+other ops in the model. General guideline for better performance is that
+VTCM is efficient for vector memory accesses, <code class="docutils literal notranslate"><span class="pre">CacheableDDR</span></code> is
+efficient for scalar memory accesses, and DDR access is relatively
+slower.</p>
+<h4 id="synchronize-threads-on-the-aic-backend">Synchronize threads on the AIC backend<a class="headerlink" href="#synchronize-threads-on-the-aic-backend" title="Permalink to this heading">¶</a></h4>
+<p>Custom op kernels on the AIC backend can take advantage of 4 threads
+running on the NSP. User can synchronize all threads, if needed, using
+sync function pointer from the CustomOpContext. Usage is shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">customOpContext</span><span class="o">-&gt;</span><span class="n">syncThread</span><span class="p">(</span><span class="n">threadId</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Execution will wait for all threads to reach <code class="docutils literal notranslate"><span class="pre">syncThread</span></code> before
+proceeding.</p>
+<h4 id="logging-messages-on-aic-backend">Logging messages on AIC backend<a class="headerlink" href="#logging-messages-on-aic-backend" title="Permalink to this heading">¶</a></h4>
+<p>AIC backend makes logging available through printf style macros
+<code class="docutils literal notranslate"><span class="pre">AIC_PRINT_*</span></code>, defined in <em>CustomOpLog.h</em>. This allows runtime logging
+on AIC target. 64 bit values require wrapping the argument with
+<code class="docutils literal notranslate"><span class="pre">AIC_LOG64</span></code> macros.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">AIC_PRINT_INFO</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;decimal num: </span><span class="si">%d</span><span class="s2">; unsigned num: </span><span class="si">%u</span><span class="s2">; C-string: </span><span class="si">%s</span><span class="s2">;&quot;</span><span class="p">,</span>
+                     <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="s2">&quot;myCustomOp&quot;</span><span class="p">);</span>
+<span class="n">AIC_PRINT_INFO</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;int64_t HEX num: 0x&quot;</span> <span class="n">AIC_LOG64X_FMT</span><span class="p">,</span> <span class="n">AIC_LOG64_DATA</span><span class="p">(</span><span class="mh">0x1122334455667788</span><span class="p">));</span>
+<span class="n">AIC_PRINT_INFO</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s2">&quot;fp32 num: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mf">3.141590</span><span class="n">f</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Qmonitor service must be running on host for logs to be collected
+automatically. This requires to issue a one-time command on host to
+start Qmonitor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">systemd</span><span class="o">-</span><span class="n">run</span> <span class="o">--</span><span class="n">unit</span><span class="o">=</span><span class="n">qmonitor</span><span class="o">-</span><span class="n">proxy</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">monitor</span><span class="o">-</span><span class="n">grpc</span><span class="o">-</span><span class="n">server</span>
+</code></pre></div>
+</div>
+<p>Different log message types are available: <code class="docutils literal notranslate"><span class="pre">AIC_PRINT_DEBUG</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AIC_PRINT_INFO</span></code>, <code class="docutils literal notranslate"><span class="pre">AIC_PRINT_WARN</span></code>, <code class="docutils literal notranslate"><span class="pre">AIC_PRINT_ERROR</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">AIC_PRINT_FATAL</span></code>, each corresponding to decreasing level of
+verbosity. Compiler option, <code class="docutils literal notranslate"><span class="pre">AIC_CUSTOMOP_LOG_COMPILE_LEVEL</span></code>, controls
+verbosity level which can be set to: <code class="docutils literal notranslate"><span class="pre">AIC_CUSTOMOP_LOG_LEVEL_FATAL</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AIC_CUSTOMOP_LOG_LEVEL_ERROR</span></code>, <code class="docutils literal notranslate"><span class="pre">AIC_CUSTOMOP_LOG_LEVEL_WARN</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AIC_CUSTOMOP_LOG_LEVEL_INFO</span></code> (default), or
+<code class="docutils literal notranslate"><span class="pre">AIC_CUSTOMOP_LOG_LEVEL_DEBUG</span></code>. All message types above given
+verbosity level are filtered out. <code class="docutils literal notranslate"><span class="pre">AIC_CUSTOMOP_LOG_COMPILE_LEVEL</span></code> can
+be overriden through the <code class="docutils literal notranslate"><span class="pre">compilerArgs</span></code> field on the custom op
+configuration <em>yaml</em> file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">implementations</span><span class="p">:</span>
+   <span class="o">-</span> <span class="n">backend</span><span class="p">:</span> <span class="n">AIC</span>
+     <span class="n">compilerArgs</span><span class="p">:</span> <span class="o">-</span><span class="n">DAIC_CUSTOMOP_LOG_COMPILE_LEVEL</span><span class="o">=</span><span class="n">AIC_CUSTOMOP_LOG_LEVEL_ERROR</span>
+</code></pre></div>
+</div>
+<p>Logs are collected under <em>/var/log/qti-aic/QID_*</em> folders, with each
+AIC device having its own folder. A maximum of ten format specifiers can
+be added to a single format string when using <code class="docutils literal notranslate"><span class="pre">AIC_PRINT*()</span></code> with AIC
+backend. <code class="docutils literal notranslate"><span class="pre">AIC_PRINT_*</span></code> macros will map to print when a custom op is
+compiled for backends other than AIC.</p>
+<p>Log verbosity level may also be configured at run time using <em>qaic-log</em>
+tool with <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">NNNetwork</span></code> flags.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">log</span> <span class="o">-</span><span class="n">l</span> <span class="o">&lt;</span><span class="n">log_level</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">c</span> <span class="n">n</span> <span class="o">-</span><span class="n">s</span> <span class="n">NNNetwork</span>
+</code></pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;log-level&gt;</span></code> is first letter of log level, that is any of
+<code class="docutils literal notranslate"><span class="pre">f/e/w/i(default)/d</span></code>. For more details run <code class="docutils literal notranslate"><span class="pre">qaic-log</span> <span class="pre">-h</span></code>.</p>
+<h4 id="datatype-support">Datatype support<a class="headerlink" href="#datatype-support" title="Permalink to this heading">¶</a></h4>
+<p>Custom ops support various data types for tensors and parameters as
+listed in <code class="docutils literal notranslate"><span class="pre">CustomOpDataType</span></code>. The datatype of input and output tensors
+of custom op (<code class="docutils literal notranslate"><span class="pre">CustomOpIOtensor</span></code>) can be one of the following types:
+<code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">float16_ty</span></code> (AIC backend only), and <code class="docutils literal notranslate"><span class="pre">int8_t</span></code>, depending
+on the compilation options chosen by the user. <code class="docutils literal notranslate"><span class="pre">CustomOpTensor</span></code> will
+be of <code class="docutils literal notranslate"><span class="pre">float</span></code> type when model is compiled with float precision.
+Similarly, when model is compiled with <code class="docutils literal notranslate"><span class="pre">-convert-to-fp16</span></code> flag or
+using a quantization profile, tensors will be of <code class="docutils literal notranslate"><span class="pre">float16_ty</span></code> or
+<code class="docutils literal notranslate"><span class="pre">int8_t</span></code> type, respectively. Using different datatypes for tensors is
+currently limited. <code class="docutils literal notranslate"><span class="pre">int8_t</span></code>, <code class="docutils literal notranslate"><span class="pre">int16_t</span></code>, <code class="docutils literal notranslate"><span class="pre">int32_t</span></code>, and <code class="docutils literal notranslate"><span class="pre">int64_t</span></code>
+can also be used to represent index types. Tensors will not be quantized
+when index types are specified in the input model, irrespective of the
+model compilation options chosen.</p>
+<p>When model is quantized using a quantization profile
+<code class="docutils literal notranslate"><span class="pre">CustomOpIOTensor_s</span></code> are quantized using a scale and offset. User can
+dequantize input and output <code class="docutils literal notranslate"><span class="pre">_CustomOpIOTensor</span></code> data using the
+<code class="docutils literal notranslate"><span class="pre">scale</span></code> and <code class="docutils literal notranslate"><span class="pre">offset</span></code> as follows:
+<code class="docutils literal notranslate"><span class="pre">dequant(x)</span> <span class="pre">=</span> <span class="pre">(x</span> <span class="pre">-</span> <span class="pre">offset)</span> <span class="pre">*</span> <span class="pre">scale</span></code>, where <code class="docutils literal notranslate"><span class="pre">scale</span></code> and <code class="docutils literal notranslate"><span class="pre">offset</span></code>
+are accessible from <code class="docutils literal notranslate"><span class="pre">CustomOpContext</span></code> using following APIs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span><span class="n">C</span><span class="o">++</span><span class="p">}</span>
+   <span class="nb">float</span> <span class="n">getInputScale</span><span class="p">(</span><span class="n">const</span> <span class="n">CustomOpContext</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">inputIdx</span><span class="p">);</span>
+   <span class="n">int32_t</span> <span class="n">getInputOffset</span><span class="p">(</span><span class="n">const</span> <span class="n">CustomOpContext</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">inputIdx</span><span class="p">);</span>
+   <span class="nb">float</span> <span class="n">getOutputScale</span><span class="p">(</span><span class="n">const</span> <span class="n">CustomOpContext</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">outputIdx</span><span class="p">);</span>
+   <span class="n">int32_t</span> <span class="n">getOutputOffset</span><span class="p">(</span><span class="n">const</span> <span class="n">CustomOpContext</span> <span class="o">*</span><span class="n">ctx</span><span class="p">,</span> <span class="n">const</span> <span class="n">int32_t</span> <span class="n">outputIdx</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<p>Note that other software components, like <a class="reference external" href="https://github.com/quic/aimet">AI Model Efficiency Toolkit (AIMET)</a> or profile-guided quantization (PGQ) profiler, may
+represent quantization parameters differently, but that does not affect
+how custom ops represent scale and offset.</p>
+<h4 id="capabilities-and-limitations">Capabilities and limitations<a class="headerlink" href="#capabilities-and-limitations" title="Permalink to this heading">¶</a></h4>
+<p>The custom operation code can use any basic C/C++ functionality,
+including control code, loops, etc. In addition, the code can use HVX
+intrinsic for utilizing the embedded vector units. See next section for
+details. The code is limited to run on a single AI Core of the overall
+number of available cores. This limitation may be lifted on future
+releases.</p>
+<p>The developer should be aware of the following limitations when creating
+an AIC implementation:</p>
+<ul class="simple">
+<li><p>Typical OS services do not exists on the HW. Code cannot use STDIO to
+write logs, attempt to open files or create new threads.</p></li>
+<li><p>Dynamic Memory allocation is not supported. Only static memory
+allocation is allowed within the implementation. Avoid using 1)
+malloc/new, 2) STD data types (like <code class="docutils literal notranslate"><span class="pre">std::vector</span></code> which requires
+dynamic allocation), 3) defining arrays with size not known at
+compile time (like <code class="docutils literal notranslate"><span class="pre">array[argument</span> <span class="pre">#6]</span></code>).</p></li>
+</ul>
+<h4 id="qualcomm-hexagon-hvx-documentation">Qualcomm Hexagon HVX documentation<a class="headerlink" href="#qualcomm-hexagon-hvx-documentation" title="Permalink to this heading">¶</a></h4>
+<p>When writing code to run on AIC, the developer can use HVX intrinsic to
+utilize the internal vector units of the AI Core.</p>
+<p>For documentation on HVX intrinsic, please go to Qualcomm Developer
+Network website, Hexagon SDK SW page:
+<a class="reference external" href="https://developer.qualcomm.com/software/hexagon-dsp-sdk/tools">https://developer.qualcomm.com/software/hexagon-dsp-sdk/tools</a> and
+download the document named <em>Qualcomm Hexagon V66 HVX Programmers
+Reference Manual</em>.</p>
+<h2 id="compilation">Compilation<a class="headerlink" href="#compilation" title="Permalink to this heading">¶</a></h2>
+<p>As explained in <strong>Compiler Tools</strong>, qaic-exec is a command-line sample
+application, provided in the Apps SDK both as code and as prebuilt
+binary. It supports compiling and running a model.</p>
+<p>For supporting custom operations, a new command-line option was added to
+qaic-exec.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">-</span><span class="n">register</span><span class="o">-</span><span class="n">custom</span><span class="o">-</span><span class="n">op</span><span class="o">=&lt;</span><span class="n">config</span><span class="o">-</span><span class="n">file</span><span class="o">&gt;</span>           <span class="n">Register</span> <span class="n">custom</span> <span class="n">op</span> <span class="n">using</span> <span class="n">this</span> <span class="n">configuration</span> <span class="n">file</span>
+                                            <span class="n">Specify</span> <span class="n">multiple</span> <span class="n">times</span> <span class="n">to</span> <span class="n">register</span> <span class="n">multiple</span> <span class="n">configs</span>
+</code></pre></div>
+</div>
+<p>Here is an example for running qaic-exec with a model which has custom
+operations, and providing a configuration file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">exec</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">exec</span> <span class="o">-</span><span class="n">m</span><span class="o">=./</span><span class="n">mlp_custom</span><span class="o">.</span><span class="n">onnx</span> <span class="o">-</span><span class="n">register</span><span class="o">-</span><span class="n">custom</span><span class="o">-</span><span class="n">op</span><span class="o">=./</span><span class="n">CustomReluConfig</span><span class="o">.</span><span class="n">yaml</span>
+<span class="o">-</span><span class="n">aic</span><span class="o">-</span><span class="n">hw</span> <span class="o">-</span><span class="n">aic</span><span class="o">-</span><span class="n">hw</span><span class="o">-</span><span class="n">version</span><span class="o">=</span><span class="mf">2.0</span> <span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="nb">list</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="nb">input</span><span class="o">.</span><span class="n">list</span> <span class="o">-</span><span class="n">write</span><span class="o">-</span><span class="n">output</span><span class="o">-</span><span class="nb">dir</span><span class="o">=./</span>
+<span class="o">-</span><span class="n">write</span><span class="o">-</span><span class="n">output</span><span class="o">-</span><span class="n">start</span><span class="o">-</span><span class="nb">iter</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span><span class="n">write</span><span class="o">-</span><span class="n">output</span><span class="o">-</span><span class="n">num</span><span class="o">-</span><span class="n">samples</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></div>
+</div>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<p>End-to-end examples of custom operations is available in the APPS SDK at
+<code class="docutils literal notranslate"><span class="pre">/opt/qti-aic/examples/apps/custom-op/</span></code>.</p>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Features" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Features
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../model_sharding/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: Model Sharding" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Model Sharding
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2025 Qualcomm Innovation Center, Inc.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    7.1.2.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": ["latest"], "title": "1.19.10", "version": "1.19.10"}, {"aliases": [], "title": "1.19.8", "version": "1.19.8"}, {"aliases": [], "title": "1.19", "version": "1.19"}, {"aliases": [], "title": "1.18", "version": "1.18"}, {"aliases": [], "title": "1.17", "version": "1.17"}, {"aliases": [], "title": "1.16", "version": "1.16"}, {"aliases": [], "title": "1.15", "version": "1.15"}], "versionPath": null}}</script>
+    
+      
+        <script src="../../../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    
+  </body>
+</html>

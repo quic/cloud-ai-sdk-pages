@@ -1,0 +1,2426 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../../_static/favicon.ico">
+    
+    
+      
+        <title>Cloud AI SDK - Qualcomm® Cloud AI SDK User Guide</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_immaterial_theme.813663d4a0a048e28.min.css?v=f4bc32d8" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=62d18361" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=62d18361" />
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sdk-installation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-header__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../../_static/logo.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Qualcomm® Cloud AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cloud AI SDK
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../index.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">User Guide</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../Python-API/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../FAQ/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">FAQ</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">Blogs</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-nav__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../../_static/logo.png" alt="logo">
+    </a>
+    Qualcomm® Cloud AI SDK User Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">User Guide</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">User Guide</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        <span class="md-ellipsis">Introduction</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quick-Start-Guide/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Quick Start Guide</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../index.html"><span class="md-ellipsis">Installation</span></a>
+          
+            <label for="__nav_1_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Installation</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Checklist/checklist/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Checklist</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pre-requisites/pre-requisites/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Pre-<wbr>requisites</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Cloud AI SDK</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Cloud AI SDK</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sdk-installation" class="md-nav__link">
+    <span title="sdk installation (reference label)" class="md-ellipsis">SDK Installation</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SDK Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compilation-and-execution-modes" class="md-nav__link">
+    <span title="compilation and execution modes (reference label)" class="md-ellipsis">Compilation and Execution modes</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-requirements" class="md-nav__link">
+    <span title="hardware requirements (reference label)" class="md-ellipsis">Hardware Requirements</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-operating-systems-hypervisors-and-platforms" class="md-nav__link">
+    <span title="supported operating systems, hypervisors, and platforms (reference label)" class="md-ellipsis">Supported Operating Systems, Hypervisors, and Platforms</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported Operating Systems, Hypervisors, and Platforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operating-systems" class="md-nav__link">
+    <span class="md-ellipsis">Operating Systems</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypervisors" class="md-nav__link">
+    <span class="md-ellipsis">Hypervisors</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sdk-download-instructions" class="md-nav__link">
+    <span title="sdk download instructions (reference label)" class="md-ellipsis">SDK Download Instructions</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-sdk" class="md-nav__link">
+    <span title="platform sdk (reference label)" class="md-ellipsis">Platform SDK</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-card-operation" class="md-nav__link">
+    <span title="verify card operation (reference label)" class="md-ellipsis">Verify card operation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apps-sdk" class="md-nav__link">
+    <span title="apps sdk (reference label)" class="md-ellipsis">Apps SDK</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Apps SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-apps-sdk" class="md-nav__link">
+    <span title="install apps sdk (reference label)" class="md-ellipsis">Install Apps SDK</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hypervisors/hypervisor/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Hypervisors</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3_5" type="checkbox" id="__nav_1_3_5" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Docker/index.html"><span class="md-ellipsis">Containers</span></a>
+          
+            <label for="__nav_1_3_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Containers" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Containers</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Docker/Docker/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Docker</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Docker/k8s/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Kubernetes</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Triton Inference Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vLLM/vLLM/index.html" class="md-nav__link">
+        <span class="md-ellipsis">v<wbr>LLM</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AWS/aws/index.html" class="md-nav__link">
+        <span class="md-ellipsis">AWS</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TGI/tgi/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Text Generation Inference</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/index.html"><span class="md-ellipsis">Inference Workflow</span></a>
+          
+            <label for="__nav_1_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Inference Workflow" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Inference Workflow</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_1" type="checkbox" id="__nav_1_4_1" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/Export-the-model/index.html"><span class="md-ellipsis">Export the Model</span></a>
+          
+            <label for="__nav_1_4_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Export the Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Export the Model</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Export-the-Model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Exporting ONNX Model from Different Frameworks</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Operator-and-Datatype-support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Operator and Datatype support</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Prepare-the-model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Introduction to the Model Preparator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_2" type="checkbox" id="__nav_1_4_2" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/model-compilation/index.html"><span class="md-ellipsis">Compile the Model</span></a>
+          
+            <label for="__nav_1_4_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Compile the Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Compile the Model</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-compilation/Compile-the-Model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Compile the Model</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-compilation/Tune-performance/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Tune Performance</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_3" type="checkbox" id="__nav_1_4_3" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/model-execution/index.html"><span class="md-ellipsis">Execute the QPC</span></a>
+          
+            <label for="__nav_1_4_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Execute the QPC" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Execute the QPC</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/model-execution-options/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Execute the QPC</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/Inference-Profiling/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Inference Profiling</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PyTorch-Workflow/Eager-Mode-Finetune/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Pytorch Workflow</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Model-Architecture-Support/index.html"><span class="md-ellipsis">Model Architecture Support</span></a>
+          
+            <label for="__nav_1_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Model Architecture Support" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Model Architecture Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Model-Architecture-Support/Large-Language-Models/llm/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Large Language Models <wbr>(LLMs)</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Features/index.html"><span class="md-ellipsis">Features</span></a>
+          
+            <label for="__nav_1_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Features</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Features/custom_ops/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Custom Operations <wbr>(C++)</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Features/model_sharding/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Model Sharding</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../System-Management/index.html"><span class="md-ellipsis">System Management</span></a>
+          
+            <label for="__nav_1_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="System Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">System Management</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System-Management/system-management/index.html" class="md-nav__link">
+        <span class="md-ellipsis">System Management</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System-Management/aic-manager/index.html" class="md-nav__link">
+        <span class="md-ellipsis">AIC-<wbr>manager</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Architecture/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Architecture</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_10" type="checkbox" id="__nav_1_10" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../qnn-aic/general/index.html"><span class="md-ellipsis">QAIRT SDK</span></a>
+          
+            <label for="__nav_1_10">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="QAIRT SDK" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_10">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">QAIRT SDK</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-SDK-Installation/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT SDK Installation</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-Software-architecture/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Software architecture</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-Integration-Workflow/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Integration Workflow</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-Model-Compilation-and-execution/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Model Compilation and execution</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/Tutorial/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Tutorial</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/Precision-support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Precision support</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/Supported-Operations/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Supported Operations</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/Addition-of-Custom-op/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Addition of Custom-<wbr>op</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/QAIRT-Tools/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIRT Tools</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../qnn-aic/general/APIs/index.html" class="md-nav__link">
+        <span class="md-ellipsis">APIs</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Glossary/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Glossary</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../Python-API/index.html"><span class="md-ellipsis">Python API</span></a>
+          
+            <label for="__nav_2_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Python API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Python API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaic/qaic/index.html" class="md-nav__link">
+        <span class="md-ellipsis">qaic package</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaicrt/class_util/index.html" class="md-nav__link">
+        <span class="md-ellipsis">class Util</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaicrt/class_InferenceBenchmarkSet/index.html" class="md-nav__link">
+        <span class="md-ellipsis">class Inference<wbr>Benchmark<wbr>Set</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../Cpp-API/index.html"><span class="md-ellipsis">CPP API</span></a>
+          
+            <label for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="CPP API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">CPP API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/example/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Inference<wbr>Set IO Example</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/features/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Features</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/runtime/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../ONNXRT%20QAIC/index.html"><span class="md-ellipsis">ONNX Runtime</span></a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="ONNX Runtime" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">ONNX Runtime</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ONNXRT%20QAIC/onnxruntime/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIC execution provider</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">FAQ</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">FAQ</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FAQ/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Frequently Asked Questions</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Blogs</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Blogs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Blogs</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Train anywhere, Infer on Qualcomm® Cloud AI 100</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Speculative_Decode/spec_decode_ai100/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Quadruple LLM Decoding Performance with Speculative Decoding <wbr>(Sp<wbr>D) and Microscaling <wbr>(MX) Formats</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/AmberChat/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Accelerate Inference of Fully Transparent Open-<wbr>Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Text_Embeddings/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Extremely Low-<wbr>Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Microscaling/microscaling/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Accelerate Large Language Model Inference by ~2x Using Microscaling <wbr>(Mx) Formats</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sdk-installation" class="md-nav__link">
+    <span title="sdk installation (reference label)" class="md-ellipsis">SDK Installation</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SDK Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compilation-and-execution-modes" class="md-nav__link">
+    <span title="compilation and execution modes (reference label)" class="md-ellipsis">Compilation and Execution modes</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hardware-requirements" class="md-nav__link">
+    <span title="hardware requirements (reference label)" class="md-ellipsis">Hardware Requirements</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-operating-systems-hypervisors-and-platforms" class="md-nav__link">
+    <span title="supported operating systems, hypervisors, and platforms (reference label)" class="md-ellipsis">Supported Operating Systems, Hypervisors, and Platforms</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported Operating Systems, Hypervisors, and Platforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operating-systems" class="md-nav__link">
+    <span class="md-ellipsis">Operating Systems</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypervisors" class="md-nav__link">
+    <span class="md-ellipsis">Hypervisors</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sdk-download-instructions" class="md-nav__link">
+    <span title="sdk download instructions (reference label)" class="md-ellipsis">SDK Download Instructions</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-sdk" class="md-nav__link">
+    <span title="platform sdk (reference label)" class="md-ellipsis">Platform SDK</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-card-operation" class="md-nav__link">
+    <span title="verify card operation (reference label)" class="md-ellipsis">Verify card operation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apps-sdk" class="md-nav__link">
+    <span title="apps sdk (reference label)" class="md-ellipsis">Apps SDK</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Apps SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-apps-sdk" class="md-nav__link">
+    <span title="install apps sdk (reference label)" class="md-ellipsis">Install Apps SDK</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="cloud-ai-sdk"><span id="reference-to-cloud-ai-sdk"></span>Cloud AI SDK<a class="headerlink" href="#cloud-ai-sdk" title="Permalink to this heading">¶</a></h1>
+<h2 id="sdk-installation">SDK Installation<a class="headerlink" href="#sdk-installation" title="Permalink to this heading">¶</a></h2>
+<p>The Platform and Apps SDKs are targeted for Linux-based platforms.
+The SDKs can be installed natively on Linux operating systems.
+Containers and orchestration are also supported through Docker and Kubernetes.
+Virtual machines, including KVM, ESXi, and Hyper-V, are also supported.
+This section covers:</p>
+<ul class="simple">
+<li><p>Installation of the SDKs across multiple Linux distributions</p></li>
+<li><p>Building a Docker image with the SDKs and third-party packages for a
+seamless execution of QAic inference tools/workflow</p></li>
+<li><p>Setting up KVM, ESXi, and Hyper-V, and installation of SDKs</p></li>
+</ul>
+<h3 id="compilation-and-execution-modes">Compilation and Execution modes<a class="headerlink" href="#compilation-and-execution-modes" title="Permalink to this heading">¶</a></h3>
+<p>Apps and Platform SDKs enable just-in-time (JIT) or ahead-of-time (AOT)
+compilation and execution on x86-64 and AArch64 platforms.</p>
+<p>In JIT mode, compilation and execution are tightly coupled and require
+Apps and Platform SDKs to be installed on the same system/VM.</p>
+<p>In AOT mode, compilation and execution are decoupled. Networks can be
+compiled ahead-of-time and the compiled networks can be deployed on
+x86-64 or AArch64 with Platform SDK.</p>
+<p>Both JIT and AOT are supported when Apps and Platform SDK are
+installed on the same server/VM.</p>
+<h3 id="hardware-requirements"><span id="reference-to-hardware-requirements"></span>Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>CPU - Server grade x86 or ARM multi-core CPU</p></li>
+<li><p>RAM - minimum 512 GB (recommend 768GB or higher)</p>
+<ul>
+<li><p>Required for the compilation of large models and corresponding configurations like batch size, context length etc.</p></li>
+</ul>
+</li>
+<li><p>Storage - minimum 1TB (recommend 4TB)</p>
+<ul>
+<li><p>Large storage is recommended to store multiple models (and associated artifacts), serialized engines etc.</p></li>
+</ul>
+</li>
+</ul>
+<h3 id="supported-operating-systems-hypervisors-and-platforms"><span id="reference-to-supported-operating-systems"></span>Supported Operating Systems, Hypervisors, and Platforms<a class="headerlink" href="#supported-operating-systems-hypervisors-and-platforms" title="Permalink to this heading">¶</a></h3>
+<p>The Cloud AI Platform SDK is compatible with the following operating
+systems (OS) and platforms.</p>
+<h4 id="operating-systems">Operating Systems<a class="headerlink" href="#operating-systems" title="Permalink to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Operating systems</strong></p></th>
+<th class="head"><p><strong>Kernel</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ubuntu 20.04</p></td>
+<td><p>Default Kernel (GA or HWE)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ubuntu 22.04</p></td>
+<td><p>Default Kernel (GA or HWE)</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu 24.04</p></td>
+<td><p>Default Kernel (GA or HWE)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.10</p></td>
+<td><p>Default Kernel</p></td>
+</tr>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.5</p></td>
+<td><p>Default Kernel</p></td>
+</tr>
+<tr class="row-odd"><td><p>Amazon Linux 2</p></td>
+<td><p>Amazon 5.10 Kernel</p></td>
+</tr>
+<tr class="row-even"><td><p>Amazon Linux 2023</p></td>
+<td><p>Default Kernel</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils data align-default">
+<tbody>
+<tr class="row-odd"><td colspan="2"><p><code class="docutils literal notranslate"><span class="pre">Note1</span></code>: Arm is a trademark
+of Arm Limited (or its
+subsidiaries) in the US
+and/or elsewhere.</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p><code class="docutils literal notranslate"><span class="pre">Note2</span></code>: Ultra cards
+consume 4 DRM/Accel device
+resources per card. Kernels
+prior to 6.2 are limited to
+64 DRM device resources for
+the entire system. Using
+Ubuntu 22.04 with the HWE
+kernel is recommended as the
+resource limit is 256 Accel
+devices. Deployments with
+large numbers of Ultra cards
+that do not follow this
+recommendation may not be
+able to use all the combined
+hardware resources of the
+Ultra cards.</p></td>
+</tr>
+<tr class="row-odd"><td colspan="2"><p><code class="docutils literal notranslate"><span class="pre">Note3</span></code>: Amazon Linux 2
+support available only for
+x86-64 platforms.</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="hypervisors">Hypervisors<a class="headerlink" href="#hypervisors" title="Permalink to this heading">¶</a></h4>
+<p>Cloud AI only supports PCIe passthrough to a virtual machine. This means
+that the virtual machine completely owns the Cloud AI device. A single
+Cloud AI device cannot be shared between virtual machines or between a
+virtual machine and the native host.</p>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Hypervisor</p></th>
+<th class="head"><p>x86-64</p></th>
+<th class="head"><p>AArch64</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>KVM</p></td>
+<td><p>✔</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hyper-V</p></td>
+<td><p>✔</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-even"><td><p>ESXi</p></td>
+<td><p>✔</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-odd"><td><p>Xen</p></td>
+<td><p>✔</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><code class="docutils literal notranslate"><span class="pre">Note</span></code> Cloud AI SDKs are not required to be installed on the hypervisor.
+All the Cloud AI software/SDKs are installed on the guest VMs.</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="sdk-download-instructions">SDK Download Instructions<a class="headerlink" href="#sdk-download-instructions" title="Permalink to this heading">¶</a></h2>
+<p>Version 1.12 onwards, Platform and Apps SDK can only be downloaded from
+<a class="reference external" href="https://qpm.qualcomm.com/">Qualcomm Package Manager</a>.</p>
+<ol class="arabic">
+<li><p>login to <a class="reference external" href="https://qpm.qualcomm.com/">Qualcomm Package Manager</a>.
+First time users need to register for a Qualcomm ID.</p></li>
+<li><p>Click on <strong>Tools</strong></p></li>
+<li><div class="line-block">
+<div class="line">In the Filter pane on the left, <strong>check Linux</strong> and <strong>uncheck
+Windows</strong>.</div>
+<div class="line">In the search box, type <strong>Cloud AI</strong>.</div>
+<div class="line">Click on <strong>Qualcomm® Cloud AI Products</strong> to reveal the SDKs
+available.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">For Platform SDK, click <strong>Qualcomm® Cloud AI Platform SDK</strong>.</div>
+<div class="line">For Apps SDK, click <strong>Qualcomm® Cloud AI Apps SDK</strong>.</div>
+</div>
+</li>
+<li><p>Two drop down lists are present, one for the OS and one for the
+version of the SDK. Select <strong>Linux (Debian)</strong> and <strong>SDK Version</strong> from the
+drop down lists.</p></li>
+</ol>
+<img alt="../../../../_images/qpm_download_sdk.png" src="../../../../_images/qpm_download_sdk.png" />
+<ol class="arabic simple" start="6">
+<li><p>Click the <strong>Download</strong> button to download the SDK.</p></li>
+</ol>
+<h2 id="platform-sdk"><span id="reference-to-platform-sdk"></span>Platform SDK<a class="headerlink" href="#platform-sdk" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><div class="line-block">
+<div class="line">The downloaded Platform SDK file is named
+<strong>aic_platform.Core.&lt;majorversion.minorversion.patchversion.buildversion&gt;.Linux-AnyCPU.zip</strong>.</div>
+<div class="line">For example: aic_platform.Core.1.19.10.0.Linux-AnyCPU.zip.</div>
+</div>
+</li>
+<li><p>On the host machine, log in as root or use <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to have the right
+permissions to complete installation</p></li>
+<li><p>Copy the Platform SDK downloaded from the Qualcomm Portal to the host
+machine</p></li>
+<li><p>Log in to the host machine (ssh or local terminal)</p></li>
+<li><p>Unzip the downloaded zip file to a working directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span></code> to the working directory</p></li>
+</ul>
+<details class="info admonition" open="">
+<summary class="admonition-title">Info</summary><p>The Platform SDK contains collaterals for x86-rpm, x86-deb, aarch64-rpm
+and aarch64-deb. Confirm the architecture and linux package format that
+works for your setup.</p>
+</details>
+<p>The Platform SDK (qaic-platform-sdk-<code class="docutils literal notranslate"><span class="pre">&lt;major.minor.patch.build&gt;</span></code>) is
+composed of the following tree structure.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>├── aarch64
+│   ├── deb
+│   │   ├── deb
+│   │   ├── deb-docker
+│   │   ├── deb-perf
+│   │   └── Workload
+│   ├── rpm
+│   │   ├── rpm
+│   │   ├── rpm-docker
+│   │   ├── rpm-perf
+│   │   └── Workload
+│   └── test_suite
+│       ├── pcietool
+│       └── powerstress
+├── common
+│   ├── qaic-test-data
+│   └── sectools
+└── x86_64
+    ├── deb
+    │   ├── deb
+    │   ├── deb-docker
+    │   └── Workload
+    ├── rpm
+    │   ├── rpm
+    │   ├── rpm-docker
+    │   └── Workload
+    └── test_suite
+        ├── pcietool
+        └── powerstress
+</code></pre></div>
+</div>
+<p>Uninstall existing Platform SDK</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">cd</span> <span class="o">&lt;</span><span class="n">architecture</span><span class="o">&gt;/&lt;</span><span class="n">deb</span><span class="o">/</span><span class="n">rpm</span><span class="o">&gt;</span>
+<span class="n">sudo</span> <span class="o">./</span><span class="n">uninstall</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">sync</span>
+</code></pre></div>
+</div>
+<p>Run the install.sh script as root or with sudo to install with superuser
+permissions. Installation may take up to 30 mins depending on the number
+of Cloud AI cards in the server/VM. Cloud AI cards undergo resets
+several times during the installation.</p>
+<p>Upgrading to SDK 1.19 is a 2-step process:</p>
+<ol class="arabic simple">
+<li><p>In the first step we need to prepare each SoC to accept the 1.19 SBL
+bootloader firmware</p></li>
+<li><p>In the second step we upgrade to the 1.19 SBL bootloader firmware</p></li>
+</ol>
+<p>For Hybrid boot cards (PCIe CEM form factor cards), run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">cd</span> <span class="o">&lt;</span><span class="n">architecture</span><span class="o">&gt;/&lt;</span><span class="n">deb</span><span class="o">/</span><span class="n">rpm</span><span class="o">&gt;</span>
+
+<span class="n">sudo</span> <span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">no_auto_upgrade_sbl</span>    <span class="c1"># For VM on ESXi hypervisor, also add the --datapath_polling option</span>
+<span class="n">sudo</span> <span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">ecc</span> <span class="n">enable</span>
+
+<span class="c1"># Allow server to initialize all devices</span>
+<span class="n">sleep</span> <span class="mi">10</span>
+
+<span class="c1"># List QIDs in the system</span>
+<span class="n">sudo</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">util</span> <span class="o">-</span><span class="n">q</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">e</span> <span class="n">QID</span>
+
+<span class="c1"># Update SoC, repeat for all QIDs in the system.</span>
+<span class="n">sudo</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">firmware</span><span class="o">-</span><span class="n">updater</span> <span class="o">-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">QID</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">f</span>
+
+<span class="c1"># Reset cards.</span>
+<span class="n">sudo</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">util</span> <span class="o">-</span><span class="n">s</span>
+</code></pre></div>
+</div>
+<p>To check qmonitor service is active or inactive - use the below command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>```
+sudo systemctl is-active qmonitor-proxy
+```
+</code></pre></div>
+</div>
+<p>In case you need to stop and start Qmonitor server, please use below
+commands.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">monitor</span><span class="o">-</span><span class="n">service</span><span class="o">.</span><span class="n">sh</span> <span class="n">stop</span>
+
+<span class="n">sudo</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">monitor</span><span class="o">-</span><span class="n">service</span><span class="o">.</span><span class="n">sh</span> <span class="n">start</span>
+</code></pre></div>
+</div>
+<p>For Flashless boot cards (less common), run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">ecc</span> <span class="n">enable</span>
+<span class="c1"># For VM on ESXi hypervisor, run</span>
+<span class="n">sudo</span> <span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">datapath_polling</span> <span class="o">--</span><span class="n">ecc</span> <span class="n">enable</span>
+</code></pre></div>
+</div>
+<p>To enable mdp, disable acs, increase the mmap limit &amp; ulimit value, use
+<code class="docutils literal notranslate"><span class="pre">--setup_mdp</span> <span class="pre">all</span></code> option.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">setup_mdp</span> <span class="nb">all</span>
+</code></pre></div>
+</div>
+<p>On successful installation of the platform SDK, the contents shown below
+are stored in /opt/qti-aic:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">config</span>  <span class="n">dev</span>  <span class="n">examples</span>  <span class="n">exec</span>  <span class="n">firmware</span>  <span class="n">lib</span>  <span class="n">services</span>  <span class="n">test</span><span class="o">-</span><span class="n">data</span>  <span class="n">tools</span>  <span class="n">versions</span>
+</code></pre></div>
+</div>
+<p>Check Platform SDK version using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">version</span><span class="o">-</span><span class="n">util</span> <span class="o">--</span><span class="n">platform</span>
+</code></pre></div>
+</div>
+<p>Add user to the qaic group to allow command-line tools to run without
+sudo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>sudo usermod -a -G qaic $USER
+</code></pre></div>
+</div>
+<h3 id="verify-card-operation">Verify card operation<a class="headerlink" href="#verify-card-operation" title="Permalink to this heading">¶</a></h3>
+<p>Refer to <a class="reference internal" href="../../Checklist/checklist/index.html#reference-to-checklist"><span class="std std-ref">Verify Card
+Operation</span></a></p>
+<h2 id="apps-sdk"><span id="reference-to-apps-sdk"></span>Apps SDK<a class="headerlink" href="#apps-sdk" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>The downloaded Apps SDK file is named
+<strong>aic_apps.Core.&lt;majorversion.minorversion.patchversion.buildversion&gt;.Linux-AnyCPU.zip</strong>.
+For example: aic_apps.Core.1.19.10.0.Linux-AnyCPU.zip.</p></li>
+<li><p>Copy the SDK over to the linux host machine.</p></li>
+<li><p>unzip the downloaded file.</p></li>
+</ul>
+<details class="info admonition" open="">
+<summary class="admonition-title">Info</summary><p>The Apps SDK contains collaterals for AArch64 and x86-64. Confirm the architecture and linux package format that works for your setup.</p>
+</details>
+<ul class="simple">
+<li><p>The Apps SDK (qaic-apps-<code class="docutils literal notranslate"><span class="pre">&lt;major.minor.patch.build</span> <span class="pre">version&gt;</span></code>) is
+composed of the following tree structure.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>├── aarch64
+│   ├── deb
+│   │   ├── dev
+│   │   │   ├── hexagon_tools
+│   │   │   └── lib
+│   │   ├── exec
+│   │   |   ├── qaic-exec
+│   │   |   └── qaic-opstats
+│   │   ├── qaic-encrypt
+│   │   |   ├── qaic_verify_attestation
+│   │   |   └── qwes_certs
+│   │   ├── scripts
+│   │   |   └── qaic-model-configurator
+│   │   ├── tools
+│   │   |   ├── custom-ops
+│   │   |   └── smart-nms
+│   │   └── versions
+├── common
+│   ├── dev
+│   |   ├── inc
+│   |   ├── lib
+│   |   └── python
+│   ├── examples
+│   |   ├── apps
+│   |   └── scripts
+│   ├── integrations
+│   |   ├── kserve
+│   |   ├── qaic_onnxrt
+│   |   ├── tgi
+│   |   ├── triton
+│   |   └── vllm
+│   ├── scripts
+│   |   └── qaic-prepare-model
+│   ├── tools
+│   |   ├── aic-manager
+│   |   ├── docker-build
+│   |   ├── graph-analysis-engine
+│   |   ├── k8s-device-plugin
+│   |   ├── opstats-profiling
+│   |   ├── package-generator
+│   |   ├── qaic-inference-optimizer
+│   |   ├── qaic-pytools
+│   |   ├── rcnn-exporter
+│   |   └── qaic-version-util
+├── x86_64
+│   ├── deb
+│   |   ├── dev
+│   |   ├── exec
+│   |   ├── qaic-encrypt
+│   |   ├── scripts
+│   |   ├── tools
+│   |   └── versions
+│   ├── rpm
+│   |   ├── dev
+│   |   ├── exec
+│   |   ├── qaic-encrypt
+│   |   ├── scripts
+│   |   ├── tools
+│   |   └── versions
+</code></pre></div>
+</div>
+<h3 id="install-apps-sdk">Install Apps SDK<a class="headerlink" href="#install-apps-sdk" title="Permalink to this heading">¶</a></h3>
+<ul>
+<li><div class="line-block">
+<div class="line">Uninstall existing Apps SDK</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">./uninstall.sh</span></code></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Run the install.sh script as root or with sudo to install with root
+permissions.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">./install.sh</span> <span class="pre">--enable-qaic-pytools</span></code></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">On successful installation of the Apps SDK, the contents are stored
+to the /opt/qti-aic path under the dev and exec directories:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">dev</span> <span class="pre">exec</span> <span class="pre">integrations</span> <span class="pre">scripts</span></code></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Check the Apps SDK version with the following command</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/opt/qti-aic/versions/apps.xml</span></code></div>
+</div>
+</li>
+<li><p>Apply chmod commands</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="n">chmod</span> <span class="n">a</span><span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">hexagon_tools</span><span class="o">/</span><span class="nb">bin</span><span class="o">/*</span>
+<span class="n">sudo</span> <span class="n">chmod</span> <span class="n">a</span><span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">exec</span><span class="o">/*</span>
+</code></pre></div>
+</div>
+</li>
+</ul>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../Pre-requisites/pre-requisites/index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Pre-requisites" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Pre-requisites
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../Hypervisors/hypervisor/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: Hypervisors" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Hypervisors
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2025 Qualcomm Innovation Center, Inc.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    7.1.2.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": ["latest"], "title": "1.19.10", "version": "1.19.10"}, {"aliases": [], "title": "1.19.8", "version": "1.19.8"}, {"aliases": [], "title": "1.19", "version": "1.19"}, {"aliases": [], "title": "1.18", "version": "1.18"}, {"aliases": [], "title": "1.17", "version": "1.17"}, {"aliases": [], "title": "1.16", "version": "1.16"}, {"aliases": [], "title": "1.15", "version": "1.15"}], "versionPath": null}}</script>
+    
+      
+        <script src="../../../../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../../_static/design-tabs.js?v=36754332"></script>
+    
+  </body>
+</html>

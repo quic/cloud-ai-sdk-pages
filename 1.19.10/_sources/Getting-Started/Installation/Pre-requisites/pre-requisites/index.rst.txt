@@ -1,0 +1,29 @@
+.. _reference-to-pre-requisites:
+
+Pre-requisites
+==============
+
+.. _reference-to-msi:
+
+Message Signaled Interrupts
+----------------------------
+
+The QAic Kernel Driver for Linux requires 32 message signaled interrupts (MSI) for best performance. The QAic Kernel Driver can function with a single MSI, but with reduced performance.  On x86-based host systems, Intel
+VT-d or IOMMU features must be enabled in the BIOS to enable the required number of MSIs.
+
+For host systems using Intel chipsets, ensure that Intel Virtualization (VT-d) is enabled in the BIOS. For host systems using AMD chipsets, ensure that the IOMMU feature is enabled in the BIOS.
+
+.. _reference-to-os-dependencies:
+
+OS Dependencies
+---------------
+
+Linux Kernel 5.4 and later are supported. For systems with 64 or more Cloud AI devices, Linux Kernel 6.2 or later is required. For Ubuntu, this requirement can be met by using the HWE kernel.
+
+Python 3.10 must be installed before running the SDK installers.  In addition, Apps SDK ``qaic-pytools`` requires Python 3.8.
+
+The ``install.sh`` scripts for Cloud AI Apps SDK and Cloud AI Platform
+SDK automatically install required OS packages. This
+option can be skipped by using the ``--skip_depends`` argument.
+
+Refer to :ref:`Cloud AI SDK <reference-to-cloud-ai-sdk>` for installation instructions.

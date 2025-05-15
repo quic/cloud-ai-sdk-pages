@@ -1,0 +1,4 @@
+Supported Operations
+********************
+
+Refer to `SupportedOps.html  <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/SupportedOps.html>`__
