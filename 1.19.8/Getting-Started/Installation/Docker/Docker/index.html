@@ -1,0 +1,2151 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../../_static/favicon.ico">
+    
+    
+      
+        <title>Docker - Qualcomm® Cloud AI SDK User Guide</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_immaterial_theme.813663d4a0a048e28.min.css?v=f4bc32d8" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=62d18361" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=62d18361" />
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#setup-and-system-pre-requisistes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-header__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../../_static/logo.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Qualcomm® Cloud AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Docker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../index.html" class="md-tabs__link md-tabs__link--active">
+      <span class="md-ellipsis">User Guide</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../Python-API/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">API</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../FAQ/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">FAQ</span>
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-tabs__link">
+      <span class="md-ellipsis">Blogs</span>
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-nav__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../../_static/logo.png" alt="logo">
+    </a>
+    Qualcomm® Cloud AI SDK User Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          <span class="md-ellipsis">User Guide</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">User Guide</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        <span class="md-ellipsis">Introduction</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Quick-Start-Guide/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Quick Start Guide</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../index.html"><span class="md-ellipsis">Installation</span></a>
+          
+            <label for="__nav_1_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Installation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Installation</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Checklist/checklist/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Checklist</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Pre-requisites/pre-requisites/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Pre-<wbr>requisites</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud-AI-SDK/Cloud-AI-SDK/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Cloud AI SDK</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Hypervisors/hypervisor/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Hypervisors</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3_5" type="checkbox" id="__nav_1_3_5" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../index.html"><span class="md-ellipsis">Containers</span></a>
+          
+            <label for="__nav_1_3_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Containers" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Containers</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Docker</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Docker</span>
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup-and-system-pre-requisistes" class="md-nav__link">
+    <span title="setup and system pre-requisistes (reference label)" class="md-ellipsis">Setup and System Pre-<wbr>requisistes</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-image" class="md-nav__link">
+    <span title="build image (reference label)" class="md-ellipsis">Build Image</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build Image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-operating-systems" class="md-nav__link">
+    <span title="supported operating systems (reference label)" class="md-ellipsis">Supported Operating Systems</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported Operating Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operating-systems" class="md-nav__link">
+    <span title="operating systems (reference label)" class="md-ellipsis">Operating Systems</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span title="features (reference label)" class="md-ellipsis">Features</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#incremental-build-layers" class="md-nav__link">
+    <span title="incremental build layers (reference label)" class="md-ellipsis">Incremental build layers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-specification" class="md-nav__link">
+    <span title="image specification (reference label)" class="md-ellipsis">Image specification</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overridable-options-in-specification" class="md-nav__link">
+    <span title="overridable options in specification (reference label)" class="md-ellipsis">Overridable options in specification</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-completion-of-user-provided-specification" class="md-nav__link">
+    <span title="auto-completion of user provided specification (reference label)" class="md-ellipsis">Auto-<wbr>completion of user provided specification</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-platform-image-build" class="md-nav__link">
+    <span title="multi-platform image build (reference label)" class="md-ellipsis">Multi-<wbr>platform image build</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch-container" class="md-nav__link">
+    <span title="launch container (reference label)" class="md-ellipsis">Launch container</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launch container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command" class="md-nav__link">
+    <span title="command (reference label)" class="md-ellipsis">Command</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-selection" class="md-nav__link">
+    <span title="architecture selection (reference label)" class="md-ellipsis">Architecture selection</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-tests-in-container" class="md-nav__link">
+    <span title="run tests in container (reference label)" class="md-ellipsis">Run tests in container</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Kubernetes</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/Triton-Inference-Server-Support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Triton Inference Server</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vLLM/vLLM/index.html" class="md-nav__link">
+        <span class="md-ellipsis">v<wbr>LLM</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AWS/aws/index.html" class="md-nav__link">
+        <span class="md-ellipsis">AWS</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TGI/tgi/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Text Generation Inference</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/index.html"><span class="md-ellipsis">Inference Workflow</span></a>
+          
+            <label for="__nav_1_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Inference Workflow" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Inference Workflow</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_1" type="checkbox" id="__nav_1_4_1" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/Export-the-model/index.html"><span class="md-ellipsis">Export the Model</span></a>
+          
+            <label for="__nav_1_4_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Export the Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Export the Model</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Export-the-Model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Exporting ONNX Model from Different Frameworks</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Operator-and-Datatype-support/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Operator and Datatype support</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/Export-the-model/Prepare-the-model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Introduction to the Model Preparator Tool</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_2" type="checkbox" id="__nav_1_4_2" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/model-compilation/index.html"><span class="md-ellipsis">Compile the Model</span></a>
+          
+            <label for="__nav_1_4_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Compile the Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Compile the Model</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-compilation/Compile-the-Model/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Compile the Model</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-compilation/Tune-performance/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Tune Performance</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_3" type="checkbox" id="__nav_1_4_3" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Inference-Workflow/model-execution/index.html"><span class="md-ellipsis">Execute the QPC</span></a>
+          
+            <label for="__nav_1_4_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Execute the QPC" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Execute the QPC</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/model-execution-options/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Execute the QPC</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Inference-Workflow/model-execution/Inference-Profiling/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Inference Profiling</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../PyTorch-Workflow/Eager-Mode-Finetune/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Pytorch Workflow</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Model-Architecture-Support/index.html"><span class="md-ellipsis">Model Architecture Support</span></a>
+          
+            <label for="__nav_1_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Model Architecture Support" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Model Architecture Support</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Model-Architecture-Support/Large-Language-Models/llm/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Large Language Models <wbr>(LLMs)</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Features/index.html"><span class="md-ellipsis">Features</span></a>
+          
+            <label for="__nav_1_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Features" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Features</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Features/custom_ops/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Custom Operations <wbr>(C++)</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Features/model_sharding/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Model Sharding</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../System-Management/index.html"><span class="md-ellipsis">System Management</span></a>
+          
+            <label for="__nav_1_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="System Management" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">System Management</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System-Management/system-management/index.html" class="md-nav__link">
+        <span class="md-ellipsis">System Management</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../System-Management/aic-manager/index.html" class="md-nav__link">
+        <span class="md-ellipsis">AIC-<wbr>manager</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Architecture/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Architecture</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Glossary/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Glossary</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          <span class="md-ellipsis">API</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../Python-API/index.html"><span class="md-ellipsis">Python API</span></a>
+          
+            <label for="__nav_2_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Python API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Python API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaic/qaic/index.html" class="md-nav__link">
+        <span class="md-ellipsis">qaic package</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaicrt/class_util/index.html" class="md-nav__link">
+        <span class="md-ellipsis">class Util</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Python-API/qaicrt/class_InferenceBenchmarkSet/index.html" class="md-nav__link">
+        <span class="md-ellipsis">class Inference<wbr>Benchmark<wbr>Set</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../Cpp-API/index.html"><span class="md-ellipsis">CPP API</span></a>
+          
+            <label for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="CPP API" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">CPP API</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/example/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Inference<wbr>Set IO Example</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/features/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Features</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Cpp-API/runtime/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Runtime</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../ONNXRT%20QAIC/index.html"><span class="md-ellipsis">ONNX Runtime</span></a>
+          
+            <label for="__nav_2_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="ONNX Runtime" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">ONNX Runtime</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ONNXRT%20QAIC/onnxruntime/index.html" class="md-nav__link">
+        <span class="md-ellipsis">QAIC execution provider</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          <span class="md-ellipsis">FAQ</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">FAQ</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../FAQ/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Frequently Asked Questions</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          <span class="md-ellipsis">Blogs</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Blogs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Blogs</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Train anywhere, Infer on Qualcomm® Cloud AI 100</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Speculative_Decode/spec_decode_ai100/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Quadruple LLM Decoding Performance with Speculative Decoding <wbr>(Sp<wbr>D) and Microscaling <wbr>(MX) Formats</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/AmberChat/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Accelerate Inference of Fully Transparent Open-<wbr>Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Text_Embeddings/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Extremely Low-<wbr>Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blogs/Microscaling/microscaling/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Accelerate Large Language Model Inference by ~2x Using Microscaling <wbr>(Mx) Formats</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup-and-system-pre-requisistes" class="md-nav__link">
+    <span title="setup and system pre-requisistes (reference label)" class="md-ellipsis">Setup and System Pre-<wbr>requisistes</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-image" class="md-nav__link">
+    <span title="build image (reference label)" class="md-ellipsis">Build Image</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build Image">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-operating-systems" class="md-nav__link">
+    <span title="supported operating systems (reference label)" class="md-ellipsis">Supported Operating Systems</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported Operating Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operating-systems" class="md-nav__link">
+    <span title="operating systems (reference label)" class="md-ellipsis">Operating Systems</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span title="features (reference label)" class="md-ellipsis">Features</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#incremental-build-layers" class="md-nav__link">
+    <span title="incremental build layers (reference label)" class="md-ellipsis">Incremental build layers</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-specification" class="md-nav__link">
+    <span title="image specification (reference label)" class="md-ellipsis">Image specification</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overridable-options-in-specification" class="md-nav__link">
+    <span title="overridable options in specification (reference label)" class="md-ellipsis">Overridable options in specification</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-completion-of-user-provided-specification" class="md-nav__link">
+    <span title="auto-completion of user provided specification (reference label)" class="md-ellipsis">Auto-<wbr>completion of user provided specification</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-platform-image-build" class="md-nav__link">
+    <span title="multi-platform image build (reference label)" class="md-ellipsis">Multi-<wbr>platform image build</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#launch-container" class="md-nav__link">
+    <span title="launch container (reference label)" class="md-ellipsis">Launch container</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Launch container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command" class="md-nav__link">
+    <span title="command (reference label)" class="md-ellipsis">Command</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-selection" class="md-nav__link">
+    <span title="architecture selection (reference label)" class="md-ellipsis">Architecture selection</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-tests-in-container" class="md-nav__link">
+    <span title="run tests in container (reference label)" class="md-ellipsis">Run tests in container</span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="docker"><span id="reference-to-docker"></span>Docker<a class="headerlink" href="#docker" title="Permalink to this heading">¶</a></h1>
+<p>Docker allows users to build, test, and deploy applications through
+software containers. Docker for Cloud AI 100 packages the Platform SDK,
+Apps SDK, libraries, system tools, etc., which enables the
+user to navigate the inference workflow seamlessly.</p>
+<div class="note admonition">
+<p class="admonition-title">Pre-built Docker images</p>
+<p>Pre-built Docker images for Cloud AI are available in the
+<a class="reference external" href="https://github.com/quic/cloud-ai-containers/pkgs/container/cloud_ai_inference_ubuntu22">cloud-ai-containers</a> GitHub repo.</p>
+</div>
+<p>Scripts for building your own Docker image for Cloud AI are in the Apps SDK in the
+<code class="docutils literal notranslate"><span class="pre">common/tools/docker-build/</span></code> folder. The scripts to build a QAic
+Docker image are composed of the following structure.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>├── build_image.py
+├── config
+│   ├── applications
+│   ├── base_image
+│   ├── build_type
+│   ├── python_version
+│   └── sdk
+├── image_schema.json
+├── README.md
+├── requirements.txt
+└── sample_user_specs
+</code></pre></div>
+</div>
+<h2 id="setup-and-system-pre-requisistes"><span id="reference-to-docker-system-pre-requisistes"></span>Setup and System Pre-requisistes<a class="headerlink" href="#setup-and-system-pre-requisistes" title="Permalink to this heading">¶</a></h2>
+<ul>
+<li><p>Packages: python3.8, docker v23+ <a class="reference external" href="https://docs.docker.com/engine/install/">Docker
+Installation</a></p></li>
+<li><p>Optional: Follow post-install instructions to run <code class="docutils literal notranslate"><span class="pre">docker</span></code> as
+non-root user: <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">Docker
+Post-installation</a>.
+Otherwise, <code class="docutils literal notranslate"><span class="pre">docker</span></code> command and <code class="docutils literal notranslate"><span class="pre">build_image.py</span></code> scripts must be
+prefaced with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</p></li>
+<li><p>Download Apps SDK and Platform SDK from <a class="reference external" href="https://qpm.qualcomm.com/">Qualcomm Package
+Manager</a>.</p>
+<ul class="simple">
+<li><p>Docker containers require the Cloud AI device drivers to
+communicate with the devices. Install the Platform SDK on the host
+bare metal OS or VM.</p></li>
+<li><p>Unzip Apps SDK and the build scripts are located under
+<code class="docutils literal notranslate"><span class="pre">common/tools/docker-build/</span></code></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>unzip<span class="w"> </span>aic_apps.Core.1.19.8.0.Linux-AnyCPU.zip
+<span class="nb">cd</span><span class="w"> </span>qaic-apps-1.19.8.0/common/tools/docker-build/
+</code></pre></div>
+</div>
+</li>
+<li><p>Install python modules listed in requirements.txt, preferably in a
+virtual environment</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>$<span class="w"> </span>python3.8<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/venv_directory/qaic_docker_venv
+$<span class="w"> </span>.<span class="w"> </span>/venv_directory/qaic_docker_venv/bin/activate
+<span class="o">(</span>qaic_docker_venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</code></pre></div>
+</div>
+<h2 id="build-image">Build Image<a class="headerlink" href="#build-image" title="Permalink to this heading">¶</a></h2>
+<p>QAic Docker build script is used to create new Docker image with Cloud
+AI 100 Apps SDK and Cloud AI 100 Platform SDK with the supported OS.</p>
+<p>The command to build the Docker image is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>python3<span class="w"> </span>build_image.py<span class="w"> </span><span class="o">[</span><span class="w"> </span>--user_specification_file<span class="w"> </span><span class="o">(</span>Required<span class="o">)</span><span class="w"> </span>&lt;user-specification-json-file-path&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="o">[</span><span class="w"> </span>--mirror<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;docker-registry-mirror-location&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="o">[</span><span class="w"> </span>--apps_sdk<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>/qaic/apps/sdk/zip/path<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--platform_sdk<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>/qaic/platform/sdk/zip/path<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--qnn_sdk<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="o">[</span><span class="w"> </span>--arch<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;x86_64<span class="p">|</span>aarch64&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--external_dist_files<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;file-path-1<span class="w"> </span>file-path-2<span class="w"> </span>...<span class="w"> </span>file-path-n&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="o">[</span><span class="w"> </span>--tag<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;tag-for-the-created-image&gt;<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--log_level<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>&lt;log-level-numeric-value&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>--no_cache<span class="w"> </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span><span class="o">]</span>
+</code></pre></div>
+</div>
+<p>The resulting Docker image is named by the convention:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qaic</span><span class="o">-</span>\<span class="o">&lt;</span><span class="n">arch</span><span class="o">&gt;-&lt;</span><span class="n">base_image</span><span class="o">&gt;-&lt;</span><span class="n">build_type</span><span class="o">&gt;-&lt;</span><span class="n">python_version</span><span class="o">&gt;-&lt;</span><span class="n">sdk_types</span><span class="o">&gt;-</span>\<span class="o">&lt;</span><span class="n">applications</span><span class="o">&gt;</span><span class="p">:</span>\<span class="o">&lt;</span><span class="n">tag</span><span class="o">&gt;</span>
+</code></pre></div>
+</div>
+<p>Description:</p>
+<p><em>user_specification_file</em>: specifies path to user specification json file</p>
+<p><em>mirror</em>: specifies registry mirror location for base images in Docker format (eg. host.domain/dir/)</p>
+<p><em>arch</em>: Pick from x86_64, aarch64. Default is host arch.</p>
+<p><em>tag</em>: specifies tag for the created image</p>
+<p><em>apps_sdk</em>: specifies path to the zip file of apps sdk. Overrides if corresponding path is already mentioned in user_specification_file.</p>
+<p><em>platform_sdk</em>: specifies path to the zip file of platform sdk. Overrides if corresponding path is already mentioned in user_specification_file.</p>
+<p><em>qnn_sdk</em>: specifies path to the zip file of qnn sdk. Overrides if corresponding path is already mentioned in user_specification_file.</p>
+<p><em>external_dist_files</em>: specify external files required in Docker image build. Overrides any external_dist_files already mentioned in user_specification_file.</p>
+<p><em>log_level</em>: specifies numeric value corresponding to log level (debug:1, info:2, warning:3, error:4, critical:5)</p>
+<p><em>no_cache</em>: Do not use Docker’s internal layer cache (used for debug)</p>
+<p>For Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>python3<span class="w"> </span>build_image.py<span class="w"> </span>--user_specification_file<span class="w"> </span>./sample_user_specs/user_image_spec_qaic.json<span class="w"> </span>--apps_sdk<span class="w"> </span>/path/to/aic_apps.Core.1.19.8.0.Linux-AnyCPU.zip<span class="w"> </span><span class="se">\</span>
+--platform_sdk<span class="w"> </span>/path/to/aic_platform.Core.1.19.8.0.Linux-AnyCPU.zip<span class="w"> </span>--tag<span class="w"> </span><span class="m">1</span>.19.8.0
+</code></pre></div>
+</div>
+<p>To check the Docker image created with above script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span>images
+REPOSITORY<span class="w">                                                            </span>TAG<span class="w">            </span>IMAGE<span class="w"> </span>ID<span class="w">       </span>CREATED<span class="w">        </span>SIZE
+qaic-x86_64-ubuntu20-py310-py38-release-qaic_platform-qaic_apps<span class="w">       </span><span class="m">1</span>.19.8.0<span class="w">       </span>f784c37d7f18<span class="w">   </span><span class="m">2</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">    </span><span class="m">4</span>.25GB
+</code></pre></div>
+</div>
+<h3 id="supported-operating-systems">Supported Operating Systems<a class="headerlink" href="#supported-operating-systems" title="Permalink to this heading">¶</a></h3>
+<p>Docker container for Cloud AI 100 supports different operating system
+distributions. Below is the list of supported operating systems.</p>
+<h4 id="operating-systems">Operating Systems<a class="headerlink" href="#operating-systems" title="Permalink to this heading">¶</a></h4>
+<table class="docutils data align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Operating systems</strong></p></th>
+<th class="head"><p><strong>Comment</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Alma Linux 8</p></td>
+<td><p>Compatible with RHEL 8</p></td>
+</tr>
+<tr class="row-odd"><td><p>Alma Linux 9</p></td>
+<td><p>Compatible with RHEL 9</p></td>
+</tr>
+<tr class="row-even"><td><p>Amazon Linux 2</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Amazon Linux 2023</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>CentOS Linux 7</p></td>
+<td><p>Compatible with RHEL 7</p></td>
+</tr>
+<tr class="row-odd"><td><p>Red Hat Universal Base Image 8</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Red Hat Universal Base Image 9</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Ubuntu 18</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu 20</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Ubuntu 22</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu 24</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Incremental Docker image build infrastructure optimizes disk usage
+and rebuilding time</p></li>
+<li><p>Flexibility to override specification options such as sdk paths,
+external dist files through cmd line options</p></li>
+<li><p>User provided image specification is resolved for dependencies and
+dumped as autocompleted_user_specification.json</p></li>
+<li><p>Supports multi-platform builds</p></li>
+</ul>
+<h3 id="incremental-build-layers">Incremental build layers<a class="headerlink" href="#incremental-build-layers" title="Permalink to this heading">¶</a></h3>
+<p>The configurations are grouped as shown below to minimize the need for
+rebuild and to allow sharing layers. This enables reduction of disk
+usage and allows faster rebuild.</p>
+<img alt="../../../../_images/docker_layers.png" src="../../../../_images/docker_layers.png" />
+<h3 id="image-specification">Image specification<a class="headerlink" href="#image-specification" title="Permalink to this heading">¶</a></h3>
+<p>User provides a specification json that defines the items to build in
+each group and list external file dependecies The build script
+auto-completes the configuration by resolving the dependencies for
+specified nodes. Sample user specification files are present in
+sample_user_specs directory within Apps SDK directory -
+tools/docker-build/</p>
+<p>Supported keys in json: ‘build_type’, ‘applications’, ‘sdk’,
+‘python_version’, ‘base_image’, ‘external_dist_files’</p>
+<p>Applications - Optional, accepts a list of values. SDK - Optional,
+accepts a dictionary of values (sdk type: file-path/boolean). Python
+Version - Optional, accepts a single value. Build Type - Required,
+accepts a single value. Base Image - Required, accepts a single value.
+External dist files - Optional, allows specifying external files
+required in Docker image build. Accepts a list of values.</p>
+<p>Example -</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;applications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gae&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;pytools&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;aimet&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;qinf&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;pybase&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;sdk&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;qaic_apps&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/aic_apps.Core.1.19.8.0.Linux-AnyCPU.zip&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;qaic_platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/aic_platform.Core.1.19.8.0.Linux-AnyCPU.zip&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;python_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;py38&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;base_image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ubuntu20&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;external_dist_files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/path/to/aimetpro-1.26.0-RC7.torch-gpu-release.tar.gz&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>Minimal user specification to build the same image</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;applications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gae&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;aimet&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;qinf&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;sdk&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;qaic_apps&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/aic_apps.Core.1.19.8.0.Linux-AnyCPU.zip&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;qaic_platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/aic_platform.Core.1.19.8.0.Linux-AnyCPU.zip&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;external_dist_files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;/path/to/aimetpro-1.26.0-RC7.torch-gpu-release.tar.gz&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>sdk, external_dist_files can be skipped here and provided through cmd
+line</p>
+<h3 id="overridable-options-in-specification">Overridable options in specification<a class="headerlink" href="#overridable-options-in-specification" title="Permalink to this heading">¶</a></h3>
+<p>SDK, external dist files configuration rely on file paths. These keys
+can be specified either through specification file or cmd line options.
+cmd line specification takes precedence when specified through both.</p>
+<h3 id="auto-completion-of-user-provided-specification">Auto-completion of user provided specification<a class="headerlink" href="#auto-completion-of-user-provided-specification" title="Permalink to this heading">¶</a></h3>
+<p>The Docker image may constitute base image + layers from other groups
+specified in the figure above. Resolution of dependencies is done
+top-down for the specified groups.</p>
+<p>Applications - Resolved as union of dependencies in same level. SDK -
+Resolved as union of dependencies from higher levels and same level.
+Python Version - Resolved as intersection of dependencies from higher
+levels of which preferred node is chosen. Build Type - Resolved as
+intersection of dependencies from higher levels of which preferred node
+is chosen. Base Image - Resolved as intersection of dependencies from
+higher levels of which preferred node is chosen.</p>
+<h3 id="multi-platform-image-build">Multi-platform image build<a class="headerlink" href="#multi-platform-image-build" title="Permalink to this heading">¶</a></h3>
+<p>Use the -arch command line option with the build command to configure
+building the image for the preferred architecture (x86_64/aarch64).</p>
+<h2 id="launch-container"><span id="reference-to-docker-launch-container"></span>Launch container<a class="headerlink" href="#launch-container" title="Permalink to this heading">¶</a></h2>
+<h3 id="command">Command<a class="headerlink" href="#command" title="Permalink to this heading">¶</a></h3>
+<p>Below is example for launching an x86_64 ubuntu20 image with python3.8
+environment, apps and platform sdk.</p>
+<p>Run the container and map 1 or more qaic devices. (Or any other
+directory mapping using the -v option)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="c1"># Passing 1 device</span>
+docker<span class="w"> </span>run<span class="w"> </span>-dit<span class="w"> </span>--name<span class="w"> </span>qaic-ubuntu-test<span class="w"> </span>--device<span class="o">=</span>/dev/accel/accel0<span class="w"> </span>qaic-x86_64-ubuntu20-py310-py38-release-qaic_platform-qaic_apps:1.19.8.0
+
+<span class="c1"># Passing 1 device and mapping a local folder</span>
+docker<span class="w"> </span>run<span class="w"> </span>-dit<span class="w"> </span>--name<span class="w"> </span>qaic-ubuntu-test<span class="w"> </span>-v<span class="w"> </span>/data/test:/data/test<span class="w"> </span>--device<span class="o">=</span>/dev/accel/accel0<span class="w"> </span>qaic-x86_64-ubuntu20-py310-py38-release-qaic_platform-qaic_apps:1.19.8.0
+</code></pre></div>
+</div>
+<h3 id="architecture-selection">Architecture selection<a class="headerlink" href="#architecture-selection" title="Permalink to this heading">¶</a></h3>
+<p>When passing -arch option where the host architecture is not the same as
+the requested architecture, setup the host for Docker multiarch using
+qemu.</p>
+<p>Ubuntu Host</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>qemu<span class="w"> </span>binfmt-support<span class="w"> </span>qemu-user-static
+$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
+<span class="c1"># Check the setup</span>
+$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-t<span class="w"> </span>--platform<span class="o">=</span>linux/arm64<span class="w"> </span>&lt;image<span class="w"> </span>name&gt;<span class="w"> </span>uname<span class="w"> </span>-m
+</code></pre></div>
+</div>
+<p>The command above should give the architecture as aarch64</p>
+<p>CentOS Host</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>qemu<span class="w"> </span>qemu-kvm
+$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>multiarch/qemu-user-static<span class="w"> </span>--reset<span class="w"> </span>-p<span class="w"> </span>yes
+<span class="c1"># Check the setup</span>
+$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-t<span class="w"> </span>--platform<span class="o">=</span>linux/arm64<span class="w"> </span>&lt;image<span class="w"> </span>name&gt;<span class="w"> </span>uname<span class="w"> </span>-m
+</code></pre></div>
+</div>
+<p>The command above should give the architecture as aarch64</p>
+<h2 id="run-tests-in-container">Run tests in container<a class="headerlink" href="#run-tests-in-container" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Connect to the container and run tests:</p>
+<ul>
+<li><p>Run “docker ps” to get the CONTAINER ID</p></li>
+<li><p>Run docker exec -it /bin/bash</p></li>
+<li><p>Run “/opt/qti-aic/tools/qaic_util -q” and ensure that you can see
+your devices.</p></li>
+<li><p>Run an inference with recorded data. Eg:
+“/opt/qti-aic/exec/qaic-runner -d 0 -t
+/opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-quant-resnet50/”</p></li>
+</ul>
+</li>
+<li><p>Activate the python enviornment and test Python HL API (valid if
+<em>qaic_python: “True”</em> specified in sdk group of
+user_specification_file while building Docker image):</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>/opt/qti-aic/dev/python/py_env/bin/activate
+<span class="nb">cd</span><span class="w"> </span>/opt/qti-aic/examples/apps/qaic-python-sdk/examples/resnet_example/
+python<span class="w"> </span>resnet_example.py
+</code></pre></div>
+</div>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Containers" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Containers
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../k8s/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: Kubernetes" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Kubernetes
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2025 Qualcomm Innovation Center, Inc.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    7.1.2.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": ["latest"], "title": "1.19.8", "version": "1.19.8"}, {"aliases": [], "title": "1.19", "version": "1.19"}, {"aliases": [], "title": "1.18", "version": "1.18"}, {"aliases": [], "title": "1.17", "version": "1.17"}, {"aliases": [], "title": "1.16", "version": "1.16"}, {"aliases": [], "title": "1.15", "version": "1.15"}], "versionPath": null}}</script>
+    
+      
+        <script src="../../../../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js?v=8ec58cb5"></script>
+        <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../../_static/design-tabs.js?v=36754332"></script>
+    
+  </body>
+</html>

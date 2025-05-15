@@ -1,0 +1,134 @@
+:hide-navigation:
+
+.. toctree::
+   :caption: User Guide
+   :hidden:
+
+   Getting-Started/index
+   Getting-Started/Quick-Start-Guide/index
+   Getting-Started/Installation/index
+   Getting-Started/Inference-Workflow/index
+   Getting-Started/PyTorch-Workflow/Eager-Mode-Finetune/index
+   Getting-Started/Model-Architecture-Support/index
+   Getting-Started/Features/index
+   Getting-Started/System-Management/index
+   Getting-Started/Architecture/index
+   qnn-aic/general/qnn-sdk
+   Getting-Started/Glossary/index
+
+.. qnn-aic files are only included if the 'qnn' tag is set.  Check exclude_patterns in conf.py.
+
+.. toctree::
+   :caption: API
+   :hidden:
+
+   Python-API/index
+   Cpp-API/index
+   ONNXRT QAIC/index
+
+.. toctree::
+   :caption: FAQ
+   :hidden:
+
+   FAQ/index
+
+.. toctree::
+   :caption: Blogs
+   :hidden:
+
+   blogs/Train_Anywhere/train_anywhere/index
+   blogs/Speculative_Decode/spec_decode_ai100/index
+   blogs/AmberChat/index
+   blogs/Text_Embeddings/index
+   blogs/Microscaling/microscaling/index
+
+Qualcomm Cloud AI Documentation
+===============================
+
+Qualcomm Cloud AI SDKs (Platform and Apps) enable high performance deep
+learning inference on Qualcomm Cloud AI platforms delivering high
+throughput and low latency across Computer Vision, Object Detection,
+Natural Language Processing and Generative AI models. The SDKs enable end 
+to end workflows - from onboarding a pre-trained model to deployment of
+the ML inference application in production.
+
+------------
+
+Get Started
+-----------
+
+.. grid:: 3
+
+    .. grid-item-card:: :si-icon:`material/cloud` Cloud Instances
+        :link: reference-to-cloud-instances
+        :link-type: ref
+        :margin: 0 3 0 0
+
+        Get started in minutes with AI 100 accelerator instances hosted in the Cloud.
+
+    .. grid-item-card:: :si-icon:`material/rocket-launch` Quick Start Guide
+        :link: Getting-Started/Quick-Start-Guide/index
+        :link-type: doc
+        :margin: 0 3 0 0
+
+        Run your first model on Cloud AI accelerators.
+
+    .. grid-item-card:: :si-icon:`material/download` Download SDK
+        :link: Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK/index
+        :link-type: doc
+        :margin: 0 3 0 0
+
+        Download the Cloud AI Platform and Apps SDKs.
+
+------------
+
+Key Tasks
+---------
+
+.. grid:: 4
+
+    .. grid-item::
+
+        :si-icon:`setup` **Setup**
+
+        `Quick Start Guide <Getting-Started/Quick-Start-Guide>`_
+
+        `Installation <Getting-Started/Installation>`_
+
+        `User Guide <Getting-Started>`_
+
+    .. grid-item::
+
+        :si-icon:`monitoring` **Manage Devices**
+
+        `Command Line Utilities <Getting-Started/System-Management/system-management>`_
+
+        :ref:`Prometheus Monitoring <reference-to-prometheus-monitoring>`
+
+        :ref:`Grafana Dashboards <reference-to-grafana-dashboards>`
+
+    .. grid-item::
+
+        :si-icon:`build` **Build**
+
+        `API Reference <Python-API>`_
+
+        `Generative AI <https://github.com/quic/efficient-transformers>`_
+
+        `Vision Models <https://github.com/quic/cloud-ai-sdk/models/vision>`_
+
+        `Image Generation <https://github.com/quic/cloud-ai-sdk/tree/1.17/models/multimodal/text_to_image>`_
+
+    .. grid-item::
+
+        :si-icon:`deploy` **Deploy**
+
+        `Docker <Getting-Started/Installation/Docker/Docker>`_
+
+        `ONNX Runtime <ONNXRT%20QAIC/onnxruntime>`_
+
+        `vLLM <Getting-Started/Installation/vLLM/vLLM>`_
+
+        `Triton Inference Server <Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support>`_
+
+        `TGI <Getting-Started/Installation/TGI/tgi>`_

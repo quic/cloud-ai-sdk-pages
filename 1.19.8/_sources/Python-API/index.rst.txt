@@ -1,0 +1,14 @@
+.. _reference-to-python-api:
+
+Python API
+==========
+
+Python API reference for Qualcomm® Cloud AI:
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   qaic/qaic/index
+   qaicrt/class_util/index
+   qaicrt/class_InferenceBenchmarkSet/index

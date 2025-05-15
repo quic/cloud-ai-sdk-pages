@@ -1,0 +1,31 @@
+.. _reference-to-pre-requisites:
+
+Pre-requisites
+==============
+
+.. _reference-to-msi:
+
+Message Signaled Interrupts
+----------------------------
+
+The QAic Kernel Driver for Linux requires 32 message signaled interrupts
+(MSI) for best performance. QAic kernel driver does support single MSI
+configuration but is not recommended. On x86-based host systems, Intel
+VT-d or IOMMU features must be enabled in the BIOS to enable the
+required number of MSIs.
+
+For host systems using Intel chipsets, ensure that Intel Virtualization
+(VT-d) is enabled in the BIOS. For host systems using AMD chipsets,
+ensure that the IOMMU feature is enabled in the BIOS.
+
+.. _reference-to-os-dependencies:
+
+OS Dependencies
+---------------
+
+The ``install.sh`` scripts for Cloud AI Apps SDK and Cloud AI Platform
+SDK automatically install required OS packages and dependencies. This
+option can be skipped by using the ``--skip_depends`` argument.
+
+Refer to :ref:`Cloud AI SDK <reference-to-cloud-ai-sdk>` for
+installation instructions.

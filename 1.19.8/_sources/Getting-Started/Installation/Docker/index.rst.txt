@@ -1,0 +1,18 @@
+.. _reference-to-docker:
+
+Containers
+==========
+
+This section provides resources to create, deploy and orchestrate Cloud
+AI 100 containers for inferencing workloads.
+
+-  :doc:`Docker<Docker/index>`
+-  :doc:`Kubernetes<k8s/index>`
+-  :ref:`Triton inference server <reference-to-Triton-Inference-Server>`
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   Docker/index
+   k8s/index
