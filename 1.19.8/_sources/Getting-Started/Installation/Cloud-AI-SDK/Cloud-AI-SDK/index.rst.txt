@@ -66,11 +66,9 @@ Operating Systems
 +-------------------------------+---------------------------------------+
 | Ubuntu 24.04                  | Default Kernel (GA or HWE)            |
 +-------------------------------+---------------------------------------+
-| Red Hat Enterprise Linux 8.9  | Default Kernel                        |
+| Red Hat Enterprise Linux 8.10 | Default Kernel                        |
 +-------------------------------+---------------------------------------+
-| Red Hat Enterprise Linux 9.3  | Default Kernel                        |
-+-------------------------------+---------------------------------------+
-| Red Hat Enterprise Linux 9.4  | Default Kernel                        |
+| Red Hat Enterprise Linux 9.5  | Default Kernel                        |
 +-------------------------------+---------------------------------------+
 | Amazon Linux 2                | Amazon 5.10 Kernel                    |
 +-------------------------------+---------------------------------------+
