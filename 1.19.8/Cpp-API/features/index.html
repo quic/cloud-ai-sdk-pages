@@ -1341,66 +1341,7 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#device-partitioning-tool" class="md-nav__link">
-    <span title="device partitioning tool (reference label)" class="md-ellipsis">Device Partitioning Tool</span>
-  </a>
   
-    <nav class="md-nav" aria-label="Device Partitioning Tool">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    <span class="md-ellipsis">Usage</span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-and-test-the-shadow-device-s" class="md-nav__link">
-    <span title="create and test the shadow device(s) (reference label)" class="md-ellipsis">Create and Test the Shadow Device<wbr>(s)</span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Create and Test the Shadow Device(s)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-the-shadow-device" class="md-nav__link">
-    <span title="1. create the shadow device (reference label)" class="md-ellipsis">1.<wbr> Create the Shadow device</span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#verify-the-derived-device-creation" class="md-nav__link">
-    <span title="2. verify the derived device creation: (reference label)" class="md-ellipsis">2.<wbr> Verify the Derived device creation:<wbr></span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#destroy-the-device" class="md-nav__link">
-    <span title="3. destroy the device. (reference label)" class="md-ellipsis">3.<wbr> Destroy the device.<wbr></span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#partition-device-configuration" class="md-nav__link">
-    <span title="partition device configuration (reference label)" class="md-ellipsis">Partition Device Configuration</span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
     </ul>
   
@@ -1769,66 +1710,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#device-partitioning-tool" class="md-nav__link">
-    <span title="device partitioning tool (reference label)" class="md-ellipsis">Device Partitioning Tool</span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Device Partitioning Tool">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    <span class="md-ellipsis">Usage</span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-and-test-the-shadow-device-s" class="md-nav__link">
-    <span title="create and test the shadow device(s) (reference label)" class="md-ellipsis">Create and Test the Shadow Device<wbr>(s)</span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Create and Test the Shadow Device(s)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-the-shadow-device" class="md-nav__link">
-    <span title="1. create the shadow device (reference label)" class="md-ellipsis">1.<wbr> Create the Shadow device</span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#verify-the-derived-device-creation" class="md-nav__link">
-    <span title="2. verify the derived device creation: (reference label)" class="md-ellipsis">2.<wbr> Verify the Derived device creation:<wbr></span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#destroy-the-device" class="md-nav__link">
-    <span title="3. destroy the device. (reference label)" class="md-ellipsis">3.<wbr> Destroy the device.<wbr></span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#partition-device-configuration" class="md-nav__link">
-    <span title="partition device configuration (reference label)" class="md-ellipsis">Partition Device Configuration</span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
     </ul>
   
@@ -1956,80 +1837,6 @@ programs.</p>
 <p>Note: Addition/removal of program can lead to a report generation
 getting delayed or preponed. Note: RegEx engine used is ECMAScript.</p>
 <p>Refer to section <code class="docutils literal notranslate"><span class="pre">StreamProfilingHandle</span></code>_ for HPP API interface.</p>
-<h2 id="device-partitioning-tool">Device Partitioning Tool<a class="headerlink" href="#device-partitioning-tool" title="Permalink to this heading">¶</a></h2>
-<p>Device partitioning is a virtualization technique for Qualcomm AIC 100
-card that creates a Shadow device with discrete set of resources on the
-native device. The Shadow Device is tied to a “Resource Group
-Reservation” made by the application and is presented with Device
-id(QID) greater than 100 [Eg: QID 100]. The Shadow Device is allowed to
-use only the pre-reserved set of resources tied to its reservation and
-is non-persistent in nature.</p>
-<p>Either of the below two scenarios will destroy the device and release
-the resources associated with it. a. The device would be destroyed when
-the Resource Group Reservation is released by application either
-explicitly or when the application dies. b. A hard reset is performed on
-the device.</p>
-<p>Below listed are the set of resources that are available for reservation
-under “Resource Group” - Neural Signal Processors(NSP) - Multicast IDs
-(MCID) - Virtual Channels for DMA data - Device Semaphores - Device
-Memory (DDR, L2)</p>
-<p>qaic-dev-partition, is an application tool to create the Shadow
-Device(s) with the specified set of device resources.</p>
-<p>Since the device allocation is non-persistent in nature, below use cases
-are UNSUPPORTED as they may invalidate the QID allocated by an already
-existing instance of application. 1. Multiple instances of
-qaic-dev-partition tool. 2. Hotplug a QAic device when there is a active
-qaic-dev-partition.</p>
-<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">qti</span><span class="o">-</span><span class="n">aic</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">qaic</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">partition</span> <span class="o">-</span><span class="n">h</span>
-</code></pre></div>
-</div>
-<h3 id="create-and-test-the-shadow-device-s">Create and Test the Shadow Device(s)<a class="headerlink" href="#create-and-test-the-shadow-device-s" title="Permalink to this heading">¶</a></h3>
-<h4 id="create-the-shadow-device">1. Create the Shadow device<a class="headerlink" href="#create-the-shadow-device" title="Permalink to this heading">¶</a></h4>
-<p>Launch the qaic-dev-partition utility as a daemon, either in foreground
-or background to keep the Shadow device alive.</p>
-<p>To request resource reservation using the QPC file on Device-id 2</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="n">qaic</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">partition</span> <span class="o">-</span><span class="n">q</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">qpc</span><span class="o">&gt;/</span><span class="n">programqpc</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">d</span> <span class="mi">2</span>
-</code></pre></div>
-</div>
-<p>To request resource reservation using json config file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="n">qaic</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">partition</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">path_to_json_config</span><span class="o">&gt;</span>
-</code></pre></div>
-</div>
-<p>Multiple reservations can be created through json configuration. The
-first resource set is allotted QID 100, and QID is incremented by 1 for
-every resource set listed thereafter.</p>
-<h4 id="verify-the-derived-device-creation">2. Verify the Derived device creation:<a class="headerlink" href="#verify-the-derived-device-creation" title="Permalink to this heading">¶</a></h4>
-<p>Run qaic-util tool to list the newly generated device. Typically the
-Shadow devices have QID &gt;= 100. Note that PCI fields are invalid with
-dummy values as it is an emulated device, and PCI Hardware attributes
-are not applicable. Example: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">qaic-util</span> <span class="pre">-q</span> <span class="pre">-d</span> <span class="pre">101</span></code></p>
-<h4 id="destroy-the-device">3. Destroy the device.<a class="headerlink" href="#destroy-the-device" title="Permalink to this heading">¶</a></h4>
-<p>On killing the utility the Shadow device should disappear and one may
-verify that the resources are added back to the native device’s resource
-pool.</p>
-<p>Example configuration files are present in
-<code class="docutils literal notranslate"><span class="pre">/opt/qti-aic/test-data/json/qaic-</span> <span class="pre">dev-partition</span></code></p>
-<h3 id="partition-device-configuration">Partition Device Configuration<a class="headerlink" href="#partition-device-configuration" title="Permalink to this heading">¶</a></h3>
-<p>Alias names: Partition Device/ Shadow Device/Derived Device.</p>
-<p>Documentation uses the term “Derived Device”. The starting Device ID for
-Derived Device(s) is QID 100. Multiple Shadow/Derived devices can be
-created on the same QAIC device. Each shadow device would have unique
-QID and Dev link assigned as shown below.</p>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">Parent</span> <span class="n">device</span><span class="p">:</span>  <span class="n">QID</span> <span class="mi">17</span>
-                <span class="n">Dev</span> <span class="n">Link</span><span class="p">:</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">qaic_aic100_15</span>
-
-<span class="n">Shadow</span> <span class="n">devices</span> <span class="k">for</span> <span class="n">QID</span> <span class="mi">17</span>
- <span class="n">QID</span> <span class="mi">112</span> <span class="p">:</span>
-           <span class="n">Dev</span> <span class="n">Link</span> <span class="p">:</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">qaic_aic100_31</span>
-     <span class="n">Parent</span> <span class="n">Dev</span> <span class="n">Link</span><span class="p">:</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">qaic_aic100_15</span>
-
- <span class="n">QID</span> <span class="mi">113</span> <span class="p">:</span>
-           <span class="n">Dev</span> <span class="n">Link</span> <span class="p">:</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">qaic_aic100_33</span>
-     <span class="n">Parent</span> <span class="n">Dev</span> <span class="n">Link</span><span class="p">:</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">qaic_aic100_15</span>
-</code></pre></div>
-</div>
 
 
 
