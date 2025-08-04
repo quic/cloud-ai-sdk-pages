@@ -1,0 +1,3547 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Addition-of-Custom-op/index.html">
+      
+      
+        <link rel="next" href="../APIs/index.html">
+      
+      
+      <link rel="icon" href="../../../_static/favicon.ico">
+    
+    
+      
+        <title>QAIRT Tools - Qualcomm® Cloud AI SDK User Guide</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.420ab00f6a6d07c1b.min.css?v=ecbbea20" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=62d18361" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=62d18361" />
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#accuracy-evaluator" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-header__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../_static/logo.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Qualcomm® Cloud AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              QAIRT Tools
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../../Getting-Started/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  User Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Python-API/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  API
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../FAQ/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  Blogs
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Qualcomm® Cloud AI SDK User Guide" class="md-nav__button md-logo" aria-label="Qualcomm® Cloud AI SDK User Guide" data-md-component="logo">
+      <img src="../../../_static/logo.png" alt="logo">
+    </a>
+    Qualcomm® Cloud AI SDK User Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Quick-Start-Guide/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quick Start Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Installation/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Checklist/checklist/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Checklist
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Pre-requisites/pre-requisites/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prerequisites
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Cloud-AI-SDK/Cloud-AI-SDK/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cloud AI SDK
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Hypervisors/hypervisor/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hypervisors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Installation/Docker/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Containers
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_3_5" id="__nav_1_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Containers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Docker/Docker/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/Docker/k8s/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kubernetes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Triton Inference Server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/vLLM/vLLM/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v<wbr>LLM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/AWS/aws/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/TGI/tgi/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Text Generation Inference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Inference Workflow
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Inference Workflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Export the Model
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_1" id="__nav_1_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Export the Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Exporting ONNX Model from Different Frameworks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Operator and Datatype support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Model Preparator Tool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/model-compilation/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Compile the Model
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_2" id="__nav_1_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Compile the Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compile the Model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Tune-performance/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tune Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/model-execution/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Execute the QPC
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_3" id="__nav_1_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Execute the QPC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/model-execution-options/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Execute the QPC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/Inference-Profiling/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inference Profiling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/PyTorch-Workflow/Eager-Mode-Finetune/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pytorch Workflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Architecture-Support/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Model Architecture Support
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            Model Architecture Support
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Architecture-Support/Large-Language-Models/llm/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Large Language Models <wbr>(LLMs)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Features/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/custom_ops/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Custom Operations <wbr>(C++)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/model_sharding/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Sharding
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/System-Management/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    System Management
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_8" id="__nav_1_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            System Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/system-management/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/aic-manager/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AIC-<wbr>manager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Architecture/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    QAIRT SDK
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_10" id="__nav_1_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_10">
+            <span class="md-nav__icon md-icon"></span>
+            QAIRT SDK
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QAIRT-SDK-Installation/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QAIRT SDK Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QAIRT-Software-architecture/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QAIRT Software architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QAIRT-Integration-Workflow/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QAIRT Integration Workflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QAIRT-Model-Compilation-and-execution/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QAIRT Model Compilation and execution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tutorial/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorial
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Precision-support/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Precision support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Supported-Operations/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supported Operations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Addition-of-Custom-op/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Addition of Custom-<wbr>op
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    QAIRT Tools
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    QAIRT Tools
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#accuracy-evaluator" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Accuracy Evaluator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accuracy Evaluator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-on-cloud-ai-backend" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Example on Cloud AI Backend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accuracy-debugger" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Accuracy Debugger
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accuracy Debugger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id1" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Example on Cloud AI Backend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyper-tuner" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Hyper-<wbr>Tuner
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hyper-Tuner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qnn-hypertuner-experimental" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      qnn-<wbr>hypertuner <wbr>(Experimental)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="qnn-hypertuner (Experimental)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-mode" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Search mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Required arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Optional arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-backend-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Optional Backend arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-commands" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Sample commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-configurations" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Sample configurations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot-mode" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Plot mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constraints" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Constraints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../APIs/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    APIs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Glossary/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    API
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Python-API/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Python API
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Python API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaic/qaic/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    qaic package
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaicrt/class_util/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class Util
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaicrt/class_InferenceBenchmarkSet/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class Inference<wbr>Benchmark<wbr>Set
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Cpp-API/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    CPP API
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            CPP API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/example/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inference<wbr>Set IO Example
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Cpp-API/runtime/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Runtime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../ONNXRT%20QAIC/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    ONNX Runtime
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            ONNX Runtime
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ONNXRT%20QAIC/onnxruntime/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QAIC execution provider
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            FAQ
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Blogs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Blogs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Train anywhere, Infer on Qualcomm® Cloud AI 100
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Speculative_Decode/spec_decode_ai100/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quadruple LLM Decoding Performance with Speculative Decoding <wbr>(Sp<wbr>D) and Microscaling <wbr>(MX) Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/AmberChat/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Accelerate Inference of Fully Transparent Open-<wbr>Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Text_Embeddings/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extremely Low-<wbr>Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Microscaling/microscaling/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Accelerate Large Language Model Inference by ~2x Using Microscaling <wbr>(Mx) Formats
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#accuracy-evaluator" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Accuracy Evaluator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accuracy Evaluator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-on-cloud-ai-backend" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Example on Cloud AI Backend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accuracy-debugger" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Accuracy Debugger
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accuracy Debugger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id1" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Example on Cloud AI Backend
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyper-tuner" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Hyper-<wbr>Tuner
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hyper-Tuner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qnn-hypertuner-experimental" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      qnn-<wbr>hypertuner <wbr>(Experimental)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="qnn-hypertuner (Experimental)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-mode" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Search mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Required arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Optional arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-backend-arguments" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Optional Backend arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-commands" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Sample commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-configurations" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Sample configurations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot-mode" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Plot mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constraints" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      Constraints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="qairt-tools">QAIRT Tools<a class="headerlink" href="#qairt-tools" title="Link to this heading">¶</a></h1>
+<h2 id="accuracy-evaluator">Accuracy Evaluator<a class="headerlink" href="#accuracy-evaluator" title="Link to this heading">¶</a></h2>
+<p>Refer to qairt-accuracy-evaluator section in <a class="reference external" href="https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qairt-accuracy-evaluator-(beta)">qairt-accuracy-evaluator-(beta)</a></p>
+<p>This tool can be used only for Non-LLMs for Cloud AI backend.</p>
+<h3 id="example-on-cloud-ai-backend">Example on Cloud AI Backend<a class="headerlink" href="#example-on-cloud-ai-backend" title="Link to this heading">¶</a></h3>
+<p>Example of running EfficientNet_b0 model with fp16 precision with Accuracy Evaluator</p>
+<ul class="simple">
+<li><p>Install packages mentioned in <a class="reference external" href="https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/linux_setup.html#step-6-(optional):-additional-packages-for-evaluating-model-accuracy">additional-packages-for-evaluating-model-accuracy</a></p></li>
+<li><p>Run qairt-accuracy-evaluator for model EfficientNet_b0 model</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>With config efficientNet_b0_config.yaml</p></li>
+<li><p>Cleanup intermediate files</p></li>
+<li><p>On device id 5</p></li>
+<li><p>Run for inference with schema tag “qnn_fp16”</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qairt</span><span class="o">-</span><span class="n">accuracy</span><span class="o">-</span><span class="n">evaluator</span> <span class="o">-</span><span class="n">config</span> <span class="n">efficientNet_b0_config</span><span class="o">.</span><span class="n">yaml</span> <span class="o">-</span><span class="n">cleanup</span> <span class="n">intermediate</span> <span class="o">-</span><span class="n">inference_schema_tag</span> <span class="n">qnn_fp16</span> <span class="o">-</span><span class="n">work_dir</span> <span class="n">WORKING_DIR_PATH</span> <span class="o">-</span><span class="n">silent</span> <span class="o">-</span><span class="n">device_id</span> <span class="mi">5</span>
+</code></pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>efficientNet_b0_config.yaml</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3 sd-border-1">
+<summary class="sd-summary-title sd-card-header sd-bg-light sd-bg-text-light">
+<span class="sd-summary-icon"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-code" viewBox="0 0 16 16" aria-hidden="true"><path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path></svg></span><span class="sd-summary-text">efficientNet_b0_config.yaml</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">model</span><span class="p">:</span>
+<span class="w"> </span><span class="nt">info</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">desc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EfficientNet-b0 reference public model used.</span>
+<span class="w">     </span><span class="nt">batchsize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w"> </span><span class="nt">globals</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
+<span class="w">     </span><span class="nt">calib</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
+<span class="w">     </span><span class="nt">npi_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">efficientNet_b0_config.json</span>
+<span class="w"> </span><span class="nt">dataset</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ILSVRC2012</span>
+<span class="w">     </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;/home/ml-datasets/imageNet/&#39;</span>
+<span class="w">     </span><span class="nt">inputlist_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inputlist.txt</span>
+<span class="w">     </span><span class="nt">annotation_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ground_truth.txt</span>
+<span class="w">     </span><span class="nt">calibration</span><span class="p">:</span>
+<span class="w">         </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dataset</span>
+<span class="w">         </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">calibration.txt</span>
+<span class="w">     </span><span class="nt">transformations</span><span class="p">:</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">plugin</span><span class="p">:</span>
+<span class="w">             </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filter_dataset</span>
+<span class="w">             </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">                 </span><span class="nt">random</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="w">                 </span><span class="nt">max_inputs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$count</span>
+<span class="w">                 </span><span class="nt">max_calib</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$calib</span>
+<span class="w"> </span><span class="nt">preprocessing</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">transformations</span><span class="p">:</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">plugin</span><span class="p">:</span>
+<span class="w">                 </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resize</span>
+<span class="w">                 </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">                     </span><span class="nt">library</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">torchvision</span>
+<span class="w">                     </span><span class="nt">dims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">224, 224</span>
+<span class="w">                     </span><span class="nt">interp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bicubic</span>
+<span class="w">                     </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imagenet</span>
+<span class="w">                     </span><span class="nt">typecasting_required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">plugin</span><span class="p">:</span>
+<span class="w">                 </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crop</span>
+<span class="w">                 </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">                     </span><span class="nt">library</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">torchvision</span>
+<span class="w">                     </span><span class="nt">dims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">224,224</span>
+<span class="w">                     </span><span class="nt">typecasting_required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">plugin</span><span class="p">:</span>
+<span class="w">                 </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">normalize</span>
+<span class="w">                 </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">                     </span><span class="nt">library</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">torchvision</span>
+<span class="w">                     </span><span class="nt">normalize_first</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">                     </span><span class="nt">means</span><span class="p">:</span>
+<span class="w">                         </span><span class="nt">R</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.485</span>
+<span class="w">                         </span><span class="nt">G</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.456</span>
+<span class="w">                         </span><span class="nt">B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.406</span>
+<span class="w">                     </span><span class="nt">std</span><span class="p">:</span>
+<span class="w">                         </span><span class="nt">R</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.229</span>
+<span class="w">                         </span><span class="nt">G</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.224</span>
+<span class="w">                         </span><span class="nt">B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.225</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">plugin</span><span class="p">:</span>
+<span class="w">                 </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">create_batch</span>
+<span class="w"> </span><span class="nt">inference-engine</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">model_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">public/efficientnet/efficientnet-b0.onnx</span>
+<span class="w">     </span><span class="nt">inference_schemas</span><span class="p">:</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">inference_schema</span><span class="p">:</span>
+<span class="w">             </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qnn</span>
+<span class="w">             </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fp32</span>
+<span class="w">             </span><span class="nt">target_arch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x86_64-linux-clang</span>
+<span class="w">             </span><span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cpu</span>
+<span class="w">             </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qnn_fp32,ci</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">inference_schema</span><span class="p">:</span>
+<span class="w">             </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qnn</span>
+<span class="w">             </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fp16</span>
+<span class="w">             </span><span class="nt">target_arch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x86_64-linux-clang</span>
+<span class="w">             </span><span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aic</span>
+<span class="w">             </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qnn_fp16,ci</span>
+<span class="w">             </span><span class="nt">backend_extensions</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">compiler_perfWarnings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">             </span><span class="nt">netrun_params</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">use_native_input_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">                </span><span class="nt">use_native_output_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">             </span><span class="nt">converter_params</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">float_bitwidth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">                </span><span class="nt">float_bias_bitwidth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">                </span><span class="nt">preserve_io_datatype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">inference_schema</span><span class="p">:</span>
+<span class="w">             </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qnn</span>
+<span class="w">             </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quant</span>
+<span class="w">             </span><span class="nt">target_arch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x86_64-linux-clang</span>
+<span class="w">             </span><span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aic</span>
+<span class="w">             </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qnn_int8_mp,ci</span>
+<span class="w">             </span><span class="nt">converter_params</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">float_bias_bitwidth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">                </span><span class="nt">quantization_overrides</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$npi_file</span>
+<span class="w">             </span><span class="nt">backend_extensions</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">compiler_perfWarnings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">                </span><span class="nt">compiler_num_of_cores</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">                </span><span class="nt">compiler_overlap_split_factor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">                </span><span class="nt">compiler_perfWarnings</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">                </span><span class="nt">runtime_num_activations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">14</span>
+<span class="w">                </span><span class="nt">runtime_threads_per_queue</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="w">             </span><span class="nt">quantizer_params</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">bias_bitwidth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">                </span><span class="nt">float_bias_bitwidth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">                </span><span class="nt">act_quantizer_calibration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percentile</span>
+<span class="w">                </span><span class="nt">act_quantizer_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">asymmetric</span>
+<span class="w">                </span><span class="nt">param_quantizer_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">symmetric</span>
+<span class="w">                </span><span class="nt">percentile_calibration_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.998</span>
+<span class="w">                </span><span class="nt">use_per_channel_quantization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">                </span><span class="nt">preserve_io_datatype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">             </span><span class="nt">netrun_params</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">use_native_input_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">                </span><span class="nt">use_native_output_data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">     </span><span class="nt">inputs_info</span><span class="p">:</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">input.1</span><span class="p">:</span>
+<span class="w">             </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float32</span>
+<span class="w">             </span><span class="nt">shape</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">299</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">299</span><span class="p p-Indicator">]</span>
+<span class="w">     </span><span class="nt">outputs_info</span><span class="p">:</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">_666</span><span class="p">:</span>
+<span class="w">             </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">float32</span>
+<span class="w">             </span><span class="nt">shape</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;*&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1000</span><span class="p p-Indicator">]</span>
+<span class="w"> </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">transformations</span><span class="p">:</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">plugin</span><span class="p">:</span>
+<span class="w">             </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">topk</span>
+<span class="w">             </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">                 </span><span class="nt">kval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1,5</span>
+<span class="w">                 </span><span class="nt">round</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7</span>
+</code></pre></div>
+</div>
+</div>
+</details></li>
+<li><p>efficientNet_b0_config.yaml is provided to retain few nodes in higher precision to maintain accuracy</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3 sd-border-1">
+<summary class="sd-summary-title sd-card-header sd-bg-light sd-bg-text-light">
+<span class="sd-summary-icon"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-code" viewBox="0 0 16 16" aria-hidden="true"><path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path></svg></span><span class="sd-summary-text">efficientNet_b0_config.json</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w"> </span><span class="nt">&quot;activation_encodings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nt">&quot;_380&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_381&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_417&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_418&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_398&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_399&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_367&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_368&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_366&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_364&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_365&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_384&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_382&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_383&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_362&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_363&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_387&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_388&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_385&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_386&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_454&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="nt">&quot;_455&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">             </span><span class="nt">&quot;bitwidth&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">&quot;dtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;float&quot;</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">     </span><span class="p">]</span>
+<span class="w"> </span><span class="p">},</span>
+<span class="w"> </span><span class="nt">&quot;param_encodings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</details></li>
+</ul>
+</div></blockquote>
+<h2 id="accuracy-debugger">Accuracy Debugger<a class="headerlink" href="#accuracy-debugger" title="Link to this heading">¶</a></h2>
+<p>Refer to qairt-accuracy-debugger section in <a class="reference external" href="https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qairt-accuracy-debugger-(beta)">qairt-accuracy-debugger-(beta)</a></p>
+<p>It is supported only Non-LLMs for Cloud AI backend</p>
+<h3 id="id1">Example on Cloud AI Backend<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>Example of running EfficientNet_b0 model with fp16 precision with Accuracy Evaluator</p>
+<ul class="simple">
+<li><p>EfficientNetB0 Framework_Runner stage to get intermediate ouputs with onnx</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Model efficientnet-b0.onnx</p></li>
+<li><p>For input tensor “‘input.1’ 1,3,224,224 input.raw float32”</p></li>
+<li><p>Output tensor “666”</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qairt</span><span class="o">-</span><span class="n">accuracy</span><span class="o">-</span><span class="n">debugger</span> <span class="o">--</span><span class="n">framework_runner</span> <span class="o">--</span><span class="n">framework</span> <span class="n">onnx</span> <span class="o">--</span><span class="n">model_path</span> <span class="n">efficientnet</span><span class="o">-</span><span class="n">b0</span><span class="o">.</span><span class="n">onnx</span> <span class="o">--</span><span class="n">working_dir</span> <span class="n">RUNNER_WORKING_DIR</span> <span class="o">--</span><span class="n">output_dirname</span> <span class="n">fw_runner</span> <span class="o">--</span><span class="n">disable_graph_optimization</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">--</span><span class="n">input_tensor</span> <span class="s1">&#39;input.1&#39;</span> <span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">224</span><span class="p">,</span><span class="mi">224</span> <span class="nb">input</span><span class="o">.</span><span class="n">raw</span> <span class="n">float32</span> <span class="o">--</span><span class="n">output_tensor</span> <span class="s1">&#39;666&#39;</span>
+</code></pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li><p>EfficientNetB0 Inference_Engine stage for INT8 precision to get the intermediate output with QAIRT engine with Cloud AI as backend</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>For runtime “aic” backend(Cloud AI)</p></li>
+<li><p>Host type x86</p></li>
+<li><p>For input tensor “‘input.1’ 1,3,224,224 input.raw float32”</p></li>
+<li><p>Output tensor “666”</p></li>
+<li><p>Symmetric quantization to be used parameter and activations</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qairt</span><span class="o">-</span><span class="n">accuracy</span><span class="o">-</span><span class="n">debugger</span> <span class="o">--</span><span class="n">inference_engine</span> <span class="o">--</span><span class="n">model_path</span> <span class="n">efficientnet</span><span class="o">-</span><span class="n">b0</span><span class="o">.</span><span class="n">onnx</span> <span class="o">--</span><span class="n">runtime</span> <span class="n">aic</span> <span class="o">--</span><span class="n">architecture</span> <span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">clang</span> <span class="o">--</span><span class="n">input_list</span> <span class="n">qnn_efficientNet_b0_list</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">calibration_input_list</span> <span class="n">qnn_efficientNet_b0_list</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">working_dir</span> <span class="n">INF_WORKING_DIR</span> <span class="o">--</span><span class="n">output_dirname</span> <span class="n">InferenceResults</span> <span class="o">--</span><span class="n">executor_type</span> <span class="n">QAIRT</span> <span class="o">--</span><span class="n">engine_path</span> <span class="n">SDK_PATH</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">--</span><span class="n">host_device</span> <span class="n">x86</span> <span class="o">--</span><span class="n">profiling_level</span> <span class="n">basic</span> <span class="o">--</span><span class="n">log_level</span> <span class="n">error</span> <span class="o">--</span><span class="n">debug_mode_off</span> <span class="o">--</span><span class="n">bias_bitwidth</span> <span class="mi">32</span> <span class="o">--</span><span class="n">param_quantizer_schema</span> <span class="n">symmetric</span> <span class="o">--</span><span class="n">act_quantizer_schema</span> <span class="n">symmetric</span> <span class="o">--</span><span class="n">param_quantizer_calibration</span> <span class="nb">min</span><span class="o">-</span><span class="nb">max</span> <span class="o">--</span><span class="n">use_per_channel_quantization</span> <span class="o">--</span><span class="n">input_tensor</span> <span class="s1">&#39;input.1&#39;</span> <span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">224</span><span class="p">,</span><span class="mi">224</span> <span class="nb">input</span><span class="o">.</span><span class="n">raw</span> <span class="n">float32</span> <span class="o">--</span><span class="n">output_tensor</span> <span class="s1">&#39;666&#39;</span>  <span class="s2">&quot;</span>
+</code></pre></div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>Input list qnn_efficientNet_b0_list.txt</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="nb">input</span><span class="o">:=/</span><span class="n">PATH_TO_MODEL_INPUT</span><span class="o">/</span><span class="n">model</span><span class="o">-</span><span class="n">inputs</span><span class="o">/</span><span class="n">inputs</span><span class="o">/</span><span class="mi">224</span><span class="n">x224</span><span class="o">/</span><span class="n">batch_size_1</span><span class="o">/./</span><span class="nb">input</span><span class="o">.</span><span class="n">raw</span>
+</code></pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li><p>EfficientNetB0 Verification stage for Int8 precision to compare outputs generated by framework runner (onnx) and Inference Engine(cloud AI backend) using CosineSimilarity</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Use verifier as CosineSimilarity</p></li>
+<li><p>Outputs will be available at WORKING_DIR</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qairt</span><span class="o">-</span><span class="n">accuracy</span><span class="o">-</span><span class="n">debugger</span> <span class="o">--</span><span class="n">verification</span> <span class="o">--</span><span class="n">default_verifier</span> <span class="n">CosineSimilarity</span> <span class="o">--</span><span class="n">working_dir</span> <span class="n">WORKING_DIR</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">--</span><span class="n">golden_output_reference_directory</span> <span class="n">RUNNER_WORKING_DIR</span> <span class="o">--</span><span class="n">inference_results</span> <span class="n">INF_WORKING_DIR</span><span class="o">/</span><span class="n">InferenceResults</span><span class="o">/</span><span class="n">output</span><span class="o">/</span><span class="n">Result_0</span><span class="o">/</span><span class="s1">&#39;</span>
+</code></pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+<h2 id="hyper-tuner">Hyper-Tuner<a class="headerlink" href="#hyper-tuner" title="Link to this heading">¶</a></h2>
+<h3 id="qnn-hypertuner-experimental">qnn-hypertuner (Experimental)<a class="headerlink" href="#qnn-hypertuner-experimental" title="Link to this heading">¶</a></h3>
+<p>qnn-hypertuner, also referred to as Hypertuner, is a performance tuning tool that provides an
+optimal combination of compiler parameters.
+The Hypertuner takes, as input, a JSON configuration file containing the name of the
+deep learning model, hyper parameters, search algorithm, and backend.
+It then performs a search over the hyperspace as defined by the input parameters and
+outputs an optimal parameter set for use by downstream tasks or applications.</p>
+<p>qnn-hypertuner is an experimental tool which is currently supported only on limited set of
+mobile devices and auto platforms.</p>
+<h4 id="setup">Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h4>
+<p>Hypertuner usage assumes general setup instructions have been followed.</p>
+<h4 id="usage">Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h4>
+<p>Hypertuner can be used in the following modes.</p>
+<ul class="simple">
+<li><p><strong>Search mode</strong> – Tunes deep learning model for performance</p></li>
+<li><p><strong>Plot mode</strong>   – Visualizes statistics generated in Search mode</p></li>
+</ul>
+<p>Run <code class="docutils literal notranslate"><span class="pre">qnn-hypertuner</span> <span class="pre">--help</span></code> to see the command line help message.</p>
+<h4 id="search-mode">Search mode<a class="headerlink" href="#search-mode" title="Link to this heading">¶</a></h4>
+<p>Hypertuner can be run in Search mode by entering the <code class="docutils literal notranslate"><span class="pre">search</span></code> option in the command line.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qnn</span><span class="o">-</span><span class="n">hypertuner</span> <span class="n">search</span> <span class="o">-</span><span class="n">h</span>
+<span class="n">qnn</span><span class="o">-</span><span class="n">hypertuner</span> <span class="n">search</span> <span class="o">-</span><span class="n">i</span> <span class="n">INPUT</span> <span class="p">[</span><span class="o">-</span><span class="n">l</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">bo</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">an</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">ao</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">cp0</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<h4 id="required-arguments">Required arguments<a class="headerlink" href="#required-arguments" title="Link to this heading">¶</a></h4>
+<dl class="option-list">
+<dt><kbd><span class="option">-i</span>, <span class="option">--input <var>INPUT</var></span></kbd></dt>
+<dd><p>Configuration file in JSON format. The configuration file must contain the following.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Deep learning model</p></li>
+<li><p>Hyper parameters</p></li>
+<li><p>Search Algorithm</p></li>
+<li><p>Backend</p></li>
+</ul>
+</div></blockquote>
+<p>Refer to the sample configuration files included in the SDK for details.</p>
+</dd>
+</dl>
+<h4 id="optional-arguments">Optional arguments<a class="headerlink" href="#optional-arguments" title="Link to this heading">¶</a></h4>
+<p>Optional arguments can be used to provide additional information or to override
+the configurations provided by the input configuration file. Some of the options are shown below. Please run help command to view latest options.</p>
+<dl class="simple">
+<dt><strong>-an, –algorithm-name</strong></dt><dd><p>Algorithm name; options:</p>
+<ul class="simple">
+<li><p>dopt</p></li>
+<li><p>evol</p></li>
+<li><p>brute</p></li>
+</ul>
+</dd>
+<dt><strong>-ao, –algorithm-obj</strong></dt><dd><p>Algorithm objective; options:</p>
+<ul class="simple">
+<li><p>max</p></li>
+<li><p>min</p></li>
+</ul>
+</dd>
+<dt><strong>-l</strong></dt><dd><p>Logging levels; options:</p>
+<ul class="simple">
+<li><p>DBG</p></li>
+<li><p>INFO</p></li>
+<li><p>WARN</p></li>
+<li><p>ERR</p></li>
+</ul>
+</dd>
+<dt><strong>-cp0</strong></dt><dd><p>Disable check-pointing</p>
+</dd>
+</dl>
+<h4 id="optional-backend-arguments">Optional Backend arguments<a class="headerlink" href="#optional-backend-arguments" title="Link to this heading">¶</a></h4>
+<p>These options are displayed when <em>–input</em> flag is provided along with <em>–help</em>. They are backend specific options which are displayed after extracting backend name from <em>–input</em> config.</p>
+<ul class="simple">
+<li><p>QNN-AIC</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qnn</span><span class="o">-</span><span class="n">aic</span> <span class="n">backend</span><span class="s1">&#39;s flag:</span>
+  <span class="o">-</span><span class="n">bo</span> <span class="p">{</span><span class="n">ips</span><span class="p">,</span><span class="n">latency</span><span class="p">,</span><span class="n">avg_ddr_bw</span><span class="p">},</span> <span class="o">--</span><span class="n">backend</span><span class="o">-</span><span class="n">obj</span> <span class="p">{</span><span class="n">ips</span><span class="p">,</span><span class="n">latency</span><span class="p">,</span><span class="n">avg_ddr_bw</span><span class="p">}</span>
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>QNN-HTP</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qnn</span><span class="o">-</span><span class="n">htp</span> <span class="n">backend</span><span class="s1">&#39;s flag:</span>
+  <span class="o">-</span><span class="n">bo</span> <span class="p">{</span><span class="n">exe_time</span><span class="p">,</span><span class="n">ddr_bandwidth</span><span class="p">},</span> <span class="o">--</span><span class="n">backend</span><span class="o">-</span><span class="n">obj</span> <span class="p">{</span><span class="n">exe_time</span><span class="p">,</span><span class="n">ddr_bandwidth</span><span class="p">}</span>
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>QNN-HTPMCP</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qnn</span><span class="o">-</span><span class="n">htpmcp</span> <span class="n">backend</span><span class="s1">&#39;s flag:</span>
+  <span class="o">-</span><span class="n">bo</span> <span class="p">{</span><span class="n">exe_time</span><span class="p">,</span><span class="n">ddr_bandwidth</span><span class="p">},</span> <span class="o">--</span><span class="n">backend</span><span class="o">-</span><span class="n">obj</span> <span class="p">{</span><span class="n">exe_time</span><span class="p">,</span><span class="n">ddr_bandwidth</span><span class="p">}</span>
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>Hextimate</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">hextimate</span> <span class="n">backend</span><span class="s1">&#39;s flag:</span>
+  <span class="o">-</span><span class="n">bo</span> <span class="p">{</span><span class="n">exec_cycles</span><span class="p">,</span><span class="n">exec_cycles_lower</span><span class="p">,</span><span class="n">exec_cycles_upper</span><span class="p">,</span><span class="n">ddr_bandwidth</span><span class="p">},</span> <span class="o">--</span><span class="n">backend</span><span class="o">-</span><span class="n">obj</span> <span class="p">{</span><span class="n">exec_cycles</span><span class="p">,</span><span class="n">exec_cycles_lower</span><span class="p">,</span><span class="n">exec_cycles_upper</span><span class="p">,</span><span class="n">ddr_bandwidth</span><span class="p">}</span>
+</code></pre></div>
+</div>
+<h4 id="sample-commands">Sample commands<a class="headerlink" href="#sample-commands" title="Link to this heading">¶</a></h4>
+<p>Please follow the Tutorials for downloading Inception V3 Tensorflow model file and the sample images before executing the sample commands.</p>
+<ul class="simple">
+<li><p>AIC</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>qnn-hypertuner search -i ${QNN_SDK_ROOT}/examples/QNN/hypertuner/example_qnn_aic.json
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>HTP (Mobile)</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>qnn-hypertuner search -i ${QNN_SDK_ROOT}/examples/QNN/hypertuner/example_qnn_htp.json
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>HTP (QDrive)</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>qnn-hypertuner search -i ${QNN_SDK_ROOT}/examples/QNN/hypertuner/example_qnn_htp_qd.json
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>HTPMCP (QDrive)</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>qnn-hypertuner search -i ${QNN_SDK_ROOT}/examples/QNN/hypertuner/example_qnn_htpmcp_qd.json
+</code></pre></div>
+</div>
+<ul class="simple">
+<li><p>Hextimate</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>qnn-hypertuner search -i ${QNN_SDK_ROOT}/examples/QNN/hypertuner/example_qnn_hextimate.json
+</code></pre></div>
+</div>
+<h4 id="sample-configurations">Sample configurations<a class="headerlink" href="#sample-configurations" title="Link to this heading">¶</a></h4>
+<p>Configuration files have the following sections.</p>
+<ul class="simple">
+<li><p>Hyperparameters       – Specifies the list of parameters and the range for the search</p></li>
+<li><p>Initial points        – Specifies initial points used to start the search</p></li>
+<li><dl class="simple">
+<dt>Algorithm             – Specifies the search algorithm; currently supported algorithms are:</dt><dd><ul>
+<li><p>DOpt (Discrete Optimization)</p></li>
+<li><p>Evol (Evolutionary Tuning)</p></li>
+<li><p>Brute (Brute Force)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Backend               – Specifies the backend and the name of the deep learning model; currently supported backends are:</dt><dd><ul>
+<li><p>QNN-AIC</p></li>
+<li><p>QNN-HTP</p></li>
+<li><p>QNN-HTPMCP</p></li>
+<li><p>QNN-HEXTIMATE</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Refer to the sample configuration files included in the SDK for details.</p>
+<h4 id="output">Output<a class="headerlink" href="#output" title="Link to this heading">¶</a></h4>
+<p>Hypertuner generates the following outputs.</p>
+<ul class="simple">
+<li><p>Set of optimal parameters with their respective values</p></li>
+<li><p>Checkpoint file used to resume an earlier run</p></li>
+<li><p>Hypertuner logs (history.log)</p></li>
+</ul>
+<h4 id="plot-mode">Plot mode<a class="headerlink" href="#plot-mode" title="Link to this heading">¶</a></h4>
+<p>Hypertuner can be used for visualization by entering the <code class="docutils literal notranslate"><span class="pre">plot</span></code> option in the command line.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qnn</span><span class="o">-</span><span class="n">hypertuner</span> <span class="n">plot</span> <span class="o">-</span><span class="n">h</span>
+<span class="n">qnn</span><span class="o">-</span><span class="n">hypertuner</span> <span class="n">plot</span> <span class="o">-</span><span class="n">i</span> <span class="n">input_file</span>
+</code></pre></div>
+</div>
+<p>The <em>history.log</em> file generated by running Hypertuner in Search mode can be used as the input for Plot mode.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">qnn</span><span class="o">-</span><span class="n">hypertuner</span> <span class="n">plot</span> <span class="o">-</span><span class="n">i</span> <span class="n">history</span><span class="o">.</span><span class="n">log</span>
+</code></pre></div>
+</div>
+<p>To generate a host profile, set the <code class="docutils literal notranslate"><span class="pre">HT_ENABLE_PROFILING</span></code> environment variable when running qnn-hypertuner in Search mode as shown below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">HT_ENABLE_PROFILING</span><span class="o">=</span><span class="mi">1</span> <span class="n">qnn</span><span class="o">-</span><span class="n">hypertuner</span> <span class="n">search</span> <span class="o">-</span><span class="n">i</span> <span class="n">example_qnn_aic</span><span class="o">.</span><span class="n">json</span>
+<span class="n">qnn</span><span class="o">-</span><span class="n">hypertuner</span> <span class="n">plot</span> <span class="o">-</span><span class="n">i</span> <span class="n">history</span><span class="o">.</span><span class="n">log</span>
+</code></pre></div>
+</div>
+<p>Different views can be generated by selecting different values from the drop-down list</p>
+<h4 id="constraints">Constraints<a class="headerlink" href="#constraints" title="Link to this heading">¶</a></h4>
+<ol class="arabic simple">
+<li><p>Result will converge to Local Maxima/Minima</p></li>
+<li><p>Run to run variations are expected on hardware backends</p></li>
+<li><p>DOpt algorithm is not suitable for categorical hyperparameters</p></li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Addition-of-Custom-op/index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Addition of Custom-op">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Addition of Custom-op
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../APIs/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: APIs">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                APIs
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2025 Qualcomm Innovation Center, Inc.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": ["latest"], "title": "1.20", "version": "1.20"}, {"aliases": [], "title": "1.19.10", "version": "1.19.10"}, {"aliases": [], "title": "1.19.8", "version": "1.19.8"}, {"aliases": [], "title": "1.19", "version": "1.19"}, {"aliases": [], "title": "1.18", "version": "1.18"}, {"aliases": [], "title": "1.17", "version": "1.17"}, {"aliases": [], "title": "1.16", "version": "1.16"}, {"aliases": [], "title": "1.15", "version": "1.15"}], "versionPath": null}}</script>
+    
+      
+        <script src="../../../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    
+  </body>
+</html>

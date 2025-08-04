@@ -1,0 +1,74 @@
+Feature Overview
+================
+
+These are the currently supported features of AICM. For more detailed
+information on specific features, it is advised to look at the Swagger
+UI interactive docs. When operational, AICM provides a Swagger UI
+interface accessible at ``<IP>:<PORT>/docs``.
+
+--------------
+
+Metrics Retrieval
+-----------------
+
+AICM provides a data retrieval mechanism for the following metrics:
+
+-  General health data (same metrics obtainable from the ``qaic-util``
+   tool)
+-  PCIe data (as in bytes read and written)
+-  DDR data (as in bytes read and written at the NSP level)
+-  RAS errors (from various components of the card)
+
+These metrics are continuously requested from the cards, and their
+interval can be set via command line or the config file.
+
+Groups
+------
+
+.. image:: ../resources/Grouping.png
+
+AICM can work with individual devices by querying their ID or using groups.
+Any metric retrieval API has a group counterpart, and other features like policies/alerts can be issued for groups. Groups are identified by a unique name that cannot start with numeric characters.
+
+Group management is done through the various groups API.
+It is possible to create, modify, and delete groups and their members.
+
+Groups are intended to be only logical and limited to a single host (cannot span over hosts).
+There is no check on actual devices. Once an API is requested for a group, the logical group request will result in a data response, and the dedicated field will be device_reachable=true, while the unavailable devices will return an empty response apart from a single field device_reachable=false.
+
+Policies and Alerts
+-------------------
+
+AICM will continuously query data from the available qmonitor server in
+the background. Users can set up alerts for specific conditions.
+Currently, AICM can monitor these conditions, with plans to expand these
+options in the future. Available conditions:
+
+-  temperature_violation
+-  power_violation
+-  DDR_pages_retirement_violation
+
+In turn, it is possible to activate some actions.
+
+As of now, the available actions:
+
+-  Alert action
+
+These can be linked together via the Policies APIs.
+
+Alerts
+~~~~~~
+
+With policies using the alert actions, the user can create an alert
+mechanism.
+
+The final user will be able to receive alerts by subscribing to the
+/alerts endpoint and listening for `server-sent
+events <https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events>`__.
+
+This is possible thanks to server-sent events, so the user will need to
+parse them accordingly.
+
+A complete example is available in the
+``examples/alert_subscribe_example.py``.
+

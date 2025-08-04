@@ -1,0 +1,424 @@
+InferenceSet IO Example
+=======================
+
+The following document describes ``AIC100`` Example named
+``InferenceSetIOBuffersExample.cpp``.
+
+This example contains a single C++ file and a ``CMakeLists.txt`` that
+can be used for compiling as part of ``Qualcomm Cloud AI 100``
+distributed Platform SDK.
+
+
+.. dropdown:: InferenceSetIOBuffersExample.cpp
+   :color: light
+   :class-container: sd-border-1
+   :icon: beaker
+
+   InferenceSetIOBuffersExample.cpp
+   
+   .. code::
+   
+      1     //-----------------------------------------------------------------------------
+      2     // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+      3     // SPDX-License-Identifier: BSD-3-Clause-Clear 
+      4     //-----------------------------------------------------------------------------
+      5     
+      6     #include <string>
+      7     #include <vector>
+      8     #include <iostream>
+      9     #include <random>
+      10    #include "QAicApi.hpp"
+      11    
+      12    namespace {
+      13    
+      14    /**
+      15    * used to generate random data into input buffers
+      16    * Input buffers are uint8_t arrays
+      17    */
+      18    struct RandomGen final {
+      19        static constexpr const int from = std::numeric_limits<uint8_t>::min();
+      20        static constexpr int to = std::numeric_limits<uint8_t>::max();
+      21        std::random_device randdev;
+      22        std::mt19937 gen;
+      23        std::uniform_int_distribution<uint8_t> distr;
+      24        explicit RandomGen() : gen(randdev()), distr(from, to) {}
+      25        [[nodiscard]] auto next() { return distr(gen); }
+      26    };
+      27    
+      28    /**
+      29    * Simple helper to return true if the buffer mapping instance is an input one
+      30    * @param bufmap buffer mapping instance
+      31    * @return true if the instance is an input buffer one.
+      32    */
+      33    [[nodiscard]] bool isInputBuffer(const qaic::rt::BufferMapping &bufmap) {
+      34        return bufmap.ioType == BUFFER_IO_TYPE_INPUT;
+      35    }
+      36    
+      37    /**
+      38    * Helper function to print input/output buffer counts so far, zero based
+      39    * @param bufmap buffer map instance
+      40    * @param inputCount input count to use if the instance is input
+      41    * @param outputCount output count to use if the instance is output
+      42    * @return string formatted using the above info.
+      43    */
+      44    [[nodiscard]] std::string getPrintName(const qaic::rt::BufferMapping &bufmap,
+      45                                        const std::size_t inputCount,
+      46                                        const std::size_t outputCount) {
+      47        using namespace std::string_literals;
+      48        return isInputBuffer(bufmap) ? ("Input "s + std::to_string(inputCount))
+      49                                    : ("Output "s + std::to_string(outputCount));
+      50    }
+      51    
+      52    /**
+      53    * Populate input, output vectors with QBuffer information
+      54    * @param bufmap Buffer mapping instance
+      55    * @param buf Actual QBufffer that was generated at callsite/caller.
+      56    * @param inputBuffers Vector to use in case this is input instance
+      57    * @param outputBuffers Vector to use in case this is an output instance
+      58    */
+      59    void populateVector(const qaic::rt::BufferMapping &bufmap, const QBuffer &buf,
+      60                        std::vector<QBuffer> &inputBuffers,
+      61                        std::vector<QBuffer> &outputBuffers) {
+      62        if (isInputBuffer(bufmap)) {
+      63            inputBuffers.push_back(buf);
+      64        } else {
+      65            outputBuffers.push_back(buf);
+      66        }
+      67    }
+      68    
+      69    /**
+      70    * Given a buffer and size, populate it with random [0..128] random data
+      71    * @param buf buffer to populate
+      72    * @param sz size of this buffer
+      73    */
+      74    void populateBufWithRandom(uint8_t *buf, const std::size_t sz) {
+      75    RandomGen gen;
+      76        for (auto iter = buf; iter < buf + sz; ++iter) {
+      77            *iter = gen.next();
+      78        }
+      79    }
+      80    
+      81    /**
+      82    * Prepare buffers, vectors given a single buffer mapping. Depending on the
+      83    * input/output instance of the buffer mapping, handle logic accordingly.
+      84    * Only inputbuffers needs to be populated with random data.
+      85    * @param bufmap buffer mapping passed as const
+      86    * @param inputCount input buffers counter
+      87    * @param outputCount output buffers counter
+      88    * @param inputBuffers input vector of QBuffer to append to new QBuffer
+      89    * @param outputBuffers output vector of QBuffer to append to new QBuffer
+      90    */
+      91    void prepareBuffers(const qaic::rt::BufferMapping &bufmap,
+      92                        std::size_t &inputCount, std::size_t &outputCount,
+      93                        std::vector<QBuffer> &inputBuffers,
+      94                        std::vector<QBuffer> &outputBuffers) {
+      95        std::cout << getPrintName(bufmap, inputCount, outputCount) << '\n';
+      96        std::cout << "\tname = " << bufmap.bufferName << '\n';
+      97        std::cout << "\tsize = " << bufmap.size << '\n';
+      98        QBuffer buf{bufmap.size, new uint8_t[bufmap.size]}; // Need to dealloc
+      99        populateVector(bufmap, buf, inputBuffers, outputBuffers);
+      100       //
+      101       // Provide the input to the inference in "inputBuffers". Here random data
+      102       // is used. For providing input as file, use a different api. This example
+      103       // is for input in memory.
+      104       //
+      105       if (isInputBuffer(bufmap)) {
+      106           populateBufWithRandom(buf.buf, buf.size);
+      107           ++inputCount;
+      108       } else {
+      109           ++outputCount;
+      110       }
+      111   }
+      112   
+      113   /**
+      114   * Given input and output buffers, release all heap allocated
+      115   * @param inputBuffers vector of QBuffers - inputs
+      116   * @param outputBuffers vector of Qbuffers - outputs
+      117   */
+      118   void releaseBuffers(std::vector<QBuffer> &inputBuffers,
+      119                       std::vector<QBuffer> &outputBuffers) {
+      120       const auto release([](const QBuffer &qbuf) { delete[] qbuf.buf; });
+      121       std::for_each(inputBuffers.begin(), inputBuffers.end(), release);
+      122       std::for_each(outputBuffers.begin(), outputBuffers.end(), release);
+      123   }
+      124   
+      125   /**
+      126   * Given buffer mapping instance, return true if this instance does not
+      127   * contain input or output buffers (e.g. it contains uninitialized or invalid)
+      128   * @param bufmap buffer mapping instance
+      129   * @return true if the buffer mapping instance does not container a valid buffer
+      130   */
+      131   [[nodiscard]] bool notInputOrOutput(const qaic::rt::BufferMapping &bufmap) {
+      132       const std::initializer_list<QAicBufferIoTypeEnum> bufTypes{
+      133           BUFFER_IO_TYPE_INPUT, BUFFER_IO_TYPE_OUTPUT};
+      134       const auto func([type = bufmap.ioType](const auto v) { return v == type; });
+      135       return std::none_of(bufTypes.begin(), bufTypes.end(), func);
+      136   }
+      137   
+      138   } // namespace
+      139   
+      140   int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
+      141       QID qid = 0;
+      142       std::vector<QID> qidList{qid};
+      143   
+      144       // *** QPC ***
+      145       constexpr const char *qpcPath =
+      146           "/opt/qti-aic/test-data/aic100/v2/2nsp/2nsp-conv-hmx"; // 
+      147       auto qpc = qaic::rt::Qpc::Factory(qpcPath);
+      148   
+      149       // *** CONTEXT ***
+      150       constexpr QAicContextProperties_t *NullProp = nullptr;
+      151       auto context = qaic::rt::Context::Factory(NullProp, qidList);
+      152   
+      153       // *** INFERENCE SET ***
+      154       constexpr uint32_t setSize = 10;
+      155       constexpr uint32_t numActivations = 1;
+      156       auto inferenceSet = qaic::rt::InferenceSet::Factory(
+      157           context, qpc, qidList.at(0), setSize, numActivations);
+      158   
+      159       // *** SETUP IO BUFFERS ***
+      160       qaic::rt::shInferenceHandle submitHandle;
+      161       auto status = inferenceSet->getAvailable(submitHandle);
+      162       if (status != QS_SUCCESS) {
+      163           std::cerr << "Error obtaining Inference Handle\n";
+      164           return -1;
+      165       }
+      166       std::size_t numInputBuffers = 0;
+      167       std::size_t numOutputBuffers = 0;
+      168       std::vector<QBuffer> inputBuffers, outputBuffers;
+      169       const auto &bufferMappings = qpc->getBufferMappings();
+      170       for (const auto &bufmap : bufferMappings) {
+      171           if (notInputOrOutput(bufmap)) {
+      172               continue;
+      173           }
+      174           prepareBuffers(bufmap, numInputBuffers, numOutputBuffers, inputBuffers,
+      175                       outputBuffers);
+      176       }
+      177       submitHandle->setInputBuffers(inputBuffers);
+      178       submitHandle->setOutputBuffers(outputBuffers);
+      179   
+      180       // *** SUBMIT ***
+      181       constexpr uint32_t inferenceId = 0; // also named as request ID
+      182       status = inferenceSet->submit(submitHandle, inferenceId);
+      183       std::cout << status << '\n';
+      184   
+      185       // *** COMPLETION ***
+      186       qaic::rt::shInferenceHandle completedHandle;
+      187       status = inferenceSet->getCompletedId(completedHandle, inferenceId);
+      188       std::cout << status << '\n';
+      189       status = inferenceSet->putCompleted(std::move(completedHandle));
+      190       std::cout << status << '\n';
+      191   
+      192       // *** GET OUTPUT ***
+      193       //
+      194       // At this point, the output is available in "outputBuffers" and can be
+      195       // consumed.
+      196       //
+      197   
+      198       // *** Release user allocated buffers ***
+      199       releaseBuffers(inputBuffers, outputBuffers);
+      200   }
+
+
+
+.. dropdown:: CMakeLists.txt
+   :color: light
+   :class-container: sd-border-1
+   :icon: beaker
+
+   CMakeLists.txt
+   
+   .. code::
+
+      1    # ==============================================================================
+      2    # Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+      3    # SPDX-License-Identifier: BSD-3-Clause-Clear 
+      4    # ==============================================================================
+      5    
+      6    project(inference-set-io-buffers-example)
+      7    cmake_minimum_required (VERSION 3.15)
+      8    set(CMAKE_CXX_STANDARD 17)
+      9    
+      10   include_directories("/opt/qti-aic/dev/inc")
+      11   
+      12   add_executable(inference-set-io-buffers-example InferenceSetIOBuffersExample.cpp)
+      13   set_target_properties(
+      14       inference-set-io-buffers-example
+      15       PROPERTIES
+      16       LINK_FLAGS "-Wl,--no-as-needed"
+      17   )
+      18   target_compile_options(inference-set-io-buffers-example PRIVATE
+      19                       -fstack-protector-all
+      20                       -Werror
+      21                       -Wall
+      22                       -Wextra
+      23                       -Wunused-variable
+      24                       -Wunused-parameter
+      25                       -Wnon-virtual-dtor
+      26                       -Wno-missing-field-initializers)
+      27   target_link_libraries(inference-set-io-buffers-example PRIVATE
+      28                       pthread
+      29                       dl)
+
+
+
+Main Flow
+---------
+
+Main function has 8 parts. The example using few helper functions
+defined in the top anonymous namespace.
+
+QID
+---
+
+The first part of the ``main()`` example will pick ``QID 0``. This is
+usually the first Enumerated device ID.
+
+Though the API is capable of accepting a list of *QID* 's, in this
+example we only pass a single one in the ``vector<> int`` container.
+
+QPC
+---
+
+:ref:`QPC <reference-to-QPC>` is a container file that includes various
+parts of the compiled network.
+
+The path is hardcoded in this example and could be changed or passed to
+the program via other means like environment variable or command line
+arguments.
+
+``qaic::rt::Qpc::Factory`` API will accept a path to the *QPC* and
+returns pack a *QPC* object to use in the next steps.
+
+Context
+-------
+
+``QAIC`` Runtime requires a :ref:`Context <reference-to-context>` object
+to be created and passed around to various APIs.
+
+In this phase we use ``qaic::rt::Context::Factory`` API to obtain a new
+instance of *Context*.
+
+We pass ``NullProp`` for no special ``QAicContextProperties_t``
+attributes and the *QID* vector that was instantiated before.
+
+Inference Set
+-------------
+
+Creating an instance of :ref:`InferenceSet <reference-to-inference-set>` is
+the next step.
+
+*InferenceSet* is considered as a top-level entity when it comes to
+running Inferences on Hardware.
+
+In this example, we set the Size of the Software/Hardware backlog as 10
+possible pending buffers.
+
+We have a single activation requested. This means that the provided
+program (encapsulated in *QPC*), will be activated as a single instance
+on the Hardware. We use the single *QID* provided when creating the
+InferenceSet instance.
+
+IO Buffers
+----------
+
+Next step is required for setting up Input as well as output buffers.
+
+In both Input and Output buffers, the user application will be
+allocating buffers and also will need to deallocate the buffers before
+application tear- down.
+
+This part have few subsections:
+
+1. Obtain :ref:`InferenceHandle <reference-to-inference-handle>` to submit
+   the I/O buffers once these created.
+2. Allocate the buffers using *BufferMappings* container. We iterate
+   over each *BufferMapping* instance to obtain information that helps
+   us to allocate new buffers.
+3. Once we have a vectors of allocated Input and Output buffers, we will
+   use the *InferenceHandle* to submit it. It will be used during
+   inference.
+
+In this example, the helper functions will populate Input buffers with
+random data just to demonstrate the capabilities of the system.
+
+Submission
+----------
+
+This is the part where the actual submission request is happening.
+
+The *inferenceSet* is used to submit the request, passing *submitHandle*
+and user defined *inferenceId* (which was picked as ID 0)
+
+Completion
+----------
+
+This is a blocking call to wait on inference completion and device
+output's buffers received in the Application.
+
+We use *inferenceSet* to obtain the *completedHandle* passing our
+*inferenceId* as mentioned above.
+
+User is responsible to return the *completedHandle* back to the Runtime
+pool and doing so by calling *putCompleted* using *inferenceSet*.
+
+Obtaining output
+----------------
+
+In this example we do not do anything with the obtained Output buffers
+and real-life Application will consume such output data.
+
+Cleanup
+-------
+
+Since the buffers are user-allocated buffers using the System's Heap,
+the users is also in charge of properly releasing these buffers as
+demonstrated in the last phase of this example.
+
+Helper Functions
+----------------
+
+Throughout this example, the following helper functions and constructs
+are used:
+
+-  ``RandomGen`` : Random data generator - to generate random input
+   buffer data.
+-  ``isInputBuffer`` : Query if a specific *BufferMapping* instance is
+   an input one.
+-  ``getPrintName`` : Return Input or Output strings for standard output
+   printing.
+-  ``populateVector`` : Populate vector - to populate inputs or output
+   *vector <>* containers.
+-  ``populateBufWithRandom`` : Populate buffer with random data - using
+   the above mentioned Random data generator, given a buffer, populate
+   it with random values.
+-  ``prepareBuffers`` : Prepare buffers - iterates over the
+   *BufferMappings* container and for each *BufferMapping* instance,
+   populate input/output *vector <>* as well as invoke helper function
+   to populate inputs buffers with random data.
+-  ``releaseBuffers`` : Release buffers - iterates over allocated
+   inputs/outputs and release/delete buffers (return memory back to the
+   system's Heap).
+-  ``notInputOrOutput`` : Not input our Output boolean function - Given
+   a *BufferMapping* instance return true if this instance is not Input,
+   nor Output buffer instance. (For example could be invalid, or
+   uninitialized). We skip these kind of instances.
+
+Compile and Run Commands
+------------------------
+
+Copy the ``InferenceSetIOBuffersExample.cpp`` and ``CMakeLists.txt`` in
+a folder
+
+Then compile the example with following commands
+
+::
+
+    mkdir build
+    cd build
+    cmake ..
+    make -j 8
+
+Finally, run the executable ``./inference-set-io-buffers-example``,
+accordingly change the ``qpcPath``.
+

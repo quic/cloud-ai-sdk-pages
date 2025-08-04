@@ -1,0 +1,158 @@
+Features
+========
+
+.. _reference-to-profiling-support-in-runtime:
+
+Profiling Support in Runtime
+----------------------------
+
+When running inferences on AIC100, we might want to get deeper insights
+into the performance of the AIC100 stack to either triage low
+performance or for general monitoring.
+
+Current AIC100 stack provides mechanism to get performance metrics of
+key milestones through the inference cycle.
+
+Profiling data can be broadly classified into two components:
+
+1. Host metrics An inference passes through various software layers on
+   host before it make it to the network on device. Examining the
+   performance on host we can identify if tweaking in network pre/post
+   processing stages or host side multi-threading knobs is required.
+2. Network/device metrics Network metrics provide plethora of
+   information, starting from whole network execution time to detailed
+   operator level performance. This information can be put to use to
+   make the most out of existing network or to optimize network itself.
+   Note: Network perf collection is not baked into the network by
+   default. It needs to be enabled during network compilation itself.
+   The amount of network perf details present depends on the parameters
+   passed to AIC compiler.
+
+Profiling Report Types
+~~~~~~~~~~~~~~~~~~~~~~
+
+Using AIC100 software stacks, profiling information can be requested in
+following types (layouts):
+
+Latency type
+^^^^^^^^^^^^
+
+Latency type is a CSV style table of key of AIC100 stack. Contains both
+host and device side information.
+
+Trace type
+^^^^^^^^^^
+
+Trace type is a json formatted Chrome trace data. It can be viewed on
+any interface that consumes Chrome traces. Contains both host and device
+side information.
+
+Profiling Report Collection methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The above information can be requested from AIC100 stack using two
+mechanisms. The core content is the same in both mechanisms, just the
+delivery mechanism changes. The two ways are as follows:
+
+1. Num-iter based profiling
+2. Duration based profiling
+
+.. _reference-to-num-iter-based-profiling:
+
+Num-iter based profiling
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Alias: Legacy profiling
+
+When user creates a profiling handle for num-iter based profiling, they
+need to specify:
+
+1. The program to profile,
+2. Number of samples to collect,
+3. Profiling callback and,
+4. Type of profiling output type i.e. latency or trace.
+
+The fundamental idea is that during the creation of profiling handle,
+the user specifies the number of inferences that needs to be sampled.
+After profiling is started by the user, the profiling stops and calls
+user provided callback when:
+
+a. Number of samples requested by user has been collected.
+
+b. User explicitly stops profiling In this case, the number of samples
+   collected might be less than that requested during profiling handle
+   creation.
+
+After the profiling is stopped, the user can again call start profiling
+using the same handle. The behavior of the infra will be as if the
+handle is being triggered for the first time.
+
+Refer to section ``ProfilingHandle``\ \_ for HPP API interface.
+
+Note in the APIs how at the creation of profiling handle, the user needs
+to be aware of the program needs to be profiled. Only 1 program can be
+profiled by a given profiling handle. If user wants to profile multiple
+programs, multiple profiling handles needs to be created, one for each
+program.
+
+.. _reference-to-duration-based-profiling:
+
+Duration based profiling
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Alias: Stream profiling
+
+When user creates a profiling handle of type duration based profiling or
+stream profiling, the user needs to specify:
+
+1. Reporting rate,
+2. Sampling rate,
+3. Callback,
+4. RegEx, and
+5. Type of profiling output type i.e. latency or trace.
+
+Notice how there is no condition to specify when profiling should
+automatically end, hence once the user calls start profiling, the
+samples are collected till user explicitly calls stop profiling. Also,
+we do not specify which program we want to profile. We add and remove
+programs at runtime (even after profiling has started) using appropriate
+API. Hence, allowing more than one program to be profiled by same
+profiling handle.
+
+Reporting Rate
+''''''''''''''
+
+The profiling callbacks are called at every reporting rate boundary,
+i.e. suppose the reporting rate set by user is 500ms, and profiling is
+started at 4seconds and 400ms time-point, the first callback will be
+called at 4 seconds and 500ms time-point (not the callback did not get
+called after 500ms but at 500ms boundary). Next callback at 5 seconds
+time-point and then at 5 seconds 500ms time-point and so on. The
+callback contains profiling data for inferences that took place between
+the last report and the current report.
+
+Sampling rate
+'''''''''''''
+
+User may not be interested in performance of each and every inference,
+they may want to just get an over view of the performance and hence can
+choose to record data for every - second, fourth, eighth or sixteenth
+inference using the sampling rate knob.
+
+RegEx
+'''''
+
+User may want to profiling all the programs running under the process
+matching a regular expression say "Resnet50\*". If the user creates a
+profiling handle with a specific regular expression, any new program
+created, whose name passes the regEx filter, will automatically start
+getting profiled. Once the program is released by the user, it
+automatically is also removed from the profiling handle's list of
+programs.
+
+Note: Addition/removal of program can lead to a report generation
+getting delayed or preponed. Note: RegEx engine used is ECMAScript.
+
+Refer to section ``StreamProfilingHandle``\ \_ for HPP API interface.
+
+

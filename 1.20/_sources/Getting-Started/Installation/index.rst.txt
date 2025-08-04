@@ -1,0 +1,53 @@
+Installation
+============
+
+Developers can access Qualcomm Cloud AI hardware through cloud instances
+or by purchasing servers equipped with Qualcomm Cloud AI hardware.
+
+Refer to these sections for installation instructions:
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   Checklist/checklist/index
+   Pre-requisites/pre-requisites/index
+   Cloud-AI-SDK/Cloud-AI-SDK/index
+   Hypervisors/hypervisor/index
+   Docker/index
+   ../Inference-Workflow/model-execution/Triton-Inference-Server-Support/index
+   vLLM/vLLM/index
+   AWS/aws/index
+   TGI/tgi/index
+
+.. _reference-to-cloud-instances:
+
+Cloud Instances
+---------------
+
+Cloud AI 100 cards are now available at 2 Cloud service providers -
+Amazon Web Services (AWS) and Cirrascale Cloud Services. The AI 100
+accelerator SKUs and instance configurations offered at these providers
+can vary.
+
+-  Refer to :ref:`Getting Started on AWS <reference-to-aws>` for more
+   information on the instances available at AWS.
+-  `Cirrascale Cloud
+   Services <https://cirrascale.com/solutions-qualcomm-cloud-ai100.php>`__
+   have multiple configurations (from 1 to 8 Pro AI 100 accelerators per
+   instance) for the user to choose from.
+
+.. info::
+   :collapsible: open
+
+   Developers using cloud instances can skip the rest of the installation section. Click here to go to the next section, :doc:`Inference Workflow<../Inference-Workflow/index>`
+
+
+On-Premise Servers
+------------------
+
+Developers with on-premise servers need to work with system
+administrators to ensure Cloud AI SDKs are installed and verified
+properly. It is recommended for developers and system admins to go
+through the installation section in its entirety.
+

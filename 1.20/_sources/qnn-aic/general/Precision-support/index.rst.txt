@@ -1,0 +1,16 @@
+Precision support
+*****************
+
+Non-LLMs
+--------
+
+The device performance is optimum for trained model weights in either fp16 (half-precision) or int8 formats
+
+The device also offers support for mixed precision, specifically fp16 and int8
+
+LLMs
+----
+
+For LLMs for model weights in fp16 is supported. For MatMut node weights MXFP6 is also supported.
+
+KVCache precision of fp16 or MXINT8 is supported.

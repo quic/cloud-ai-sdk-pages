@@ -1,0 +1,984 @@
+QAIRT SDK
+=========
+
+QAIRT SDK Installation
+**********************
+
+Steps to install the Unified  apps SDK:
+---------------------------------------
+   
+1. login to `Qualcomm Package Manager <https://qpm.qualcomm.com/>`__.
+   First time users need to register for a Qualcomm ID.
+2. Click on **Tools**
+3. | In the Filter pane on the left, **check Linux** and **uncheck
+     Windows**.
+   | In the search box, type **Cloud AI**.
+   | Click on **Qualcomm® Cloud AI Products** to reveal the SDKs
+     available.
+4. | For Apps SDK, click **Qualcomm® Cloud AI Apps SDK**.
+5. Two drop down lists are present, one for the OS and one for the
+   version of the SDK. Select **Linux** and **SDK Version** from the
+   drop down lists. 
+
+.. image:: ../../images/qpm_download_sdk.PNG
+
+6. Click the **Download** button to download the SDK.
+
+-  The downloaded Apps SDK file is named
+   **aic\_apps.Core.\ <majorversion.minorversion.patchversion.buildversion>.Linux-AnyCPU.zip**.
+   For example: aic\_apps.Core.1.12.2.0.Linux-AnyCPU.zip.
+-  Copy the SDK over to the linux x86 machine.
+-  unzip the downloaded file.
+-  The Apps SDK (qaic-apps-``<major.minor.patch.build version>``) is
+   composed of the following tree structure.
+
+.. dropdown:: apps-sdk-structure
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+		   
+           ::
+        
+               ├── aarch64
+               │   ├── common
+               │   │   └── hexagon_tools
+               │   ├── deb
+               │   │   ├── apps_dependency_functions.sh
+               │   │   ├── dev
+               │   │   ├── exec
+               │   │   ├── install.sh
+               │   │   ├── qaic-encrypt
+               │   │   ├── scripts
+               │   │   ├── tools
+               │   │   ├── uninstall.sh
+               │   │   └── versions
+               │   └── rpm
+               │       ├── apps_dependency_functions.sh
+               │       ├── dev
+               │       ├── exec
+               │       ├── install.sh
+               │       ├── qaic-encrypt
+               │       ├── scripts
+               │       ├── tools
+               │       ├── uninstall.sh
+               │       └── versions
+               ├── common
+               │   ├── dev
+               │   │   ├── inc
+               │   │   ├── lib
+               │   │   └── python
+               │   ├── examples
+               │   │   ├── apps
+               │   │   └── scripts
+               │   ├── integrations
+               │   │   ├── kserve
+               │   │   ├── qaic_onnxrt
+               │   │   ├── qaic-openshift
+               │   │   ├── tgi
+               │   │   ├── torch_qaic
+               │   │   ├── triton
+               │   │   └── vllm
+               │   ├── scripts
+               │   │   └── qaic-prepare-model
+               │   └── tools
+               │       ├── aic-manager
+               │       ├── docker-build
+               │       ├── graph-analysis-engine
+               │       ├── k8s-device-plugin
+               │       ├── opstats-profiling
+               │       ├── package-generator
+               │       ├── qaic-inference-optimizer
+               │       ├── qaic-pytools
+               │       ├── qaic-version-util
+               │       └── rcnn-exporter
+               ├── Notice.txt
+               ├── qnn-sdk-v2.32.0.250123073853_-3882-aic.zip
+               └── x86_64
+                   ├── common
+                   │   └── hexagon_tools
+                   ├── deb
+                   │   ├── apps_dependency_functions.sh
+                   │   ├── dev
+                   │   ├── exec
+                   │   ├── install.sh
+                   │   ├── qaic-encrypt
+                   │   ├── scripts
+                   │   ├── tools
+                   │   ├── uninstall.sh
+                   │   └── versions
+                   └── rpm
+                       ├── apps_dependency_functions.sh
+                       ├── dev
+                       ├── exec
+                       ├── install.sh
+                       ├── qaic-encrypt
+                       ├── scripts
+                       ├── tools
+                       ├── uninstall.sh
+                       └── versions
+
+
+
+Install Apps SDK:
+
+- cd qaic-apps-1.19.x.x/x86_64/deb
+
+-  | Uninstall existing Apps SDK
+   | ``sudo ./uninstall.sh``
+
+-  | Run the install.sh script as root or with sudo to install with root
+     permissions.
+   | ``sudo ./install.sh --qnn_sdk``
+
+Refer to Steps 1-4 in `linux_setup.html <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/linux_setup.html>`__ to continue QAIRT SDK installation 
+
+QAIRT Docker for Cloud
+f----------------------
+
+Docker for QAIRT Cloud backed can be created as mention in `Docker - Cloud AI 100 <https://github.qualcomm.com/pages/qranium/cloud-ai-mkdocs/1.18/Getting-Started/Installation/Docker/Docker/#docker>`__ using the below user_specification_file while building the docker image
+
+    .. code-block:: json
+
+     {
+	    "base_image": "ubuntu22",
+	    "python_version": "py310",
+	    "sdk": {
+	        "qnn": "required",
+	        "qaic_platform": "required"
+	    }
+     }
+
+OS Support
+----------
+
+  Supports Ubuntu 22.04
+
+QAIRT Software architecture
+***************************
+
+Refer to `Software architecture <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/overview.html#software-architecture>`__
+
+QAIRT Integration Workflow
+**************************
+
+Refer to `Integration workflow <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/overview.html#integration-workflow>`__
+
+QAIRT Model Compilation and execution
+*************************************
+
+Compilation
+-----------
+
+QAIRT Compilation on Cloud AI backend  includes the below steps:
+
+-  Converter: Converts the given model into DLC format
+-  Quantization (Optional): Quantizes a DLC model as per requirement
+-  Context Binary:  Converts the DLC into the executable format compatible for Cloud AI backend
+
+Section 10.3 shows integration workflow for the above.
+
+QAIRT Converter
+'''''''''''''''
+
+Refer to QAIRT Converter in  `converters.html <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/converters.html>`__ for more details
+
+Cloud AI backend uses `QAIRT Converter <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/converters.html#qairt-converter>`__
+ 
+Example on Cloud AI Backend
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+Example for converting a yolov5s.onnx Onnx model to a DLC for Cloud AI backend with
+
+-  No automatic simplification of the model
+-  Bias bit width in float as 32
+-  preserve IO datatype of the source model
+
+  ::
+
+    qairt-converter --input_network yolov5s.onnx --output_path yolov5s_model.dlc --float_bias_bitwidth 32 --preserve_io_datatype --onnx_defer_loading --onnx_skip_simplification
+
+Quantization
+''''''''''''
+
+Please refer to QAIRT Quantizer section in `quantization.html <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/quantization.html>`__ for more details
+
+Cloud AI backend uses `QAIRT Quantizer <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/quantization.html#qairt-quantizer>`__
+
+Example on Cloud AI Backend
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+Example for quantizing DLC yolov5s_model.dlc to quantized DLC for Cloud AI backend with 
+
+-  quantization schema to use for parameters and activations set as unsignedsymmetric
+-  bitwidth as 16 for float tensors
+-  preserve IO datatype of the source model
+-  input data specifying the raw inputs
+
+  ::
+
+    qairt-quantizer --input_dlc yolov5s_model.dlc --output_dlc yolov5s_model_quantized.dlc --preserve_io_datatype --use_native_input_files --input_list file_input_list.txt --act_quantizer_schema unsignedsymmetric --param_quantizer_schema unsignedsymmetric --target_backend AIC --float_bitwidth 16
+
+QAIRT Context binary
+''''''''''''''''''''
+
+Refer to `qnn-context-binary-generator <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qnn-context-binary-generator>`__
+
+Example on Cloud AI Backend
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+Example for creating a context binary for Cloud AI backend with
+
+-  yolov5s_model.dlc as input
+-  qnnContextBin.bin as output which is placed at OUTPUT_DIR_PATH
+
+  ::
+
+    qnn-context-binary-generator --binary_file qnnContextBin --model libQnnModelDlc.so --backend libQnnAic.so --output_dir OUTPUT_DIR_PATH --config_file qnn_aic_config.json --dlc_path yolov5s_model.dlc --log_level error
+
+Execution
+---------
+
+Refer `qnn-net-run <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qnn-net-run>`__ for steps on executing the binary on Cloud AI 100
+
+The `qnn-profile-viewer <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qnn-profile-viewer>`__ tool is used to parse profiling data that is generated using qnn-net-run
+
+Example on Cloud AI Backend
+'''''''''''''''''''''''''''
+
+Example for executing the context binary qnnContextBin.bin on the Cloud AI backend
+
+  ::
+
+    qnn-net-run --backend libQnnAic.so --input_list qnn_list.txt --log_level error --profiling_level basic --retrieve_context qnnContextBin.bin --config_file qnn_net_runner_config.json --use_native_input_files
+
+Tutorial
+********
+
+Example on how to compile and execute a non-LLM
+-----------------------------------------------
+
+Below is an example on compiling and executing a Non-LLM model i.e.  BertLarge model with fp16 precision
+
+-  Convert the input model network BERT_MLCommons_Flexible_BS_SL.onnx with
+
+   -  sequence length as 128
+   -  batch size as 4
+   -  bitwidth as 16 for float tensors
+   -  float bias bitwidth as 32
+   -  with the output as model.dlc 
+  
+  ::
+
+    qairt-converter --input_network BERT_MLCommons_Flexible_BS_SL.onnx --output_path model.dlc --onnx_define_symbol batch_size 4 --onnx_define_symbol seg_length 128 --onnx_skip_simplification --float_bias_bitwidth 32 --preserve_io_datatype --onnx_defer_loading --float_bitwidth 16
+
+-  Create a context binary with input as model.dlc created in the converter stage
+
+   -  With output as qnnGraphDLC.bin
+
+  ::
+
+    qnn-context-binary-generator --binary_file qnnGraphDLC --model libQnnModelDlc.so --backend libQnnAic.so --output_dir OUTPUT_PATH --config_file qnn_config.json --dlc_path model.dlc --log_level debug
+
+
+  -  qnn_config.json contents:
+
+     .. dropdown:: qnn_config.json
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+     
+            .. code-block:: json
+            
+              {
+                "backend_extensions": {
+                  "config_file_path": "qnn_aic_map.json",
+                  "shared_library_path": "libQnnAicNetRunExtensions.so"
+                }
+              }
+
+  -  qnn_aic_map.json contents:
+
+     .. dropdown:: qnn_aic_map.json
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+     
+            .. code-block:: json
+            
+              {
+                "compiler_VTCM_working_set_limit_ratio": 1.0,
+                "compiler_hardware_version": "2.0",
+                "compiler_num_of_cores": 2,
+                "compiler_perfWarnings": true,
+                "compiler_printPerfMetrics": false,
+                "compiler_stat_level": 40,
+                "compiler_stats_batch_size": 4,
+                "graph_names": [
+                    "model"
+                ]
+              }
+
+
+-  Execute the qnnGraphDLC.bin the context-binary stage to run inference on the Cloud AI backend
+
+  ::
+
+    qnn-net-run --backend libQnnAic.so --input_list qnn_list.txt --log_level error --profiling_level basic --retrieve_context qnnGraphDLC.bin --config_file qnn_net_runner_config.json --use_native_input_files
+
+
+  -  qnn_list.txt contents:
+
+     .. dropdown:: qnn_list.txt
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+     
+            ::
+            
+             input_ids:=input_ids.raw 
+             input_mask:=input_mask.raw 
+             segment_ids:=segment_ids.raw
+
+  -  qnn_net_runner_config.json  contents
+
+     .. dropdown:: qnn_net_runner_config.json
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+     
+            .. code-block:: json
+             
+               {
+                 "backend_extensions": {
+                   "config_file_path": "qnn_net_runner_backend_options.json",
+                   "shared_library_path": "libQnnAicNetRunExtensions.so"
+                 }
+               }
+
+  -  qnn_net_runner_backend_options.json contents
+
+     .. dropdown:: qnn_net_runner_backend_options.json
+            :color: light
+            :class-container: sd-border-1
+            :icon: code
+
+            .. code-block:: json
+            
+             {
+              "runtime_num_activations": 7, 
+              "runtime_threads_per_queue": 4, 
+              "runtime_device_ids": [5]
+             }
+
+
+Example on how to compile and execute LLM
+-----------------------------------------
+
+Below is an example on compiling and executing a LLM model i.e. gpt-j-6b model 
+
+-  Convert the model gpt-j-6b.onnx with
+
+ -  batch size 1
+ -  sequence length 128
+ -  Context length 256
+ -  Output is model.dlc
+
+  ::
+
+    qairt-converter --input_network gpt-j-6b.onnx --output_path model.dlc --io_config qnn_customIO_config.yaml --float_bitwidth 16 --preserve_io_datatype --onnx_skip_simplification --float_bias_bitwidth 32 --onnx_defer_loading
+
+ -  qnn_customIO_config.yaml  file Sample Schema:
+
+    .. dropdown:: qnn_customIO_config.yaml
+       :color: light
+       :class-container: sd-border-1
+       :icon: code
+    
+       .. code-block:: yaml
+    
+        Input Tensor Configuration:
+        - Name: input_ids
+          Desired Model Parameters:
+          DataType: int64
+          Shape: (1, 128),(1, 1) →  (prefill_batch_size,prefill_seq_len)(decode_batch_size,decode_seq_len)
+        - Name: position_ids
+          Desired Model Parameters:
+          DataType: int64
+          Shape: (1, 128),(1, 1) →  (prefill_batch_size,prefill_seq_len)(decode_batch_size,decode_seq_len)
+    
+        - Name: past_key.0
+          Desired Model Parameters:
+          DataType: uint8
+          Shape: (1, 16, 256, 256) → (batch_size,16,seq_len,256)
+        - Name: past_value.0
+          Desired Model Parameters:
+          DataType: uint8
+          Shape: (1, 16, 256, 256)
+    
+        Output Tensor Configuration:
+        - Name: logits
+          Desired Model Parameters:
+          DataType: float32
+        - Name: past_key.0_RetainedState
+          Desired Model Parameters:
+          DataType: float16
+        - Name: past_value.0_RetainedState
+          Desired Model Parameters:
+          DataType: float16
+
+-  Generate context binary with model.dlc as input which was created at converter stage
+
+ -  qnngraph.serialized.bin and programqpc.bin are generated as output
+
+  ::
+
+    qnn-context-binary-generator --binary_file qnngraph.serialized --backend libQnnAic.so --output_dir OUTPUT_PATH --config_file qnn_config.json --data_format_config data_format_config.json --backend_binary programqpc.bin --model libQnnModelDlc.so --dlc_path model.dlc
+
+ -  qnn_config.json contents:
+
+    .. dropdown:: qnn_config.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+    
+           .. code-block:: json
+          
+             {
+               "backend_extensions": {
+                "config_file_path": "qnn_aic_map.json",
+                "shared_library_path": "libQnnAicNetRunExtensions.so"
+               }
+             }
+
+ -  qnn_aic_map.json contents:
+
+    .. dropdown:: qnn_aic_map.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           ::
+	      
+             {
+               "compiler_PMU_recipe_opt": "KernelUtil",
+               "compiler_compilation_target": "hardware",
+               "compiler_convert_to_FP16": true,
+               "compiler_do_DDR_to_multicast": false,
+               "compiler_enable_depth_first": true,
+               "compiler_hardware_version": "2.0",
+               "compiler_max_out_channel_split": "1",
+               "compiler_mdp_load_partition_config": tensor_slicing.json",
+               "compiler_mxfp6_matmul_weights": true,
+               "compiler_eval_gathernd_consts" : true,
+               "compiler_mxint8_mdp_io": true,
+               "compiler_num_of_cores": 16,
+               "compiler_perfWarnings": true,
+               "compiler_printDDRStats": true,
+               "compiler_printPerfMetrics": true,
+               "compiler_retained_state": true,
+               "compiler_stat_level": 50,
+               "compiler_stats_batch_size": 1,
+               "compiler_time_passes": true,
+               "graph_names": [
+                 "model_configuration_1",
+                 "model_configuration_2"
+               ]
+             }
+
+ -  tensor_slicing.json below contains partition across 4 devices when using multi device partitioning feature
+
+    .. dropdown:: tensor_slicing.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           .. code-block:: json
+
+             {
+               "connections": [
+                 {
+                     "devices": [
+                         0,
+                         1,
+                         2,
+                         3
+                     ],
+                     "type": "p2p"
+                 }
+               ],
+               "partitions": [
+                 {
+                     "name": "Partition0",
+                     "devices": [
+                         {
+                             "deviceId": 0
+                         },
+                         {
+                             "deviceId": 1
+                         },
+                         {
+                             "deviceId": 2
+                         },
+                         {
+                             "deviceId": 3
+                         }
+                     ]
+                   }
+                 ]
+               }
+
+ -  data_format_config.json below is needed for setting KVCache precision as MXINT8
+
+    .. dropdown:: data_format_config.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           .. code-block:: json
+
+            {
+              "graphs": [
+                {
+                  "graph_name": "model_configuration_1",
+                  "tensors": [
+                    {
+                      "tensor_name": "past_key_0",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_value_0",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_key_0_RetainedState",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_value_0_RetainedState",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    }
+                  ]
+                },
+                {
+                  "graph_name": "model_configuration_2",
+                  "tensors": [
+                    {
+                      "tensor_name": "past_key_0",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_value_0",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_key_0_RetainedState",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    },
+                    {
+                      "tensor_name": "past_value_0_RetainedState",
+                      "dataFormat": "QNN_TENSOR_DATA_FORMAT_MX"
+                    }
+                  ]
+                }
+              ]
+            }
+
+-  Using the programqpc.bin generated above execute the LLM using vLLM
+
+
+Precision support
+*****************
+
+Non-LLMs
+--------
+
+The device performance is optimum for trained model weights in either fp16 (half-precision) or int8 formats
+
+The device also offers support for mixed precision, specifically fp16 and int8
+
+LLMs
+----
+
+For LLMs for model weights in fp16 is supported. For MatMut node weights MXFP6 is also supported.
+
+KVCache precision of fp16 or MXINT8 is supported.
+
+Supported Operations
+********************
+
+Refer to `SupportedOps.html  <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/SupportedOps.html>`__
+
+Addition of Custom-op
+*********************
+
+Refer to `op_packages.html <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/op_packages.html>`__
+
+QAIRT Tools
+***********
+
+Accuracy Evaluator
+------------------
+
+Refer to qairt-accuracy-evaluator section in `qairt-accuracy-evaluator-(beta) <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qairt-accuracy-evaluator-(beta)>`__
+
+This tool can be used only for Non-LLMs for Cloud AI backend.
+
+Example on Cloud AI Backend
+'''''''''''''''''''''''''''
+
+Example of running EfficientNet_b0 model with fp16 precision with Accuracy Evaluator
+
+-  Install packages mentioned in `additional-packages-for-evaluating-model-accuracy <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/linux_setup.html#step-6-(optional):-additional-packages-for-evaluating-model-accuracy>`__
+
+-  Run qairt-accuracy-evaluator for model EfficientNet_b0 model 
+ -  With config efficientNet_b0_config.yaml  
+ -  Cleanup intermediate files
+ -  On device id 5
+ -  Run for inference with schema tag "qnn_fp16"
+
+  ::
+
+    qairt-accuracy-evaluator -config efficientNet_b0_config.yaml -cleanup intermediate -inference_schema_tag qnn_fp16 -work_dir WORKING_DIR_PATH -silent -device_id 5
+
+ -  efficientNet_b0_config.yaml  
+
+    .. dropdown:: efficientNet_b0_config.yaml
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           .. code-block:: yaml
+           
+            model:
+             info:
+                 desc: EfficientNet-b0 reference public model used.
+                 batchsize: 1
+             globals:
+                 count: -1
+                 calib: -1
+                 npi_file: efficientNet_b0_config.json
+             dataset:
+                 name: ILSVRC2012
+                 path: '/home/ml-datasets/imageNet/'
+                 inputlist_file: inputlist.txt
+                 annotation_file: ground_truth.txt
+                 calibration:
+                     type: dataset
+                     file: calibration.txt
+                 transformations:
+                     - plugin:
+                         name: filter_dataset
+                         params:
+                             random: False
+                             max_inputs: $count
+                             max_calib: $calib
+             preprocessing:
+                 transformations:
+                     - plugin:
+                             name: resize
+                             params:
+                                 library: torchvision
+                                 dims: 224, 224
+                                 interp: bicubic
+                                 type: imagenet
+                                 typecasting_required: False
+                     - plugin:
+                             name: crop
+                             params:
+                                 library: torchvision
+                                 dims: 224,224
+                                 typecasting_required: False
+                     - plugin:
+                             name: normalize
+                             params:
+                                 library: torchvision
+                                 normalize_first: True
+                                 means:
+                                     R: 0.485
+                                     G: 0.456
+                                     B: 0.406
+                                 std:
+                                     R: 0.229
+                                     G: 0.224
+                                     B: 0.225
+                     - plugin:
+                             name: create_batch
+             inference-engine:
+                 model_path: public/efficientnet/efficientnet-b0.onnx
+                 inference_schemas:
+                     - inference_schema:
+                         name: qnn
+                         precision: fp32
+                         target_arch: x86_64-linux-clang
+                         backend: cpu
+                         tag: qnn_fp32,ci
+                     - inference_schema:
+                         name: qnn
+                         precision: fp16
+                         target_arch: x86_64-linux-clang
+                         backend: aic
+                         tag: qnn_fp16,ci
+                         backend_extensions:
+                            compiler_perfWarnings: True
+                         netrun_params:
+                            use_native_input_data: True
+                            use_native_output_data: True
+                         converter_params:
+                            float_bitwidth: 16
+                            float_bias_bitwidth: 32
+                            preserve_io_datatype: True
+                     - inference_schema:
+                         name: qnn
+                         precision: quant
+                         target_arch: x86_64-linux-clang
+                         backend: aic
+                         tag: qnn_int8_mp,ci
+                         converter_params:
+                            float_bias_bitwidth: 32
+                            quantization_overrides: $npi_file
+                         backend_extensions:
+                            compiler_perfWarnings: true
+                            compiler_num_of_cores: 1
+                            compiler_overlap_split_factor: 1
+                            compiler_perfWarnings: True
+                            runtime_num_activations: 14
+                            runtime_threads_per_queue: 4
+                         quantizer_params:
+                            bias_bitwidth: 32
+                            float_bias_bitwidth: 32
+                            act_quantizer_calibration: percentile
+                            act_quantizer_schema: asymmetric
+                            param_quantizer_schema: symmetric
+                            percentile_calibration_value: 99.998
+                            use_per_channel_quantization: True
+                            preserve_io_datatype: True
+                         netrun_params:
+                            use_native_input_data: True
+                            use_native_output_data: True
+                 inputs_info:
+                     - input.1:
+                         type: float32
+                         shape: ["*", 3, 299, 299]
+                 outputs_info:
+                     - _666:
+                         type: float32
+                         shape: ["*", 1000]
+             metrics:
+                 transformations:
+                 - plugin:
+                         name: topk
+                         params:
+                             kval: 1,5
+                             round: 7
+    
+
+ -  efficientNet_b0_config.yaml is provided to retain few nodes in higher precision to maintain accuracy
+
+    .. dropdown:: efficientNet_b0_config.json
+           :color: light
+           :class-container: sd-border-1
+           :icon: code
+
+           .. code-block:: json
+
+             {
+              "activation_encodings": {
+                  "_380": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_381": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_417": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_418": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_398": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_399": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_367": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_368": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_366": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_364": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_365": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_384": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_382": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_383": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_362": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_363": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_387": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_388": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_385": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_386": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_454": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ],
+                  "_455": [
+                      {
+                          "bitwidth": 16,
+                          "dtype": "float"
+                      }
+                  ]
+              },
+              "param_encodings": {}
+             }
+
+
+Accuracy Debugger
+-----------------
+
+Refer to qairt-accuracy-debugger section in `qairt-accuracy-debugger-(beta) <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/tools.html#qairt-accuracy-debugger-(beta)>`__
+
+It is supported only Non-LLMs for Cloud AI backend
+
+Example on Cloud AI Backend
+'''''''''''''''''''''''''''
+
+Example of running EfficientNet_b0 model with fp16 precision with Accuracy Evaluator
+
+-  EfficientNetB0 Framework_Runner stage to get intermediate ouputs with onnx
+
+ -  Model efficientnet-b0.onnx
+ -  For input tensor "'input.1' 1,3,224,224 input.raw float32"
+ -  Output tensor "666"
+
+  ::
+
+   qairt-accuracy-debugger --framework_runner --framework onnx --model_path efficientnet-b0.onnx --working_dir RUNNER_WORKING_DIR --output_dirname fw_runner --disable_graph_optimization --verbose --input_tensor 'input.1' 1,3,224,224 input.raw float32 --output_tensor '666'  
+
+-  EfficientNetB0 Inference_Engine stage for INT8 precision to get the intermediate output with QAIRT engine with Cloud AI as backend
+
+ -  For runtime "aic" backend(Cloud AI)
+ -  Host type x86
+ -  For input tensor "'input.1' 1,3,224,224 input.raw float32"
+ -  Output tensor "666"
+ -  Symmetric quantization to be used parameter and activations 
+
+  ::
+
+   qairt-accuracy-debugger --inference_engine --model_path efficientnet-b0.onnx --runtime aic --architecture x86_64-linux-clang --input_list qnn_efficientNet_b0_list.txt --calibration_input_list qnn_efficientNet_b0_list.txt --working_dir INF_WORKING_DIR --output_dirname InferenceResults --executor_type QAIRT --engine_path SDK_PATH --verbose --host_device x86 --profiling_level basic --log_level error --debug_mode_off --bias_bitwidth 32 --param_quantizer_schema symmetric --act_quantizer_schema symmetric --param_quantizer_calibration min-max --use_per_channel_quantization --input_tensor 'input.1' 1,3,224,224 input.raw float32 --output_tensor '666'  "
+
+ -  Input list qnn_efficientNet_b0_list.txt
+
+  ::
+
+   input:=/PATH_TO_MODEL_INPUT/model-inputs/inputs/224x224/batch_size_1/./input.raw
+
+-  EfficientNetB0 Verification stage for Int8 precision to compare outputs generated by framework runner (onnx) and Inference Engine(cloud AI backend) using CosineSimilarity 
+
+ -  Use verifier as CosineSimilarity
+ -  Outputs will be available at WORKING_DIR
+
+  ::
+
+   qairt-accuracy-debugger --verification --default_verifier CosineSimilarity --working_dir WORKING_DIR --verbose --golden_output_reference_directory RUNNER_WORKING_DIR --inference_results INF_WORKING_DIR/InferenceResults/output/Result_0/'
+
+Hyper-Tuner
+-----------
+
+.. include:: hypertuner.rst
+
+APIs
+****
+
+Refer to `api.html <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/api.html>`__
+
+
+
+

@@ -1,0 +1,161 @@
+QAIRT SDK Installation
+**********************
+
+Steps to install the Unified  apps SDK:
+---------------------------------------
+   
+1. login to `Qualcomm Package Manager <https://qpm.qualcomm.com/>`__.
+   First time users need to register for a Qualcomm ID.
+2. Click on **Tools**
+3. | In the Filter pane on the left, **check Linux** and **uncheck
+     Windows**.
+   | In the search box, type **Cloud AI**.
+   | Click on **Qualcomm® Cloud AI Products** to reveal the SDKs
+     available.
+4. | For Apps SDK, click **Qualcomm® Cloud AI Apps SDK**.
+5. Two drop down lists are present, one for the OS and one for the
+   version of the SDK. Select **Linux (Debian)** and **SDK Version** from the
+   drop down lists. 
+
+.. image:: ../../../images/qpm_download_sdk.png
+   :width: 900px
+   :height: 450px
+
+6. Click the **Download** button to download the SDK.
+
+-  The downloaded Apps SDK file is named
+   **aic_apps.Core.<majorversion.minorversion.patchversion.buildversion>.Linux-AnyCPU.zip**.
+   For example: aic_apps.Core.1.20.2.0.Linux-AnyCPU.zip.
+-  Copy the SDK over to the Linux x86 machine.
+-  unzip the downloaded file.
+
+
+.. info:: Apps SDK tree structure
+   :collapsible: close
+
+   The Apps SDK (qaic-apps-``<major.minor.patch.build version>``) is composed of the following tree structure.
+
+   ::
+
+      ├── aarch64
+      │   ├── common
+      │   │   └── hexagon_tools
+      │   ├── deb
+      │   │   ├── apps_dependency_functions.sh
+      │   │   ├── dev
+      │   │   ├── exec
+      │   │   ├── install.sh
+      │   │   ├── qaic-encrypt
+      │   │   ├── scripts
+      │   │   ├── tools
+      │   │   ├── uninstall.sh
+      │   │   └── versions
+      │   └── rpm
+      │       ├── apps_dependency_functions.sh
+      │       ├── dev
+      │       ├── exec
+      │       ├── install.sh
+      │       ├── qaic-encrypt
+      │       ├── scripts
+      │       ├── tools
+      │       ├── uninstall.sh
+      │       └── versions
+      ├── common
+      │   ├── dev
+      │   │   ├── inc
+      │   │   ├── lib
+      │   │   └── python
+      │   ├── examples
+      │   │   ├── apps
+      │   │   └── scripts
+      │   ├── integrations
+      │   │   ├── kserve
+      │   │   ├── qaic_onnxrt
+      │   │   ├── qaic-openshift
+      │   │   ├── tgi
+      │   │   ├── torch_qaic
+      │   │   ├── triton
+      │   │   └── vllm
+      │   ├── scripts
+      │   │   └── qaic-prepare-model
+      │   └── tools
+      │       ├── aic-manager
+      │       ├── docker-build
+      │       ├── graph-analysis-engine
+      │       ├── k8s-device-plugin
+      │       ├── opstats-profiling
+      │       ├── package-generator
+      │       ├── qaic-inference-optimizer
+      │       ├── qaic-pytools
+      │       ├── qaic-version-util
+      │       └── rcnn-exporter
+      ├── Notice.txt
+      ├── qnn-sdk-v2.32.0.250123073853_-3882-aic.zip
+      └── x86_64
+            ├── common
+            │   └── hexagon_tools
+            ├── deb
+            │   ├── apps_dependency_functions.sh
+            │   ├── dev
+            │   ├── exec
+            │   ├── install.sh
+            │   ├── qaic-encrypt
+            │   ├── scripts
+            │   ├── tools
+            │   ├── uninstall.sh
+            │   └── versions
+            └── rpm
+               ├── apps_dependency_functions.sh
+               ├── dev
+               ├── exec
+               ├── install.sh
+               ├── qaic-encrypt
+               ├── scripts
+               ├── tools
+               ├── uninstall.sh
+               └── versions
+
+
+
+Install Apps SDK:
+----------------------
+
+- cd qaic-apps-1.20.x.x/x86_64/deb
+
+-  | Uninstall existing Apps SDK
+   | ``sudo ./uninstall.sh``
+
+-  | Run the install.sh script as root or with sudo to install with root
+     permissions.
+   | ``sudo ./install.sh --qnn_sdk``
+
+Refer to Steps 1-4 in `linux_setup.html <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/linux_setup.html>`__ to continue QAIRT SDK installation 
+
+Note:
+
+It is recommended to use to below package versions for this version of QAIRT SDK
+
+- onnx 1.17.0
+- onnxruntime 1.22.0
+
+
+QAIRT Docker for Cloud
+----------------------
+
+Docker for QAIRT Cloud backend can be created as mention in :ref:`Docker - Cloud AI <reference_to_docker>` using the below user_specification_file while building the Docker image
+
+.. code-block:: json
+
+	{
+		"base_image": "ubuntu22",
+		"python_versions": ["py310"],
+		"sdk": {
+	    	    "qnn": "required",
+	    	    "qaic_platform": "required"
+		}
+	}
+
+OS Support
+----------
+
+Supports Ubuntu 22.04

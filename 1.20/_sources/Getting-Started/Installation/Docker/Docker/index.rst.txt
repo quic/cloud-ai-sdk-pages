@@ -1,0 +1,310 @@
+
+.. _reference_to_docker:
+
+Docker
+======
+
+Docker allows users to build, test, and deploy applications through
+software containers. Docker for Cloud AI 100 packages the Platform SDK,
+Apps SDK, libraries, system tools, etc., which enables the
+user to navigate the inference workflow seamlessly.
+
+.. note::
+   :title: Pre-built Docker images
+
+   Pre-built Docker images for Cloud AI are available in the 
+   `cloud-ai-containers <https://github.com/quic/cloud-ai-containers/pkgs/container/cloud_ai_inference_ubuntu22>`_ GitHub repo.
+
+Scripts for building your own Docker image for Cloud AI are in the Apps SDK in the
+``common/tools/docker-build/`` folder. The scripts to build a QAic
+Docker image are composed of the following structure.
+
+::
+
+   ├── build_image.py
+   ├── config
+   │   ├── applications
+   │   ├── base_image
+   │   ├── build_type
+   │   ├── python_version
+   │   └── sdk
+   ├── image_schema.json
+   ├── README.md
+   ├── requirements.txt
+   └── sample_user_specs
+
+.. _reference-to-docker-system-pre-requisistes:
+
+Setup and System Pre-requisistes
+--------------------------------
+
+-  Packages: python3.10, docker v23+ `Docker
+   Installation <https://docs.docker.com/engine/install/>`__
+-  Optional: Follow post-install instructions to run ``docker`` as
+   non-root user: `Docker
+   Post-installation <https://docs.docker.com/engine/install/linux-postinstall/>`__.
+   Otherwise, ``docker`` command and ``build_image.py`` scripts must be
+   prefaced with ``sudo``.
+-  Download Apps SDK and Platform SDK from `Qualcomm Package
+   Manager <https://qpm.qualcomm.com/>`__.
+
+   -  Docker containers require the Cloud AI device drivers to
+      communicate with the devices. Install the Platform SDK on the host
+      bare metal OS or VM.
+   -  Unzip Apps SDK and the build scripts are located under
+      ``common/tools/docker-build/``
+
+   .. code:: bash
+
+      unzip aic_apps.Core.1.20.2.0.Linux-AnyCPU.zip
+      cd qaic-apps-1.20.2.0/common/tools/docker-build/
+
+-  Install python modules listed in requirements.txt, preferably in a
+   virtual environment
+
+.. code:: bash
+
+   $ python3.10 -m venv /venv_directory/qaic_docker_venv
+   $ . /venv_directory/qaic_docker_venv/bin/activate
+   (qaic_docker_venv) $ pip install -r requirements.txt
+
+Build Image
+-----------
+
+QAic Docker build script is used to create new Docker image with Cloud
+AI 100 Apps SDK and Cloud AI 100 Platform SDK with the supported OS.
+
+The command to build the Docker image is:
+
+.. code:: bash
+
+   python3 build_image.py [ --user_specification_file (Required) <user-specification-json-file-path> ] \
+   [ --mirror (Optional) <docker-registry-mirror-location> ] \
+   [ --apps_sdk (Optional) /qaic/apps/sdk/zip/path ] [ --platform_sdk (Optional) /qaic/platform/sdk/zip/path ] [ --qnn_sdk (Optional) ] \
+   [ --arch (Optional) <x86_64|aarch64> ] [ --external_dist_files (Optional) <file-path-1 file-path-2 ... file-path-n> ] \
+   [ --tag (Optional) <tag-for-the-created-image> ] [ --log_level (Optional) <log-level-numeric-value>] [ --no_cache (Optional) ]
+
+The resulting Docker image is named by the convention:
+
+::
+
+   qaic-\<arch>-<base_image>-<build_type>-<python_version>-<sdk_types>-\<applications>:\<tag> 
+
+Description: 
+
+*user_specification_file*: specifies path to user specification json file
+
+*mirror*: specifies registry mirror location for base images in Docker format (eg. host.domain/dir/) 
+
+*arch*: Pick from x86_64, aarch64. Default is host arch. 
+
+*tag*: specifies tag for the created image 
+
+*apps_sdk*: specifies path to the zip file of apps sdk. Overrides if corresponding path is already mentioned in user_specification_file.
+
+*platform_sdk*: specifies path to the zip file of platform sdk. Overrides if corresponding path is already mentioned in user_specification_file.
+
+*qnn_sdk*: specifies path to the zip file of qnn sdk. Overrides if corresponding path is already mentioned in user_specification_file. 
+
+*external_dist_files*: specify external files required in Docker image build. Overrides any external_dist_files already mentioned in user_specification_file. 
+
+*log_level*: specifies numeric value corresponding to log level (debug:1, info:2, warning:3, error:4, critical:5) 
+
+*no_cache*: Do not use Docker's internal layer cache (used for debug)
+
+For Example:
+
+.. code:: bash
+
+   python3 build_image.py --user_specification_file ./sample_user_specs/user_image_spec_qaic.json --apps_sdk /path/to/aic_apps.Core.1.20.2.0.Linux-AnyCPU.zip \
+   --platform_sdk /path/to/aic_platform.Core.1.20.2.0.Linux-AnyCPU.zip --tag 1.20.2.0
+
+To check the Docker image created with above script:
+
+.. code:: bash
+
+   $ docker images
+   REPOSITORY                                                            TAG            IMAGE ID       CREATED        SIZE
+   qaic-x86_64-ubuntu22-py310-py38-release-qaic_platform-qaic_apps       1.20.2.0       f784c37d7f18   2 hours ago    4.25GB
+
+Supported Operating Systems
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Docker container for Cloud AI 100 supports different operating system
+distributions. Please check :ref:`supported operating environments <reference-to-Supported-Operating-Systems>`.
+
+Features
+--------
+
+-  Incremental Docker image build infrastructure optimizes disk usage
+   and rebuilding time
+-  Flexibility to override specification options such as sdk paths,
+   external dist files through cmd line options
+-  User provided image specification is resolved for dependencies and
+   dumped as autocompleted_user_specification.json
+-  Supports multi-platform builds
+
+Incremental build layers
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The configurations are grouped as shown below to minimize the need for
+rebuild and to allow sharing layers. This enables reduction of disk
+usage and allows faster rebuild.
+
+.. image:: ../../../../images/docker_layers.png
+
+Image specification
+~~~~~~~~~~~~~~~~~~~
+
+User provides a specification json that defines the items to build in
+each group and list external file dependencies The build script
+auto-completes the configuration by resolving the dependencies for
+specified nodes. Sample user specification files are present in
+sample_user_specs directory within Apps SDK directory -
+tools/docker-build/
+
+Supported keys in json: 'build_type', 'applications', 'sdk',
+'python_version', 'base_image', 'external_dist_files'
+
+Applications - Optional, accepts a list of values. SDK - Optional,
+accepts a dictionary of values (sdk type: file-path/boolean). Python
+Version - Optional, accepts a single value. Build Type - Required,
+accepts a single value. Base Image - Required, accepts a single value.
+External dist files - Optional, allows specifying external files
+required in Docker image build. Accepts a list of values.
+
+Example -
+
+.. code:: json
+
+   {
+       "applications": ["gae", "pytools", "aimet", "qinf", "pybase"],
+       "sdk": {
+           "qaic_apps": "/path/to/aic_apps.Core.1.20.2.0.Linux-AnyCPU.zip",
+           "qaic_platform": "/path/to/aic_platform.Core.1.20.2.0.Linux-AnyCPU.zip"
+       },
+       "python_version": "py310",
+       "base_image": "ubuntu22",
+       "external_dist_files": ["/path/to/aimetpro-1.26.0-RC7.torch-gpu-release.tar.gz"]
+   }
+
+Minimal user specification to build the same image
+
+.. code:: json
+
+   {
+       "applications": ["gae", "aimet", "qinf"],
+       "sdk": {
+           "qaic_apps": "/path/to/aic_apps.Core.1.20.2.0.Linux-AnyCPU.zip",
+           "qaic_platform": "/path/to/aic_platform.Core.1.20.2.0.Linux-AnyCPU.zip"
+       },
+       "external_dist_files": ["/path/to/aimetpro-1.26.0-RC7.torch-gpu-release.tar.gz"]
+   }
+
+sdk, external_dist_files can be skipped here and provided through cmd
+line
+
+Overridable options in specification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SDK, external dist files configuration rely on file paths. These keys
+can be specified either through specification file or cmd line options.
+cmd line specification takes precedence when specified through both.
+
+Auto-completion of user provided specification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Docker image may constitute base image + layers from other groups
+specified in the figure above. Resolution of dependencies is done
+top-down for the specified groups.
+
+Applications - Resolved as union of dependencies in same level. SDK -
+Resolved as union of dependencies from higher levels and same level.
+Python Version - Resolved as intersection of dependencies from higher
+levels of which preferred node is chosen. Build Type - Resolved as
+intersection of dependencies from higher levels of which preferred node
+is chosen. Base Image - Resolved as intersection of dependencies from
+higher levels of which preferred node is chosen.
+
+Multi-platform image build
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the -arch command line option with the build command to configure
+building the image for the preferred architecture (x86_64/aarch64).
+
+.. _reference-to-docker-launch-container:
+
+Launch container
+----------------
+
+Command
+~~~~~~~
+
+Below is example for launching an x86_64 ubuntu20 image with python3.10
+environment, apps and platform sdk.
+
+Run the container and map 1 or more qaic devices. (Or any other
+directory mapping using the -v option)
+
+.. code:: bash
+
+   # Passing 1 device
+   docker run -dit --name qaic-ubuntu-test --device=/dev/accel/accel0 qaic-x86_64-ubuntu22-py310-py38-release-qaic_platform-qaic_apps:1.20.2.0
+
+   # Passing 1 device and mapping a local folder
+   docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/accel/accel0 qaic-x86_64-ubuntu22-py310-py38-release-qaic_platform-qaic_apps:1.20.2.0
+
+Architecture selection
+~~~~~~~~~~~~~~~~~~~~~~
+
+When passing -arch option where the host architecture is not the same as
+the requested architecture, setup the host for Docker multiarch using
+qemu.
+
+Ubuntu Host
+
+.. code:: bash
+
+   $ sudo apt install qemu binfmt-support qemu-user-static
+   $ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+   # Check the setup
+   $ docker run --rm -t --platform=linux/arm64 <image name> uname -m
+
+The command above should give the architecture as aarch64
+
+CentOS Host
+
+.. code:: bash
+
+   $ sudo yum install qemu qemu-kvm
+   $ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+   # Check the setup
+   $ docker run --rm -t --platform=linux/arm64 <image name> uname -m
+
+The command above should give the architecture as aarch64
+
+Run tests in container
+----------------------
+
+-  Connect to the container and run tests:
+
+.. code:: bash
+
+   # Get the CONTAINER ID
+      $ docker ps
+   # Open an interactive shell inside a running container
+      $ docker exec -it <container_name_or_id> /bin/bash
+   # Check qaic devices
+      $ /opt/qti-aic/tools/qaic_util -q
+   # Run an inference with recorded data
+      $ /opt/qti-aic/exec/qaic-runner -d 0 -t /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-quant-resnet50/
+
+-  Activate the python enviornment and test Python HL API (valid if
+   *qaic_python: "True"* specified in sdk group of
+   user_specification_file while building Docker image):
+
+.. code:: bash
+
+   source /opt/qti-aic/dev/python/qaic-env/bin/activate
+   cd /opt/qti-aic/examples/apps/qaic-python-sdk/qaic/examples/resnet_example/
+   python resnet_example.py

@@ -1,0 +1,4 @@
+QAIRT Software architecture
+***************************
+
+Refer to `Software architecture <https://docs.qualcomm.com/bundle/publicresource/topics/80-63442-50/overview.html#software-architecture>`__
