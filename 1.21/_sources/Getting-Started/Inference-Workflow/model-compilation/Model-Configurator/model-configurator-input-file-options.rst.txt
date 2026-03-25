@@ -1,0 +1,65 @@
+Input file options
+==================
+
+The input file options are:
+
+- -input-list-file: Provide an input text file with list of raw input
+  file paths.
+
+  **Use this option when you already have a raw file with the correct
+  batch size as expected by the model. With this option you can run with
+  only one batch size.**
+
+- -input-list-generate: Generates raw files on the fly for different
+  batch sizes from JPG/PNG images in a directory. **Use this option when
+  you have a directory of PNG/JPG images, and you want to run across
+  different batch sizes.**
+
+  The following parameters are mandatory to be passed if this option is
+  chosen:
+
+  - ``-image-dir`` <Directory of all images - should contain at least
+    number of max batch size images\ ``>`` If there are lesser files
+    that the required batch size, user can pass:
+
+  - ``-reuse-single-file`` option to reuse the same file for multiple
+    batches.
+
+  - ``-height`` < height of the image the model takes>
+
+  - ``-width`` <width of the image the model takes>
+
+  - ``-image-type`` <extension of images in image-dir. Default jpg> For
+    other optional parameters with this input type, refer to the
+    "``Input file Generation Options``" section in ``--help``.
+
+- -load-pre-gen-files: Pregenerated input data files and PGQ profiles
+  for a batch size can be provided through this option. This is an
+  extension for ``-input-list-file`` which is for one batch size alone.
+  File paths should be absolute paths or relative paths to parent
+  directory of JSON file.
+
+  For specification, an example file can be found at:
+  ``/opt/qti-aic/scripts/qaic-model-configurator/SampleFiles/pre_gen_files.json``
+
+- -create-batched-inputs: Text file with comma-separated ordered input
+  .raw files with no batch dimension. Add lines for a new set of inputs.
+  The inputs will be concatenated together to create a batch on-the-go.
+  File paths of the .raw files should be absolute paths or relative
+  paths to parent directory of the txt file. Assumes all inputs are
+  Int64.
+
+  Sample file at:
+  ``/opt/qti-aic/scripts/qaic-model-configurator/SampleFiles/create_batched_inputs_file.txt``
+
+- None of the above: Generates random numbers (default Gaussian) for the
+  required size of inputs. This option may perform slower than providing
+  real input.
+
+**Note:** If the inputs provided are less than the -iter specified, a
+warning is issued. The inputs are repeated to meet the -iter numbers. If
+the inputs provided are greater than the -iter specified, then all the
+inputs are executed, so the actual -iter run will be greater than the
+-iter specified.
+
+

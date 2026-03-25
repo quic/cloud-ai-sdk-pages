@@ -1,0 +1,33 @@
+
+.. _reference-to-docker-launch-container:
+
+Launch Container
+================
+
+The following examples launch an x86_64 Ubuntu 22 image with a Python 3.10 environment, Apps SDK, and Platform SDK.
+
+Run the container and map one or more QAic devices. Mapping one or more local directories with the ``-v`` option is highly recommended so you have a persistent workspace and do not lose your work when the container stops.
+
+.. code:: bash
+
+   # Passing 1 device
+   docker run -dit --name qaic-ubuntu-test --device=/dev/accel/accel0 qaic-x86_64-ubuntu22-py310-py38-release-qaic_platform-qaic_apps:1.21.2.0
+
+   # Passing 1 device and mapping a local folder
+   docker run -dit --name qaic-ubuntu-test -v /data/test:/data/test --device=/dev/accel/accel0 qaic-x86_64-ubuntu22-py310-py38-release-qaic_platform-qaic_apps:1.21.2.0
+
+Architecture Selection
+----------------------
+
+When using the ``-arch`` option on a host whose architecture differs from the requested architecture, set up the host for Docker multiarch using QEMU.
+
+Ubuntu Host
+
+.. code:: bash
+
+   sudo apt install qemu binfmt-support qemu-user-static
+   docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+   # Check the setup
+   docker run --rm -t --platform=linux/arm64 <image name> uname -m
+
+The command above should report the architecture as ``aarch64``.

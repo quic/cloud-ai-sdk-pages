@@ -1,0 +1,51 @@
+smartnms Python package
+=======================
+
+The requirements of libAICsmartnms.so (covered in Section
+:ref:`libAICsmartnms.so <reference_to_libAICsmartnms_so>`) must be satisfied to use
+the smartnms Python package. After that, the Python package must be
+installed using pip.
+
+Example:
+
+.. code-block::
+
+   pip install /opt/qti-aic/tools/smart-nms/smartnms-*.whl -force-reinstall
+
+The command above installs smartnms, numpy, and matplotlib in the user's
+environment. The Python package requires Python 3.8.
+
+.. code-block::
+
+   from smartnms import SmartNMS 
+     
+   # create nms instance with a config 
+   nms = SmartNMS("/opt/qti-aic/smart-nms/src/examples/configs/user-config-yolov3.yml") 
+    
+   # updating config on the fly 
+   nms.score_threshold = 0.4 
+   nms.nms_threshold   = 0.5 
+   nms.profiling_per_iter = True 
+    
+   # api to initializing SmartNMS handlers and validate config parameters 
+   nms.init() 
+    
+   # api to display the final config parameters 
+   nms.display() 
+    
+   # for each inference, we have detections : numpy_array , landmarks : numpy_array, scores : numpy_array 
+   for idx in range(num_inferences): 
+      # getting model outputs from any framework 
+      model_outputs = get_model_output(idx) 
+      detection = { "351": model_outputs[0], "371": model_outputs[1], "391":  model_outputs[2] } 
+      result = nms.run(detection, [], [])  
+      results.append(result) 
+    
+   # For plotting CPU efficiency and memory footprints 
+   nms.plot()
+
+The following figure shows an example smart-nms plot.
+
+.. image:: ../../../../images/smart-nms_plot_example.png
+
+

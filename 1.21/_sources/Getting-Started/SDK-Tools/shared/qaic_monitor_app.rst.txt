@@ -1,0 +1,52 @@
+qaic-monitor-json
+=================
+
+QAic monitor JSON (qaic-monitor-json) is used to control and monitor
+diagnostic information such as device information, logging, and PCIe
+event counters. The tool accepts a JSON formatted input file.
+
+Source file "QAicMonitor.proto" is included as part of the SDK release,
+which provides all the details about different services, requests, and
+types that can be passed through the JSON scripts.
+
+Example for read PCIe lane 2 event counter:
+
+ras_pcie_read.json Input File: 
+
+.. code-block:: json
+
+   { 
+    "request": [ 
+     { 
+      "qid": 0, 
+      "ras_pcie": { 
+       "pcie_read_event_counter": { 
+        "lane": 2, 
+        "counter_id": "RAS_PCIE_EC_LRCR_ERR"  
+       } 
+      } 
+     } 
+    ] 
+   } 
+
+.. code-block:: bash
+
+      sudo /opt/qti-aic/tools/qaic-monitor-json -i ./ras_pcie_read.json 
+
+The following table lists qaic-monitor-json argument details.
+
+.. list-table::
+   :widths: 30 42
+   :header-rows: 1
+
+   * - Argument
+     - Description
+   * - -i <path_to_json_input_file>
+     - (Mandatory) full or relative path with filename.
+   * - -o <path_to_json_output_file>
+     - (Optional) full or relative path with filename.
+   * - -v Verbosity
+     - Verbosity of QAicMonitor; when not specified, it is at error
+       level; add multiple -v to raise the level.
+   * - -h
+     - Help

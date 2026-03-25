@@ -1,0 +1,164 @@
+Starting AICM
+-------------
+
+Install Dependencies
+~~~~~~~~~~~~~~~~~~~~
+
+AICM requires several Python packages to run. We recommend installing
+the dependencies in a virtual environment:
+
+.. code:: bash
+
+   python -m venv <path-to-the-virtual-environment>
+   source <path-to-the-virtual-environment>/bin/activate
+   pip install -r requirements.txt
+
+Start Agent
+^^^^^^^^^^^
+
+After activating the virtual environment, AICM can be started using the
+following command:
+
+::
+
+   usage: aicm_agent.py [-h] [-c CONFIG_FILE] [--ip IP] [--port PORT] [-u USERS] [--ssl-key SSL_KEY] [--ssl-cert SSL_CERT] [--qmonitor-ip QMONITOR_IP] [--qmonitor-port QMONITOR_PORT] [--log LOG]
+                        [--max-log-size MAX_LOG_SIZE] [-v] [--dump-default-config DUMP_DEFAULT_CONFIG] [--dump-default-users DUMP_DEFAULT_USERS] [--collection KEY=VALUE [KEY=VALUE ...]]
+
+   optional arguments:
+     -h, --help            show this help message and exit
+     -c CONFIG_FILE, --config_file CONFIG_FILE
+                           Config file path
+     --ip IP               IP address to bind to
+     --port PORT           Port number to listen on
+     -u USERS, --users USERS
+                           Full path to users credentials file (.yaml)
+     --ssl-key SSL_KEY, --ssl_key SSL_KEY
+                           Path to the SSL key file. Required for HTTPS
+     --ssl-cert SSL_CERT, --ssl_cert SSL_CERT
+                           Path to the SSL certificate file. Required for HTTPS
+     --qmonitor-ip QMONITOR_IP, --qmonitor_ip QMONITOR_IP
+                           IP of QMonitor GRPC Server
+     --qmonitor-port QMONITOR_PORT, --qmonitor_port QMONITOR_PORT
+                           Port of QMonitor GRPC Server
+     --log LOG             Path where to store logs
+     --max-log-size MAX_LOG_SIZE, --max_log_size MAX_LOG_SIZE
+                           Max sizes of logs in bytes
+     -v, --verbose         Increase output verbosity
+     --collection KEY=VALUE [KEY=VALUE ...]
+                           Set a number of key-value pairs (do not put spaces before or after the = sign).
+
+   Dump default files:
+     Dumps the default files and then exit.
+
+     --dump-default-config DUMP_DEFAULT_CONFIG, --dump_default_config DUMP_DEFAULT_CONFIG
+                           Dump the default config to the specified folder and exit
+     --dump-default-users DUMP_DEFAULT_USERS, --dump_default_users DUMP_DEFAULT_USERS
+                           Dump the default users file to the specified folder and exit
+
+These settings can also be supplied via a configuration file. If both
+are found, then the command line arguments will take priority. The
+configuration file can be supplied via the ``--config_file`` option.
+
+.. code:: ini
+
+   # AICM Configuration
+
+   # IP to bind AICM
+   ip = 127.0.0.1
+
+   # Port to bind AICM
+   port = 9000
+
+   # Full path to users credentials file
+   # users =
+
+   # SSL Key path
+   # ssl_key =
+
+   # SSL Certificate path
+   # ssl_cert =
+
+   # IP of QMonitor GRPC Server
+   qmonitor_ip = localhost
+
+   # Port of QMonitor GRPC Server
+   qmonitor_port = 62472
+
+   # Path to directory where to store logs
+   # log =
+
+   # Max sizes of logs in bytes
+   max_log_size = 100000000
+
+   # Verbosity of AICM agent
+   verbose = 0
+
+   # KEY=VALUE for defining collection intervals in milliseconds for each collection
+   collection = [HEALTH=1000, DDR_BW=1000, PCI=1000, RAS_ECC_ERROR=10000]
+
+AICM can also be run in a service-like manner :
+
+::
+
+   sudo bash scripts/start_aicm_agent.sh
+
+Once running, the APIs can be tested at ``<ip>:<port>/docs`` through the
+SwaggerUI.
+
+Stop Agent
+^^^^^^^^^^
+
+The following command will stop the agent when
+``scripts/start_aicm_agent.sh`` was used to start it:
+
+.. code:: bash
+
+   sudo bash scripts/stop_aicm_agent.sh
+
+Alternatively, pressing ``Ctrl+C`` will stop AICM if it’s running using
+the ``python aicm_agent.py`` command.
+
+Setup Basic Auth
+~~~~~~~~~~~~~~~~
+
+Since `Basic
+Auth <https://en.wikipedia.org/wiki/Basic_access_authentication>`__ is
+used as the authentication method, users will need to authenticate all
+requests to our API.
+
+**The accepted credentials are stored in the ``.users.yaml`` file.**
+
+You can add/modify the credentials using the following syntax:
+
+.. code:: yaml
+
+   credentials:
+     - username: admin
+       hash: $2b$12$rEQTKF4IVHKPyeX6miseJ.xOjhmI5OFqlLuwE2OB4CuEIvHC2IFP6
+       note: "Example of credential"
+
+These credentials will be needed in every request made to the HTTP Rest
+Endpoints. For security purposes the password is hashed using
+``bcrypt``. A script used to get the hash is provided at
+``/scripts/hash_password.py``\  Replace ``<password>`` and run this
+command:
+
+.. code:: bash
+
+   python ./scripts/hash_password.py <password>
+
+HTTPS
+~~~~~
+
+Basic Auth is just a simple mechanism for authentication. For added
+security, running HTTPS is recommended, which requires users to provide
+a certificate and key upon startup. This can be done by passing the
+following args:
+
+.. code:: bash
+
+     --ssl-key SSL_KEY    Path to the SSL key file. Needs to be provided for
+                          HTTPS
+     --ssl-cert SSL_CERT  Path to the SSL certificate file. Needs to be provided
+                          for HTTPS
+

@@ -1,0 +1,97 @@
+vLLM Backend
+============
+
+The vLLM (0.10.1.1) backend for Triton is a Python-based backend designed to
+run `supported
+models <https://github.com/quic/efficient-transformers/blob/release/v1.21.0/docs/source/validate.md>`__
+on the vLLM AsyncEngine.
+
+Refer to :ref:`vLLM <reference_to_vllm>` for more information on model.json configuration parameters, environment variables and benchmarking support.
+
+Launch vLLM Models
+------------------
+
+Sample model repository for TinyLlama model is generated at
+``"/opt/qti-aic/aic-triton-model-repositories/vllm_model"`` while
+building Triton docker with triton_model_repo application using
+:ref:`Docker <reference_to_docker>`. You can use this as
+is or change the model by changing model value that is passed to the
+vLLM AsyncEngine. Modify ``model.json`` as needed.
+
+``model.json`` represents a key-value dictionary that is fed to the vLLM's AsyncEngine. Please modify the model.json as per need.
+
+model.json sample parameters.
+
+.. code:: bash
+
+   {
+       "model": "model_name",
+       "device_group": [0,1,2,3,4], # device_id for execution
+       "max_num_seqs": <decode_bsz>, # Decode batch size
+       "max_model_len": <ctx_len>, # Max Context length
+       "max_seq_len_to_capture": <seq_len>, # Sequence length
+       "quantization": "mxfp6", # Quantization
+       "kv_cache_dtype": "mxint8", # KV cache compression
+       "device": "qaic"
+   }
+
+Sample `config.pbtxt <https://github.com/triton-inference-server/vllm_backend/blob/r25.02/samples/model_repository/vllm_model/config.pbtxt>`__
+
+Activate the vLLM virtual environment inside the Triton container before launching the Triton server:
+
+.. code:: bash
+
+   source /opt/vllm-env/bin/activate
+
+Set up Hugging Face credentials
+
+.. code:: bash
+
+  huggingface-cli login <HF_TOKEN>
+
+Configure number of cores as per NSP availability
+
+.. code:: bash
+
+  export VLLM_QAIC_NUM_CORES=16
+
+Launch the Triton server
+
+.. code:: bash
+
+    /opt/tritonserver/bin/tritonserver --model-repository=/opt/qti-aic/aic-triton-model-repositories/vllm_model
+
+To use the ``/completions`` or ``/chat/completions`` endpoints, launch OpenAI-compatible Triton server instead of running the binary above.
+
+Prerequisite:
+
+.. code:: bash
+
+   pip install /opt/tritonserver/python/tritonserver-*.whl
+   cd /opt/tritonserver/python/openai && pip install -r requirements.txt
+
+Launch OpenAI-compatible Triton server
+
+.. code:: bash
+
+   python3 openai_frontend/main.py --model-repository /opt/qti-aic/aic-triton-model-repositories/vllm_model/ --tokenizer <HF_MODEL_TAG>
+
+The Triton server may take a few minutes (depending on the model) to download and compile the model.
+
+Sample
+`Client <https://github.com/triton-inference-server/vllm_backend/blob/r25.02/samples/client.py>`__
+script is available in the sample model repository (built as part of
+the Triton image using qaic-docker) ``/opt/qti-aic/aic-triton-model-repositories/vllm_model/vllm_model``.
+
+The sample client script (client.py) can be used to interface with
+the Triton/vLLM inference server, and can be executed from the Triton
+client environment.
+
+User can also use the ``generate`` API to run inference from the Triton client
+container:
+
+.. code:: bash
+
+    curl -X POST localhost:8000/v2/models/vllm_model/generate -d '{"text_input": "My name is","parameters":{"stream":false, "temperature": 0, "max_tokens":1000}}'
+
+Refer to `Triton OpenAI User Guide <https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/client_guide/openai_readme.html>`__ for examples on using OpenAI endpoints for inferencing, benchmarking with genai-perf tool.

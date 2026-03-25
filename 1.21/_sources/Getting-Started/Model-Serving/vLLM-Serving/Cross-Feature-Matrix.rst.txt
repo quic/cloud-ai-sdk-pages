@@ -1,0 +1,331 @@
+.. _reference_to_Cross_Feature_Support_Matrix:
+
+Cross‑Feature Support Matrix
+============================
+
+The following tables summarize cross‑feature support across multiple vLLM versions.
+
+vLLM v0.8.5 — Support
+---------------------
+
+.. list-table::
+   :widths: 20 6 7 10 12 13 7 22 20 15 16
+   :header-rows: 1
+
+   * - Feature
+     - V1
+     - BS=1
+     - BS > 1 (CB)
+     - Prefix Caching
+     - Multi‑modality
+     - LoRaX
+     - Speculative decoding (PLD/SPD/Turbo)
+     - Disaggregated Serving
+     - Guided Decoding
+     - On‑device sampling
+
+   * - V1
+     - NA
+     -
+     -
+     -
+     -
+     -
+     -
+     -
+     -
+     -
+
+   * - BS=1
+     -
+     - NA
+     -
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+
+   * - BS > 1 (CB)
+     -
+     -
+     - NA
+     - Yes
+     -
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+
+   * - Prefix Caching
+     -
+     - Yes
+     - Yes
+     - NA
+     -
+     - Yes
+     - Yes
+     -
+     - Yes
+     - Yes
+
+   * - Multi‑modality
+     -
+     - Yes
+     - Yes
+     - Yes*
+     - NA
+     -
+     -
+     - Yes* (Qwen2.5‑VL)
+     - Yes
+     - Yes
+
+   * - LoRaX
+     -
+     - Yes
+     - Yes
+     - Yes
+     -
+     - NA
+     -
+     -
+     - Yes
+     - Yes
+
+   * - Speculative decoding (PLD/SPD/Turbo)
+     -
+     - Yes
+     - Yes
+     - Yes
+     -
+     -
+     - NA
+     - Yes
+     -
+     -
+
+   * - Disaggregated Serving
+     -
+     - Yes
+     - Yes
+     -
+     - Yes* (Qwen2.5‑VL)
+     - Yes
+     -
+     - NA
+     -
+     -
+
+   * - Guided Decoding
+     -
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     -
+     -
+     - NA
+     - Yes
+
+   * - On‑device sampling
+     -
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     -
+     -
+     - Yes
+     - NA
+
+Legend
+~~~~~~
+
+- ``Yes`` 
+  Indicates that the feature combination is supported and validated.
+
+- ``Yes*``  
+  Indicates limited or conditional support. Refer to the **Notes** section below.
+
+- ``Yes* (Qwen2.5‑VL)``  
+  Indicates support limited to the Qwen2.5‑VL model.
+
+- ``NA``  
+  Indicates that the feature combination is not applicable or not supported.
+
+- Blank cell  
+  Indicates that the feature combination is not validated or not committed for this release.
+
+Notes:
+~~~~~~
+
+- Prefix caching support is limited to initial tokens (system prompt only).
+- Multi‑modality support is limited and does not include full prefill disaggregation.
+- Disaggregated multi‑modality support applies only to Encode ↔ Decode paths.
+
+vLLM v0.10.1 — Support
+----------------------
+
+.. list-table::
+   :widths: 20 6 7 10 12 13 7 22 20 15 16
+   :header-rows: 1
+
+   * - Feature
+     - V1
+     - BS=1
+     - BS > 1 (CB)
+     - Prefix Caching
+     - Multi‑modality
+     - LoRaX
+     - Speculative decoding (PLD/SPD/Turbo)
+     - Disaggregated Serving
+     - Guided Decoding
+     - On‑device sampling
+
+   * - V1
+     - NA
+     - Yes
+     - Yes
+     -
+     -
+     - Yes
+     -
+     -
+     -
+     -
+
+   * - BS=1
+     - Yes
+     - NA
+     -
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     -
+     - Yes
+
+   * - BS > 1 (CB)
+     - Yes
+     -
+     - NA
+     - Yes
+     -
+     - Yes
+     - Yes
+     - Yes
+     -
+     - Yes
+
+   * - Prefix Caching
+     -
+     - Yes
+     - Yes
+     - NA
+     -
+     - Yes
+     - Yes
+     -
+     -
+     - Yes
+
+   * - Multi‑modality
+     -
+     - Yes
+     - Yes
+     -
+     - NA
+     -
+     -
+     -
+     -
+     - Yes
+
+   * - LoRaX
+     - Yes
+     - Yes
+     - Yes
+     - Yes
+     -
+     - NA
+     -
+     -
+     -
+     - Yes
+
+   * - Speculative decoding (PLD/SPD/Turbo)
+     -
+     - Yes
+     - Yes
+     - Yes
+     -
+     -
+     - NA
+     - Yes
+     -
+     -
+
+   * - Disaggregated Serving
+     - Yes
+     - Yes
+     - Yes
+     -
+     -
+     - Yes
+     - Yes
+     - NA
+     -
+     -
+
+   * - Guided Decoding
+     -
+     -
+     -
+     -
+     -
+     -
+     -
+     -
+     - NA
+     -
+
+   * - On‑device sampling
+     -
+     - Yes
+     - Yes
+     - Yes
+     -
+     - Yes
+     -
+     -
+     -
+     - NA
+
+Legend
+~~~~~~
+
+- ``Yes``  
+  Indicates that the feature combination is supported and validated.
+
+- ``Yes*``  
+  Indicates limited or conditional support. Refer to the **Notes** section below.
+
+- ``NA``  
+  Indicates that the feature combination is not applicable or not supported.
+
+- Blank cell  
+  Indicates that the feature combination is not validated or not committed for this release.
+
+Notes:
+~~~~~~
+
+- Disaggregated serving support is limited when combined with V1 features.
+- Guided decoding is not supported in this configuration.
+

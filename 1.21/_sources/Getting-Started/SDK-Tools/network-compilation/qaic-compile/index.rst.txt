@@ -1,0 +1,247 @@
+.. _reference_to_qaic_compile:
+
+qaic-compile
+============
+
+The QAic compile (qaic-compile) is a command-line tool that compiles machine learning models for execution on Cloud AI devices. The tool accepts models in ONNX and TensorFlow formats and converts them into optimized network binaries for Cloud AI devices.
+
+The tool is located at:
+
+``/opt/qti-aic/exec/qaic-compile``
+
+Examples:
+---------
+
+Download the ResNet50-v1-7 model:
+
+.. code-block:: bash
+
+    wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet50-v1-7.tar.gz
+
+.. code-block:: bash
+
+    tar -xzf resnet50-v1-7.tar.gz
+
+Compile with ``qaic-compile``:
+
+.. code-block:: bash
+
+    /opt/qti-aic/exec/qaic-compile -m=./resnet50-v1-7/resnet50-v1-7.onnx -onnx-define-symbol=N,1 -convert-to-fp16 -aic-hw -aic-num-cores=1 -aic-binary-dir=./compiler_output
+
+Note:
+`````
+- The downloaded model does not include a definition for the ONNX symbol N. As a result, the batch dimension N must be specified explicitly.
+
+Refer to :ref:`CV and LLM workflow <reference_to_end_to_end_examples>` for end-to-end examples demonstrating qaic-compile and qaic-runner using the following reference models:
+
+- CV: ResNet50-v1-7
+- LLM: Llama-3.2-1B-Instruct
+
+**Feature Details**
+
+.. toctree::
+   :maxdepth: 1
+
+   apps_sdk_network_specialization
+   apps-sdk-single-device-partitioning
+   MDP-Load-Partition
+   qaic-custom-i-o
+   qaic-get-intermediate-layer-outputs
+   qaic-mixed-precision
+
+Compile Options
+---------------
+
+The QAic compile options are:
+
+.. list-table::
+ :header-rows: 1
+ :widths: 30 50
+
+ * - Option
+   - Description
+ * - ``-u, -usage``
+   - Detailed help with options and defaults
+ * - ``-m=<path>, -model=<path>``
+   - Path to model file
+ * - ``-model-input=<name,dataType,[shape]>``
+   - Specify input node with datatype and shape
+ * - ``-output-node-name=<name,name,...>``
+   - Specify output node names separated by comma.
+ * - ``-aic-num-cores=<num>``
+   - Number of aic cores to be used for inference on
+ * - ``-aic-hw``
+   - Compile model into a QPC that can run on hardware. default: -aic-hw
+ * - ``-run-on-interpreter``
+   - Runs inference on Interpreter. default: -aic-hw
+ * - ``-aic-hw-version=<version>``
+   - Specify HW version. Valid options are: 'ai100' and 'ai200' default: ai100
+ * - ``-ols=<num>``
+   - Factor to increasing splitting of network for parallelism. If doing network specialization, can be set per-specialization.
+ * - ``-mos=<num>``
+   - Degree of weight splitting done across cores to reduce the on-chip memory
+ * - ``-mdts-mos=<num>``
+   - Degree of weight splitting done across multi-device tensor slices to improve memory usage and computational efficiency.
+ * - ``-allocator-dealloc-delay=<num>``
+   - Option to increase buffer lifetime 0 - 10, e.g 1
+ * - ``-size-split-granularity=<num>``
+   - To set max tile size, KiB between 512 - 2048, e.g 1024.
+ * - ``-vtcm-working-set-limit-ratio=<float>``
+   - Ratio of fast memory  an instruction can use {0 - 1}, eg 0.25
+ * - ``-convert-to-fp16``
+   - Run all floating-point in fp16. Default set to off
+ * - ``-execute-nodes-in-fp16=<ops>``
+   - Run all instances of the operators in this list with FP16
+ * - ``-node-precision-info=<path>``
+   - Load model loader precision file for setting node instances to FP16 or FP32.
+ * - ``-keep-original-precision-for-nodes=<ops>``
+   - Run operators in this list with original precision at generation
+ * - ``-custom-IO-list-file=<path>``
+   - Custom I/O config file in yaml each input and output of the model.
+ * - ``-dump-custom-IO-config-template=<template>``
+   - Dumps the yaml template for Custom I/O configuration.
+ * - ``-external-quantization=<path>``
+   - Load the externally generated quantization profile.
+ * - ``-quantization-schema-activations=<schema>``
+   - Specify which quantization schema to use for activations.
+ * - ``-quantization-schema-constants=<schema>``
+   - Specify which quantization schema to use for constants.
+ * - ``-quantization-calibration=<calibration>``
+   - Specify which quantization calibration to use.
+ * - ``-percentile-calibration-value=<float>``
+   - Specify the value to be used with Percentile calibration method.
+ * - ``-num-histogram-bins=<num>``
+   - Sets the num of histogram bins profiling nodes. Default 512.
+ * - ``-quantization-precision=<dataType>``
+   - Specify which quantization precision options to use. Int8(default) is only supported precision for now.
+ * - ``-quantization-precision-bias=<dataType>``
+   - Specify which quantization precision to use,  Int8, Int32 (default)
+ * - ``-enable-rowwise``
+   - Enable rowwise quantization of FullyConnected and SparseLengthsSum ops.
+ * - ``-enable-channelwise``
+   - Enable channelwise quantization of Convolution op.
+ * - ``-dump-profile=<path>``
+   - Perform quantization profiling and dump result to the file
+ * - ``-load-profile=<path>``
+   - Load quantization profile file, generated with -dump-profile
+ * - ``-convert-to-quantize``
+   - Input data is profiled and run in quantized mode. Default is off.
+ * - ``-load-embedding-tables=<zipfile>``
+   - Load embedding tables from this zip file.
+ * - ``-dump-embedding-tables=<zipfile>``
+   - Dump embedding tables from model to this zip file.
+ * - ``-aic-binary-dir=<path>``
+   - Stores model binaries at directory location provided in HW mode
+ * - ``-compile-only``
+   - Compiles a model and generates binaries at location provided
+ * - ``-host-preproc``
+   - Enable all pre-/post-processing on host.
+ * - ``-aic-preproc``
+   - Disable all pre-/post-processing on host.
+ * - ``-aic-enable-depth-first``
+   - Enables DFS with default memory size.
+ * - ``-aic-depth-first-mem=<num>``
+   - Sets DFS memory size, used with -aic-enable-depth-first.
+ * - ``-batchsize=<num>``
+   - Sets the number of batches to be used for execution.
+ * - ``-auto-batch-input``
+   - Automatically batch inputs to meet batch size requirements of the network. Inputs should be provided for batch size 1. Note: This option can only be used for networks where axis zero of the first input includes batch size information.
+ * - ``-stats-batchsize=<num>``
+   - This option is used to normalize performance statistics to be per inference
+ * - ``-onnx-define-symbol=<sym,value>``
+   - Define an onnx symbol with its value.
+ * - ``-network-specialization-config=<config.json>``
+   - JSON config defining multiple values for onnx symbols.
+ * - ``-onnxlib=<path>``
+   - Path to an ONNX library.
+ * - ``-always-expand-onnx-functions``
+   - Use the sub-graph from the ONNX function. Only applies to functions for which the compiler has 'known custom op' implementations.
+ * - ``-register-custom-op=<config-file>``
+   - Register custom op using this configuration file.
+ * - ``-compiler-help, --compiler-help``
+   - Lists compiler specific help options and exit
+ * - ``-use-random-input-data=<disributionType>``
+   - Generates random data for model input
+ * - ``-num-iter=<num>``
+   - Number of iterations to run. Default 100
+ * - ``-enable-debug[=<bool>]``
+   - Enables debug mode during model compilation
+ * - ``-time-passes``
+   - Enables printing of compile-time statistics
+ * - ``-io-crc``
+   - Enables CRC check for inputs and outputs of the network
+ * - ``-io-crc-stride=<num>``
+   - Specifies size of stride to calculate CRC in the stride section (default:256)
+ * - ``-io-encrypt=<value>``
+   - Specifies algorithm used for IO encryption/decryption. Valid options are: 'none' to disable and 'chacha20' (default:disabled)
+ * - ``-sdp-cluster-sizes``
+   - Enables single device partitioning and sets the cluster configuration
+ * - ``-profiling-threads=<value>``
+   - Sets the number of parallel threads for profile generation. Default: 1
+ * - ``-compile-threads=<value>``
+   - Sets the number of parallel threads used for compilation. Default: # of concurrent threads supported by host
+ * - ``-use-producer-dma[=<bool>]``
+   - Initiate NSP DMAs from the thread that produces data being transferred
+ * - ``-aic-perf-warnings``
+   - Print performance warning messages
+ * - ``-aic-perf-metrics``
+   - Print compiler performance metrics
+ * - ``-aic-precision-warnings[=<bool>]``
+   - Enable precision warnings.
+ * - ``-aic-pmu-recipe=<recipe>``
+   - Enable the PMU selection based on built-in recipe: AxiRd, AxiWr, AxiRdWr, KernelUtil, HmxMacs
+ * - ``-aic-pmu-events=<event,event,...>``
+   - Track events in NSP cores. Up to 8 events are supported. Event IDs interpreted as hexadecimal, e.g. -aic-pmu-events=3F,70,200
+ * - ``-dynamic-shape-input=<input,input,...>``
+   - Inform the compiler which inputs should be treated as having dynamic shape
+ * - ``-multicast-weights``
+   - Reduce DDR bandwidth by loading weights used on multiple-cores only once and multicasting to other cores.
+ * - ``-mxfp6-matmul``
+   - Compress constant MatMul weights to MXFP6 E2M3 to reduce memory traffic, at the expense of slightly more compute.
+ * - ``-allow-mxint8-mdp-io``
+   - Allows MXINT8 compression of MDP IO traffic.
+ * - ``-direct-api``
+   - Used to enable a platform-specific shared memory API. Not supported for Qualcomm AI 100.
+ * - ``-stats-level=<level>``
+   - Used to enable inference and operator level statistics.
+ * - ``-ddr-stats``
+   - Used to collect DDR traffic details at per core level.
+ * - ``-combine-inputs[=<bool>]``
+   - When enabled combines inputs into fewer buffers for transfer to device.
+ * - ``-combine-outputs[=<bool>]``
+   - When enabled combines outputs into a single buffer for transfer to host.
+ * - ``-mdp-load-partition-config=<path>``
+   - Load multi-device-partition config from this json file.
+ * - ``-mdp-dump-partition-config=<path>``
+   - Dump multi-device-partition config to this json file.
+ * - ``-retained-state[=<bool>]``
+   - Enable/disable retained state feature, if network supports retained state.
+ * - ``-elf-va-limit=<num>``
+   - ELF size limit in MB. Default is 256.
+ * - ``-split-model-io[=<bool>]``
+   - Enable/disable split model IO.
+ * - ``-sub-functions[=<bool>]``
+   - Enable/disable preservation of sub-functions in the model to allow faster compilation.
+ * - ``-qpc-crc``
+   - Enable CRC generation for QPC segments (default: off)
+ * - ``-json-input-file=<path>``
+   - Use -aic-batch-json-input instead of this
+ * - ``-aic-batch-json-input=<path>``
+   - Name of the JSON file containing list of inputs and attributes about the
+     inputs. See :doc:`../../shared/qaic_runner/aic_batch_json_input` for the
+     full JSON format reference.
+ * - ``-input-path=<path>``
+   - Root path to the inputs, used with -aic-batch-json-input.
+ * - ``-write-output-dir=<path>``
+   - Location to save output files, dir should exist and be writable, default '.'
+ * - ``-v, -vv, -vvv``
+   - Specify different log verbosity levels in increasing order
+ * - ``-version, --version``
+   - Prints QAic Graph API version
+ * - ``-version-extended``
+   - Prints QAic Graph API version along with compiler SHA information.
+ * - ``-operators-supported=<type>``
+   - Dumps a list of all operators supported for given type of model (onnx, tensorflow) in file with name <type>SupportedOperators.txt in current directory
+ * - ``-h, -help, --help``
+   - Lists help options
+

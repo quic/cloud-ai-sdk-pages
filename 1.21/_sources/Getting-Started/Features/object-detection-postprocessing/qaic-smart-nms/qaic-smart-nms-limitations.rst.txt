@@ -1,0 +1,9 @@
+Limitations
+===========
+
+Smart-NMS has the following limitations, which will be addressed in
+future releases of the SDK.
+
+- Support only 2D-object detection models.
+
+

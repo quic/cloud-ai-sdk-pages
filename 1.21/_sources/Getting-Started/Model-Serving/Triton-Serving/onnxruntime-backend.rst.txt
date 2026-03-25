@@ -1,0 +1,80 @@
+ONNX Runtime Backend
+====================
+
+The onnxruntime_onnx (v1.18.1) backend uses the QAic EP (execution provider) for deploying ONNX graphs on Cloud AI inference accelerators.
+
+ONNX Runtime Model Respository
+""""""""""""""""""""""""""""""
+
+For onnxruntime configuration, platform should be set to
+``onnxruntime_onnx``. The ``use_qaic`` parameter must be set to ``true``.
+
+Cloud AI Parameters
+~~~~~~~~~~~~~~~~~~~
+
+Parameters are user-provided key-value pairs which Triton will pass to backend runtime
+environment as variables and can be used in the backend processing
+logic.
+
+-  config : path for configuration file containing compiler options.
+-  device_id : id of Cloud AI device on which inference is targeted. (not
+   mandatory as the server auto picks the available device)
+-  use_qaic : flag to indicate to use QAic execution provider.
+-  share_session : flag to enable the use of a single runtime session
+   object across model instances.
+
+Sample ``config.pbtxt``
+
+::
+
+   name: "resnet_onnx"
+   platform: "onnxruntime_onnx"
+   max_batch_size : 16
+   default_model_filename : "aic100/model.onnx"
+   input [
+     {
+       name: "data"
+       data_type: TYPE_FP32
+       dims: [3, 224, 224 ]
+     }
+   ]
+   output [
+     {
+       name: "resnetv18_dense0_fwd"
+       data_type: TYPE_FP32
+       dims: [1000]
+     }
+   ]
+   parameters [
+     {
+       key: "config"
+       value: { string_value: "1/aic100/resnet.yaml" }
+     },
+     {
+       key: "device_id"
+       value: { string_value: "0" }
+     },
+     {
+       key: "use_qaic"
+       value: { string_value: "true" }
+     },
+     {
+       key: "share_session"
+       value: { string_value: "true" }
+     }
+   ]
+   instance_group [
+     {
+       count: 2
+       kind: KIND_MODEL
+     }
+   ]
+
+Launch Triton Server
+""""""""""""""""""""
+
+Launch Triton server within the Triton container with the model repository path.
+
+.. code:: bash
+
+   /opt/tritonserver/bin/tritonserver --model-repository=</path/to/repository>

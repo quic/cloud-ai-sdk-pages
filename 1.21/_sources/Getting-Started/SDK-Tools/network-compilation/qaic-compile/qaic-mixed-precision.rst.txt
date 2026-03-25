@@ -1,0 +1,84 @@
+Mixed precision
+===============
+
+The mixed precision feature allows a user to execute a network with
+nodes in FP32/FP16/INT8 combination. Specific node instances of each
+node type can be set to FP16 precision using the
+"*-node-precision-info*" option. The "*-node-precsion-info*" option can
+be used with the Qaic compiler's profile guided quantization and
+*"-keep-original-precision-for-nodes*\ " to execute a network in mixed
+precision (FP32/FP16/INT8).
+
+Interoperability with "`-keep-original-precision-for-nodes`"
+--------------------------------------------------------------
+
+1. The "*-keep-original-precision-for-nodes*" and
+   "*-node-precision-info*" options can be used together to create a
+   graph in mixed mode precision (FP32/FP16).
+2. "*keep-original-precision-for-nodes*" supports executing all
+   instances of specified node kind in original precision (if original
+   precision is FP32, will remain FP32).
+3. Setting node instances to FP32 is not supported with
+   "*-node-precision-info*".
+
+Node precision info input file
+------------------------------
+
+Operator instances required to run in FP16 are identified via the
+operator's first output name. The user should provide a YAML file
+containing operator instances' first output name that is required in
+FP16 listed against the field "*FP16NodeInstanceNames*".
+
+Example: Sample YAML file content containing output name of node
+instances required in FP16.
+
+.. code-block::
+
+   FP16NodeInstanceNames: [conv0, bn0, relu0]
+
+Assumptions and dependencies
+----------------------------
+
+1. Supported for ONNX models.
+2. Node instances required to run in FP16 are identified via operator's
+   first output name.
+3. When used with profile guided quantization, model quantization
+   profile needs to be generated with "*-node-precision-info*".
+4. During quantization profiling, node instances required to run in FP16
+   precision should have FP16 kernel implementation for interpreter
+   backend.
+
+Usage with qaic-compile
+--------------------
+
+Step 1: Generate quantization profile with ``-node-precision-info``.
+
+.. code-block::
+
+   $ /opt/qti-aic/exec/qaic-compile -m=./path-to-model -input-list-file=list.txt -node-precision-info=node_precision.yaml -dump-profile=pgq.yaml  
+    
+   Quantization Profile is being generated. 
+   Quantization profile is dumped at pgq.yaml
+
+Step 2: Inference using generated pgq profile with Step 1.
+
+.. code-block::
+
+   $ /opt/qti-aic/exec/qaic-compile -m=./path-to-model -input-list-file=list.txt -node-precision-info=node_precision.yaml -load-profile=pgq.yaml 
+    
+   Model is compiled with Int8 precision using PGQ.
+
+Usage with QAic graph API
+-------------------------
+
+Set the graph configuration option
+*QAicGraphConfig.quantizationConfig.nodePrecisionInfo* to force the
+execution of specific operator instances with FP16 precision. This flag
+is supported for ONNX Models loaded through API
+"*qaicAddNodesToGraphFromModel*".
+
+**Note:** When selecting a Convolution node instance to run in FP16
+precision, set BatchNorm node (if there is any) as well as Convolution
+to FP16 precision to allow fusion of Convolution and BatchNorm.
+
+

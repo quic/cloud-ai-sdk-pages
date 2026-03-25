@@ -1,0 +1,35 @@
+Building QAic Execution Provider
+================================
+
+Prerequisite software versions:
+
+.. code-block:: bash
+
+    sudo apt update && sudo apt install -y build-essential cmake
+
+The AIC backend support code is provided as a patch along with the SDK.
+Set up the environment and build ONNX Runtime with QAic as follows:
+
+.. code-block::
+
+   export QAIC_LIB=/opt/qti-aic/dev/lib/x86_64/libQAic.so
+   export QAIC_COMPILER_LIB=/opt/qti-aic/dev/lib/x86_64/libQAicCompiler.so
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/qti-aic/dev/lib/x86_64/
+
+   cd /opt/qti-aic/integrations/qaic_onnxrt
+   ./build_onnxrt_qaic.sh
+
+When building inside a Cloud AI Inference container as `root`, add the `--allow-running-as-root` option.
+
+This checks out the ONNX Runtime repository, applies the QAIC patch
+(`qaic_onnxrt.patch`), and builds the ONNX Runtime distribution with the
+QAIC Execution Provider enabled.
+
+For Python use cases, set up the virtual environment:
+
+.. code-block:: bash
+
+    python3.10 -m venv env_qaic_onnxrt
+    source env_qaic_onnxrt/bin/activate
+
+    pip3 install /opt/qti-aic/integrations/qaic_onnxrt/onnxruntime_qaic/build/Linux/Release/dist/onnxruntime_qaic-1.18.1-cp310-cp310-linux_x86_64.whl

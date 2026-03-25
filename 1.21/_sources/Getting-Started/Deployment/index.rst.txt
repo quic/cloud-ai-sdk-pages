@@ -1,0 +1,48 @@
+Deployment
+==========
+
+This section covers how to deploy Qualcomm Cloud AI workloads across
+different environments — from local containers to cloud instances, Kubernetes
+clusters, and virtualized infrastructure.
+
+- :doc:`Docker <Docker/index>` — run inference workloads using pre-built Qualcomm
+  Cloud AI container images. Covers available images, image selection by use case
+  (LLM, CV, disaggregated serving), and instructions for building and launching
+  custom images.
+
+- :doc:`Kubernetes <Kubernetes/index>` — deploy containerized Cloud AI workloads
+  on Kubernetes using the QAic device plugin. Covers device plugin configuration,
+  SKU-based and fractional device allocation, and deployment YAML examples.
+
+- :doc:`KServe </Getting-Started/Model-Serving/vLLM-Serving/Kserve>` — deploy
+  vLLM as a Kubernetes-native ``InferenceService`` using KServe. Covers
+  ``ServingRuntime`` configuration, autoscaling, and inference examples on
+  Minikube and AWS EKS.
+
+.. only:: not appliance
+
+   - :doc:`AWS <aws/index>` — get started on AWS DL2q instances powered by
+     Cloud AI 100 Standard accelerators. Covers AMI setup, instance configuration,
+     and running your first LLM with Qualcomm Efficient-Transformers.
+
+   - :doc:`Hypervisors <hypervisor/index>` — assign Cloud AI devices to
+     virtual machines via PCIe passthrough. Covers KVM, Hyper-V, ESXi, and Xen
+     hypervisor configurations.
+
+.. toctree::
+    :maxdepth: 1
+    :titlesonly:
+    :hidden:
+
+    Docker/index
+    Kubernetes/index
+
+.. only:: not appliance
+
+   .. toctree::
+      :maxdepth: 1
+      :titlesonly:
+      :hidden:
+
+      hypervisor/index
+      aws/index

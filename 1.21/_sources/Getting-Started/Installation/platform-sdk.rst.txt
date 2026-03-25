@@ -1,0 +1,127 @@
+.. _reference-to-platform-sdk:
+
+====================
+Platform SDK
+====================
+
+The Platform SDK provides the drivers, firmware, and runtime libraries required
+to execute compiled models on Cloud AI hardware. It must be installed on every
+host that has Cloud AI cards physically attached.
+
+Preparation
+-----------
+
+1. Copy the Platform SDK zip file to your host machine.
+
+2. Extract the archive:
+
+   .. code-block:: bash
+
+      unzip aic_platform.Core.<version>.Linux-AnyCPU.zip
+
+3. Navigate to the correct directory for your architecture:
+
+   .. code-block:: bash
+
+      cd <architecture>/<package-format>
+      # Examples:
+      # cd x86_64/deb    # Ubuntu/Debian on x86-64
+      # cd x86_64/rpm    # RHEL on x86-64
+      # cd aarch64/deb   # Ubuntu on ARM64
+
+Uninstall Previous Version
+--------------------------
+
+If upgrading from a previous installation:
+
+.. code-block:: bash
+
+   sudo ./uninstall.sh
+   sync
+
+.. important::
+
+   Installation may take up to 30 minutes depending on the number of Cloud AI
+   cards. Cards undergo multiple resets during installation.
+
+.. note::
+
+   Upgrading from a version earlier than 1.19? See
+   :doc:`platform-sdk-upgrade-pre-1.19` for alternate installation instructions.
+
+.. _one-step-install:
+
+Installation
+------------
+
+.. code-block:: bash
+
+   sudo ./install.sh --auto_upgrade_sbl --ecc enable --setup_mdp all
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Option
+     - Description
+   * - ``--auto_upgrade_sbl``
+     - Upgrades the Secondary Bootloader (SBL) firmware if the version does
+       not match the SDK.
+   * - ``--ecc enable``
+     - Enables Error Correcting Code (ECC) for device memory. Recommended
+       for production deployments.
+   * - ``--setup_mdp all``
+     - Enables Multi-Device Partitioning (MDP) on all devices, required for
+       multi-card tensor-slicing configurations.
+
+.. note::
+
+   For VMs on ESXi hypervisor, add ``--datapath_polling`` to install the
+   kernel module driver (KMD) in polling mode:
+
+.. _platform-sdk-post-install:
+
+Post-Installation
+-----------------
+
+**Verify installation directory**
+
+The SDK installs to ``/opt/qti-aic/``:
+
+.. code-block:: text
+
+   /opt/qti-aic/
+   ├── config/
+   ├── dev/
+   ├── examples/
+   ├── exec/
+   ├── firmware/
+   ├── lib/
+   ├── services/
+   ├── test-data/
+   ├── tools/
+   └── versions/
+
+**Check SDK version**
+
+.. code-block:: bash
+
+   /opt/qti-aic/tools/qaic-version-util --platform
+
+**Add user to qaic group** (run tools without sudo)
+
+.. code-block:: bash
+
+   sudo usermod -aG qaic $USER
+   newgrp qaic
+
+**Manage qmonitor service**
+
+.. code-block:: bash
+
+   # Check status
+   sudo systemctl is-active qmonitor-proxy
+
+   # Stop/start service
+   sudo /opt/qti-aic/scripts/qaic-monitor-service.sh stop
+   sudo /opt/qti-aic/scripts/qaic-monitor-service.sh start

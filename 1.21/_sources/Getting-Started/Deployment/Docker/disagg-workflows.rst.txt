@@ -1,0 +1,36 @@
+Disaggregated LLM Serving
+=========================
+
+These images enable **prefill/decode disaggregated serving**, allowing independent scaling
+of different LLM execution stages.
+
+**Recommended images:**
+
+- ``cloud_ai_inference_vllm_disagg``
+- ``cloud_ai_inference_vllm_085_disagg``
+- ``cloud_ai_inference_vllm_py312_disagg``
+
+**Typical usage:**
+
+- Run qaic‑disagg entrypoint
+- Assign different device groups to prefill and decode
+- Optimize throughput and latency at scale
+
+**Example: Disaggregated serving**
+
+.. code-block:: bash
+
+   docker pull ghcr.io/quic/cloud_ai_inference_vllm_disagg:1.21.2.0
+
+.. code-block:: bash
+
+   docker run --rm -it \
+     --shm-size=2gb \
+     --network host \
+     -e HF_TOKEN=<your_hf_token> \
+     --device /dev/accel/ \
+     ghcr.io/quic/cloud_ai_inference_vllm_disagg:1.21.2.0 \
+     --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
+     --prefill-device-group 0..7 \
+     --decode-device-group 8..15 \
+     --port 8000

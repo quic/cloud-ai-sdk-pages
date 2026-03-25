@@ -1,0 +1,58 @@
+Configuration files provided with the SDK
+=========================================
+
+User-config files that are released as part of SDK are listed.
+
+These can be found at:
+"\ ``/opt/qti-aic/tools/smart-nms/src/examples/configs/``\ ".
+
+The following configuration files are provided with the SDK.
+
+.. list-table::
+   :widths: 7 11 54
+   :header-rows: 1
+
+   * - No.
+     - Model
+     - Path to user-config file
+   * - 1
+     - ResNet34-SSD
+     - ``./src/examples/configs/user-config-resnet34ssd.yml``
+   * - 2
+     - ResNet34-SSD (aimet)
+     - ``./src/examples/configs/user-config-resnet34ssd-aimet.yml``
+   * - 3
+     - MobileNetV1-SSD
+     - ``./src/examples/configs/user-config-mv1ssd.yml``
+   * - 4
+     - ResNet18-SSD
+     - ``./src/examples/configs/user-config-resnet18ssd.yml``
+   * - 5
+     - RetinaFace
+     - ``./src/examples/configs/user-config-retinaface.yml``
+   * - 6
+     - Yolov5m
+     - ``./src/examples/configs/user-config-yolov5m.yml``
+   * - 7
+     - Yolov5s
+     - ``./src/examples/configs/user-config-yolov5s.yml``
+   * - 8
+     - Yolov3
+     - ``./src/examples/configs/user-config-yolov3.yml``
+   * - 9
+     - YoloX
+     - ``./src/examples/configs/user-config-yoloxm.yml``
+   * - 10
+     - MobileNetV2-SSD
+     - ``./src/examples/configs/user-config-mv2ssd.yml``
+   * - 11
+     - YoloV4
+     - ``./src/examples/configs/user-config-yolov4.yml``
+   * - 12
+     - Effcientdet-d0
+     - ``./src/examples/configs/user-config-efficientdet-d0.yml``
+   * - 13
+     - MobileNetV2-SSDLite
+     - ``./src/examples/configs/user-config-mv2ssdlite.yml``
+
+

@@ -1,0 +1,162 @@
+ONNX Runtime
+============
+
+The ONNX Runtime QAic Execution Provider enables hardware-accelerated execution on the Qualcomm AIC100 chipset.
+It leverages the AIC compiler and runtime APIs provided by the Cloud AI Apps and Platform SDKs.
+
+Start Container
+---------------
+
+QAic Execution Provider is included in the `cloud-ai-triton-server <https://github.com/quic/cloud-ai-containers/pkgs/container/cloud_ai_triton_server>`__ container.
+
+.. code:: bash
+
+   docker run -it --rm \
+     --shm-size=4g \
+     --network host \
+     --mount type=bind,source=./,target=/models \
+     --device /dev/accel/ \
+     ghcr.io/quic/cloud_ai_triton_server:1.21.2.0 \
+     bash
+
+    source /opt/qaic-onnxrt-env/bin/activate
+
+Building QAic Execution Provider
+--------------------------------
+
+QAic support for ONNX Runtime is prebuilt into the Cloud AI Triton container and covers Python use cases. 
+For C++ applications or to add QAic EP support to your own container, 
+you must build the QAic Execution Provider to obtain the required headers and libraries. 
+Refer to :doc:`building-qaic-ep` for instructions on building the QAic Execution Provider manually.
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+
+   building-qaic-ep
+
+Building Docker Image
+---------------------
+
+For custom Python containers, refer to :doc:`building-docker-image` to build your own Docker image with ONNX Runtime and QAic EP support.
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+
+   building-docker-image
+
+Execution Provider Options
+--------------------------
+
+ONNX Runtime execution providers require configuration settings that are passed when you create a session. The QAic Execution Provider uses the following provider options during session creation:
+
+.. csv-table::
+   :widths: 20, 20, 60
+   :header: "option",	"type",	"description"
+
+   "config",	"str",	"[Required] Path to the model-settings YAML file. Contains AIC configuration parameters used by QAic execution provider of ONNX Runtime. The configuration for best performance and accuracy can be generated using model configurator tool."
+   "aic_device_id",	"int",	"[Optional] AIC device ID, auto-picked when not configured"
+
+Session setup in Python
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    import onnxruntime as ort
+
+    # QAIC provider options
+    qaic_provider_options = {
+        "config": "/path/to/model_settings.yaml",
+        "aic_device_id": 0,  # optional, defaults to auto-pick when omitted
+    }
+
+    session = ort.InferenceSession(
+        "/path/to/model.onnx",
+        providers=["QAicExecutionProvider"],
+        provider_options=[qaic_provider_options],
+    )
+
+Session setup in C++
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: cpp
+
+    #include <onnxruntime_cxx_api.h>
+    #include <qaic_provider_factory.h>
+
+    int main() {
+        Ort::Env env(ORT_LOGGING_LEVEL_ERROR, "qaic_example");
+        Ort::SessionOptions opts;
+
+        // QAIC Execution Provider options: config (YAML) and device ID
+        const char* config_path = "/path/to/model_settings.yaml";
+        int aic_device_id = 0;  // optional: set to 0 or omit to auto-pick
+
+        OrtStatus* status = OrtSessionOptionsAppendExecutionProvider_QAic(
+            opts, config_path, aic_device_id);
+        if (status != nullptr) {
+            // handle error
+            Ort::GetApi().ReleaseStatus(status);
+            return 1;
+        }
+
+        Ort::Session session(env, "/path/to/model.onnx", opts);
+        // ... create inputs and run inference ...
+        return 0;
+    }
+
+
+Model Settings Example
+----------------------
+
+The model settings file contains QAic compiler options for generating `programqpc.bin` from the ONNX model, as well as QAic runtime options for executing the binary.
+Here's an example for ResNet50:
+
+.. code-block:: yaml
+
+    # Model Metadata
+    settings-version: 0.1
+    model-path : /opt/qti-aic/integrations/qaic_onnxrt/tests/resnet50/resnet50-v1-12-batch.onnx
+
+    # Model Performance Optimization Parameters
+    ols: 2
+    mos: 2
+    aic-num-cores: 1
+
+    ## Compile params
+    aic-hw: True
+    convert-to-fp16: True
+    onnx-define-symbol: "batch,1"
+
+    # Runner params
+    set-size: 100
+    device-id: 0
+    aic-num-of-activations: 8
+
+If the `programqpc.bin` program binary has already been generated then add `aic-binary-dir` to skip model compilation.
+
+Refer to :doc:`model-setting-details` for details on all model settings options.
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+
+   model-setting-details
+
+Code Samples
+------------
+
+:doc:`qaic-onnxrt-python-sample` - Python usage
+
+:doc:`qaic-onnxrt-cpp-sample` - C++ usage
+
+:doc:`qaic-onnxrt-e2e-examples` - End-to-end examples
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+
+   qaic-onnxrt-python-sample
+   qaic-onnxrt-cpp-sample
+   qaic-onnxrt-e2e-examples

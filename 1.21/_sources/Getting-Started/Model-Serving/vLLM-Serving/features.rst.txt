@@ -1,0 +1,62 @@
+Supported Features
+==================
+
+This section provides details on vLLM features supported on Qualcomm Cloud AI, including model coverage, serving capabilities, and performance optimizations.
+
+Model Coverage
+~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   supported-models
+   Embedding-Networks
+
+Execution, Memory, and Context Management
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   CCL
+   Prefix-Caching
+
+Decoding, Sampling, and Output Control
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   Speculative-Decoding
+   On-Device-Sampling
+   Guided-Decoding
+   Tool-Call-Parsing
+
+Model Optimization and Adaptation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   Quantized-model
+   LoRAX
+
+Serving Architecture and Deployment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   Disaggregated-Serving
+   Multimodality
+   Kserve
+
+Configuration, Compatibility, and Reference
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+
+   input-args-env-variables
+   Cross-Feature-Matrix
+

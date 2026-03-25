@@ -1,0 +1,22 @@
+.. _reference_to_QAic_Smart_NMS:
+
+QAic Smart NMS
+==============
+
+Smart NMS (non-max suppression) provides a way to run parts of the
+network on AI accelerators and other parts, on which better overall
+inference times can be achieved by leveraging parallelism across two
+devices. The object detection models can be partitioned to run the
+feature extractor part on the AI100, and to run the remaining box
+processing and NMS modules on the host.
+
+
+.. toctree::
+   :maxdepth: 1
+
+   qaic-smart-nms-installation
+   qaic-smart-nms-usage
+   qaic-smart-nms-structure-of-user-config-file
+   qaic-smart-nms-provided-config-files
+   qaic-smart-nms-limitations
+

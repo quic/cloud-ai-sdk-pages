@@ -1,0 +1,20 @@
+Building Docker Image
+======================
+
+- Create a JSON specification file for ONNX Runtime as shown below:
+
+.. code-block:: json
+
+    {
+        "base_image": "ubuntu24",
+        "applications": ["onnxruntime"],
+        "python_versions": ["py310"],
+        "sdk": ["qaic_apps", "qaic_platform", "qaic_python"],
+        "sdk_files": {
+            "qaic_apps": "/path/to/apps/sdk.zip",
+            "qaic_platform": "/path/to/platform/sdk.zip"
+        }
+    }
+
+- Follow the instructions in :ref:`Docker <reference-to-docker>` to build and launch a container with ONNX Runtime support for Qualcomm Cloud AI Accelerators.
+- Inside the container, the onnxruntime_qaic build is available at ``/opt/qti-aic/integrations/qaic_onnxrt/onnxruntime_qaic``.

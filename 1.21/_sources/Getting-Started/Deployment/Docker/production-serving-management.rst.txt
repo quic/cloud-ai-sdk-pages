@@ -1,0 +1,13 @@
+Production Serving and Management
+=================================
+
+These images support **production deployments** and infrastructure integration.
+
+- ``cloud_ai_k8s_device_plugin``  
+  Exposes AIC100 cards to Kubernetes schedulers.
+
+- ``cloud_ai_triton_server``  
+  Enables Triton Inference Server-based deployments.
+
+- ``cloud_ai_mgmt_aicm`` and ``cloud_ai_mgmt_qmonitor``  
+  Provide device management and monitoring capabilities.

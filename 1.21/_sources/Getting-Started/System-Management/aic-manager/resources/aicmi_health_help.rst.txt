@@ -1,0 +1,17 @@
+.. code:: bash
+
+   AICM:127.0.0.1 > health --help
+   usage: aicmi.py [-h] [-dev DEVICE_ID | -g GROUP_ID] [-p | -r | --ddr-bw]
+
+   Health Commands
+
+   optional arguments:
+     -h, --help            Show this help message
+     -dev DEVICE_ID, --device-id DEVICE_ID, --device_id DEVICE_ID
+                           Target device ID
+     -g GROUP_ID, --group GROUP_ID
+                           Target group ID
+     -p, --pcie            PCIE throughput metrics
+     -r, --ras-error, --ras_error
+                           Ras Error metrics
+     --ddr-bw, --ddr_bw    DDR Bandwidth metrics

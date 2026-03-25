@@ -1,0 +1,215 @@
+.. _reference-to-quick-start-guide:
+
+Quick Start Guide
+=================
+
+This section illustrates the ease of running inference on Cloud AI platforms using a vision transformers model for classifying images.
+
+
+Device Status
+*************
+
+Follow the :ref:`checklist <reference-to-checklist>` to make sure device is ready for use.
+
+
+Steps to run a sample model on Qualcomm Cloud AI Platforms
+**********************************************************
+
+1. Import libraries
+"""""""""""""""""""
+
+.. code-block:: bash
+
+        python3.10 -m venv vit_env
+        source vit_env/bin/activate
+
+        pip3 install pip -U
+        pip3 install /opt/qti-aic/dev/lib/x86_64/qaic-0.0.1-py3-none-any.whl
+        pip3 install requests numpy Pillow onnx==1.16.0 transformers==4.46.3
+        pip3 install torch@https://download.pytorch.org/whl/cpu/torch-2.4.1%2Bcpu-cp310-cp310-linux_x86_64.whl
+
+
+.. code-block:: python
+
+        import os, shutil, sys, requests, torch, numpy, PIL
+        from transformers import ViTForImageClassification, ViTImageProcessor
+        import qaic
+
+
+2. Pick a model from Hugging Face
+"""""""""""""""""""""""""""""""""
+.. code-block:: python
+
+        # Choose the Vision Transformers model for classifying images and its image input preprocessor
+        model = ViTForImageClassification.from_pretrained('google/vit-base-patch16-224')
+        processor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224')
+
+
+3. Convert to ONNX
+""""""""""""""""""
+.. code-block:: python
+
+        dummy_input = torch.randn(1, 3, 224, 224)       # Batch, channels, height, width
+
+        torch.onnx.export(model,                        # PyTorch model
+                     dummy_input,               # Input tensor
+                     'model.onnx',              # Output file
+                     export_params = True,      # Export the model parameters
+                     input_names   = ['input'], # Input tensor names
+                     output_names  = ['output'] # Output tensor names
+                     )
+
+4. Compile the model
+""""""""""""""""""""
+
+Compile the model with the `qaic-compile` command-line tool. You can find more details about its usage :ref:`here <reference-to-compile-the-model>` . This quickstart issues the command from Python.
+
+Tip: If the model binary and inputs are already prepared, skip straight to the "Run the Model" step. 
+
+.. code-block:: python
+        
+        aic_binary_dir = 'aic-binary-dir'
+
+        if os.path.exists(aic_binary_dir):
+            shutil.rmtree(aic_binary_dir)
+
+        cmd = '/opt/qti-aic/exec/qaic-compile -aic-hw -aic-hw-version=ai100 -convert-to-fp16 \
+        -aic-num-cores=4 -m=model.onnx -onnx-define-symbol=batch_size,1 -aic-binary-dir=' + aic_binary_dir
+        os.system(cmd)
+
+5. Get example input
+""""""""""""""""""""
+
+.. code-block:: python
+        
+        url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
+        image = PIL.Image.open(requests.get(url, stream=True).raw)
+
+6. Run the model
+""""""""""""""""
+
+::
+
+	# Create the AIC100 session and prepare inputs and outputs
+
+	vit_sess = qaic.Session(model_path= aic_binary_dir+'/programqpc.bin', 
+        num_activations=1) 
+
+	inputs = processor(images=image, return_tensors='pt')
+	input_shape, input_type = vit_sess.model_input_shape_dict['input']
+	input_data = inputs['pixel_values'].numpy().astype(input_type) 
+	input_dict = {'input': input_data}
+
+	output_shape, output_type = vit_sess.model_output_shape_dict['output']
+	
+::
+
+	# Run model on AIC100
+
+	vit_sess.setup() # Load the model to the device.
+	output = vit_sess.run(input_dict) # Execute on AIC100 now.
+
+::
+
+	# Obtain the prediction by finding the highest probability among all classes
+	
+	logits = numpy.frombuffer(output['output'], dtype=output_type).reshape(output_shape)
+	predicted_class_idx = logits.argmax(-1).item()
+	print('Predicted class:', model.config.id2label[predicted_class_idx]) 
+
+Next Steps
+**********
+
+We showed the ease of onboarding and running inference on Cloud AI platforms in this section. Refer to the :doc:`User Guide<../index>`  for details on SDK installation, inference workflow, system management etc.
+
+Appendix
+********
+
+`Input image link <http://images.cocodataset.org/val2017/000000039769.jpg>`__
+
+
+Full quickstart code
+""""""""""""""""""""
+
+.. dropdown:: quickstart.py
+   :color: light
+   :class-container: sd-border-1
+   :icon: beaker
+
+   .. code-block:: python
+	
+        # Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+        # SPDX-License-Identifier: BSD-3-Clause-Clear
+
+        # Import relevant libraries
+        import os, shutil, sys, requests, torch, numpy, PIL
+        from transformers import ViTForImageClassification, ViTImageProcessor
+        import qaic
+
+        # Choose the Vision Transformers model for classifying images and its image input preprocessor
+        model = ViTForImageClassification.from_pretrained('google/vit-base-patch16-224')
+        processor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224')
+
+        dummy_input = torch.randn(1, 3, 224, 224)       # Batch, channels, height, width
+
+        torch.onnx.export(model,                    # PyTorch model
+                         dummy_input,               # Input tensor
+                         'model.onnx',              # Output file
+                         export_params = True,      # Export the model parameters
+                         input_names   = ['input'], # Input tensor names
+                         output_names  = ['output'] # Output tensor names
+                         )
+
+        aic_binary_dir = 'aic-binary-dir'
+
+        if os.path.exists(aic_binary_dir):
+            shutil.rmtree(aic_binary_dir)
+
+        cmd = '/opt/qti-aic/exec/qaic-compile -aic-hw -aic-hw-version=ai100 -convert-to-fp16 \
+              -aic-num-cores=4 -m=model.onnx -onnx-define-symbol=batch_size,1 -aic-binary-dir=' + aic_binary_dir
+        os.system(cmd)
+
+        url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
+        image = PIL.Image.open(requests.get(url, stream=True).raw)
+
+        # Create the AIC100 session and prepare inputs and outputs
+
+        vit_sess = qaic.Session(model_path= aic_binary_dir+'/programqpc.bin', 
+           num_activations=1)
+
+        inputs = processor(images=image, return_tensors='pt')
+        input_shape, input_type = vit_sess.model_input_shape_dict['input']
+        input_data = inputs['pixel_values'].numpy().astype(input_type)
+        input_dict = {'input': input_data}
+
+        output_shape, output_type = vit_sess.model_output_shape_dict['output']
+
+        ## Access the hardware
+        vit_sess.setup() # Load the model to the device.
+        output = vit_sess.run(input_dict) # Execute on AIC100 now.
+
+        ## Obtain the prediction by finding the highest probability among all classes.
+        logits = numpy.frombuffer(output['output'], dtype=output_type).reshape(output_shape)
+        predicted_class_idx = logits.argmax(-1).item()
+        print('Predicted class:', model.config.id2label[predicted_class_idx])
+
+Output
+""""""
+
+.. dropdown:: Output
+   :color: light
+   :class-container: sd-border-1
+   :icon: beaker
+
+   .. code-block:: bash
+	
+		$ sudo python quickstart.py
+
+		Reading ONNX Model from model.onnx
+		Compile started ............... 
+		Compiling model with FP16 precision.
+		Generated binary is present at aic-binary-dir
+		Predicted class: Egyptian cat
+
+
+

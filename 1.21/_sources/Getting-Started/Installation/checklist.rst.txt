@@ -1,0 +1,122 @@
+.. _reference-to-checklist:
+
+=========
+Checklist
+=========
+
+Use this checklist to ensure a successful Cloud AI SDK installation.
+
+Before You Begin
+================
+
+.. list-table::
+   :widths: 10 70 20
+   :header-rows: 1
+
+   * -
+     - Task
+     - Reference
+   * - |checkbox|
+     - Verify hardware meets minimum requirements
+     - :ref:`Hardware Requirements <reference-to-hardware-requirements>`
+   * - |checkbox|
+     - Confirm OS is supported
+     - :ref:`Supported OS <reference-to-supported-os>`
+   * - |checkbox|
+     - Ensure Python 3.10 is installed
+     - :ref:`Prerequisites <reference-to-pre-requisites>`
+
+.. |checkbox| unicode:: U+2610
+
+Local Server Installation
+=========================
+
+.. list-table::
+   :widths: 10 70 20
+   :header-rows: 1
+
+   * -
+     - Task
+     - Reference
+   * - |checkbox|
+     - Enable 32 MSIs in BIOS (Intel VT-d or AMD IOMMU)
+     - :ref:`MSI Configuration <reference-to-msi>`
+   * - |checkbox|
+     - Download Platform SDK from QPM
+     - :ref:`Download SDKs <reference-to-download-sdks>`
+   * - |checkbox|
+     - Download Apps SDK from QPM
+     - :ref:`Download SDKs <reference-to-download-sdks>`
+   * - |checkbox|
+     - Install Platform SDK
+     - :ref:`Platform SDK <reference-to-platform-sdk>`
+   * - |checkbox|
+     - Install Apps SDK
+     - :ref:`Apps SDK <reference-to-apps-sdk>`
+   * - |checkbox|
+     - Add user to qaic group
+     - See command below
+   * - |checkbox|
+     - Verify card health
+     - :ref:`Verification <reference-to-verification>`
+
+**Add user to qaic group:**
+
+.. code-block:: bash
+
+   sudo usermod -aG qaic $USER
+   newgrp qaic  # Apply immediately without logout
+
+.. only:: not appliance
+
+   Virtual Machine Installation
+   ============================
+
+   .. list-table::
+      :widths: 10 70 20
+      :header-rows: 1
+
+      * -
+        - Task
+        - Reference
+      * - |checkbox|
+        - Configure PCIe passthrough on hypervisor
+        - :ref:`Hypervisors <reference-to-hypervisors>`
+      * - |checkbox|
+        - Enable MSIs in BIOS and hypervisor
+        - :ref:`MSI Configuration <reference-to-msi>`
+      * - |checkbox|
+        - Install and configure hypervisor
+        - :ref:`Hypervisors <reference-to-hypervisors>`
+      * - |checkbox|
+        - Launch VM with supported OS
+        - :ref:`Supported OS <reference-to-supported-os>`
+      * - |checkbox|
+        - Install SDKs inside VM
+        - :ref:`SDK Installation <reference-to-cloud-ai-sdk>`
+      * - |checkbox|
+        - Verify card health
+        - :ref:`Verification <reference-to-verification>`
+
+Docker Installation
+===================
+
+.. list-table::
+   :widths: 10 70 20
+   :header-rows: 1
+
+   * -
+     - Task
+     - Reference
+   * - |checkbox|
+     - Install Platform SDK on host
+     - :ref:`Platform SDK <reference-to-platform-sdk>`
+   * - |checkbox|
+     - Build Docker image with Apps SDK
+     - :ref:`Docker Setup <reference-to-docker>`
+   * - |checkbox|
+     - Start container with device access
+     - :ref:`Docker Setup <reference-to-docker>`
+   * - |checkbox|
+     - Verify card health inside container
+     - :ref:`Verification <reference-to-verification>`

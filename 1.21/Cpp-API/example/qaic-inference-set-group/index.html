@@ -1,0 +1,7655 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../qaic-inference-set-io-buffers/index.html">
+      
+      
+        <link rel="next" href="../../features/index.html">
+      
+      
+      <link rel="icon" href="../../../_static/favicon.ico">
+    
+    
+      
+        <title>QAicInferenceSet Example - Qualcomm Cloud AI Documentation</title>
+      
+    
+    
+      
+        
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_immaterial_theme.420ab00f6a6d07c1b.min.css?v=ecbbea20" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=62d18361" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/extra.css?v=4e1a5c20" />
+        <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=62d18361" />
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#main-flow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Qualcomm Cloud AI Documentation" class="md-header__button md-logo" aria-label="Qualcomm Cloud AI Documentation" data-md-component="logo">
+      <img src="../../../_static/logo.png" alt="logo">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Cloud AI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              QAicInferenceSet Example
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Getting-Started/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  <span>User Guide</span>
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../../Python-API/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  <span>API</span>
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../FAQ/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  <span>FAQ</span>
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-tabs__link">
+        
+  
+    
+  
+  <span>Blogs</span>
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Qualcomm Cloud AI Documentation" class="md-nav__button md-logo" aria-label="Qualcomm Cloud AI Documentation" data-md-component="logo">
+      <img src="../../../_static/logo.png" alt="logo">
+    </a>
+    Qualcomm Cloud AI Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>User Guide</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>User Guide</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Getting started</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Quick-Start-Guide/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Quick Start Guide</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Installation/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Installation</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Installation</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/checklist.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Checklist</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/prerequisites.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Prerequisites</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/download-sdks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Download SDKs</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Installation/sdk-installation.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>SDK Installation</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_3_4" id="__nav_1_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span>SDK Installation</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/platform-sdk.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Platform SDK</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/platform-sdk-upgrade-pre-1.19.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Platform SDK Upgrade from Version &lt; 1.<wbr>19</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/apps-sdk.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Apps SDK</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Installation/verification.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Verification</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>SDK Tools</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span>SDK Tools</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/index.html#sdk-version" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="sdk version (reference label)"><span>SDK Version</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_1" id="__nav_1_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="sdk version (reference label)"><span>SDK Version</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/shared/qaic_version_util.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>qaic-<wbr>version-<wbr>util</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/index.html#card-health-resources-and-logs" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="card health, resources, and logs (reference label)"><span>Card health, Resources, and Logs</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_2" id="__nav_1_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="card health, resources, and logs (reference label)"><span>Card health, Resources, and Logs</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/shared/qaic_util.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>qaic-<wbr>util</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/shared/qaic_logger.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>qaic-<wbr>log</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/shared/qaic_monitor_app.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>qaic-<wbr>monitor-<wbr>json</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/shared/qaicudevmonitor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>QAic<wbr>Udev<wbr>Monitor</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/shared/qaic_trace_control.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>qaic-<wbr>trace-<wbr>ctl</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/index.html#model-compilation" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="model compilation (reference label)"><span>Model Compilation</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_3" id="__nav_1_4_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="model compilation (reference label)"><span>Model Compilation</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-compile/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>qaic-<wbr>compile</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_3_1" id="__nav_1_4_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>qaic-<wbr>compile</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-compile/index.html#examples" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Examples:<wbr></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_3_1_1" id="__nav_1_4_3_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_4_3_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_3_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Examples:<wbr></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_3_1_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-compile/index.html#note" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="note: (reference label)"><span>Note:<wbr></span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_3_1_1_1" id="__nav_1_4_3_1_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="6" aria-labelledby="__nav_1_4_3_1_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_3_1_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="note: (reference label)"><span>Note:<wbr></span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-compile/apps_sdk_network_specialization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Network specialization</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-compile/apps-sdk-single-device-partitioning.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Single device partitioning</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-compile/MDP-Load-Partition.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>MDP Load Partition Configuration</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-compile/qaic-custom-i-o.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Custom I/O</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-compile/qaic-get-intermediate-layer-outputs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Get intermediate layer outputs</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-compile/qaic-mixed-precision.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Mixed precision</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/network-compilation/qaic-qpc/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>qaic-<wbr>qpc</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/index.html#model-execution" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="model execution (reference label)"><span>Model Execution</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_4" id="__nav_1_4_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="model execution (reference label)"><span>Model Execution</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_4_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/network-execution/network-execution.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Network execution</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_4_1" id="__nav_1_4_4_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_4_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Network execution</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_4_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/shared/qaic_runner.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>QAic runner</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_4_1_1" id="__nav_1_4_4_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_4_4_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_4_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>QAic runner</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_4_1_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/shared/qaic_runner.html#qaic-runner-argument-details" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="qaic-runner argument details: (reference label)"><span>qaic-<wbr>runner argument details:<wbr></span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_4_1_1_1" id="__nav_1_4_4_1_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="6" aria-labelledby="__nav_1_4_4_1_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_4_1_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="qaic-runner argument details: (reference label)"><span>qaic-<wbr>runner argument details:<wbr></span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/shared/qaic_runner/aic_batch_json_input.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>--<wbr>aic-<wbr>batch-<wbr>json-<wbr>input JSON Format</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_4_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/SDK-Tools/index.html#oversubscription" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="oversubscription (reference label)"><span>Oversubscription</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_4_5" id="__nav_1_4_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="oversubscription (reference label)"><span>Oversubscription</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/SDK-Tools/shared/qaic_oversubscription.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>QAic oversubscription</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Inference Workflow</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Inference Workflow</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Export the Model</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_1" id="__nav_1_5_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Export the Model</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Export-the-Model/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Exporting ONNX Model from Different Frameworks</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Operator-and-Datatype-support/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Operator and Datatype support</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/Export-the-model/Prepare-the-model/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Introduction to the Model Preparator Tool</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/model-compilation/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Compile the Model</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_2" id="__nav_1_5_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Compile the Model</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Compile-the-Model/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Compile the Model</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Tune-performance/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Tune Performance</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/network-performance-tuning.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Model Configurator</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_2_3" id="__nav_1_5_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_5_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Model Configurator</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/model-configurator-usage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Usage</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/model-configurator-supported-model-types.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Supported model types</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_2_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/search-space-parameters/model-configurator-search-space-parameters.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Search space parameters</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_2_3_3" id="__nav_1_5_2_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_5_2_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_2_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Search space parameters</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/search-space-parameters/ssp_brute_force.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Brute force</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/search-space-parameters/ssp_config_optimizer.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Config optimizer</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/ssp_optimized_search_results.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Optimized search results</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/model-configurator-input-file-options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Input file options</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/model-configurator-quantization-options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Quantization options</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/model-configurator-other-options.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Other options</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/model-configurator-debug-issues.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Debug issues</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/model-configurator-example-config-files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Example config files</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-compilation/Model-Configurator/example-run-and-img2raw-usage-for-a-resnet-50-model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Example run and img2raw usage for a Res<wbr>Net-<wbr>50 model</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Inference-Workflow/model-execution/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Execute the QPC</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_3" id="__nav_1_5_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Execute the QPC</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/model-execution-options/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Execute the QPC</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Inference-Workflow/model-execution/Inference-Profiling/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Inference Profiling</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../onnxrt-qaic/onnxruntime/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>ONNX Runtime</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_3_3" id="__nav_1_5_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_5_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>ONNX Runtime</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_3_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../onnxrt-qaic/onnxruntime/index.html#building-qaic-execution-provider" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="building qaic execution provider (reference label)"><span>Building QAic Execution Provider</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_3_3_1" id="__nav_1_5_3_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_5_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="building qaic execution provider (reference label)"><span>Building QAic Execution Provider</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../onnxrt-qaic/onnxruntime/building-qaic-ep.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Building QAic Execution Provider</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_3_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../onnxrt-qaic/onnxruntime/index.html#building-docker-image" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="building docker image (reference label)"><span>Building Docker Image</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_3_3_2" id="__nav_1_5_3_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_5_3_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_3_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="building docker image (reference label)"><span>Building Docker Image</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../onnxrt-qaic/onnxruntime/building-docker-image.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Building Docker Image</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_3_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../onnxrt-qaic/onnxruntime/index.html#model-settings-example" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="model settings example (reference label)"><span>Model Settings Example</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_3_3_3" id="__nav_1_5_3_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_5_3_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_3_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="model settings example (reference label)"><span>Model Settings Example</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../onnxrt-qaic/onnxruntime/model-setting-details.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Model Setting Details</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_5_3_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../onnxrt-qaic/onnxruntime/index.html#code-samples" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="code samples (reference label)"><span>Code Samples</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_5_3_3_4" id="__nav_1_5_3_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_5_3_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_5_3_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="code samples (reference label)"><span>Code Samples</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../onnxrt-qaic/onnxruntime/qaic-onnxrt-python-sample.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Python Sample</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../onnxrt-qaic/onnxruntime/qaic-onnxrt-cpp-sample.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>C++ Sample</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../onnxrt-qaic/onnxruntime/qaic-onnxrt-e2e-examples.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>End-<wbr>to-<wbr>end examples</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Model Serving</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Model Serving</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>v<wbr>LLM</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_1" id="__nav_1_6_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>v<wbr>LLM</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/run.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Run v<wbr>LLM</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/benchmarking.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Benchmarking</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/features.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Supported Features</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_1_3" id="__nav_1_6_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_6_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Supported Features</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_1_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/features.html#model-coverage" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="model coverage (reference label)"><span>Model Coverage</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_1_3_1" id="__nav_1_6_1_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_6_1_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_1_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="model coverage (reference label)"><span>Model Coverage</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/supported-models.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>v<wbr>LLM supported models</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Embedding-Networks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Embedding Networks</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_1_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/features.html#execution-memory-and-context-management" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="execution, memory, and context management (reference label)"><span>Execution, Memory, and Context Management</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_1_3_2" id="__nav_1_6_1_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_6_1_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_1_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="execution, memory, and context management (reference label)"><span>Execution, Memory, and Context Management</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/CCL.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Compute Context Length <wbr>(CCL)</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Prefix-Caching.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Prefix Caching</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_1_3_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/features.html#decoding-sampling-and-output-control" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="decoding, sampling, and output control (reference label)"><span>Decoding, Sampling, and Output Control</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_1_3_3" id="__nav_1_6_1_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_6_1_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_1_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="decoding, sampling, and output control (reference label)"><span>Decoding, Sampling, and Output Control</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Speculative-Decoding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Speculative Decoding</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/On-Device-Sampling.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>On Device Sampling Support with v<wbr>LLM</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Guided-Decoding.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Guided Decoding</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Tool-Call-Parsing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>v<wbr>LLM Supports Tool Call Parsing</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_1_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/features.html#model-optimization-and-adaptation" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="model optimization and adaptation (reference label)"><span>Model Optimization and Adaptation</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_1_3_4" id="__nav_1_6_1_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_6_1_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_1_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="model optimization and adaptation (reference label)"><span>Model Optimization and Adaptation</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Quantized-model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Quantization</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/LoRAX.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Lo<wbr>RAX Support with v<wbr>LLM</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_1_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/features.html#serving-architecture-and-deployment" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="serving architecture and deployment (reference label)"><span>Serving Architecture and Deployment</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_1_3_5" id="__nav_1_6_1_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_6_1_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_1_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="serving architecture and deployment (reference label)"><span>Serving Architecture and Deployment</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Disaggregated-Serving.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Disaggregated Serving Support with v<wbr>LLM</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Multimodality.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Multimodality Support with v<wbr>LLM</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Kserve.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>v<wbr>LLM Deployment using Kserve</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_1_3_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/features.html#configuration-compatibility-and-reference" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="configuration, compatibility, and reference (reference label)"><span>Configuration, Compatibility, and Reference</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_1_3_6" id="__nav_1_6_1_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_6_1_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_1_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="configuration, compatibility, and reference (reference label)"><span>Configuration, Compatibility, and Reference</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/input-args-env-variables.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>v<wbr>LLM arguments for QAIC</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/Cross-Feature-Matrix.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Cross‑Feature Support Matrix</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_1_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/build.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Build v<wbr>LLM <wbr>(Optional)</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_1_4" id="__nav_1_6_1_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_6_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Build v<wbr>LLM <wbr>(Optional)</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/build-x86.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Build for x86_<wbr>64</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/vLLM-Serving/build-aarch64.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Build for AArch64</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/Triton-Serving/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Triton Inference Server</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_2" id="__nav_1_6_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Triton Inference Server</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/Triton-Serving/index.html#docker-image" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="docker image (reference label)"><span>Docker Image</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_2_1" id="__nav_1_6_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_6_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="docker image (reference label)"><span>Docker Image</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/Triton-Serving/build-triton-image.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Build Triton Image with QAic Backends</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/Triton-Serving/index.html#backends" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="backends (reference label)"><span>Backends</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_2_2" id="__nav_1_6_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_6_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="backends (reference label)"><span>Backends</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/Triton-Serving/qaic-backend.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>QAic Backend</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/Triton-Serving/onnxruntime-backend.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>ONNX Runtime Backend</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/Triton-Serving/python-llm-backend.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Python Backend for LLMs</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/Triton-Serving/python-embedding-backend.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Python Backend for Embeddings</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/Triton-Serving/vllm-backend.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>v<wbr>LLM Backend</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Serving/Triton-Serving/index.html#examples" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Examples</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_6_2_3" id="__nav_1_6_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_6_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Examples</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/Triton-Serving/stable-diffusion.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Stable Diffusion</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Serving/TGI-Serving/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Text Generation Inference <wbr>(TGI)</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Deployment/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Deployment</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Deployment</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Deployment/Docker/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Docker</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_7_1" id="__nav_1_7_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Docker</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Deployment/Docker/index.html#containers-by-workflow" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="containers by workflow (reference label)"><span>Containers by Workflow</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_7_1_1" id="__nav_1_7_1_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_7_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="containers by workflow (reference label)"><span>Containers by Workflow</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/Docker/llm-workflows.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>LLM Workflows with v<wbr>LLM</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/Docker/disagg-workflows.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Disaggregated LLM Serving</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/Docker/cv-workflows.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>CV Model Workflows</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/Docker/production-serving-management.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Production Serving and Management</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Deployment/Docker/index.html#custom-cloud-ai-docker-images" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span title="custom cloud ai docker images (reference label)"><span>Custom Cloud AI Docker Images</span></span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_7_1_2" id="__nav_1_7_1_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_7_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span title="custom cloud ai docker images (reference label)"><span>Custom Cloud AI Docker Images</span></span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/Docker/build-image.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Build a Custom Image</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/Docker/launch-container.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Launch Container</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/Docker/test-container.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Test Container</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/Kubernetes/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Kubernetes</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/hypervisor/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Hypervisors</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Deployment/aws/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>AWS</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/PyTorch-Workflow/Eager-Mode-Finetune/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Pytorch Workflow</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Model-Architecture-Support/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Model Architecture Support</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_9" id="__nav_1_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_9">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Model Architecture Support</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Model-Architecture-Support/Large-Language-Models/llm/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Large Language Models <wbr>(LLMs)</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Features/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Features</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_10" id="__nav_1_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_10">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Features</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/custom_ops/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Custom Operations <wbr>(C++)</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/model_sharding/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Model Sharding</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Features/object-detection-postprocessing/Object-Detection-Post-processing.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Object Detection Postprocessing</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_10_3" id="__nav_1_10_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_10_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_10_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Object Detection Postprocessing</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/qaic-smart-nms-introduction.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>QAic Smart NMS</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_10_3_1" id="__nav_1_10_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_10_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_10_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>QAic Smart NMS</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/qaic-smart-nms-installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Installation</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10_3_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/qaic-smart-nms-usage.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Usage</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_10_3_1_2" id="__nav_1_10_3_1_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_10_3_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_10_3_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Usage</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/usage-qaic-smart-nms.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>qaic-<wbr>smart-<wbr>nms</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/libAICsmartnms-so.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>lib<wbr>AICsmartnms.<wbr>so</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/smartnms_python_package.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>smartnms Python package</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10_3_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/qaic-smart-nms-structure-of-user-config-file.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Structure of user-<wbr>config file</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_10_3_1_3" id="__nav_1_10_3_1_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_10_3_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_10_3_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Structure of user-<wbr>config file</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/qaic-smart-nms-model-architecture-information.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Model architecture information</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/qaic-smart-nms-io-information.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>I/O information</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/qaic-smart-nms-thresholds-information.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Thresholds information</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/qaic-smart-nms-provided-config-files.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Configuration files provided with the SDK</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-smart-nms/qaic-smart-nms-limitations.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Limitations</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10_3_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-qdetect-layers/qaic_qdetect_layers_introduction.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>QAic QDetect layers</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_10_3_2" id="__nav_1_10_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_10_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_10_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span>QAic QDetect layers</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10_3_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-qdetect-layers/qaic_qdetect_layers_model_preparation.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Model preparation</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_10_3_2_1" id="__nav_1_10_3_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="5" aria-labelledby="__nav_1_10_3_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_10_3_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Model preparation</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-qdetect-layers/using_qdetect_with_pre_exported_onnx_model.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Using QDetect with pre-<wbr>exported ONNX model</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-qdetect-layers/using_qdetect_with_model_source_code.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Using QDetect with model source code</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Features/object-detection-postprocessing/qaic-qdetect-layers/compilation_using_qaic_compile.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Compilation using qaic-<wbr>compile</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_11" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/System-Management/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>System Management</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_11" id="__nav_1_11_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_11">
+            <span class="md-nav__icon md-icon"></span>
+            <span>System Management</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/system-management/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>System Management</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_11_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Getting-Started/System-Management/aic-manager/aic-manager.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>AIC-<wbr>manager</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1_11_2" id="__nav_1_11_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_11_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_11_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span>AIC-<wbr>manager</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/aic-manager/user-guide.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Starting AICM</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/aic-manager/metrics.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Metrics</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/aic-manager/feature-overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Feature Overview</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/aic-manager/cli.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>AICMI <wbr>(AICM CLI)</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/System-Management/aic-manager/examples-how-to-guides.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Examples &amp; How To</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Architecture/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Architecture</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Getting-Started/Glossary/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Glossary</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>API</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span>API</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../Python-API/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Python API</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Python API</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaic/qaic/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>qaic package</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaicrt/class_util/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>class Util</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python-API/qaicrt/class_InferenceSet/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>class Inference<wbr>Set</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>CPP API</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            <span>CPP API</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    <span>Examples</span>
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_2_1" id="__nav_2_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Examples</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qaic-inference-set-io-buffers/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Inference<wbr>Set IO Example</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    <span>QAic<wbr>Inference<wbr>Set Example</span>
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>QAic<wbr>Inference<wbr>Set Example</span>
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#main-flow" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Main Flow</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-parsing" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="command line parsing (reference label)"><span>Command Line Parsing</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="setup (reference label)"><span>Setup</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="enable (reference label)"><span>Enable</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-inferences" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="run inferences (reference label)"><span>Run Inferences</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disable-and-cleanup" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="disable and cleanup (reference label)"><span>Disable and Cleanup</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inference-modes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="inference modes (reference label)"><span>Inference Modes</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inference Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-threaded" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="single-threaded (reference label)"><span>Single-<wbr>threaded</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-threaded" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="multi-threaded (reference label)"><span>Multi-<wbr>threaded</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callback-based" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="callback-based (reference label)"><span>Callback-<wbr>based</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helper-functions-and-classes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="helper functions and classes (reference label)"><span>Helper Functions and Classes</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compile-and-run-commands" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Compile and Run Commands</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Features</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runtime/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Runtime</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>FAQ</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            <span>FAQ</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../FAQ/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Frequently Asked Questions</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    <span>Blogs</span>
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            <span>Blogs</span>
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Train_Anywhere/train_anywhere/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Train anywhere, Infer on Qualcomm® Cloud AI 100</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Speculative_Decode/spec_decode_ai100/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Quadruple LLM Decoding Performance with Speculative Decoding <wbr>(Sp<wbr>D) and Microscaling <wbr>(MX) Formats</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/AmberChat/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Accelerate Inference of Fully Transparent Open-<wbr>Source LLMs from LLM360 on Qualcomm® Cloud AI 100 DL2q Instances</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Text_Embeddings/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Extremely Low-<wbr>Cost Text Embeddings on Qualcomm® Cloud AI 100 DL2q Instances</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blogs/Microscaling/microscaling/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    <span>Accelerate Large Language Model Inference by ~2x Using Microscaling <wbr>(Mx) Formats</span>
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#main-flow" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Main Flow</span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-parsing" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="command line parsing (reference label)"><span>Command Line Parsing</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="setup (reference label)"><span>Setup</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="enable (reference label)"><span>Enable</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-inferences" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="run inferences (reference label)"><span>Run Inferences</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disable-and-cleanup" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="disable and cleanup (reference label)"><span>Disable and Cleanup</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inference-modes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="inference modes (reference label)"><span>Inference Modes</span></span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inference Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-threaded" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="single-threaded (reference label)"><span>Single-<wbr>threaded</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-threaded" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="multi-threaded (reference label)"><span>Multi-<wbr>threaded</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callback-based" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="callback-based (reference label)"><span>Callback-<wbr>based</span></span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helper-functions-and-classes" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span title="helper functions and classes (reference label)"><span>Helper Functions and Classes</span></span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compile-and-run-commands" class="md-nav__link">
+    
+    <span class="md-ellipsis">
+      <span>Compile and Run Commands</span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                
+                
+                  
+
+
+<h1 id="qaicinferenceset-example">QAicInferenceSet Example<a class="headerlink" href="#qaicinferenceset-example" title="Link to this heading">¶</a></h1>
+<p>The following document describes the <code class="docutils literal notranslate"><span class="pre">AIC100</span></code> example named
+<code class="docutils literal notranslate"><span class="pre">QAicInferenceSetExample.cpp</span></code>.</p>
+<p>This is a full-featured example that demonstrates running inferences
+against one or more compiled networks (QPCs) on a single device. It
+supports three inference execution patterns — callback-based,
+single-threaded, and multi-threaded — and optionally groups multiple
+networks into an <a class="reference internal" href="../../runtime/index.html#reference-to-inference-set"><span class="std std-ref">InferenceSetGroup</span></a>
+to share device resources.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3 sd-border-1">
+<summary class="sd-summary-title sd-card-header sd-bg-light sd-bg-text-light">
+<span class="sd-summary-icon"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-beaker" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"></path></svg></span><span class="sd-summary-text">QAicInferenceSetExample.cpp</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">QAicInferenceSetExample.cpp</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code>1    //-----------------------------------------------------------------------------
+2    // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+3    // SPDX-License-Identifier: BSD-3-Clause-Clear
+4    //-----------------------------------------------------------------------------
+5
+6    #include &quot;QAicApi.hpp&quot;
+7
+8    #include &lt;getopt.h&gt;
+9    #include &lt;iostream&gt;
+10   #include &lt;memory&gt;
+11   #include &lt;string&gt;
+12   #include &lt;vector&gt;
+13   #include &lt;optional&gt;
+14   #include &lt;cassert&gt;
+15   #include &lt;future&gt;
+16
+17   namespace {
+18
+19   using InferenceSetRequestIdPairListType =
+20       std::vector&lt;std::pair&lt;qaic::rt::shInferenceSet, uint32_t&gt;&gt;;
+21
+22   void usage() {
+23     printf(
+24          &quot;Usage: qaic-inference-set-example [options]\n&quot;
+25            &quot;  -d, --aic-device-id &lt;id&gt;           AIC device ID default 0\n&quot;
+26            &quot;  -t, --add-program &lt;path&gt;           Location of program binaries\n&quot;
+27            &quot;  -g, --use-inference-set-group      All programs to share same set of device cores\n&quot;
+28            &quot;  -v, --verbose                      increase verbosity\n&quot;
+29            &quot;  -h, --help                         help\n&quot;
+30            &quot;Example activates one instance of each program with setsize one.\n&quot;
+31            &quot;It runs inferences using random data for each program.\n&quot;
+32            );
+33   }
+34
+35   /**
+36    * Set the verbosity level of QLogLevel according to command line argument
+37    * @param verbose integer to denote verbosity from command line argument
+38    * @return QLogLevel logLevel
+39    */
+40   [[nodiscard]] auto setVerbosity(const uint32_t verbose) {
+41     QLogLevel logLevel = QL_ERROR;
+42     if (1 == verbose) {
+43       logLevel = QL_WARN;
+44     } else if (verbose &gt; 1) {
+45       logLevel = QL_INFO;
+46     }
+47     return logLevel;
+48   }
+49
+50   template &lt;typename T&gt; struct StrToIntTrait;
+51   template &lt;&gt; struct StrToIntTrait&lt;uint32_t&gt; {
+52     [[nodiscard]] static long func(const char *str, char **str_end) {
+53       return std::strtol(str, str_end, 10);
+54     }
+55   };
+56
+57   template &lt;typename T&gt; [[nodiscard]] std::optional&lt;T&gt; stringTo(const char *str) {
+58     char *pend{};
+59     const auto result = StrToIntTrait&lt;uint32_t&gt;::func(str, &amp;pend);
+60     if (str == pend) {
+61       return std::nullopt;
+62     }
+63     return result;
+64   }
+65
+66   /**
+67    * @struct aggregating all command line options parsed.
+68    */
+69   struct GetOptResult final {
+70     int retval{};
+71     QID qid{};
+72     std::vector&lt;std::string&gt; qpcFileList;
+73     bool useInferenceSetGroup{false};
+74     uint32_t verbose{};
+75   };
+76
+77   /**
+78    * Command line argument parsing
+79    * @param argc argument count
+80    * @param argv argument vector
+81    * @return a pair of &lt;success, results&gt;. Users need to check against success
+82    * bit before using results.
+83    */
+84   [[nodiscard]] std::pair&lt;bool, GetOptResult&gt; getOpt(int argc, char **argv) {
+85     std::optional&lt;QID&gt; qid = 0;
+86     std::vector&lt;std::string&gt; qpcFileList;
+87     uint32_t verbose = 0;
+88     bool useInferenceSetGroup = false;
+89
+90     struct option long_options[] = {
+91         {&quot;aic-device-id&quot;, required_argument, nullptr, &#39;d&#39;},
+92         {&quot;add-program&quot;, required_argument, nullptr, &#39;t&#39;},
+93         {&quot;use-inference-set-group&quot;, no_argument, nullptr, &#39;g&#39;},
+94         {&quot;verbose&quot;, no_argument, nullptr, &#39;v&#39;},
+95         {&quot;help&quot;, no_argument, nullptr, &#39;h&#39;},
+96         {nullptr, 0, nullptr, 0}};
+97     int option_index = 0;
+98     int opt = 0;
+99
+100    while ((opt = getopt_long(argc, argv, &quot;d:t:gvh&quot;, long_options,
+101                              &amp;option_index)) != -1) {
+102      switch (opt) {
+103      case &#39;d&#39;:
+104        qid = stringTo&lt;uint32_t&gt;(optarg);
+105        if (!qid || *qid &lt; 0) {
+106          std::cerr &lt;&lt; &quot;Cannot parse aic-device-id qid option: &quot; &lt;&lt; optarg &lt;&lt; &#39;\n&#39;;
+107          return std::make_pair(false, GetOptResult{1});
+108        }
+109        break;
+110      case &#39;t&#39;:
+111        qpcFileList.emplace_back(optarg);
+112        break;
+113      case &#39;g&#39;:
+114        useInferenceSetGroup = true;
+115        break;
+116      case &#39;v&#39;:
+117        ++verbose;
+118        break;
+119      case &#39;h&#39;:
+120        [[fallthrough]];
+121      case &#39;?&#39;:
+122      default:
+123        usage();
+124        return std::make_pair(false, GetOptResult{0});
+125      }
+126    }
+127
+128    if (qpcFileList.empty()) {
+129      std::cerr &lt;&lt; &quot;Need at least one test-data input&quot; &lt;&lt; &#39;\n&#39;;
+130      usage();
+131      return std::make_pair(false, GetOptResult{1});
+132    }
+133
+134    return std::make_pair(
+135        true, GetOptResult{0, *qid, qpcFileList, useInferenceSetGroup, verbose});
+136  }
+137
+138  /**
+139   * Dump config to stderr
+140   * @param qpcFileList QPC file list
+141   * @param qpcList QPC list associated with each QPC file
+142   */
+143  void dumpSelectedConfig(const std::vector&lt;std::string&gt; &amp;qpcFileList,
+144                          const std::vector&lt;qaic::rt::shQpc&gt; &amp;qpcList) {
+145    assert(qpcFileList.size() == qpcList.size());
+146    std::size_t idx{};
+147    for (const auto &amp;fileName : qpcFileList) {
+148      const auto innerIdx = idx++;
+149      std::clog &lt;&lt; std::setw(4) &lt;&lt; &quot;Program[&quot; &lt;&lt; idx &lt;&lt; &quot;] : &quot; &lt;&lt; fileName &lt;&lt; &#39;\n&#39;;
+150      qaic::rt::BufferMappings bufferMappings = qpcList[innerIdx]-&gt;getBufferMappings();
+151      for (auto const &amp;m : bufferMappings) {
+152        std::string bufferDir;
+153        m.ioType == BUFFER_IO_TYPE_INPUT ? bufferDir = &quot;IN &quot; : bufferDir = &quot;OUT&quot;;
+154        std::clog &lt;&lt; &quot;\tBuffer Index: &quot; &lt;&lt; m.index &lt;&lt; &quot;, Dir: &quot; &lt;&lt; bufferDir
+155                  &lt;&lt; &quot;, Size: &quot; &lt;&lt; std::setw(8) &lt;&lt; m.size
+156                  &lt;&lt; &quot;, Name: &quot; &lt;&lt; m.bufferName &lt;&lt; &#39;\n&#39;;
+157      }
+158    }
+159    std::clog &lt;&lt; &#39;\n&#39;;
+160  }
+161
+162  /**
+163   * Abstract base class for InferenceSet vs InferenceSetGroup actions.
+164   */
+165  class InferenceActions {
+166  public:
+167    virtual ~InferenceActions() = default;
+168    virtual QStatus enable() = 0;
+169    virtual QStatus disable() = 0;
+170    virtual void createInferenceGroup(qaic::rt::shContext &amp;context, QID qid) = 0;
+171    virtual qaic::rt::shInferenceSetProperties createProperties() = 0;
+172  };
+173
+174  /**
+175   * Non-group InferenceSet actions — enable/disable are no-ops.
+176   */
+177  class InferenceSetActions : public InferenceActions {
+178  public:
+179    QStatus enable() override { return QS_SUCCESS; }
+180    QStatus disable() override { return QS_SUCCESS; }
+181    void createInferenceGroup([[maybe_unused]] qaic::rt::shContext &amp;context,
+182                              [[maybe_unused]] QID qid) override {}
+183    qaic::rt::shInferenceSetProperties createProperties() override {
+184      return qaic::rt::InferenceSetProperties::makeDefault();
+185    }
+186  };
+187
+188  /**
+189   * Group InferenceSet actions — delegates to InferenceSetGroup.
+190   */
+191  class InferenceSetGroupActions : public InferenceActions {
+192  public:
+193    QStatus enable() override { return inferenceSetGroup-&gt;enable(); }
+194    QStatus disable() override { return inferenceSetGroup-&gt;disable(); }
+195    void createInferenceGroup(qaic::rt::shContext &amp;context, QID qid) override {
+196      inferenceSetGroup =
+197          qaic::rt::InferenceSetGroup::Factory(context, qid, &quot;ExampleGroup&quot;);
+198    }
+199    qaic::rt::shInferenceSetProperties createProperties() override {
+200      auto prop = qaic::rt::InferenceSetProperties::makeDefault();
+201      prop-&gt;inferenceSetGroup = inferenceSetGroup;
+202      return prop;
+203    }
+204    ~InferenceSetGroupActions() override { inferenceSetGroup-&gt;release(); }
+205  private:
+206    qaic::rt::shInferenceSetGroup inferenceSetGroup;
+207  };
+208
+209  /**
+210   * Create InferenceSet and InferenceVector for each QPC.
+211   * @param qpcFileList QPC file paths
+212   * @param qid device ID
+213   * @param logLevel runtime log level
+214   * @param inferenceActions pointer to InferenceActions implementation
+215   * @param verbose verbosity level
+216   * @return tuple of (inferenceVectorList, inferenceSetList)
+217   */
+218  [[nodiscard]] auto
+219  createInferenceSetAndVector(const std::vector&lt;std::string&gt; &amp;qpcFileList,
+220                              const QID qid, const QLogLevel logLevel,
+221                              InferenceActions *inferenceActions,
+222                              const uint32_t verbose) {
+223    std::vector&lt;qaic::rt::shQpc&gt; qpcList;
+224    std::vector&lt;qaic::rt::shInferenceVector&gt; inferenceVectorList;
+225    std::vector&lt;qaic::rt::shInferenceSet&gt; inferenceSetList;
+226    std::vector&lt;QID&gt; qidList{qid};
+227
+228    constexpr auto properties = nullptr;
+229    qaic::rt::shContext context = qaic::rt::Context::Factory(properties, qidList);
+230    context-&gt;setLogLevel(logLevel);
+231
+232    inferenceActions-&gt;createInferenceGroup(context, qid);
+233
+234    for (auto &amp;e : qpcFileList) {
+235      qaic::rt::shInferenceSetProperties shInferenceSetProperties =
+235          inferenceActions-&gt;createProperties();
+236      qaic::rt::shQpc qpc = qpcList.emplace_back(qaic::rt::Qpc::Factory(e));
+237      auto &amp;bufferMappings = qpc-&gt;getBufferMappings();
+238      auto inferenceVector = qaic::rt::InferenceVector::Factory(
+239          bufferMappings,
+240          qaic::rt::InferenceVector::DataSourceType::USER_BUFFERS);
+241      auto dataBufferIterPair = inferenceVector-&gt;getDataBufferIterPair();
+242      auto status = qaic::rt::UtilIO::fillRandomData(
+243          bufferMappings, dataBufferIterPair, qaic::rt::UtilIO::UNBOUND);
+244      if (status != QS_SUCCESS) {
+245        std::cerr &lt;&lt; &quot;Failed to fill random data\n&quot;;
+246      }
+247      inferenceVectorList.push_back(inferenceVector);
+248
+249      constexpr auto setSize = 2U;
+250      constexpr auto numActivations = 1U;
+251      const auto ioDesc = nullptr;
+252      const auto enableProfiling = false;
+253
+254      auto item = qaic::rt::InferenceSet::Factory(
+255          context, qpc, qid, setSize, numActivations, shInferenceSetProperties,
+256          enableProfiling, ioDesc);
+257      inferenceSetList.push_back(item);
+258    }
+259
+260    if (verbose &gt; 0) {
+261      std::clog &lt;&lt; &#39;\n&#39;;
+262      dumpSelectedConfig(qpcFileList, qpcList);
+263    }
+264
+265    return std::make_tuple(inferenceVectorList, inferenceSetList);
+266  }
+267
+268  /**
+269   * Submit a single inference request.
+270   * @param inferenceVector inference vector with input data
+271   * @param inferenceSet inference set to submit to
+272   * @param progIdx program index for logging
+273   * @param requestId user-defined request ID
+274   * @param verbose verbosity level
+275   * @return true on success
+276   */
+277  [[nodiscard]] auto submitInference(qaic::rt::shInferenceVector &amp;inferenceVector,
+278                                     qaic::rt::shInferenceSet &amp;inferenceSet,
+279                                     std::size_t progIdx, std::size_t requestId,
+280                                     uint32_t verbose) {
+281    qaic::rt::shInferenceHandle submitInfHandle;
+282    QStatus status = inferenceSet-&gt;getAvailable(submitInfHandle);
+283    if (status != QS_SUCCESS) {
+284      std::cerr &lt;&lt; &quot;Could not get inference handle\n&quot;;
+285      return false;
+286    }
+287    submitInfHandle-&gt;setInferenceVector(inferenceVector);
+288    status = inferenceSet-&gt;submit(submitInfHandle, requestId);
+289    if (status != QS_SUCCESS) {
+290      std::cerr &lt;&lt; &quot;Could not submit inference request\n&quot;;
+291      return false;
+292    }
+293    if (verbose &gt; 0) {
+294      std::clog &lt;&lt; &quot;\tInference submission: Program[&quot; &lt;&lt; progIdx
+295                &lt;&lt; &quot;], Request ID[&quot; &lt;&lt; requestId &lt;&lt; &quot;]&quot; &lt;&lt; &#39;\n&#39;;
+296    }
+297    return true;
+298  }
+299
+300  /**
+301   * Wait for completion of all submitted inferences.
+302   * @param inferenceSetRequestIdPairList list of (inferenceSet, requestId) pairs
+303   * @param verbose verbosity level
+304   * @return true on success
+305   */
+306  [[nodiscard]] bool waitForCompletion(
+307      InferenceSetRequestIdPairListType &amp;inferenceSetRequestIdPairList,
+308      const uint32_t verbose) {
+309    for (const auto &amp;[inferenceSet, requestId] : inferenceSetRequestIdPairList) {
+310      qaic::rt::shInferenceHandle completedInfHandle;
+311      QStatus status = inferenceSet-&gt;getCompletedId(completedInfHandle, requestId);
+312      if (status != QS_SUCCESS) {
+313        std::cerr &lt;&lt; &quot;Failed to get completed inference handle&quot; &lt;&lt; &#39;\n&#39;;
+314        return false;
+315      }
+316      status = inferenceSet-&gt;putCompleted(std::move(completedInfHandle));
+317      if (status != QS_SUCCESS) {
+318        std::cerr &lt;&lt; &quot;Failed to return inference handle&quot; &lt;&lt; &#39;\n&#39;;
+319        return false;
+320      }
+321      if (verbose &gt; 0) {
+322        std::clog &lt;&lt; &quot;\tInference completed: Request ID[&quot; &lt;&lt; requestId &lt;&lt; &quot;]&quot; &lt;&lt; &#39;\n&#39;;
+323      }
+324    }
+325    return true;
+326  }
+327
+328  [[nodiscard]] bool runInferenceSingleThread(
+329      std::vector&lt;qaic::rt::shInferenceVector&gt; &amp;inferenceVectorList,
+330      std::vector&lt;qaic::rt::shInferenceSet&gt; &amp;inferenceSetList,
+331      const uint32_t verbose) {
+332    if (verbose &gt; 0) {
+333      std::clog &lt;&lt; &quot;\nRun Inferences Single threaded\n&quot; &lt;&lt; &#39;\n&#39;;
+334    }
+335    InferenceSetRequestIdPairListType inferenceSetRequestIdPairList;
+336    std::size_t requestId{};
+337    std::size_t idx{};
+338    for (auto &amp;inferenceSet : inferenceSetList) {
+339      const auto progIdx = idx++;
+340      requestId++;
+341      if (!submitInference(inferenceVectorList.at(progIdx), inferenceSet,
+342                           progIdx, requestId, verbose)) {
+343        std::cerr &lt;&lt; &quot;Failed to submit inference for program id &quot; &lt;&lt; progIdx &lt;&lt; &#39;\n&#39;;
+344        return false;
+345      }
+346      inferenceSetRequestIdPairList.emplace_back(inferenceSet, requestId);
+347    }
+348    return waitForCompletion(inferenceSetRequestIdPairList, verbose);
+349  }
+350
+351  [[nodiscard]] auto runInferences(qaic::rt::shInferenceVector inferenceVectorArg,
+352                                   qaic::rt::shInferenceSet inferenceSetArg,
+353                                   std::size_t progIdxArg,
+354                                   const uint32_t verboseArg) {
+355    constexpr int32_t numInferencePerProg = 5;
+356    InferenceSetRequestIdPairListType inferenceSetRequestIdPairList;
+357    std::size_t requestId = numInferencePerProg * progIdxArg;
+358    for (int32_t i = 0; i &lt; numInferencePerProg; i++) {
+359      requestId++;
+360      if (!submitInference(inferenceVectorArg, inferenceSetArg, progIdxArg,
+361                           requestId, verboseArg)) {
+362        std::cerr &lt;&lt; &quot;Failed to submit inference for program id &quot; &lt;&lt; progIdxArg &lt;&lt; &#39;\n&#39;;
+363        return false;
+364      }
+365      inferenceSetRequestIdPairList.emplace_back(inferenceSetArg, requestId);
+366      if (!waitForCompletion(inferenceSetRequestIdPairList, verboseArg)) {
+367        return false;
+368      }
+369      inferenceSetRequestIdPairList.clear();
+370    }
+371    return true;
+372  }
+373
+374  [[nodiscard]] bool runInferenceMultiThread(
+375      std::vector&lt;qaic::rt::shInferenceVector&gt; &amp;inferenceVectorList,
+376      std::vector&lt;qaic::rt::shInferenceSet&gt; &amp;inferenceSetList,
+377      const uint32_t verbose) {
+378    if (verbose &gt; 0) {
+379      std::clog &lt;&lt; &quot;\nRun Inferences Multi threaded\n&quot; &lt;&lt; &#39;\n&#39;;
+380    }
+381    std::vector&lt;std::pair&lt;uint32_t, std::future&lt;bool&gt;&gt;&gt; statusVector;
+382    statusVector.reserve(inferenceSetList.size());
+383    std::size_t progIdx{};
+384    const auto transFunc(
+385        [&amp;progIdx, verbose, &amp;inferenceVectorList](const auto &amp;is) {
+386          auto fut = std::async(std::launch::async, runInferences,
+387                                inferenceVectorList.at(progIdx), is, progIdx, verbose);
+388          return std::make_pair(progIdx++, std::move(fut));
+389        });
+390    std::ignore = transform(inferenceSetList.cbegin(), inferenceSetList.cend(),
+391                            back_inserter(statusVector), transFunc);
+392    auto retVal = true;
+393    for (auto &amp;[infIdx, status] : statusVector) {
+394      if (!status.get()) {
+395        std::cerr &lt;&lt; &quot;Failed to run inferences, InferenceSet ID &quot; &lt;&lt; infIdx &lt;&lt; &#39;\n&#39;;
+396        retVal = false;
+397      }
+398    }
+399    return retVal;
+400  }
+401
+402  struct CompletionData {
+403    std::atomic&lt;uint32_t&gt; completedCount{0};
+404    std::atomic&lt;uint32_t&gt; errorCount{0};
+405    uint32_t totalInferences;
+406    std::mutex mutex;
+407    std::condition_variable cv;
+408  };
+409
+410  void onCompleted(void *data, QStatus status,
+411                   [[maybe_unused]] qaic::rt::shInferenceHandle infHandle) {
+412    auto *completionData = static_cast&lt;CompletionData *&gt;(data);
+413    if (status == QS_SUCCESS) {
+414      completionData-&gt;completedCount++;
+415    } else {
+416      completionData-&gt;errorCount++;
+417    }
+418    if (completionData-&gt;completedCount + completionData-&gt;errorCount ==
+419        completionData-&gt;totalInferences) {
+420      std::unique_lock&lt;std::mutex&gt; lock(completionData-&gt;mutex);
+421      completionData-&gt;cv.notify_one();
+422    }
+423  }
+424
+425  qaic::rt::shInferenceVector &amp;
+426  getNextData(std::vector&lt;qaic::rt::shInferenceVector&gt; &amp;inferenceVectorList,
+427              size_t &amp;progIdx) {
+428    auto &amp;data = inferenceVectorList.at(progIdx);
+429    progIdx = (progIdx + 1) % inferenceVectorList.size();
+430    return data;
+431  }
+432
+433  [[nodiscard]] bool runInferenceCallback(
+434      std::vector&lt;qaic::rt::shInferenceVector&gt; &amp;inferenceVectorList,
+435      std::vector&lt;qaic::rt::shInferenceSet&gt; &amp;inferenceSetList,
+436      const uint32_t verbose, const uint32_t numInferencesTotal) {
+437    if (verbose &gt; 0) {
+438      std::clog &lt;&lt; &quot;\nRun Inferences Callback-based\n&quot; &lt;&lt; &#39;\n&#39;;
+439    }
+440    CompletionData completionData;
+441    completionData.totalInferences = numInferencesTotal;
+442    uint32_t submittedCount = 0;
+443    size_t progIdx = 0;
+444    while (submittedCount &lt; numInferencesTotal) {
+445      for (auto &amp;inferenceSet : inferenceSetList) {
+446        if (submittedCount &gt;= numInferencesTotal) break;
+447        qaic::rt::shInferenceHandle infHandle;
+448        QStatus status = inferenceSet-&gt;getAvailable(infHandle, 0);
+449        if (status != QS_SUCCESS) {
+450          std::cerr &lt;&lt; &quot;Failed to get an available inference handle\n&quot;;
+451          goto wait_for_completion;
+452        }
+453        infHandle-&gt;setInferenceVector(getNextData(inferenceVectorList, progIdx));
+454        status = inferenceSet-&gt;submit(infHandle, onCompleted, &amp;completionData);
+455        if (status != QS_SUCCESS) {
+456          std::cerr &lt;&lt; &quot;Failed to submit inference with callback\n&quot;;
+457          goto wait_for_completion;
+458        }
+459        submittedCount++;
+460      }
+461    }
+462  wait_for_completion:
+463    std::unique_lock&lt;std::mutex&gt; lock(completionData.mutex);
+464    completionData.cv.wait(lock, [&amp;] {
+465      return (completionData.completedCount + completionData.errorCount) &gt;=
+466             submittedCount;
+467    });
+468    if (verbose &gt; 0) {
+469      std::clog &lt;&lt; &quot;All inferences completed.\n&quot;;
+470      std::clog &lt;&lt; &quot;\tSuccessful: &quot; &lt;&lt; completionData.completedCount &lt;&lt; &#39;\n&#39;;
+471      std::clog &lt;&lt; &quot;\tErrors:     &quot; &lt;&lt; completionData.errorCount &lt;&lt; &#39;\n&#39;;
+472    }
+473    return completionData.errorCount == 0 &amp;&amp;
+474           completionData.completedCount == submittedCount;
+475  }
+476
+477  } // anonymous namespace
+478
+479  int main(int argc, char **argv) {
+480    const auto [success, getOptResult] = getOpt(argc, argv);
+481    if (!success) {
+482      return getOptResult.retval;
+483    }
+484    const auto &amp;qpcFileList = getOptResult.qpcFileList;
+485    const auto qid = getOptResult.qid;
+486    const auto useInferenceSetGroup = getOptResult.useInferenceSetGroup;
+487    const auto verbose = getOptResult.verbose;
+488    const auto logLevel = setVerbosity(verbose);
+489
+490    try {
+491      auto inferenceActions =
+492          [](const bool isGroup) -&gt; std::unique_ptr&lt;InferenceActions&gt; {
+493        if (isGroup) {
+494          return std::make_unique&lt;InferenceSetGroupActions&gt;();
+495        }
+496        return std::make_unique&lt;InferenceSetActions&gt;();
+497      }(useInferenceSetGroup);
+498
+499      auto [inferenceVectorList, inferenceSetList] = createInferenceSetAndVector(
+500          qpcFileList, qid, logLevel, inferenceActions.get(), verbose);
+500
+501      if (inferenceActions-&gt;enable() != QS_SUCCESS) {
+502        std::cerr &lt;&lt; &quot;Failed to enable InferenceSet Group&quot; &lt;&lt; &#39;\n&#39;;
+503        return -1;
+504      }
+505
+506      constexpr auto numInferencesCallback = 100;
+507      if (numInferencesCallback &gt; 0) {
+508        std::cout &lt;&lt; &quot;\nRunning &quot; &lt;&lt; numInferencesCallback
+509                  &lt;&lt; &quot; inferences using callback-based API\n&quot;;
+510        if (!runInferenceCallback(inferenceVectorList, inferenceSetList,
+511                                  verbose, numInferencesCallback)) {
+512          std::cerr &lt;&lt; &quot;Failed to run Inferences via Callback&quot; &lt;&lt; &#39;\n&#39;;
+513          return -1;
+514        }
+515      } else {
+516        if (!runInferenceSingleThread(inferenceVectorList, inferenceSetList, verbose)) {
+517          std::cerr &lt;&lt; &quot;Failed to run Inferences&quot; &lt;&lt; &#39;\n&#39;;
+518          return -1;
+519        }
+520        if (!runInferenceMultiThread(inferenceVectorList, inferenceSetList, verbose)) {
+521          std::cerr &lt;&lt; &quot;Failed to run Inferences&quot; &lt;&lt; &#39;\n&#39;;
+522          return -1;
+523        }
+524      }
+525
+526      if (inferenceActions-&gt;disable() != QS_SUCCESS) {
+527        std::cerr &lt;&lt; &quot;Failed to disable InferenceSet Group&quot; &lt;&lt; &#39;\n&#39;;
+528        return -1;
+529      }
+530    } catch (const qaic::ExceptionInit &amp;e) {
+531      std::cerr &lt;&lt; e.what() &lt;&lt; &#39;\n&#39;;
+532      return -1;
+533    } catch (const qaic::ExceptionRuntime &amp;e) {
+534      std::cerr &lt;&lt; e.what() &lt;&lt; &#39;\n&#39;;
+535      return -1;
+536    }
+537    return 0;
+538  }
+</code></pre></div>
+</div>
+</div>
+</details><h2 id="main-flow">Main Flow<a class="headerlink" href="#main-flow" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">main()</span></code> function has 5 parts.</p>
+<h2 id="command-line-parsing">Command Line Parsing<a class="headerlink" href="#command-line-parsing" title="Link to this heading">¶</a></h2>
+<p>The example accepts the following command line options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-d,</span> <span class="pre">--aic-device-id</span> <span class="pre">&lt;id&gt;</span></code> : AIC device ID to use (default: 0).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t,</span> <span class="pre">--add-program</span> <span class="pre">&lt;path&gt;</span></code> : Path to a QPC directory. Can be
+specified multiple times to load multiple programs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-g,</span> <span class="pre">--use-inference-set-group</span></code> : When set, all programs share the
+same set of device cores via an <code class="docutils literal notranslate"><span class="pre">InferenceSetGroup</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v,</span> <span class="pre">--verbose</span></code> : Increase verbosity. Can be specified multiple
+times.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-h,</span> <span class="pre">--help</span></code> : Print usage and exit.</p></li>
+</ul>
+<p>At least one <code class="docutils literal notranslate"><span class="pre">-t</span></code> argument is required. Parsing is performed by
+<code class="docutils literal notranslate"><span class="pre">getOpt()</span></code>, which returns a <code class="docutils literal notranslate"><span class="pre">GetOptResult</span></code> struct containing all
+parsed values.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
+<p>This phase creates all runtime objects needed for inference:</p>
+<ol class="arabic simple">
+<li><p>A <a class="reference internal" href="../../runtime/index.html#reference-to-context"><span class="std std-ref">Context</span></a> is created for the specified
+device, with the log level set according to the verbosity argument.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">--use-inference-set-group</span></code> was specified, an
+<code class="docutils literal notranslate"><span class="pre">InferenceSetGroup</span></code> is created and associated with the context.</p></li>
+<li><p>For each QPC path provided on the command line:</p>
+<ol class="loweralpha simple">
+<li><p>A <a class="reference internal" href="../../runtime/index.html#reference-to-qpc"><span class="std std-ref">QPC</span></a> object is loaded from the path.</p></li>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">InferenceVector</span></code> is created from the QPC’s buffer mappings
+and populated with random input data.</p></li>
+<li><p>An <a class="reference internal" href="../../runtime/index.html#reference-to-inference-set"><span class="std std-ref">InferenceSet</span></a> is created with
+<code class="docutils literal notranslate"><span class="pre">setSize</span> <span class="pre">=</span> <span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">numActivations</span> <span class="pre">=</span> <span class="pre">1</span></code>. If a group is in use,
+the <code class="docutils literal notranslate"><span class="pre">InferenceSetGroup</span></code> is attached via <code class="docutils literal notranslate"><span class="pre">InferenceSetProperties</span></code>.</p></li>
+</ol>
+</li>
+</ol>
+<h2 id="enable">Enable<a class="headerlink" href="#enable" title="Link to this heading">¶</a></h2>
+<p>Before running inferences, the <code class="docutils literal notranslate"><span class="pre">InferenceSetGroup</span></code> must be enabled by
+calling <code class="docutils literal notranslate"><span class="pre">inferenceActions-&gt;enable()</span></code>. For the non-group case this is a
+no-op. The group can also be enabled implicitly by submitting the first
+inference to any associated <code class="docutils literal notranslate"><span class="pre">InferenceSet</span></code>.</p>
+<h2 id="run-inferences">Run Inferences<a class="headerlink" href="#run-inferences" title="Link to this heading">¶</a></h2>
+<p>The example defaults to running 100 inferences using the
+<strong>callback-based</strong> pattern (<code class="docutils literal notranslate"><span class="pre">runInferenceCallback</span></code>). If
+<code class="docutils literal notranslate"><span class="pre">numInferencesCallback</span></code> is set to 0, it falls back to running
+inferences sequentially using the <strong>single-threaded</strong> pattern
+(<code class="docutils literal notranslate"><span class="pre">runInferenceSingleThread</span></code>) followed by the <strong>multi-threaded</strong>
+pattern (<code class="docutils literal notranslate"><span class="pre">runInferenceMultiThread</span></code>). See <a class="reference internal" href="#inference-modes">Inference Modes</a> for
+details on each pattern.</p>
+<h2 id="disable-and-cleanup">Disable and Cleanup<a class="headerlink" href="#disable-and-cleanup" title="Link to this heading">¶</a></h2>
+<p>After all inferences complete, <code class="docutils literal notranslate"><span class="pre">inferenceActions-&gt;disable()</span></code> is called
+to release the <code class="docutils literal notranslate"><span class="pre">InferenceSetGroup</span></code>. Any <code class="docutils literal notranslate"><span class="pre">qaic::ExceptionInit</span></code> or
+<code class="docutils literal notranslate"><span class="pre">qaic::ExceptionRuntime</span></code> exceptions thrown during the above phases are
+caught and reported before returning a non-zero exit code.</p>
+<h2 id="inference-modes">Inference Modes<a class="headerlink" href="#inference-modes" title="Link to this heading">¶</a></h2>
+<h3 id="single-threaded">Single-threaded<a class="headerlink" href="#single-threaded" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">runInferenceSingleThread</span></code> submits one inference per loaded program
+and waits for all of them to complete before returning. This is the
+simplest pattern and is suitable for sequential workloads.</p>
+<h3 id="multi-threaded">Multi-threaded<a class="headerlink" href="#multi-threaded" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">runInferenceMultiThread</span></code> launches one <code class="docutils literal notranslate"><span class="pre">std::async</span></code> thread per
+loaded program. Each thread calls <code class="docutils literal notranslate"><span class="pre">runInferences</span></code>, which submits 5
+inferences for its assigned program and waits for each one to complete
+before submitting the next. All threads run concurrently, allowing
+multiple programs to be exercised in parallel.</p>
+<h3 id="callback-based">Callback-based<a class="headerlink" href="#callback-based" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">runInferenceCallback</span></code> submits inferences using the
+<code class="docutils literal notranslate"><span class="pre">submit(infHandle,</span> <span class="pre">notifyFn,</span> <span class="pre">userData)</span></code> overload. A callback function
+(<code class="docutils literal notranslate"><span class="pre">onCompleted</span></code>) is registered at submission time and is invoked by the
+runtime upon completion of each inference. A <code class="docutils literal notranslate"><span class="pre">CompletionData</span></code> struct
+with atomic counters and a condition variable is used to track progress
+and block the main thread until all submitted inferences have completed.</p>
+<h2 id="helper-functions-and-classes">Helper Functions and Classes<a class="headerlink" href="#helper-functions-and-classes" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">usage()</span></code> : Prints command line usage to stdout.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setVerbosity(verbose)</span></code> : Maps an integer verbosity level to a
+<code class="docutils literal notranslate"><span class="pre">QLogLevel</span></code> value (<code class="docutils literal notranslate"><span class="pre">QL_ERROR</span></code>, <code class="docutils literal notranslate"><span class="pre">QL_WARN</span></code>, or <code class="docutils literal notranslate"><span class="pre">QL_INFO</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GetOptResult</span></code> : Struct aggregating all parsed command line options.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getOpt(argc,</span> <span class="pre">argv)</span></code> : Parses command line arguments using
+<code class="docutils literal notranslate"><span class="pre">getopt_long</span></code> and returns a <code class="docutils literal notranslate"><span class="pre">GetOptResult</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dumpSelectedConfig(qpcFileList,</span> <span class="pre">qpcList)</span></code> : Logs each program’s
+name and its buffer mappings (index, direction, size, name) to
+<code class="docutils literal notranslate"><span class="pre">stderr</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">InferenceActions</span></code> : Abstract base class providing <code class="docutils literal notranslate"><span class="pre">enable()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">disable()</span></code>, <code class="docutils literal notranslate"><span class="pre">createInferenceGroup()</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">createProperties()</span></code> interfaces.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">InferenceSetActions</span></code> : Concrete implementation for the non-group
+case. <code class="docutils literal notranslate"><span class="pre">enable()</span></code> and <code class="docutils literal notranslate"><span class="pre">disable()</span></code> are no-ops.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">InferenceSetGroupActions</span></code> : Concrete implementation for the group
+case. Delegates <code class="docutils literal notranslate"><span class="pre">enable()</span></code>/<code class="docutils literal notranslate"><span class="pre">disable()</span></code> to the underlying
+<code class="docutils literal notranslate"><span class="pre">InferenceSetGroup</span></code> and attaches it to <code class="docutils literal notranslate"><span class="pre">InferenceSetProperties</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">createInferenceSetAndVector(...)</span></code> : Creates a <code class="docutils literal notranslate"><span class="pre">Context</span></code>,
+optionally an <code class="docutils literal notranslate"><span class="pre">InferenceSetGroup</span></code>, and for each QPC creates a
+<code class="docutils literal notranslate"><span class="pre">Qpc</span></code>, <code class="docutils literal notranslate"><span class="pre">InferenceVector</span></code> (with random data), and <code class="docutils literal notranslate"><span class="pre">InferenceSet</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">submitInference(...)</span></code> : Acquires an available <code class="docutils literal notranslate"><span class="pre">InferenceHandle</span></code>,
+sets the inference vector, and submits the request (non-blocking).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">waitForCompletion(...)</span></code> : Iterates over a list of
+(<code class="docutils literal notranslate"><span class="pre">InferenceSet</span></code>, <code class="docutils literal notranslate"><span class="pre">requestId</span></code>) pairs, calling <code class="docutils literal notranslate"><span class="pre">getCompletedId</span></code>
+and <code class="docutils literal notranslate"><span class="pre">putCompleted</span></code> for each.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">runInferenceSingleThread(...)</span></code> : Submits one inference per program
+and waits for all completions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">runInferences(...)</span></code> : Submits 5 inferences sequentially for a
+single program. Used by the multi-threaded runner.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">runInferenceMultiThread(...)</span></code> : Runs <code class="docutils literal notranslate"><span class="pre">runInferences</span></code> for each
+program concurrently using <code class="docutils literal notranslate"><span class="pre">std::async</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CompletionData</span></code> : Struct holding atomic counters and a condition
+variable for tracking callback-based completion.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">onCompleted(data,</span> <span class="pre">status,</span> <span class="pre">infHandle)</span></code> : Callback invoked by the
+runtime on inference completion. Increments the appropriate counter
+and signals the condition variable when all inferences are done.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getNextData(inferenceVectorList,</span> <span class="pre">progIdx)</span></code> : Returns the next
+<code class="docutils literal notranslate"><span class="pre">InferenceVector</span></code> in a round-robin fashion over the list.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">runInferenceCallback(...)</span></code> : Submits inferences using the
+callback-based <code class="docutils literal notranslate"><span class="pre">submit</span></code> overload and waits for all completions via
+a condition variable.</p></li>
+</ul>
+<h2 id="compile-and-run-commands">Compile and Run Commands<a class="headerlink" href="#compile-and-run-commands" title="Link to this heading">¶</a></h2>
+<p>Copy <code class="docutils literal notranslate"><span class="pre">QAicInferenceSetExample.cpp</span></code> into a folder with a
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> that links against the Platform SDK, then build:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="n">mkdir</span> <span class="n">build</span>
+<span class="n">cd</span> <span class="n">build</span>
+<span class="n">cmake</span> <span class="o">..</span>
+<span class="n">make</span> <span class="o">-</span><span class="n">j</span> <span class="mi">8</span>
+</code></pre></div>
+</div>
+<p>Run with a single QPC:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">./</span><span class="n">qaic</span><span class="o">-</span><span class="n">inference</span><span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">example</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">programqpc</span><span class="o">.</span><span class="n">bin</span>
+</code></pre></div>
+</div>
+<p>Run with multiple QPCs sharing device cores via InferenceSetGroup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">./</span><span class="n">qaic</span><span class="o">-</span><span class="n">inference</span><span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">example</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">model1</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">model2</span> <span class="o">-</span><span class="n">g</span>
+</code></pre></div>
+</div>
+<p>Run with increased verbosity on device 1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><code><span class="o">./</span><span class="n">qaic</span><span class="o">-</span><span class="n">inference</span><span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">example</span> <span class="o">-</span><span class="n">d</span> <span class="mi">1</span> <span class="o">-</span><span class="n">t</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">programqpc</span><span class="o">.</span><span class="n">bin</span> <span class="o">-</span><span class="n">vv</span>
+</code></pre></div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../qaic-inference-set-io-buffers/index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: InferenceSet IO Example">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                InferenceSet IO Example
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../features/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: Features">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Features
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2025 Qualcomm Innovation Center, Inc.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    8.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.select", "content.code.annotate"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike", "staticVersions": [{"aliases": ["latest"], "title": "1.21", "version": "1.21"}, {"aliases": [], "title": "1.20", "version": "1.20"}, {"aliases": [], "title": "1.19.10", "version": "1.19.10"}, {"aliases": [], "title": "1.19.8", "version": "1.19.8"}, {"aliases": [], "title": "1.19", "version": "1.19"}, {"aliases": [], "title": "1.18", "version": "1.18"}, {"aliases": [], "title": "1.17", "version": "1.17"}, {"aliases": [], "title": "1.16", "version": "1.16"}, {"aliases": [], "title": "1.15", "version": "1.15"}], "versionPath": null}}</script>
+    
+      
+        <script src="../../../_static/sphinx_immaterial_theme.32136f45f91ae6956.min.js?v=a7a9472a"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    
+  </body>
+</html>

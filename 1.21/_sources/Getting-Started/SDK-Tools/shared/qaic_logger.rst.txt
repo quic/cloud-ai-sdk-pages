@@ -1,0 +1,107 @@
+qaic-log
+========
+
+The **QAic Logger** (``qaic-log``) utility is used to capture log messages
+from firmware images running on the Qualcomm Cloud AI Accelerator cards.
+
+The qaic-log command should have one of the options l, r, g or m in it.
+
+Examples:
+
+.. code:: bash
+
+   sudo /opt/qti-aic/tools/qaic-log -l i=info -d 0
+
+The command to read logs:
+
+.. code:: bash
+
+   sudo /opt/qti-aic/tools/qaic-log -r -d 0
+
+Where ``-d`` is the device's unique ID (0, 1, 2, and so on).
+
+Command-line options
+--------------------
+
+.. list-table:: ``qaic-log`` options
+   :header-rows: 1
+   :widths: 15 20 45
+
+   * - Option
+     - Argument / Values
+     - Description
+
+   * - ``-r``
+     - 
+     - Collect logs from device(s) when transport mode is set to **DIAG**.
+       Valid options used with ``-r`` are ``-d``, ``-c``, ``-s``, ``-p``,
+       ``-t``, and ``-f``.
+
+   * - ``-l``
+     - ``d | i | w | e | f``
+     - Set log level:
+       ``d`` = debug,
+       ``i`` = info,
+       ``w`` = warning,
+       ``e`` = error,
+       ``f`` = fatal.
+       Valid options used with ``-l`` are ``-d``, ``-c``, and ``-s``.
+
+   * - ``-c``
+     - ``s | n | a``
+     - CPU type:
+       ``s`` = system processor (default),
+       ``n`` = neural processors,
+       ``a`` = all processors.
+
+   * - ``-d``
+     - ``<device_id>``
+     - Device ID.
+
+   * - ``-p``
+     - ``<filename>``
+     - Output file to store logs.
+       If not specified, logs are printed to the terminal.
+
+   * - ``-t``
+     - ``<seconds>``
+     - Total duration to collect logs.
+       Default is ``5`` seconds.
+       Specify ``0`` for continuous logging until interrupted.
+
+   * - ``-f``
+     - ``<milliseconds>``
+     - Log polling interval.
+       Default is ``10`` ms.
+
+   * - ``-g``
+     - 
+     - Retrieve available log source names from device(s).
+       Valid option used with ``-g`` is ``-d``.
+
+   * - ``-m``
+     - ``d | q``
+     - Set transport mode:
+       ``d`` = **DIAG** (logs collected via ``qaic-log``),
+       ``q`` = **QDSS** (logs written to ``/var/log/qti-aic/``).
+
+   * - ``-s``
+     - ``<source_name>``
+     - Log source name.
+       Use ``-s`` multiple times to specify multiple sources.
+
+   * - ``-v``
+     - 
+     - Increase verbosity of **QAicMonitor** output.
+       Default level is error.
+       Specify multiple ``-v`` options to increase verbosity.
+
+   * - ``-k``
+     - ``<count>``
+     - Maximum number of retries on timeout or failures.
+       Default is ``5``.
+
+   * - ``-h``
+     - 
+     - Display help information.
+

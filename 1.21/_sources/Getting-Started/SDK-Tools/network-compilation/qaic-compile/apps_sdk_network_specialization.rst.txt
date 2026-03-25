@@ -1,0 +1,156 @@
+Network specialization
+======================
+
+Network specialization is a compilation and runtime strategy to select
+an appropriately sized network to run based on the shapes of the inputs
+provided to the network.
+
+Network specialization packages multiple networks that are compiled with
+different settings for symbolic variables into the same binary. Each
+logically different network within the binary is called a network
+specialization. At inference time, one of these network specializations
+is selected to run based on the shapes of the network's inputs and which
+specialization should be more optimally compiled for that corresponding
+shape.
+
+This feature requires host pre-/postprocessing, and so is not supported
+with the ``-aic-preproc`` option.
+
+.. list-table::
+   :widths: 25 47
+   :header-rows: 1
+
+   * - Option
+     - Description
+   * - ``-network-specialization-config=<configuration.json>``
+     - Instructs the compiler to compile multiple network
+       specializations using the configurations found in the passed
+       configuration.json file.
+
+Example commands
+----------------
+
+qaic-compile command:
+
+.. code-block::
+
+   /opt/qti-aic/exec/qaic-compile -m=./ResNet18_Dynamic.onnx -aic-hw -aic-num-cores=14 -convert-to-fp16 -compile-only -aic-binary-dir=output-specialization -network-specialization-config=configuration.json
+
+Users need to supply a network specialization configuration JSON file
+that informs the compiler how many separate network specializations to
+create and provides the substitute values for undefined symbols to use
+within that specialization. The *-aic-hw* flag may be omitted to run the
+specialized networks on the native path.
+
+spec.json file:
+
+.. code-block::
+
+   { 
+       "specializations": [ 
+           { 
+               "batch": "1", 
+               "height": "56", 
+               "width": "56" 
+           }, 
+           { 
+               "batch": "1", 
+               "height": "112", 
+               "width": "112" 
+           }, 
+           { 
+               "batch": "2", 
+               "height": "56", 
+               "width": "56" 
+           } 
+       ] 
+   }
+
+To supply data for network specialization, a user can use the
+*-json-input-file* option to describe the dimensions of the data
+buffers. Refer to `QAic executor <../../../shared/qaic-compile#>`__
+for details on this option. Note that currently, the user must use the
+*-json-input-file* format, and that the *-input-list-file* format used
+for non-specialized execution is not supported.
+
+Quantization with network specialization
+----------------------------------------
+
+To perform quantization on specialized networks, the user needs to run
+qaic-compile twice: once to dump the quantization profile file and a second
+time to use it.
+
+To create the quantization profile, the user should first run qaic-compile
+with the *-dump-profile* flag:
+
+::
+
+   /opt/qti-aic/exec/qaic-compile -m=./ResNet18_Dynamic.onnx -aic-hw -network-specialization-config=configuration.json -json-input-file=io_shapes.json -dump-profile=profile.pgq
+
+To use the quantization profile, the user should then run the same
+command but replace *-dump-profile* with *-load-profile*:
+
+::
+
+   /opt/qti-aic/exec/qaic-compile -m=./ResNet18_Dynamic.onnx -aic-hw -network-specialization-config=configuration.json -json-input-file=io_shapes.json -load-profile=profile.pgq
+
+Note that there must be at least one input in the json-input-file for
+each of the specializations in the specialization configuration.
+
+Multiple compile options with network specialization
+----------------------------------------------------
+
+The user may also specify compiler options on a per-specialization basis
+in the specialization configuration file. Using the above example, the
+spec.json file could be updated to:
+
+::
+
+   { 
+       "specializations": [ 
+           { 
+               "batch": "1", 
+               "height": "56", 
+               "width": "56",
+               "compile_opts": "-ols=1" 
+           }, 
+           { 
+               "batch": "1", 
+               "height": "112", 
+               "width": "112",
+               "compile_opts": "-ols=2"  
+           }, 
+           { 
+               "batch": "2", 
+               "height": "56", 
+               "width": "56",
+               "compile_opts": "-ols=4" 
+           } 
+       ] 
+   }
+
+Currently *-ols* is the only option that can be specified on a
+per-specialization basis.
+
+LLM model specialization
+-------------------------
+
+This is a model specialization / compile‑time inference configuration that defines how the model is expected to be invoked at runtime.
+
+It constrains:
+
+- How many requests are processed together,
+- How much prompt context is supported,
+- How many tokens are generated per step.
+
+::
+
+   {
+       "specializations":[
+           {
+               "batch_size":"1",
+               "ctx_len":"128",
+               "seq_len":"1"
+           }
+       ]
+   }

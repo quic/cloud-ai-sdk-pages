@@ -1,0 +1,56 @@
+.. _two-step-install:
+
+Platform SDK Upgrade from Version < 1.19
+=========================================
+
+This 2-step process is required when upgrading from a Platform SDK version
+earlier than 1.19. It prepares each SoC with the correct bootloader firmware
+before completing the upgrade.
+
+.. note::
+
+   For fresh installs or upgrades from 1.19 or later, use the standard
+   :ref:`installation procedure <one-step-install>` instead.
+
+Step 1: Install SDK without SBL Upgrade
+----------------------------------------
+
+Install the SDK while skipping the Secondary Bootloader (SBL) upgrade. This
+updates the runtime and drivers without touching the bootloader firmware.
+
+.. code-block:: bash
+
+   sudo ./install.sh --no_auto_upgrade_sbl --ecc enable --setup_mdp all
+
+Step 2: Update Firmware on Each SoC
+-------------------------------------
+
+Once the SDK is installed, update the bootloader firmware on each device
+individually before the new SBL takes effect.
+
+.. code-block:: bash
+
+   # Wait for devices to initialize
+   sleep 10
+
+   # List all QIDs in the system
+   sudo /opt/qti-aic/tools/qaic-util -q | grep -e QID
+
+   # Update each QID (repeat for all QIDs)
+   sudo /opt/qti-aic/tools/qaic-firmware-updater -d <QID> -f
+
+   # Reset cards
+   sudo /opt/qti-aic/tools/qaic-util -s
+
+.. note::
+
+   For flashless boot cards, use:
+
+   .. code-block:: bash
+
+      sudo ./install.sh --ecc enable
+      # For ESXi VMs:
+      sudo ./install.sh --datapath_polling --ecc enable
+
+After completing both steps, continue to
+:ref:`Post-Installation <platform-sdk-post-install>`.

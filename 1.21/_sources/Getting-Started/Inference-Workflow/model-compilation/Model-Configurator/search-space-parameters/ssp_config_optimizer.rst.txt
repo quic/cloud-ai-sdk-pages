@@ -1,0 +1,144 @@
+Config optimizer
+================
+
+To run the optimized search, provide the search arguments via a JSON
+configuration file. The optimized search can be run on one or more of
+the searchable parameters (cores, mos ols, batch-size, dealloc-delay,
+split-size, limit-vtcm-percent and instances). Static values can be set
+for searchable parameters that have been excluded from the search space.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Parameter
+     - Command syntax
+   * - ``-optimized-config-search``
+     - Path to the configuration file.
+
+Sample configuration files are available at:
+
+.. code-block:: text
+
+   /opt/qti-aic/scripts/qaic-model-configurator/SampleFiles/optimized_search/   
+   /opt/qti-aic/scripts/qaic-model-configurator/SampleFiles/multi_model_optimized_search/ 
+
+The JSON file requires the following elements:
+
+- "max_func_eval": Maximum number of evaluations to do for each initial
+  point. This number can be increased if successful convergence is not
+  achieved.
+
+  Type: Integer
+
+  Recommended value: 200
+
+- "objective": Search objective. Options "maximize_inf_rate" or
+  "minimize_latency".
+
+  Type: String
+
+- "params": Provide the search range for each of the parameters - cores,
+  mos, ols, and so on through the min, max values.
+
+  Type: JSON Object
+
+  Recommended value: Set full range of valid values for each of the
+  options. Refer to the "Parameter Range" described below.
+
+- "static_params": Optional static values to be used for searchable
+  parameters that have been excluded from the search space.
+
+  Type: JSON Object
+
+- "initial_values": List of initial values for the search parameters. A
+  fresh search is initiated from each of these points and the results
+  returned. Initial values must be picked from within the search range
+  defined in "params"
+
+  Type: List of JSON Object
+
+  Recommended value: Provide multiple initial values. Refer to the
+  "Guideline for setting initial value" below.
+
+The recommended values are meant to be a general guidance and starting
+point. They may not always apply. For example, some models might be too
+big to execute for a larger batch size, in which case the range should
+be chosen accordingly. The recommended search range for parameters are:
+
+- cores: Number of NSPs on device
+
+  Min: 1
+
+- mos: Number of NSPs on device
+
+  Min: 1
+
+- ols: Optimal value is typically found in range 1-8. However, the ols
+  value can typically be any integer > 1.
+
+  Min: 1
+
+  Max: 8
+
+- batch-size: The Min and Max values must be a power of 2. The Max value
+  would depend on the model.
+
+  Min: 1
+
+  Max: 64
+
+- instances
+
+  Min: 1
+
+  Max: Number of NSPs on device
+
+- dealloc-dly: Valid range: [0-10]. Most models have an optimal value
+  between 0-4.
+
+  Min: 0
+
+  Max: 4
+
+- split-size
+
+  Min: 512
+
+  Max: 2048
+
+- limit-vtcm-percent: Valid range: [0,100]. Most models have an optimal
+  value between 25-100.
+
+  Min: 25
+
+  Max: 100
+
+Setting initial values
+----------------------
+
+Initial values are critical to how the search is conducted and how fast
+the algorithm will converge. If the user has general intuition on the
+optimal solution, then the initial value can be picked based on this.
+
+It is recommended to set around 4-5 initial values configured using one
+of the options below:
+
+1. Sweep over the cores in fixed-sized steps, set vtcm to 100, and keep
+   the initial values for the other parameters to their Min value. For
+   example, cores can be set to [1,4,8,12,16] taking steps of 4 for a 16
+   NSP device.
+
+2. Sweep over the cores in fixed-sized steps as in Option **1**. Choose
+   the corresponding instances value, such that \`cores \* instances\`
+   is close to number of NSPs on the device.
+
+   Example: Pick \`{cores,instances}\` pairs from \`[{1,16}, {4,4},
+   {8,2}, {12,1}, {16,1}]\` for a 16 NSP device. Set vtcm to 100 and the
+   rest of the parameters to their Min value.
+
+With config optimizer, the model is always run using benchmark mode. The
+batch mode for running models through config optimizer is not supported
+yet. For more details on the benchmark/batch mode, refer to the
+**benchmark** option.
+
+

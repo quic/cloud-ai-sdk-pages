@@ -1,0 +1,148 @@
+Thresholds information
+======================
+
+This section of the user-config file contains information about various
+thresholds required by Smart-NMS.
+
+The Smart-NMS: user-config (ihresholds Information) parameters are:
+
+- score-threshold: Filters boxes with specified score-threshold.
+
+  Optional. Default: 0.05
+
+  Type: Float
+
+- nms-threshold: Filters boxes with specified threshold on IoU across
+  various boxes.
+
+  Optional. Default: 0.45
+
+  Type: Float
+
+- max-detections-image: Limits the maximum detection per batch to
+  specified number.
+
+  Optional. Default: 100
+
+  Type: Int
+
+- max-boxes-class: Limits the maximum filtered out boxes to specified
+  number per class. This field will be used when do-class-specific is
+  set to True, otherwise ignored.
+
+  Optional. Default: 100
+
+  Type: Int
+
+A sample config file for resnet34-ssd that is required from a user to
+capture all the options.
+
+.. code-block::
+
+   ###################################################################  
+   #                   Architecture Parameters  
+   ################################################################## 
+   model-architecture : "resnet34ssd" 
+   # Options for model architecture : 
+   # "resnet34ssd" 
+   # "mv1ssd" 
+   # "retinanet" 
+   # "yolov3" 
+   # "yolov4" 
+   # "yolov5" 
+   # "resnet18ssd" 
+   # "retinaface" 
+      
+     
+   num-classes : 81 
+   num-landmark : 0 
+   layout : "NCD"
+    
+   # Input information 
+   input-info: 
+       # Model input image's layout information 
+       input-layout : "NCHW" 
+    
+   # Options for layout : 
+   # "NCD" 
+   # "NDC" 
+   # "NHWC" 
+   # "NCHW" 
+   # "NAWHC" 
+   bbox-output-list : ["325"] 
+   score-output-list : ["329"] 
+   landmark-output-list : [] 
+   do-class-specific-nms : True 
+   do-softmax : False 
+   background-class-idx : 0 
+   map-classes-coco-81-to-91 : False 
+   # boolean value to tell which NMSABP is invokedmake 
+     
+     
+   ################################################################## 
+   #                    I/O Configuration 
+   ################################################################## 
+   model-output-dir : "./r34-aimet-model/onnx_output" 
+   model-output-extension : ".bin" 
+   model-num-outputs : 1 
+   abp-output-dir : "./r34-new-output" 
+   prior-filepath : "./data/resnet34ssd/priors_r34.bin" 
+     
+   # CPU or AIC 
+   model-run-time : "AIC" 
+     
+   # Required if model-run-time is AIC 
+   aic-model-info: 
+           model-binary-dir: "./r34-aimet-model/r34-binaries"  
+           # 1 = "On", 
+           # 2 = "Quantize", 
+           # 3 = "Transpose", 
+           # 4 = "Convert", 
+           # 5 = "Off", 
+           # Others : "Invalid" 
+     
+           skip-transform-value      : 1  
+           model-output-suffix       : "-activation-0-inf-" 
+      
+   # Required if model-run-time is CPU 
+   cpu-model-info: 
+           model-output-suffix : "" 
+           model-outputs : 
+                   # Array of names 
+                   names   : ["329" , "325" ] 
+                   # 2D Array of shapes 
+                   shapes  : 
+                            - [1, 81, 15130] 
+                            - [1, 4, 15130] 
+                   # Supported types "float", "float16", "int8Q", "uint8Q", "int16Q", "int32Q", "int32I", "int64I", "bool" 
+                   types   : ["float","float"] 
+     
+                   # offsets and scales are required for ["int8Q", "uint8Q", "int16Q", "int32Q"] types. 
+                   # array of offsets 
+                   offsets : [0,0] 
+                   # array of scales 
+                   scales  : [1,1] 
+     
+           # Model input config 
+           # All are parallel arrays of input config 
+           model-inputs: 
+                   # array of names 
+                   names  : ["input_1"] 
+                   # 2D Array of shapes 
+                   shapes : 
+                           - [1, 3, 1200, 1200] 
+     
+   ################################################################## 
+   #                   Thresholding Parameters 
+   ################################################################## 
+   score-threshold : 0.05 
+   # score threshold to be used in classwise and classagnostic abp-nms 
+   nms-threshold : 0.5 
+   # iou threshold to used in nms 
+   max-detections-image : 600 
+   # overall threshold on one data point/ image 
+   max-boxes-class : 100 
+   # maxBoxesPerClass may be limited to be used with class specific abp-nms
+    
+
+

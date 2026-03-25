@@ -1,0 +1,10 @@
+.. _reference_to_Search_space_parameters:
+
+Search space parameters
+=======================
+
+.. toctree::
+   :maxdepth: 1
+
+   ssp_brute_force
+   ssp_config_optimizer

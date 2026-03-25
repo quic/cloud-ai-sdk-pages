@@ -1,0 +1,32 @@
+CV Model Workflows
+==================
+
+These images are intended for **computer vision models** such as YOLO, SSD, Faster R-CNN,
+and ResNet-based architectures.
+
+**Recommended image:**
+
+- ``cloud_ai_inference_pytools``
+
+**Typical usage:**
+
+- Export or load ONNX models
+- Generate calibration profiles
+- Compile models using ``qaic-compile``
+- Run inference using ``qaic-runner``
+
+**Example: Interactive CV workflow**
+
+.. code-block:: bash
+
+   docker pull ghcr.io/quic/cloud_ai_inference_pytools:1.21.2.0
+
+.. code-block:: bash
+
+   docker run --rm -it \
+     --shm-size=2gb \
+     --network host \
+     -v $PWD:/workspace \
+     --device /dev/accel/ \
+     ghcr.io/quic/cloud_ai_inference_pytools:1.21.2.0 \
+     /bin/bash

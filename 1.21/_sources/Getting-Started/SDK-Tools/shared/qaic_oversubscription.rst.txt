@@ -1,0 +1,152 @@
+QAic oversubscription
+=====================
+
+Oversubscription schedules multiple networks to run on a group of NSPs.
+The goal is to optimize the transition/switching between networks. The
+"\ ``qaic-program-group-app``\ " application is part of the SDK release,
+which can be found at "\ ``/opt/qti-aic/tools/``\ ".
+
+By default, the switching of networks is done on the control plane. Data
+plane switching (DPS) is also available to optimize the switching time
+of the networks by enabling the switching over the AIC100 virtual
+channel. DPS yields better latency/performance results.
+
+**Configuring the switching modes**
+
+The mode of switching the networks is controlled by two parameters:
+
+- Program group configuration
+- Device configuration
+
+**Program group configuration:**
+
+The user can specify the preferred mode of switching during program
+group creation through the property
+``QAicProgramGroupPropertiesProtocol_t``.
+
+.. code-block:: text
+
+   QAicProgramGroupPropertiesProtocol_t 
+       QAIC_PROGRAM_GROUP_PROTOCOL_CONTROL_PATH  [Default] 
+       QAIC_PROGRAM_GROUP_PROTOCOL_DATA_PATH
+
+**Device configuration:**
+
+The AIC100 can be configured to turn on or turn off the Data Plane
+Switching mode using the PVS variable ENABLE_DPS.
+
+The following table lists the operation mode matrix for all possible
+configurations.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Program group property
+     - ENABLE_DPS
+     - DPS Mode
+   * - X
+     - 0
+     - OFF
+   * - QAIC_PROGRAM_GROUP_PROTOCOL_CONTROL_PATH
+     - 1
+     - OFF
+   * - QAIC_PROGRAM_GROUP_PROTOCOL_DATA_PATH
+     - 1
+     - ON
+
+Generic command:
+
+.. code-block:: text
+
+   sudo /opt/qti-aic/tools/qaic-program-group-app --aic-lib-path /opt/qti-aic/dev/lib/x86_64/libQAic.so -i ./<configuration file name>.json
+
+**Note:**
+
+- Part of the SDK release is: ``qaic-program-group-app`` and ``libQAic.so``
+- The oversubscription configuration file is not part of the SDK and will be provided separately.
+- The configuration file decides the number of program groups, the number of programs per program group, and the resources required.
+
+**Example:**
+
+.. code-block:: bash
+
+   sudo /opt/qti-aic/tools/qaic-program-group-app --aic-lib-path /opt/qti-aic/dev/lib/x86_64/libQAic.so -i ./oversubscription-config-2x4x1.json  
+
+.. code-block:: text
+
+   ProgramStats:'ProgGroup-1-pg1' Samples:6 Enable Time: Min:0us Max:41271us   Avg:26388us
+   ProgramStats:'ProgGroup-1-pg1' Samples:6 EnqueueLatencyTime Time: Min:7us  Max:9us  Avg:8us
+   ProgramStats:'ProgGroup-1-pg2' Samples:6 Enable Time: Min:0us Max:21570us   Avg:11930us
+   ProgramStats:'ProgGroup-1-pg2' Samples:6 EnqueueLatencyTime Time: Min:1us  Max:3us  Avg:2us
+
+**Oversubscription configuration file example:**
+
+.. code-block:: json
+
+   {  
+     "program_group": [  
+       {  
+         "programGroupId": 1,  
+         "name": "ProgGroup-1",  
+         "qid": 0,  
+         "frequency": 45,
+         "profilingProp": 
+         { 
+            "streamProfilingReportingRate": 1000, 
+            "streamProfilingSamplingRate": "full", 
+            "streamProfilingDurationMs": 5000, 
+            "enableTraceProfiling": false, 
+            "enableLatencyProfiling": true 
+         },     
+         "stats_collection_frequency":500,  
+         "programs": [  
+           {  
+             "numExecObj": 1,  
+             "name": "pg1",  
+       "qpc": "../../../opt/qti-aic/test-data/aic100/v2/4nsp/4nsp-quant-resnet50/programqpc.bin"  
+           },  
+           {  
+             "numExecObj": 1,  
+             "name": "pg2",  
+             "qpc": "../../../opt/qti-aic/test-data/aic100/v2/4nsp/4nsp-conv-hmx/programqpc.bin"  
+           }  
+         ]  
+       }  
+     ]  
+   } 
+
+**Note:** ProfilingProp is an optional key. If the user wants to profile
+a program group, they may add the ProfilingProg key and its
+corresponding keys to control profiling. Currently, programGroupApp only
+supports collecting profiling information via stream profiling.
+
+The above configuration file creates:
+
+- A program group named "ProgGroup-1" with two programs named "pg1" and
+  "pg2".
+- Each program "pg1" and "pg2" requires four NSPs to run.
+
+The following table lists qaic-program-group-app argument details.
+
+.. list-table::
+   :widths: 30 42
+   :header-rows: 1
+
+   * - Argument
+     - Description
+   * - ``-i, --input-file <path>``
+     - Input JSON file path from which to load input data.
+   * - ``--aic-lib-path DEPRECATED``
+     - Deprecated; set env variable QAIC_LIB to the full path of the
+       custom library. By default, loads ``libQAic.so`` from the install
+       location.
+   * - ``-s, --duration(s)``
+     - Total duration to run the program ``60``
+   * - ``-p, --protocol``
+     - Protocol type ``control | data``, default ``control``
+   * - ``-v, --verbose``
+     - Verbose log from program.
+   * - ``-h, --help``
+     - Help
+
+

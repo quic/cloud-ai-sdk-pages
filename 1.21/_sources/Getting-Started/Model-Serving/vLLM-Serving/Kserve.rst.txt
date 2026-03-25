@@ -1,0 +1,257 @@
+vLLM Deployment using Kserve
+============================
+
+Overview
+--------
+
+`KServe <https://kserve.github.io/website/>`__ is a Kubernetes-native model serving
+platform that provides a standardized inference API, autoscaling, and multi-framework
+support. Deploying vLLM on Qualcomm Cloud AI accelerators through KServe brings production-grade
+orchestration to LLM inference - enabling request routing, horizontal scaling, and
+lifecycle management within an existing Kubernetes cluster.
+
+**Use cases:**
+
+- **Production LLM serving on Kubernetes** - run vLLM as a managed InferenceService
+  with health checks, rolling updates, and resource quotas enforced by Kubernetes.
+- **Autoscaling** - scale vLLM pods up or down based on request load using KServe's
+  built-in autoscaler, reducing idle resource consumption.
+- **Multi-cloud and on-premises** - deploy on AWS EKS, on-premises Minikube, or any
+  Kubernetes distribution with Qualcomm Cloud AI accelerators devices attached via the QAIC
+  device plugin.
+- **Unified serving infrastructure** - serve multiple models across different frameworks
+  through a single KServe control plane alongside other model types.
+
+The deployment uses the Qualcomm-built vLLM Docker container registered as a KServe
+``ServingRuntime``, with AI 100 devices exposed to pods through the QAIC Kubernetes
+device plugin.
+
+Readme and config file related to vLLM can be found at
+``/path/to/apps-sdk/common/integrations/kserve/vLLM`` 
+
+Initial Notes:
+--------------
+
+.. only:: not appliance
+
+  - quick_install.sh and yaml files for AWS deployment are available in
+     aws_files directory and for minikube deployment in minikube_files
+     directory.
+
+- vLLM Docker container need to be built from
+
+  ``/path/to/apps-sdk/common/tools/docker-build``.
+
+- Instructions to build vLLM Container are available at
+
+  ``/path/to/apps-sdk/common/tools/docker-build``.
+  
+  Sample cmd:
+
+.. code:: bash
+
+   python3 build_image.py --tag 1.11.0.46-vllm --log_level 2 --user_specification_file /opt/qti-aic/tools/docker-build-gen2/sample_user_specs/user_image_spec_vllm.json --apps-sdk /apps/sdk/path --platform-sdk /platform/sdk/path
+
+1. Sample user_specification_file should look like.
+
+.. code-block:: json
+
+   {
+       "base_image": "ubuntu20",
+       "applications": ["vllm"],
+       "python_version": "py310",
+       "sdk": {
+           "qaic_apps": "required",
+           "qaic_platform": "required"
+       }
+   }
+
+Resources:
+----------
+
+- Instructions to setup peristent volumes for the Kubernetes pods:
+
+  https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+
+.. only:: not appliance
+
+  - Instructions on using AWS ECR (Elastic Container Service)
+
+    https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html
+
+.. only:: appliance
+
+   Assumptions:
+   ------------
+
+   1. An available AI 100 machine with Minikube service
+      deployed
+   2. You are aware on how to deploy and pull image from registry and familiar with APPS-SDK.
+   3. You have basic knowledge on mounting volume on kubernetes pods. Check
+      out point "1" in resources.
+   4. vLLM Docker container is available as mentioned in Initial Notes.
+
+.. only:: not appliance
+
+   Assumptions:
+   ------------
+
+   1. An available AI 100 machine with EKS service or Minikube service
+      deployed
+   2. You are aware on how to deploy and pull image from Elastic Container
+      Service and familiar with APPS-SDK.
+   3. You have basic knowledge on mounting volume on kubernetes pods. Check
+      out point "1" in resources.
+   4. vLLM Docker container is available as mentioned in Initial Notes.
+
+Kubernetes Device Plugin Deployment:
+------------------------------------
+
+1. Plugin available at /path/to/apps-sdk/tools/k8s-device-plugin/
+2. Run: ``bash build_image.sh``
+3. The above will create an ubuntu18 (x86) based container.
+4. Run ``docker images`` and check that you see:
+   qaic-k8s-device-plugin:v1.0.0
+5. Install the device plugin:
+   ``kubectl create -f qaic-device-plugin.yml``
+6. Run ``kubectl describe node | grep qaic`` - You should see positive
+   integer values for the first 2 lines. Now you can track them in the
+   full output.
+
+Modifications to current files:
+-------------------------------
+
+1. Build vLLM Docker container using /path/to/apps-sdk/tool/docker-build.
+2. Modify kserve_runtimes.yaml file: for
+   ``metadata: name: kserve-vllmserver`` where ``spec.containers.args``
+   has value ``vllmserver``, replace ``spec.container.image`` to the
+   name of vLLM image built in step 1.
+
+.. only:: appliance
+
+   3. Deploy the vLLM image on public Docker
+      repository, so that it can be pulled by Kserve for inferencing. Or
+      make sure its available in local Docker registry.
+
+.. only:: not appliance
+
+   3. Deploy the vLLM image on AWS Elastic Container or any public Docker
+      repository, so that it can be pulled by Kserve for inferencing. Or
+      make sure its available in local Docker registry.
+
+4. Modify inference.yaml file to point it to correct vLLM image built,
+   make sure the image is available locally or you are pulling it from
+   Docker public library.
+
+   -  If using Minikube then you need to setup imagePullSecret and
+      update it accordingly in inference.yaml
+
+5. Modify the ``resources`` in inference.yaml to adjust to your system
+   specifications.
+6. Modify the container args in inference.yaml accordingly to pass
+   arguments to vLLM server.
+
+If you have time out problem
+----------------------------
+
+1. You need to create a vLLM Docker image with models already available
+   inside the container and then launch the model.
+2. Make sure the respective models are available inside the vLLM
+   container.
+
+   -  Docker can be committed to store the model
+      ``docker commit <container_id> kserve-vllm-model``
+   -  ``kserve-vllm-model`` image can be used as a base image for the
+      pod.
+
+Setup Instructions:
+-------------------
+
+1. Make sure you have all the requirements and modifications mentioned
+   above.
+2. bash quick_install.sh
+3. kubectl apply -f inference.yaml
+4. For Minikube deployments only: kubectl apply -f minikube-service.yaml
+
+Inference Instructions:(Example cmds)
+-------------------------------------
+
+.. only:: not appliance
+
+   AWS
+   ^^^
+
+   * SERVICE_NAME=kserve-vllm-model
+   * SERVICE_HOSTNAME=$(kubectl get inferenceservice $SERVICE_NAME -o
+      jsonpath='{.status.url}' \| cut -d "/" -f 3)
+   * MODEL_NAME=\ ``<model_name>``
+   * INGRESS_GATEWAY_SERVICE=$(kubectl get svc -namespace istio-system
+      -selector="app=istio-ingressgateway" -output
+      jsonpath='{.items[0].metadata.name}')
+   * kubectl port-forward -namespace istio-system
+      svc/${INGRESS_GATEWAY_SERVICE} 8000:80
+
+   Start different AWS terminal on same host after this
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   * export INGRESS_HOST=localhost
+   * export INGRESS_PORT=80
+   * For single inference
+      ``curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"prompt": "My name is", "max_tokens":10, "temperature":0.7}' -H Host:${SERVICE_HOSTNAME} "http://${INGRESS_HOST}:${INGRESS_PORT}/v2/models/{$MODEL_NAME}/generate"``
+   * To test autoscaling
+      ``hey -n 10000 -c 100 -q 1 -m POST -host ${SERVICE_HOSTNAME} -d '{"prompt": "My name is", "max_tokens":10, "temperature":0.7}' "http://${INGRESS_HOST}:${INGRESS_PORT}/v2/models/{$MODEL_NAME}/generate"``
+
+Minikube
+--------
+
+-  Start Minikube with ``minikube start --driver=none``
+-  Install Kserve
+
+.. code-block:: bash
+
+      cd minikube_files     
+      bash quick_install.sh
+
+-  Apply the qaic-device-plugin.yml (from section Kubernetes Device
+   Plugin Deployment)
+-  Apply the pull secret if required (To pull the image from public
+   Docker registry). ``kubectl apply -f pull-secret.yaml``
+-  Apply inference.yaml ``kubectl apply -f inference.yaml``
+-  Verify if the pods are up and running ``kubectl get pods``
+
+.. code-block:: text
+
+      NAME                                                              READY    STATUS    RESTARTS    AGE     
+      kserve-vllm-model-predictor-default-00001-deployment-85bdb6b48rbq   2/2     Running   0          45m
+
+-  Apply inference-service yaml file
+   ``kubectl apply -f minikube-service.yaml``
+-  Start a seperate terminal to create a minikube tunnel
+
+   -  Create a tunnel between minikube and host machine
+      ``minikube tunnel``
+
+-  ``kubectl get svc`` gives you the service and external IP to connect
+   for inferencing.
+
+.. code-block:: text
+
+      NAME                                              TYPE           CLUSTER-IP      EXTERNAL-IP              PORT(S)               AGE     
+      kserve-vllm-model-external                       LoadBalancer   10.104.86.212   10.104.86.212            80:32335/TCP           47m``
+
+-  Make sure proper ports are setup and exposed for
+   inferencing.(Modifications to yaml file might be required)
+-  Use curl command to do inferencing from host machine. 
+   Sample cmd:
+
+.. code-block:: text
+
+      curl -X POST http://<EXTERNAL-IP>:80/v1/completions -H "Content-Type: application/json" -H "Authorization: Bearer token-abc123" -d '{ "model": "<MODEL_NAME>",   "prompt": "My name is",   "max_tokens": 50 }'
+
+-  Use hey command to verify autoscaling. 
+   Sample cmd:
+
+.. code-block:: text
+
+      hey -n 10000 -c 100 -q 1 -m POST -T "application/json" http://<EXTERNAL-IP>:80/v1/completions -d  '{ "model": <MODEL_NAME>,   "prompt": "My name is",   "max_tokens": 50 }'
+

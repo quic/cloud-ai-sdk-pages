@@ -1,0 +1,12 @@
+.. code:: bash
+
+   $ python aicmi.py
+   2025-03-11 12:07:38,467 - [INFO]:[aicmi]
+   Welcome to AICM!
+
+   Username: admin
+   Password:
+
+   Documented commands (type help <topic>):
+   ========================================
+   exit  group  health  help  list  policy

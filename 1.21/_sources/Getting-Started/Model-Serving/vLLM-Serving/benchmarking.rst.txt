@@ -1,0 +1,140 @@
+Benchmarking
+============
+
+After starting vLLM (see :doc:`Run vLLM <run>`), validate the vLLM server and measure performance using the steps below.
+
+Quick Test with curl
+~~~~~~~~~~~~~~~~~~~~
+Send a Chat Completion request using curl command:
+
+.. code-block:: bash
+
+   curl http://127.0.0.1:8000/v1/chat/completions \
+     -H "Content-Type: application/json" \
+     -d '{
+       "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+       "messages": [
+         { "role": "system", "content": "You are a helpful assistant." },
+         { "role": "user", "content": "Explain vLLM in one sentence." }
+       ],
+       "temperature": 0.7,
+       "max_tokens": 128
+     }'
+
+Example Response:
+
+.. code-block:: json
+
+   {
+  "id":"chatcmpl-689eda2cfc2a4fea80b7aae0dedb533b",
+     "object":"chat.completion",
+     "created":1772595634,
+     "model":"TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+     "choices":[
+       {
+         "index":0,
+         "message":{
+           "role":"assistant",
+           "content":"VLLM is a virtual learning management system..."
+         },
+         "finish_reason":"stop"
+       }
+     ],
+     "usage":{
+       "prompt_tokens":40,
+       "total_tokens":97,
+       "completion_tokens":57,
+       "ttft_excluding_queue_wait_time_in_ms":24.3258,
+       "e2e_inference_in_ms":832.4318,
+       "queue_wait_time_in_ms":1.0979,
+       "ttft_in_ms":25.4238
+     }
+   }
+
+Interpreting key fields:
+
+- **choices[0].message.content:**   The generated assistant response.
+- **usage.prompt_tokens, usage.completion_tokens:**   Token counts for input and output.
+- **usage.ttft_in_ms:**   “time to first token” (TTFT) latency reported by the server.
+- **usage.e2e_inference_in_ms:**   End-to-end inference time for the request.
+
+**Tip:** If curl works, the server is up and reachable. Benchmarking issues usually then come down to benchmark flags, concurrency, or dataset settings.
+
+Benchmark with benchmark_serving.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The recommended benchmarking script is:
+/opt/qti-aic/integrations/vllm/benchmarks/benchmark_serving.py
+
+To run the benchmarking script, open a new terminal window and attach to
+the Docker container that was created in the previous step.
+
+Use the following command to start an interactive shell inside the
+running container::
+
+   docker exec -it <container_id> /bin/bash
+
+Once the command completes, you will be placed inside the container
+environment where the benchmarking scripts can be executed.
+
+.. note::
+
+   To identify the container ID, run the following command on the host
+   system::
+
+      docker ps
+
+Run the benchmark serving script:
+
+.. code-block:: bash
+
+   python3 /opt/qti-aic/integrations/vllm/benchmarks/benchmark_serving.py \
+     --backend openai-chat \
+     --host 127.0.0.1 \
+     --port 8000 \
+     --endpoint /v1/chat/completions \
+     --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
+     --dataset-name random \
+     --random-input-len 64 \
+     --random-output-len 128 \
+     --num-prompts 50 \
+     --max-concurrency 5 \
+     --ignore-eos \
+     --seed 1
+
+**Note:** For long context lengths (32K or larger), add ``--enable-chunked-prefill False``.
+
+Example Benchmark Output:
+
+.. code-block:: text
+
+   ============ Serving Benchmark Result ============
+   Successful requests:                     50
+   Maximum request concurrency:             5
+   Benchmark duration (s):                  19.15
+   Total input tokens:                      3102
+   Total generated tokens:                  6400
+   Request throughput (req/s):              2.61
+   Output token throughput (tok/s):         334.14
+   Total Token throughput (tok/s):          496.10
+   ---------------Time to First Token----------------
+   Mean TTFT (ms):                          111.49
+   Median TTFT (ms):                        114.86
+   P99 TTFT (ms):                           121.05
+   -----Time per Output Token (excl. 1st token)------
+   Mean TPOT (ms):                          14.18
+   Median TPOT (ms):                        14.18
+   P99 TPOT (ms):                           14.69
+   ---------------Inter-token Latency----------------
+   Mean ITL (ms):                           14.07
+   Median ITL (ms):                         14.10
+   P99 ITL (ms):                            15.93
+   ==================================================
+
+Interpretation:
+
+- **Request throughput (req/s):**   Completed requests per second under the configured concurrency.
+- **Output token throughput (tok/s):**   How fast tokens are produced (decode throughput).
+- **TTFT (Time To First Token):**   Responsiveness—how quickly the first generated token appears.
+- **TPOT (Time Per Output Token):**   Average time per generated token after the first token.
+- **ITL (Inter-Token Latency):**   Closely related to TPOT; token-to-token generation delay.

@@ -1,0 +1,262 @@
+class InferenceSet
+==================
+
+Help on class InferenceSet in module ``qaicrt``:
+
+InferenceSet(Logger)
+--------------------
+
+::
+
+    InferenceSet(context, qpc, devId, setSize, numActivations, properties, enableProfiling) -> inferenceSet
+
+    InferenceSet(context, qpc, devId, setSize, numActivations, infDataVectorDmaBuf, properties, enableProfiling) -> inferenceSet
+
+Defines a set of Activations that are scheduled as a single group to submit inferences.
+
+The inference flow consists of:
+
+- A user application thread submitting inferences through the ``submit`` API.
+- A user application thread calling ``getCompletedId`` to retrieve completed inferences.
+- The completed inferences are returned through ``InferenceHandle`` (``shInferenceHandle``).
+- The ``InferenceHandle`` contains the ``ExecObj`` and the ID given at submission time,
+  such that the thread can correlate submission to completions.
+- Note: due to high-performance multi-threading, in-order completion is not guaranteed —
+  inferences may complete out of order.
+- Once the data is read and processed, ``putCompleted`` must be called to return the
+  ``InferenceHandle`` back to the processing queue.
+
+The ``InferenceSet`` may be constructed for USER buffers:
+
+- **USER Input/Output Buffer Type**: User data is copied into DMA buffers at each inference.
+
+**Parameters**
+
++-------------------------+-----------------------------------------------------------------------------------+
+| Parameter               | Description                                                                       |
++=========================+===================================================================================+
+| ``context``             | A previously created context.                                                     |
++-------------------------+-----------------------------------------------------------------------------------+
+| ``qpc``                 | A previously created Qpc Object.                                                  |
++-------------------------+-----------------------------------------------------------------------------------+
+| ``devId``               | [optional] Device on which inference is to be run. By default device will be      |
+|                         | auto-picked.                                                                      |
++-------------------------+-----------------------------------------------------------------------------------+
+| ``setSize``             | Number of ExecObj per activation.                                                 |
++-------------------------+-----------------------------------------------------------------------------------+
+| ``numActivations``      | Number of separate activations. Set this value to 1 to have a single instance    |
+|                         | of the program on device. Set this value to a specific number of activations.    |
++-------------------------+-----------------------------------------------------------------------------------+
+| ``infDataVectorDmaBuf`` | [optional] Input Data Vector or Vectors. The first level of vector must be size   |
+|                         | ``(setSize * numActivations)``. The second level of vector must be the size of    |
+|                         | ``QBuffer`` s needed for each ``ExecObj``. This parameter must be a vector of     |
+|                         | vectors of DMA Buffers.                                                           |
++-------------------------+-----------------------------------------------------------------------------------+
+| ``properties``          | [optional] Properties for the program and queues to be created by the inference   |
+|                         | set. One of the key properties is number of threads per queue which can be        |
+|                         | changed in the queue properties.                                                  |
++-------------------------+-----------------------------------------------------------------------------------+
+| ``enableProfiling``     | [optional] If a profiling callback is to be registered, this should be enabled.   |
+|                         | Collecting profiling data during execution may have a small impact on             |
+|                         | performance.                                                                      |
++-------------------------+-----------------------------------------------------------------------------------+
+
+Methods defined here:
+
+__init__
+~~~~~~~~
+
+::
+
+    __init__(*args, **kwargs)
+    Overloaded function.
+
+    1. __init__(self: qaicrt.InferenceSet, context: qaicrt.Context, qpc: qaicrt.Qpc,
+                devId: Optional[int] = None, setSize: int, numActivations: int,
+                properties: qaicrt.InferenceSetProperties = None,
+                enableProfiling: bool = False) -> None
+
+    2. __init__(self: qaicrt.InferenceSet, context: qaicrt.Context, qpc: qaicrt.Qpc,
+                devId: int, setSize: int, numActivations: int,
+                infDataVectorDmaBuf: list[list[qaicrt.QBuffer]],
+                properties: qaicrt.InferenceSetProperties = None,
+                enableProfiling: bool = False) -> None
+
+getAvailable
+~~~~~~~~~~~~
+
+::
+
+    getAvailable(self: qaicrt.InferenceSet, timeoutUs: int = 0) -> tuple[qaicrt.QStatus, qaic::rt::InferenceHandle]
+
+**Description**
+
+Retrieve an available ``InferenceHandle``. This call will block until an available
+``InferenceHandle`` is ready for use. The ``InferenceHandle`` will include the ``ExecObj``
+and the ID provided in submission.
+
+**Parameters**
+
++---------------+----------------------------------------------------------------------+
+| Parameter     | Description                                                          |
++===============+======================================================================+
+| ``timeoutUs`` | [optional] If an ``InferenceHandle`` is not available for            |
+|               | submission, this call will wait for the given time in microseconds.  |
++---------------+----------------------------------------------------------------------+
+
+**Returns**
+
+Tuple of ``infHandle`` and operational status.
+
+- ``infHandle``: The available ``InferenceHandle``.
+- Operational status:
+
+  - ``qaicrt.QStatus.QS_SUCCESS`` Successful completion.
+  - ``qaicrt.QStatus.QS_TIMEDOUT`` Timed out before acquiring available inference handle.
+
+getCompletedId
+~~~~~~~~~~~~~~
+
+::
+
+    getCompletedId(self: qaicrt.InferenceSet, id: int, timeoutUs: int = 0) -> tuple[qaicrt.QStatus, qaic::rt::InferenceHandle]
+
+**Description**
+
+Retrieve a specific completed inference by ID. This call will block until a completed
+``InferenceHandle`` is available. The ``InferenceHandle`` will include the ``ExecObj``
+and the ID provided in submission.
+
+**Parameters**
+
++---------------+----------------------------------------------------------------------+
+| Parameter     | Description                                                          |
++===============+======================================================================+
+| ``id``        | The ID of the inference to retrieve. The ID does not need to be      |
+|               | unique — inference results are stored in a multi-map hash table. If  |
+|               | multiple inferences are submitted with the same ID, this method will |
+|               | retrieve any of the completed inferences with that ID but will not   |
+|               | guarantee in-order completion. If the caller requires in-order       |
+|               | completion, unique IDs should be provided for each submission.       |
++---------------+----------------------------------------------------------------------+
+| ``timeoutUs`` | [optional] If an ``InferenceHandle`` is not available, this call     |
+|               | will wait for the given time in microseconds.                        |
++---------------+----------------------------------------------------------------------+
+
+**Returns**
+
+Tuple of ``infHandle`` and operational status.
+
+- ``infHandle``: The completed ``InferenceHandle``.
+- Operational status:
+
+  - ``qaicrt.QStatus.QS_SUCCESS`` Successful completion.
+  - ``qaicrt.QStatus.QS_TIMEDOUT`` Timed out before acquiring completed inference handle with given ID.
+
+getInferenceHandle
+~~~~~~~~~~~~~~~~~~
+
+::
+
+    getInferenceHandle(self: qaicrt.InferenceSet, qbufferDma: qaicrt.QBuffer) -> tuple[qaicrt.QStatus, qaic::rt::InferenceHandle]
+
+**Description**
+
+Find an ``InferenceHandle`` associated with a previously provided input/output DMABuf in
+a DMA ``InferenceSet`` factory. DMABufs passed in ``inferenceDataVectorDmaBuf`` are
+distributed among all the ``InferenceHandle`` s owned by ``InferenceSet``. Use this API
+to find the ``InferenceHandle`` linked with a specific DMABuf and submit inferences using it.
+
+**Parameters**
+
++----------------+----------------------------------------------------------------------+
+| Parameter      | Description                                                          |
++================+======================================================================+
+| ``qbufferDma`` | One of the DMABufs that was previously passed in the DMA             |
+|                | ``InferenceSet`` factory.                                            |
++----------------+----------------------------------------------------------------------+
+
+**Returns**
+
+Tuple of ``infHandle`` and operational status.
+
+- ``infHandle``: The ``InferenceHandle`` associated with ``qbufferDma``.
+- Operational status:
+
+  - ``qaicrt.QStatus.QS_SUCCESS`` ``InferenceHandle`` found associated with DMABuf.
+  - ``qaicrt.QStatus.QS_ERROR`` ``InferenceHandle`` not found.
+  - ``qaicrt.QStatus.QS_INVAL`` Invalid buffer info passed in ``qbufferDma``.
+
+putCompleted
+~~~~~~~~~~~~
+
+::
+
+    putCompleted(self: qaicrt.InferenceSet, arg0: qaic::rt::InferenceHandle) -> qaicrt.QStatus
+
+**Description**
+
+Release a completed ``InferenceHandle`` back into the queue for processing.
+
+**Returns**
+
+- ``qaicrt.QStatus.QS_SUCCESS`` Successful completion.
+
+submit
+~~~~~~
+
+::
+
+    submit(self: qaicrt.InferenceSet, infHandle: qaic::rt::InferenceHandle,
+           id: int = 0) -> qaicrt.QStatus
+
+**Description**
+
+Submit an inference through an ``InferenceHandle`` obtained from ``getAvailable``.
+
+**Parameters**
+
++---------------+----------------------------------------------------------------------+
+| Parameter     | Description                                                          |
++===============+======================================================================+
+| ``infHandle`` | An ``InferenceHandle`` obtained from ``getAvailable``.               |
++---------------+----------------------------------------------------------------------+
+| ``id``        | [optional] User-defined ID for the inference. This will be returned  |
+|               | in the ``getCompletedId`` call so the user can correlate submission  |
+|               | and completed inferences. It is up to the user to define the         |
+|               | sequence number as unique, or simply omit for a default of 0.        |
++---------------+----------------------------------------------------------------------+
+
+**Returns**
+
+- ``qaicrt.QStatus.QS_SUCCESS`` Successful completion.
+- ``qaicrt.QStatus.QS_INVAL`` Invalid param ``infHandle``.
+- ``qaicrt.QStatus.QS_ERROR`` Failed to submit inference due to internal error.
+
+waitForCompletion
+~~~~~~~~~~~~~~~~~
+
+::
+
+    waitForCompletion(self: qaicrt.InferenceSet, timeoutUs: int = 0) -> qaicrt.QStatus
+
+**Description**
+
+Wait for all submitted inferences to be completed on all activations. This is a
+convenience API to ensure that all pending inferences are completed; the results
+are discarded. The total time waited will depend on the number of pending inferences
+and the number of activations.
+
+**Parameters**
+
++---------------+----------------------------------------------------------------------+
+| Parameter     | Description                                                          |
++===============+======================================================================+
+| ``timeoutUs`` | [optional] (default=0) Timeout per activation to wait for any one   |
+|               | activation to complete.                                              |
++---------------+----------------------------------------------------------------------+
+
+**Returns**
+
+- ``qaicrt.QStatus.QS_SUCCESS`` Successful completion.
+- ``qaicrt.QStatus.QS_TIMEDOUT`` Timed out before all submitted inferences are completed.

@@ -1,0 +1,70 @@
+Single device partitioning
+==========================
+
+Single device partitioning is a workload mapping strategy in the
+compiler where available cores on the device are viewed as clusters of
+cores and the network is partitioned into subgraphs. Each subgraph is
+mapped to a cluster on the device and the cluster runs only its portion
+of inference. Once done, it copies the outputs to the next cluster for
+further processing. This pipelined manner of execution results in the
+device processing multiple inferences at a time.
+
+Partitioning helps with the throughput performance for the following
+reasons:
+
+- Only a subset of the cores executes the same operation, that decreases
+  the di/dt events and limits violations.
+- Reduces the cross-core communication and synchronization.
+- With the partitioned graphs, the MOS setting can be better exploited.
+  For example, the first half of vgg16 can use MOS 1 and the second half
+  can use MOS 4.
+
+The following table lists partitioning options.
+
++----------------------------------+----------------------------------------------------------------------------------------------------------------+
+| Option                           | Description                                                                                                    |
++==================================+================================================================================================================+
+| ``-sdp-cluster-sizes=<x,y,z,w>`` | Option to specify the cluster configuration to be used for SDP. When set, this option enables SDP. Dual cluster|
+|                                  | configurations are 8/8, 4/4, 2/2, and 1/1. Quad cluster configurations are 4/4/4/4, 2/2/2/2, 1/1/1/1, and      |
+|                                  | 4/4/4/2 (for the 14‑core setup). The sum ``x+y+z+w`` must equal the number of cores configured.                |
++----------------------------------+----------------------------------------------------------------------------------------------------------------+
+| ``-mos=<num>``                   | Maximum output channel split (MOS). This effort level reduces on‑chip memory usage. The compiler optimizes     |
+|                                  | on‑chip memory by mapping more of the network onto it. Increasing the effort level retains more of the network |
+|                                  | in on‑chip memory but may increase communication overhead. The value must be less than or equal to the number  |
+|                                  | of cores. If not set, the compiler selects a value using internal heuristics. The maximum number of supported  |
+|                                  | partitions/clusters is 4.                                                                                      |
++----------------------------------+----------------------------------------------------------------------------------------------------------------+
+
+**Example commands**
+
+qaic-compile command
+
+.. code-block::
+
+   /opt/qti-aic/exec/qaic-compile -m=./generatedModels/ONNX/vgg16.onnx -convert-to-quantize -aic-hw -aic-num-cores=14 -input-list-file=list.txt -num-iter=5000 -aic-num-of-instances=1 -ols=4 -quantization-schema-activations=symmetric_with_uint8 -quantization-schema-constants=symmetric_with_uint8 -quantization-precision=Int8 -aic-profiling-format=ascii -aic-profiling-format=json -aic-profiling-out-dir=./vgg16_onnx_int8_ppp_host_elfs -aic-profiling-num-samples=5 -aic-profiling-start-iter=10 -batchsize=1 -mos=1 -v -mos=1,4 -sdp-cluster-sizes=7,7
+
+model_configurator command
+
+.. code-block::
+
+   python3 /opt/qti-aic/scripts/qaic-model-configurator/model_configurator.py ./generatedModels/ONNX/vgg16.onnx onnx -iter 5000 -list-configs -batchsize 1 -cores 15 -mos 1,2,4,8 -ols 2,4 -instance 1,2 -input-list-generate -image-dir ./inputFiles -width 224 -height 224 -reuse-single-file -enable-single-device-partitioning
+
+Configuration output
+
+.. code-block::
+
+   cores  bs  ols  mos  instances  dealloc-dly  split-size  limit-vtcm-percent      sd_partition           mos_combinations  
+   1      15   1    2        1          1            3          2048                 100           []                 [] 
+   2      15   1    2        0          1            3          2048                 100 [4, 4, 4, 3]       [1, 1, 1, 1] 
+   3      15   1    2        0          1            3          2048                 100 [4, 4, 4, 3]       [1, 1, 2, 2] 
+   4      15   1    2        0          1            3          2048                 100 [4, 4, 4, 3]       [2, 2, 1, 1] 
+   5      15   1    2        0          1            3          2048                 100 [4, 4, 4, 3]       [2, 2, 2, 2] 
+   6      15   1    2        0          1            3          2048                 100 [4, 4, 4, 3]       [4, 4, 1, 1] 
+   7      15   1    2        0          1            3          2048                 100 [4, 4, 4, 3]       [4, 4, 2, 2] 
+   8      15   1    2        0          1            3          2048                 100       [8, 7]             [1, 1] 
+   9      15   1    2        0          1            3          2048                 100       [8, 7]             [1, 2] 
+   10     15   1    2        0          1            3          2048                 100       [8, 7]             [1, 4] 
+   11     15   1    2        0          1            3          2048                 100       [8, 7]             [2, 1] 
+   ...
+
+

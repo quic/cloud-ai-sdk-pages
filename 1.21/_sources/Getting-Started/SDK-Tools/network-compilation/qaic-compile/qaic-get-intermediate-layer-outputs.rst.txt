@@ -1,0 +1,35 @@
+Get intermediate layer outputs
+==============================
+
+The option *-output-node-name* can be used to save the output of an
+intermediate model layer. To use this option, pass the name of the
+output that should be saved as it appears in the model graph. Multiple
+output names can be passed separated by a comma if needed. If a valid
+name is passed, the tensor will be saved along with the original outputs
+of the model. This option can be used with TensorFlow and ONNX models.
+
+Sample command for usage:
+
+.. code-block::
+
+   $ /opt/qti-aic/exec/qaic-compile -m=./resnet50.onnx -input-list-file=onnx_resnet50/list.txt -output-node-name=gpu_0/res2_0_branch2a_1,gpu_0/res2_2_branch2c_bn_1 -write-output-dir=out
+
+For TensorFlow models, the output names should be passed as they appear
+in the model graph. If an operator has multiple outputs, the output
+names should be passed in the format LayerName:OutputIndex. For example,
+to get all the outputs of a node named Output/CombinedNonMaxSuppression
+the user should
+specify\ ``-output-node-name=Output/CombinedNonMaxSuppression,Output/CombinedNonMaxSuppression:1,Output/CombinedNonMaxSuppression:2,Output/CombinedNonMaxSuppression:3``.
+
+Intermediate layer output names can be known from applications like
+Netron.
+
+**Limitations**
+
+- Using this option will prevent certain optimizations from occurring.
+  For example, layers whose outputs are saved will not be fused with any
+  other operators.
+- If this option is used along with quantization options, the
+  quantization profile of the model must be regenerated.
+
+

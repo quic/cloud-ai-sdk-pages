@@ -1,0 +1,22 @@
+Stable Diffusion
+================
+
+1. To generate a Stable Diffusion model repository inside a Triton
+   container:
+
+   -  Make sure you have access to gated repository `Stable
+      Diffusion <https://huggingface.co/benjamin-paine/stable-diffusion-v1-5>`__
+   -  ``huggingface-cli`` login can be done before you run the script or,
+      ``--auth_token`` option can be passed while running the script eg:
+      ``python generate_SD_repo.py --auth_token=<hf_token>``
+   -  Run the ``generate_SD_repo.py`` script. The script is located at
+      "/opt/qti-aic/integrations/triton/release-artifacts/stable-diffusion-ensemble",
+      which creates an ``ensemble-stable-diffusion`` model repository.
+
+#. Start the Triton server: ``/opt/tritonserver/bin/tritonserver
+   -model-repository=/path/to/ensemble-stable-diffusion``
+
+#. Triton server takes about 2 minutes to start on the first go as it
+   needs to compile QPC.
+
+#. Use ``client_example.py`` for testing.

@@ -1,0 +1,34 @@
+Quantization
+============
+
+Qualcomm Cloud AI accelerators support different quantization techniques.  A quantized model is a neural network whose weights (and sometimes activations) are compressed into a lower precision numerical format such as INT8, FP8, or MXFP6.
+
+The purpose is:
+
+- | Reduce DRAM footprint.
+- | Reduce memory bandwidth requirements.
+- | Increase throughput.
+- | Improve deployment efficiency on accelerators.
+
+MXFP6
+~~~~~
+- | Compress FP32/FP16 → MXFP6 during offline compile phase.
+- | Saves weight size (DRAM) and bandwidth.
+- | Automatic decompression happens in hardware/software with minimal overhead.
+- | Compute remain in FP16 for accuracy stability.
+
+MXINT8
+~~~~~~
+- | Designed to reduce cross-card communication latency.
+- | FP16 activations can often be directly cast to MXINT8 with negligible accuracy loss.
+- | Useful for multi-card LLM scaling.
+
+AWQ
+~~~
+- | Upscale AWQ quantized weights to FP32.
+- | Re quantize using MXFP6 during compile.
+
+
+Blog
+----
+-  `Accelerate Large Language Model Inference by ~2x Using Microscaling (Mx) Formats <https://quic.github.io/cloud-ai-sdk-pages/latest/blogs/Microscaling/microscaling/index.html#>`_.

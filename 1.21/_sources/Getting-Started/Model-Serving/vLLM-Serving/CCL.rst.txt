@@ -1,0 +1,194 @@
+Compute Context Length (CCL)
+===========================
+
+Compute Context Length (CCL) is a compilation and runtime feature that improves performance for large-context inference by dynamically switching between multiple compute context lengths within a single compiled model.
+
+Traditional Ahead-of-Time (AoT) compilation specializes a model for one fixed context length. As context length increases, throughput drops and time-to-first-token (TTFT) increases, even when the actual prompt and generation lengths are small. CCL addresses this problem by:
+
+* Compiling one model once with multiple context-length specializations
+* Dynamically selecting the appropriate compute context length at runtime
+* Avoiding unnecessary attention computation over the full maximum context
+
+Key properties of CCL:
+----------------------
+
+* One compilation → one QPC
+* QPC size is unchanged compared to non-CCL models
+* Runtime switching is automatic and transparent to the user
+* Enabled with a single flag: ``ccl_enabled=True``
+
+CCL works across:
+-----------------
+
+* vLLM
+* SpD + vLLM
+* Disaggregated Serving (decode-only)
+
+Performance benefits increase significantly for 8K+ context lengths, while remaining safe and usable for smaller contexts.
+
+High-Level Architecture
+-----------------------
+
+At a high level, CCL introduces dynamic compute shapes into the model graph:
+
+* During compilation, the model is specialized for a list of compute context lengths (CCL lists)
+* During runtime, the system selects the proper CCL value based on position IDs
+* KV-cache reads, attention masks, and memory accesses are restricted to the active CCL
+
+Environment Setup
+-----------------
+
+Follow the standard vLLM installation instructions from Qualcomm documentation:
+
+* Using a pre-built Docker inference container
+* Installing vLLM from source
+
+CCL does not require a separate installation. It is enabled entirely through configuration flags.
+
+CCL Configuration
+------------------
+
+CCL can be enabled in two ways:
+
+1. Automatic mode (recommended)
+2. Manual CCL list specification (advanced)
+
+Automatic Mode
+~~~~~~~~~~~~~~
+
+In automatic mode, you only need to pass:
+
+.. code-block:: text
+
+   ccl_enabled=True
+
+The system automatically generates optimized CCL lists for both prefilling and decoding.
+
+Manual Mode (Advanced)
+~~~~~~~~~~~~~~~~~~~~~
+
+You may optionally specify explicit CCL lists:
+
+.. code-block:: text
+
+   comp_ctx_lengths_prefill = [ ... ]
+   comp_ctx_lengths_decode  = [ ... ]
+
+Rules and guidelines:
+
+* Prefill and decode lists must not overlap
+* The total number of CCL values across both lists should be ≤ 10
+* Larger lists increase the number of specializations and may reduce performance
+
+If manual lists are not provided, optimized lists are generated automatically.
+
+
+Compilation with CCL
+--------------------
+
+CCL does not require a separate compilation flow. Compilation happens automatically when the model is first loaded with ``ccl_enabled=True``.
+
+Key points:
+
+* The model is compiled once
+* Multiple CCL specializations are embedded in the same QPC
+* No recompilation is required for different prompt sizes
+
+
+Launching vLLM Server with CCL
+------------------------------
+
+Example: Online serving with vLLM with CCL enabled
+
+.. code-block:: bash
+
+   python3 -m vllm.entrypoints.api_server \
+     --host 127.0.0.1 \
+     --port 8000 \
+     --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
+     --max-model-len 256 \
+     --max-num-seq 16 \
+     --max-seq-len-to-capture 128 \
+     --device qaic \
+     --block-size 32 \
+     --quantization mxfp6 \
+     --kv-cache-dtype mxint8 \
+     --override-qaic-config "ccl_enabled=True"
+
+.. code-block:: bash
+
+   python3 examples/openai_chat_completion_client.py
+
+
+Using CCL with SpD + vLLM
+--------------------------
+
+SpD + vLLM uses the same interface as standard vLLM.
+
+Enable CCL by passing:
+
+.. code-block:: text
+
+   ccl_enabled=True
+
+Optional prefill and decode CCL lists may be provided, but are not required. Automatic list generation is supported and recommended.
+
+
+Using CCL with Disaggregated Serving
+-----------------------------------
+
+Important limitations:
+
+* CCL is supported only during decoding
+* Prefilling with CCL in disaggregated mode is not supported
+
+To enable CCL during decoding:
+
+.. code-block:: text
+
+   --decode-override-qaic-config "ccl_enabled=True,comp_ctx_lengths_decode=[4096,8192,16384,32768]"
+
+.. note::
+
+      Prefill runs without CCL.
+
+
+Benchmarking with CCL
+---------------------
+
+vLLM benchmarking with CCL uses the same scripts as standard vLLM.
+
+Example:
+
+.. code-block:: bash
+
+   python3 benchmarks/benchmark_serving.py \
+     --backend openai \
+     --base-url http://127.0.0.1:8000 \
+     --dataset-name sharegpt \
+     --dataset-path ./ShareGPT_V3_unfiltered_cleaned_split.json \
+     --sharegpt-max-input-len 128 \
+     --sharegpt-max-model-len 256 \
+     --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
+     --seed 12345
+
+End-to-End Example
+------------------
+
+- Install the Qualcomm Cloud AI SDK and build vLLM.
+- Choose a model (for example, TinyLlama or Llama3).
+- Launch vLLM with:
+
+.. code-block:: text
+
+      --override-qaic-config "ccl_enabled=True"
+
+- Send requests using OpenAI-compatible APIs.
+- Benchmark using standard vLLM tools.
+- Scale prompt size and generation length without recompiling.
+
+Best Practices
+--------------
+
+* Compile with a large maximum context (for example, 128K) if future needs are unknown
+* Avoid over-populating CCL lists

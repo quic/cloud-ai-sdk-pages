@@ -1,0 +1,276 @@
+qaic-trace-ctl
+==============
+
+QAic trace control (qaic-trace-ctl) is used to configure, start, stop,
+and read a device trace through the QMonitor GRPC server. All aspects of
+tracing are configured by the trace configuration file parameter
+``--config``. A tracing session consists of the following commands:
+
+- ``sudo /opt/qti-aic/tools/qaic-trace-ctl --config trace_config.json configure``
+- ``sudo /opt/qti-aic/tools/qaic-trace-ctl --config trace_config.json start``
+- ``sudo /opt/qti-aic/tools/qaic-trace-ctl --config trace_config.json stop``
+- ``sudo /opt/qti-aic/tools/qaic-trace-ctl --config trace_config.json read``
+
+Run the workload for which to collect trace data between the start and
+stop commands. The read step is only required under certain
+configurations. A message is printed by the stop command if read must be
+issued to collect the trace.
+
+The trace data is transferred to the host directory
+``/var/log/qti-aic/QID_X`` where X is the device ID. Example trace data
+output files:
+
+.. code-block:: bash
+
+   ls -1 /var/log/qti-aic/QID_0/
+
+.. code-block:: text
+
+   trace_OverDiag_20220111_124541     # Text file for ETB and ETR sink types 
+   trace_OverDiag_20220111_124541.bin # Binary file for ETB and ETR sink types 
+   trace_OverPcie_20220110_154640     # Text file for PCIE sink type 
+   trace_OverPcie_20220110_154640.bin # Binary file for PCIE sink type
+
+The Qmonitor GRPC server must be running already to use qaic-trace-ctl.
+Restarting the Qmonitor GRPC server erases all trace data output from
+``/var/log/qti-aic/``.
+
+The following table lists qaic-trace-ctl argument details.
+
+.. list-table::
+   :widths: 30 42
+   :header-rows: 1
+
+   * - Argument
+     - Description
+   * - ``-c, --config CONFIG``
+     - Necessary argument. Trace configuration file in JSON format.
+   * - ``-h, --help``
+     - Help
+   * - ``-H, --host``
+     - Hostname or IP address of Qmonitor service (default localhost)
+   * - ``-p, --port PORT``
+     - Qmonitor GRPC port (default 62472)
+   * - ``-q, --qid [QID ...]``
+     - QAIC device ID(s) (default 0). List multiple devices as "0 1 2".
+   * - ``-v, --verbose``
+     - Verbose output
+   * - ``configure, start, stop, read``
+     - Necessary argument. The trace control command.
+
+qaic-trace-ctl sample JSON config file
+--------------------------------------
+
+The trace config file is not included in the SDK and will be provided
+separately. The config file is divided into components of sink, ulog,
+and sw_event. Sample qaic-trace-ctl JSON file:
+
+.. code-block:: json
+
+   [ 
+     { 
+    
+       "component": "ulog", 
+       "config": [ 
+         { 
+           "subsystem": "proc_all", 
+           "logs": [ 
+             { "name": "all", "level": "Info", "transport": "QDSS" } 
+           ] 
+         } 
+       ] 
+     }, 
+     { 
+       "component": "sw_event", 
+       "config": [ 
+         { 
+           "subsystem": ["neural_proc_all"], 
+           "events": [ 
+             "all" 
+           ] 
+         } 
+       ] 
+     }, 
+     { 
+       "component": "sink", 
+       "sink": "pcie", 
+       "buffer_size": 8, 
+       "mode": "circular" 
+     } 
+   ] 
+
+- The sink component configures where the trace data is accumulated, the buffer size for the trace data, and what to do if the buffer becomes full.
+
+- The ulog component configures where the firmware logs are routed and their verbosity levels.
+
+- The sw_event component configures which software events to enable/disable in the trace data.
+
+  - The NSP software events listed in ``/opt/qti-aic/firmware/fw2_swe.json`` can be configured by qaic-trace-ctl.
+  - The neural net software events listed in ``/opt/qti-aic/firmware/fw2_nn_swe.json`` cannot be configured by qaic-trace-ctl. Their enable/disable state is compiled into the binary network.
+
+The following list provides qaic-trace-ctl JSON config file details for
+each component.
+
+- sink
+
+  - Field: sink
+
+  - Options: etr, pcie, etb
+
+  - Description
+
+    Where to accumulate the trace data.
+
+    ETR = Device DRAM. PCIE = File on host.
+
+    ETB = System manager processor internal 64 KB buffer.
+
+    ETR and ETB data is transferred to host by the read command.
+
+    PCIE sink continuously pushes data from device to host during trace
+    collection. The read command is not required.
+
+- sink
+
+  - Field: buffer_size
+
+  - Options: 0 to 512
+
+  - Description
+
+    Buffer size to allocate in device DRAM for trace data. Units in MB.
+
+    Can be 0 for sink types of ETB and PCIE.
+
+    Non-zero is necessary for ETR sink.
+
+    Device has 32 MB reserved DRAM for trace data.
+
+    Sizes greater than 32 MB are supported but reduce the amount of DRAM
+    available to the system manager's network controller.
+
+- sink
+
+  - Field: mode
+
+  - Options: circular, stoponfull
+
+  - Description
+
+    Strategy for when the trace data buffer is full.
+
+    Circular continues writing new data by overwriting the oldest data.
+    Retains most recent full buffer of data when the stop command is
+    issued.
+
+    Stoponfull stops writing new data when the buffer is full. Retains
+    first full buffer of trace data after the start command is issued.
+
+- ulog
+
+  - Field: subsystem
+
+  - Options: proc_all, system_proc, neural_proc_all
+
+  - Description
+
+    The processor(s) to configure.
+
+    proc_all configures the system manager processor and all NSPs.
+
+    system_proc configures only the system manager processor.
+
+    neural_proc_all configures all NSPs.
+
+- ulog
+
+  - Field: name
+
+  - Options: all, SYSLOG, NNC, NNCLog, and so on
+
+  - Description
+
+    The log source(s) to configure.
+
+    The name "all" configures all the log sources.
+
+    Individual log source names can be specified. The list of log source
+    names for each processor can be viewed by running
+    ``/opt/qti-aic/tools/qaic-log -g``.
+
+    Log sources listed for QSM can be used with the "system_proc"
+    subsystem. Log sources listed for NSP can be used with the
+    "neural_proc_all" subsystem.
+
+- ulog
+
+  - Field: level
+
+  - Options: Fatal, Error, Warning, Info, Debug
+
+  - Description
+
+    The minimum priority level for a message to be logged.
+
+    Highest to lowest priorities are: Fatal, Error, Warning, Info, and
+    Debug.
+
+    Info level is the default for most logs.
+
+- ulog
+
+  - Field: transport
+
+  - Options: DIAG, QDSS
+
+  - Description
+
+    Where to route the logs.
+
+    Default transport for all logs is DIAG so logs are available for
+    reading by the qaic-log tool.
+
+    The transport mode QDSS routes log messages to the trace data buffer
+    instead for reading by qaic-trace-ctl.
+
+- sw_event
+
+  - Field: subsystem
+
+  - Options: neural_proc_all, neural_proc_X where X is the NSP ID
+
+  - Description
+
+    The NSP(s) to configure.
+
+    Neural_proc_all configures all NSPs.
+
+    A list of NSPs to configure can be provided:
+
+.. code-block:: text
+
+       "subsystem": [
+       "neural_proc_0",
+       "neural_proc_1"
+          ]
+
+- sw_event
+
+  - Field: events
+
+  - Options: all, default, NNC_PRE_ACTIVATE_BEGIN, and so on
+
+  - Description
+
+    List of software events to enable.
+
+    All enables all events. Default enables the default set of events.
+
+.. code-block:: text
+
+       "events": [
+       "NNC_PRE_ACTIVATE_BEGIN",            
+       "NNC_PRE_ACTIVATE_END",
+       "NNC_ACTIVATE_BEGIN",
+       "NNC_ACTIVATE_END"
+                ] 

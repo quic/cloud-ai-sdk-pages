@@ -1,0 +1,110 @@
+.. _reference-to-apps-sdk:
+
+========
+Apps SDK
+========
+
+The Apps SDK provides the compiler (``qaic-compile``) and development libraries
+needed to compile models into QPC (Qualcomm Program Container) artifacts. It can
+be installed on any Linux host, including systems without Cloud AI hardware.
+
+Preparation
+-----------
+
+1. Copy the Apps SDK zip file to your host machine.
+
+2. Extract the archive:
+
+   .. code-block:: bash
+
+      unzip aic_apps.Core.<version>.Linux-AnyCPU.zip
+
+3. Navigate to the correct directory:
+
+   .. code-block:: bash
+
+      cd <architecture>/<package-format>
+
+Uninstall Previous Version
+--------------------------
+
+If upgrading from a previous installation:
+
+.. code-block:: bash
+
+   sudo ./uninstall.sh
+
+Installation
+------------
+
+.. code-block:: bash
+
+   sudo ./install.sh
+
+Installation with qaic-pytools
+------------------------------
+
+qaic-pytools is an optional Python package included with the Apps SDK that
+provides additional model preparation and accuracy analysis tools. Install it
+when you need to prepare models for compilation or evaluate model accuracy on
+Cloud AI hardware.
+
+.. note::
+
+   If the Apps SDK is already installed without qaic-pytools, uninstall it
+   first before proceeding:
+
+   .. code-block:: bash
+
+      sudo ./uninstall.sh
+
+To include qaic-pytools (requires Python 3.10), install build dependencies first:
+
+*Debian/Ubuntu:*
+
+.. code-block:: bash
+
+   sudo apt install build-essential cmake python3.10-dev python3-dev -y
+
+*RHEL/Fedora:*
+
+.. code-block:: bash
+
+   sudo dnf groupinstall "Development Tools" -y
+   sudo dnf install cmake python3.10-devel python3-devel -y
+
+Then install with pytools enabled:
+
+.. code-block:: bash
+
+   sudo ./install.sh --enable-qaic-pytools
+
+Post-Installation
+-----------------
+
+**Verify installation directory**
+
+The SDK installs to ``/opt/qti-aic/``:
+
+.. code-block:: text
+
+   /opt/qti-aic/
+   ├── dev/
+   ├── exec/
+   ├── integrations/
+   └── scripts/
+
+**Check SDK version**
+
+.. code-block:: bash
+
+   cat /opt/qti-aic/versions/apps.xml
+
+**Set executable permissions**
+
+.. code-block:: bash
+
+   sudo chmod a+x /opt/qti-aic/dev/hexagon_tools-*/bin/*
+   sudo chmod a+x /opt/qti-aic/exec/*
+
+Continue to :ref:`Verification <reference-to-verification>`.

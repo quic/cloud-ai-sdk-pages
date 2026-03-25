@@ -1,0 +1,11 @@
+.. code:: bash
+
+   AICM:127.0.0.1 > list
+   2025-03-11 12:06:23,315 - [INFO]:[aicmi] Fetching list of all available devices:
+   2025-03-11 12:06:23,570 - [INFO]:[aicmi] List command succeeded
+   2025-03-11 12:06:23,570 - [INFO]:[aicmi] {
+     "total_devices": 1,
+     "device_ids": [
+       0
+     ]
+   }

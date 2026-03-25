@@ -1,0 +1,31 @@
+Pytorch Workflow
+================
+
+Eager Mode Finetune
+-------------------
+
+The PyTorch stack supports eager mode execution on Cloud AI accelerators
+via the ``torch_qaic`` package.
+
+.. image:: ../../../images/pytorch-stack.png
+
+-  The ``torch_qaic`` Python package lists operators supported by Cloud
+   AI accelerators.
+-  ``torch_qaic`` registers the accelerator with PyTorch.
+-  The JIT runtime enables running operators on Cloud AI hardware.
+-  The operator library is pre-coded and supports multiple NSPs.
+
+The PyTorch eager mode stack facilitates fine-tuning on Cloud AI
+accelerators. The Qualcomm Efficient-Transformers Library provides the
+necessary infrastructure for fine-tuning models. For more details, refer
+to `Finetune
+Infra <https://quic.github.io/efficient-transformers/source/finetune.html>`__.
+
+Limitations
+"""""""""""
+
+-  x86 host support only
+-  Python 3.10 only
+-  Torch 2.9.1 only
+-  Precision support: FP32, FP16, Int32, Int64 (assuming data is within
+   Int32 range), Boolean

@@ -1,0 +1,64 @@
+Quantization options
+====================
+
+The quantization options are:
+
+- ``-quantization-precision``: Quantization precision: Int8 (default) or
+  Int16
+
+- ``-quantization-precision-bias``: Quantization precision bias: Int8
+  (default) or Int32
+
+- ``-quantization-schema-activations``: Quantization scheme to use for
+  activations: symmetric, symmetric_with_uint8 (default),
+  symmetric_with_power2_scale
+
+- ``-quantization-schema-constants``: Quantization scheme for to use for
+  constants such as weights and bias: symmetric, symmetric_with_uint8
+  (default), symmetric_with_power2_scale
+
+- ``-quantization-calibration``: Specify which quantization calibration
+  to use: KLMinimization, Percentile, MSE, SQNR, or KLMinimizationV2. If
+  not specified, default (None - MinMax calibration) is used.
+
+- ``-percentile-calibration-value``: Specify the value to be used with
+  the percentile calibration method. The specified float value must be
+  within 90 and 100. Default is 100.
+
+- ``-num-histogram-bins``: Sets the number of histogram bins that will
+  be used in profiling every node. Default is 512.
+
+- ``-convert-to-fp16``: Run all floating-point computation in fp16
+  (disabled by default). No quantization is performed.
+
+- ``-no-quant``: Disables quantization.
+
+- ``-node-precision-info``: Load node precision config file to run
+  specific instances in FP16.
+
+- ``-execute-nodes-in-fp16``: Run all instances of the operators in this
+  list with FP16.
+
+- ``-keep-original-precision-for-nodes``: Run all instances of the
+  operators in this list with original precision.
+
+- ``-external-quantization``: Provide the external quantization file
+  path.
+
+- ``-custom-IO-list-file``: Custom I/O configuration file.
+
+- ``-load-pre-gen-files``: Pregenerated input data files and PGQ
+  profiles for a batch size can be provided through this option. This is
+  an extension for ``-input-list-file``, which is for one batch size
+  alone. File paths should be absolute paths or relative paths to parent
+  directory of the .json file.
+
+  For specification, an example file can be found at:
+
+  ``/opt/qti-aic/scripts/qaic-model-configurator/SampleFiles/pre_gen_files.json``.
+
+- ``-enable-rowwise``: Enable row-wise quantization.
+
+- ``-enable-channelwise``: Enable channel-wise quantization.
+
+

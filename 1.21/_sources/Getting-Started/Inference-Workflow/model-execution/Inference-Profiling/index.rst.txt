@@ -1,0 +1,364 @@
+.. _reference-to-inference-profiling:
+
+Inference Profiling
+===================
+
+This document describes how to configure stats and profiling options through
+``qaic-compile`` at compile time, how to collect raw stats buffers at runtime, and
+how to post-process those buffers with ``qaic-opstats``.
+
+Overview
+--------
+
+The compiler instruments the generated code with a stats buffer and configures
+the network to write cycle data into the buffer based on compile flags. Stats
+collection is divided into two categories:
+
+**Inference-level stats**
+    Cycle counts accumulated across an entire inference, such as device
+    execution time and per-port I/O wait times.
+
+**Opstats (operator-level stats)**
+    Cycle counts collected on a per-operator basis.
+
+The general workflow is:
+
+1. Compile the model with ``qaic-compile`` using the desired ``-stats-level``.
+2. Run the compiled model and collect raw stats buffers from the device.
+3. Post-process the stats buffers with ``qaic-opstats`` to produce human-readable
+   summaries and Chrome trace files.
+
+
+Compile-Time Options (qaic-compile)
+-----------------------------------
+
+Stats Level
+~~~~~~~~~~~
+
+The primary control for stats instrumentation is the ``-stats-level`` flag
+passed to ``qaic-compile``. Stats levels are **additive**: each higher level
+engages all instrumentation from lower levels.
+
+.. code-block:: bash
+
+   /opt/qti-aic/exec/qaic-compile -model=<model.onnx> -aic-binary-dir=./binaries -stats-level=70
+
+The following table summarizes what each level enables:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 15 55
+
+   * - Stats Level
+     - What It Collects
+   * - >= 40
+     - | Per-core, per-thread inference duration (UCycles and PCycles).
+       | Per-core, per-thread activation (pre-inference setup) duration.
+       | Per-core, per-thread PMU counter values (requires ``-aic-pmu-events``
+         or ``-aic-pmu-recipe``).
+       | Per-core DDR traffic (requires ``-ddr-stats``).
+   * - >= 50
+     - | Per-port total wait cycles on I/O doorbells.
+       | Pipelined input port doorbell ring timestamps.
+       | Per-op cycle data for pipelined semaphore increment instructions.
+   * - >= 70
+     - | Operator-level cycle counts (opstats level 1).
+   * - >= 100
+     - | Extended PMU stats.
+
+Level 40 is the default for ``qaic-compile`` and is sufficient for basic
+performance analysis. Levels 70 and above enable per-operator profiling, which
+is required for ``qaic-opstats`` to produce meaningful output.
+
+Stats Batch Size
+~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   -stats-batchsize=<num>
+
+Normalizes performance statistics to be per-inference when the model processes
+multiple batches.
+
+DDR Stats
+~~~~~~~~~
+
+.. code-block:: bash
+
+   -ddr-stats
+
+Enables collection of per-core DDR traffic details. Requires ``-stats-level >= 40``.
+
+PMU Configuration
+~~~~~~~~~~~~~~~~~
+
+PMU (Performance Monitoring Unit) counters can be configured with one of two
+mutually exclusive flags:
+
+.. code-block:: bash
+
+   -aic-pmu-recipe=<recipe>
+
+Select a pre-determined set of PMU event codes. Available recipes:
+``AxiRd``, ``AxiWr``, ``AxiRdWr``, ``KernelUtil``, ``HmxMacs``.
+
+.. code-block:: bash
+
+   -aic-pmu-events=<event,event,...>
+
+Track specific PMU events on NSP cores. Up to 8 events are supported. Event
+IDs are interpreted as hexadecimal::
+
+   -aic-pmu-events=3F,70,200
+
+Other Performance Flags
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   -aic-perf-warnings
+
+Print performance warning messages during compilation.
+
+.. code-block:: bash
+
+   -aic-perf-metrics
+
+Print compiler performance metrics.
+
+Collecting Stats Buffers at Runtime
+-----------------------------------
+
+After compiling with the desired stats level, the compiled model must be
+executed on hardware to collect stats buffers. The runtime is responsible for
+managing the stats buffer and writing it to disk.
+
+When using ``qaic-runner``, the following flags control stats buffer collection:
+
+.. code-block:: bash
+
+   --aic-profiling-type=<type>
+
+Profiling output type. Relevant values:
+
+- ``stats`` -- Produces ``.txt`` summary files (processed by the runtime).
+- ``trace`` -- Produces ``.json`` Chrome trace files (processed by the runtime).
+- ``raw_device_stats`` -- Produces ``.bin`` files containing raw stats buffers.
+  **This is the format required by qaic-opstats.**
+
+Summary and trace files generated at runtime via "stats" and "trace" options 
+passed to ``qaic-runner`` include host-level stats that are collected by the 
+runtime and kernel driver. "raw_device_stats" include device stats that are 
+collected by the network, and require post-processing via ``qaic-opstats``.
+
+.. code-block:: bash
+
+   --aic-profiling-out-dir=<path>
+
+Directory to save profiling output files. The directory must exist and be
+writable. Default: current directory.
+
+.. code-block:: bash
+
+   --aic-profiling-num-samples=<num>
+
+Number of profiling samples to save to file. Default: 1.
+
+.. code-block:: bash
+
+   --aic-profiling-start-iter=<num>
+
+Iteration at which to start collecting profiling data. Default: 1 for compile,
+0 for exec.
+
+.. code-block:: bash
+
+   --aic-profiling-start-delay=<num>
+
+Delay in milliseconds before profiling begins. Profiling starts after the
+given delay period has elapsed.
+
+Example: compile and collect raw stats buffers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   # Compile with opstats enabled (level 70)
+   /opt/qti-aic/exec/qaic-compile -model=model.onnx \
+       -aic-binary-dir=./binaries \
+       -stats-level=70
+
+   # Run and collect raw stats buffers
+   sudo /opt/qti-aic/exec/qaic-runner --test-data=./binaries \
+       --aic-profiling-type=raw_device_stats \
+       --aic-profiling-out-dir=./stats \
+       --aic-profiling-num-samples=5 \
+       --aic-profiling-start-iter 1 \
+       --num-iter=100
+
+The stats buffers are written with a predefined naming scheme::
+
+   aic-profiling-program-<P>-activation-<A>-inf-<I>-<NetworkName>-aiccyclecounts.bin
+
+For example::
+
+   aic-profiling-program-0-activation-0-inf-213-QAicGraph-aiccyclecounts.bin
+
+
+Post-Processing with qaic-opstats
+----------------------------------
+
+``qaic-opstats`` is a standalone post-processing tool that decodes raw stats
+buffers into human-readable summaries and Chrome trace files.
+
+Basic Usage
+~~~~~~~~~~~
+
+``qaic-opstats`` requires two inputs and at least one output format:
+
+.. code-block:: bash
+
+   /opt/qti-aic/exec/qaic-opstats \
+       --qpc <path/to/programqpc.bin> \
+       --input-dir ./stats/ \
+       --output-dir ./stats-out/ \
+       --summary \
+       --trace
+
+The tool searches the input directory for stats buffer files matching the
+expected naming scheme, associates each buffer with the corresponding network
+from the QPC, and processes them sequentially.
+
+Required Parameters
+~~~~~~~~~~~~~~~~~~~
+
+``-q/--qpc <path>``
+    Path to ``programqpc.bin`` generated by the compiler.
+
+``-i/--input-dir <path>``
+    Path to the directory containing raw stats buffer ``.bin`` files.
+
+At least one of the following output flags must be specified:
+
+``--summary``
+    Generate human-readable text summaries.
+
+``--trace``
+    Generate Chrome Tracing-compatible JSON files.
+
+Output Files
+~~~~~~~~~~~~
+
+Output files are written to the output directory (default: current directory)
+with the following naming convention::
+
+   <original-buffer-name>.qaic-opstats.summary.txt
+   <original-buffer-name>.qaic-opstats.trace.json
+
+For example::
+
+   aic-profiling-program-0-activation-0-inf-213-QAicGraph.qaic-opstats.summary.txt
+   aic-profiling-program-0-activation-0-inf-213-QAicGraph.qaic-opstats.trace.json
+
+Optional Parameters
+~~~~~~~~~~~~~~~~~~~
+
+``-o/--output-dir <path>``
+    Directory to store output files. Default: ``.`` (current directory).
+
+``--host-trace <path>``
+    Path to a host trace JSON file to incorporate into the device trace output.
+    This merges host-side timing information with device-side operator traces.
+
+``-c/--select-cores <list>``
+    Comma-separated list of core numbers for which to produce trace data.
+    Default: all cores. Example: ``--select-cores 0,5,1``
+
+``-d/--select-devices <list>``
+    Comma-separated list of device numbers for which to produce trace data.
+    Default: all devices. Example: ``--select-devices 0,1``
+
+``--merge-mq-traces <true|false>``
+    Merge traces from multiple Multi-QAic devices into a single trace file.
+    Default: ``true``.
+
+``--merge-thread-groups <true|false>``
+    Merge threads in the same thread group into a single trace thread.
+    Default: ``true``.
+
+``--flow-events <none|full>``
+    Control display of dependency flow events between operators in the trace.
+
+    - ``none`` -- No flow events (default).
+    - ``full`` -- Show all dependencies (true and false) between ops.
+
+``--show-barrier-events``
+    Show barrier events in a separate trace thread for every AIC thread.
+    Default: off.
+
+``-v/--verbose``
+    Enable verbose program logging.
+
+Viewing Trace Output
+~~~~~~~~~~~~~~~~~~~~
+
+The ``.trace.json`` files produced by ``qaic-opstats`` use the Chrome Tracing
+format. To view them:
+
+1. Open Google Chrome and navigate to ``chrome://tracing``.
+2. Click **Load** and select the ``.trace.json`` file.
+3. Use the timeline view to inspect per-operator execution, dependencies, and
+   I/O activity.
+
+Alternatively, use Perfetto (https://ui.perfetto.dev) which also supports the
+Chrome Tracing format.
+
+
+End-to-End Example
+------------------
+
+The following example demonstrates the full workflow from compilation through
+post-processing:
+
+.. code-block:: bash
+
+   # 1. Compile with operator-level stats enabled
+   /opt/qti-aic/exec/qaic-compile -model=model.onnx \
+       -aic-binary-dir=./binaries \
+       -stats-level=70
+
+   # 2. Run the model and collect raw stats buffers
+   sudo /opt/qti-aic/exec/qaic-runner --test-data=./binaries \
+       --aic-profiling-type=raw_device_stats \
+       --aic-profiling-out-dir=./stats \
+       --aic-profiling-num-samples=3 \
+       --aic-profiling-start-delay=1000 \
+       --num-iter=200
+
+   # 3. Post-process with qaic-opstats
+   /opt/qti-aic/exec/qaic-opstats \
+       --qpc ./binaries/programqpc.bin \
+       --input-dir ./stats \
+       --output-dir ./stats-out \
+       --summary \
+       --trace \
+       --flow-events full
+
+   # 4. View results
+   ls ./stats-out/
+   # aic-profiling-program-0-activation-0-inf-*.qaic-opstats.summary.txt
+   # aic-profiling-program-0-activation-0-inf-*.qaic-opstats.trace.json
+
+To focus the trace on specific cores:
+
+.. code-block:: bash
+
+   /opt/qti-aic/exec/qaic-opstats \
+       --qpc ./binaries/programqpc.bin \
+       --input-dir ./stats \
+       --output-dir ./stats-out \
+       --trace \
+       --select-cores 0,1,2,3
+
+
+Profiling using Python APIs is also supported. Refer to this :ref:`page <reference-to-python-api>`.

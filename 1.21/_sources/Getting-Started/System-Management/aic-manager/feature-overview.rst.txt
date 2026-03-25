@@ -1,0 +1,177 @@
+Feature Overview
+================
+
+These are the currently supported features of AICM. For more detailed
+information on specific features, it is advised to look at the Swagger
+UI interactive docs. When operational, AICM provides a Swagger UI
+interface accessible at ``<IP>:<PORT>/docs``.
+
+--------------
+
+Metrics Retrieval
+-----------------
+
+AICM provides a data retrieval mechanism for the following metrics:
+
+- General health data (same metrics obtainable from the ``qaic-util``
+  tool)
+- PCIe data (as in bytes read and written)
+- DDR data (as in bytes read and written at the NSP level)
+- RAS errors (from various components of the card)
+
+These metrics are continuously requested from the cards, and their
+interval can be set via command line or the config file.
+
+--------------
+
+Groups & Device Configuration
+-----------------------------
+
+.. figure:: resources/Grouping.png
+   :alt: alt text
+
+   alt text
+
+AICM can work with individual devices by querying their id or using
+groups. Any metric retrieval API has a group counterpart, and other
+features like policies/policy-alerts can be issued for groups. Groups
+are identified by a unique id that cannot start with numeric characters.
+
+Group management is done through the various groups API. It is possible
+to create, modify, and delete groups and their members.
+
+Groups are intended to be only logical and limited to a single host
+(cannot span over hosts). There is no check on actual devices. Once an
+API is requested for a group, the logical group request will result in a
+data response, and the dedicated field will be
+``device_reachable=true``, while the unavailable devices will return an
+empty response apart from a single field ``device_reachable=false``.
+
+Another useful feature of groups is the ability to create and assign
+device configurations uniformly across all devices within a group. This
+ensures consistency and simplifies management.
+
+The user can create a configuration and assign it to a group, this will
+be the **target configuration** for the group.
+
+When a device is added to a group, the target configuration is
+automatically applied, but the enforcement may not always succeed due to
+various reasons, such as the device cannot be reached by AICM or the
+configuration being incompatible with the device.
+
+In these cases, for some devices then we will have a: - **Target
+configuration**: the configuration that the user wants to apply to all
+the devices in the group. - **Current configuration**: the configuration
+that is currently applied to the device.
+
+There is a discrepancy between the two since the enforcement of the
+target configuration was not successful.
+
+To see the difference between the target and the current configuration
+AICM offers an API that generates a report where issues are highlighted.
+
+Example of a report for an AI100 card with target configuration asking
+to have LLM mode enabled. The report shows that the target configuration
+is different from the current configuration because the AI100 does not
+support LLM mode, which is currently only supported on the AI100 Ultra
+and Ultra Plus. The user is notified of this or other possible errors
+via the details field.
+
+.. code:: json
+
+   {
+     "group_id": "ExampleGroup",
+     "dev_config_reports": {
+       "0": {
+         "device_id": 0,
+         "target_config": {
+           "ecc_ddr": true,
+           "ecc_vctm": false,
+           "llm_mode": true
+         },
+         "current_config": {
+           "ecc_ddr": true,
+           "ecc_vctm": false,
+           "llm_mode": false
+         },
+         "details": [
+           "Failed to enforce LLM config: LLMOptions(llm_mode=True) on device: 0 - Cannot enforce the LLM Mode. LLM Mode available only on Ultra/Ultra +"
+         ]
+       }
+     }
+   }
+
+--------------
+
+Policies and Alerts
+-------------------
+
+AICM will continuously query data from the available qmonitor server in
+the background. Users can set up alerts for specific conditions.
+Currently, AICM can monitor these conditions, with plans to expand these
+options in the future. Available conditions:
+
+- temperature_violation
+- power_violation
+- DDR_pages_retirement_violation
+
+In turn, it is possible to activate some actions.
+
+As of now, the available actions:
+
+- Alert action
+
+These can be linked together via the Policies APIs.
+
+Alerts
+~~~~~~
+
+With policies using the alert actions, the user can create an alert
+mechanism.
+
+The final user will be able to receive alerts by subscribing to the
+/policy-alerts endpoint and listening for `server-sent
+events <https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events>`__.
+
+This is possible thanks to server-sent events, so the user will need to
+parse them accordingly.
+
+A complete example is available in the
+``examples/policy_alert_subscribe_example.py``.
+
+--------------
+
+Checks and Diagnostic Report Alerts
+-----------------------------------
+
+AICM supports the ability to serve diagnostics information from the
+cards leveraging the Field Diagnostics Tool. This will allow the user to
+detect and troubleshoot common problems affecting the cards by assessing
+the state of the card before/after inference runs.
+
+This is possible by creating a check on an individual or group of
+devices along with specifying an option to issue either of
+quick/medium/long suite of tests.
+
+Quick: Involves default software checks configured in qaic-fdt, PCI
+checks, device checks and quick inference test Medium: Involves above
+checks along with ECC checks and medium inference test Long: Involves
+all the above checks along with long inference test
+
+Diagnostic Report Alerts
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The user can also subscribe to the diagnostic report alert received
+against checks created by using the /diagnostics-report endpoint and
+listening for `server-sent
+events <https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events>`__.
+A complete example is available in the
+``examples/diag_report_subscribe_example.py``.
+
+Note: Special cases of errors reported in the diagnostic report alert:
+1. If there is a problem with a card, the diagnostics alert will report
+error “User permission error” and prompt the user to run AICM as root to
+have complete device access. 2. If the diagnostic alert reports an error
+“Command not found: /opt/qti-aic/tools/qaic-version-util”, the user
+needs to grant appropriate file permissions (chmod 755) to
+qaic-version-util.

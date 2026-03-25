@@ -1,0 +1,124 @@
+Frequently Asked Questions
+==========================
+
+General
+-------
+
+.. note::
+   :title: What is Cloud AI 100 Accelerator? 
+   :collapsible:
+
+   Cloud AI 100
+   accelerators enable high performance inference on deep learning models.
+   The accelerators are available in multiple form factors and associated
+   SKUs. Cloud AI SDKs enable end to end workflows - from onboarding a
+   pre-trained model to deployment of the ML inference application in
+   production.
+
+Cloud AI SDK Installation and Platform/OS Support
+-------------------------------------------------
+
+.. note::
+   :title: What operating systems and platforms are supported?
+   :collapsible:
+
+   See :ref:`Operating System and Platform Support <reference-to-Supported-Operating-Systems>`
+
+.. note:: 
+   :title: Where do I download the SDKs?
+   :collapsible:
+
+   Cloud AI SDK consists of a Platform and Apps SDK. Refer to 
+   :ref:`Cloud AI SDKs <reference-to-cloud-ai-sdk>` for more information.
+
+   For Platform SDK download, see :ref:`Platform SDK Download <reference-to-platform-sdk>`
+
+   For Apps SDK download, see :ref:`Apps SDK Download <reference-to-apps-sdk>`
+
+.. note::
+   :title: What environment variables need to be set to resolve toolchain errors such as libQAic.so?
+   :collapsible:
+
+   Set the environment variables as mentioned
+   :ref:`here <reference-to-os-dependencies>`.
+
+Deep Learning frameworks and networks
+-------------------------------------
+
+.. note::
+   :title: Which deep learning frameworks for supported by Cloud AI SDKs?
+   :collapsible:
+
+   ONNX and TensorFlow are supported by the
+   :ref:`compiler <reference-to-compile-the-model>`.
+   ``qaic-compile`` can dump the operators supported across different
+   frameworks.
+
+.. note::
+   :title: Which deep learning neural networks are supported?
+   :collapsible:
+   
+   Cloud AI platforms supports many model categories - Computer vision, object
+   detection, semantic segmentation, natural language processing, and
+   Generative AI networks. Performance information can be found at 
+   `Qualcomm Cloud AI 100
+   <https://www.qualcomm.com/products/technology/processors/cloud-artificial-intelligence>`_. 
+   Model recipes can be found in the `Cloud AI SDK <https://github.com/quic/cloud-ai-sdk>`_ GitHub.
+
+.. note:: 
+   :title: I have a neural network that I would like to run on Cloud AI platforms. How do I go about it?
+   :collapsible:
+   
+   There are 3 steps to run an inference on Cloud AI platforms.
+
+   1. Export the model in ONNX format (preferred due to operator support) and prepare the model 
+   2. Compile the model to generate a QPC binary (Qaic Program Container)
+   3. Execute, integrate and deploy into production pipeline
+
+   The :ref:`Quick Start Guide <reference-to-quick-start-guide>` provides a quick overview of the steps involved in running inference using a vision transformer model as an example. 
+
+   Refer to :ref:`Inference Workflow <reference-to-inference-workflow>` for detailed information how to onboard and run inference on Cloud AI platforms. 
+
+   Users can also refer to the `Model Recipes <https://github.com/quic/cloud-ai-sdk>`_ for the best performance for several models across several categories. 
+
+   `Tutorials <https://github.com/quic/cloud-ai-sdk>` are another resource that walks through the workflows to onboard models, tune for best performance and profile inferences.
+
+Runtime errors during inference
+-------------------------------
+
+.. note::
+   :title: While running inference I encounter 'IOCTL: Connection timed out ERROR'. What is the fix?
+   :collapsible:
+   
+   There are 3 timeout settings that we recommend users to increase when this issue is
+   encountererd. If the issue is not fixed, please raise a case through the
+   Qualcomm case support system or `Cloud AI SDK <https://github.com/quic/cloud-ai-sdk/issues>`_ GitHub.
+
+   .. code-block::
+   
+      sudo sh -c "echo 4000000 > /sys/module/qaic/parameters/wait_exec_default_timeout"
+      sudo sh -c "echo 4000000 > /sys/module/qaic/parameters/control_resp_timeout"
+      sudo sh -c "echo 4000000 > /sys/module/qaic/parameters/mhi_timeout"
+
+System management
+-----------------
+
+.. note:: 
+   :title: Which utility/tool is used to query health, telemetry and other information for all Cloud AI cards in the server?
+   :collapsible:
+   
+   Use the :ref:`qaic-util <reference-to-system-management>` command-line tool
+   to query all Cloud AI cards in the server.
+
+.. note::
+   :title: The Cloud AI device shows ``Status:Error``. How do i fix it?
+   :collapsible:
+   
+   ``Status: Error`` could be due to one of the following:
+
+   - Card boot-up not completed 
+   - User is not in the `qaic` group or has not used `sudo` prefix. `sudo /opt/qti-aic/tools/qaic-util`
+   - BIOS secure boot needs to be disabled
+   - Unsupported OS/platforms
+
+   Try :ref:`soc_reset <reference-to-soc-reset>` to recover the device.

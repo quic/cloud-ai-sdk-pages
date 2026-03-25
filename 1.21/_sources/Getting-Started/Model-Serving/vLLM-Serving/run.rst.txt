@@ -1,0 +1,104 @@
+Run vLLM
+=================
+
+This page shows how to run vLLM using a pre-built Qualcomm Cloud AI Docker image.
+
+Pull the Image
+--------------
+
+.. code-block:: bash
+
+   docker pull ghcr.io/quic/cloud_ai_inference_vllm:1.21.2.0
+
+Start the Server
+----------------
+
+.. code-block:: bash
+
+   docker run --rm -it --network host \
+      --workdir /workspace \
+      --device /dev/accel/ \
+      --shm-size=2gb \
+      --mount type=bind,source=$PWD,target=/workspace \
+      --mount type=bind,source=$HOME/.cache,target=/cache \
+      -e HF_HOME=/cache/huggingface \
+      -e QEFF_HOME=/cache/qeff_models \
+      ghcr.io/quic/cloud_ai_inference_vllm:1.21.2.0 \
+      --host 127.0.0.1 \
+      --port 8000 \
+      --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
+      --max-model-len 256 \
+      --max-num-seq 16 \
+      --max-seq-len-to-capture 128 \
+      --quantization mxfp6 \
+      --kv-cache-dtype mxint8
+
+**Note** This example mounts a host workspace and maps cache directories so model weights and QPC artifacts are stored on the host rather than inside the container. 
+This prevents losing them when the container exits and avoids recompiling on every restart. The first run may take significant time (Hugging Face download, ONNX export, QPC compilation), but subsequent runs are much faster when the caches are reused.
+
+Cache locations:
+
+- Hugging Face model weights:
+
+.. code-block:: text
+
+   $HOME/.cache/huggingface
+
+- QPCs and intermediate artifacts:
+
+.. code-block:: text
+
+   $HOME/.cache/qeff_models
+
+Hugging Face Authentication (HF_TOKEN)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some models (e.g. gated or private models) require authentication.
+
+How to provide HF_TOKEN:
+
+
+.. code-block:: text
+
+   -e HF_TOKEN=<your_huggingface_token>
+
+Note: HF_TOKEN is not required for fully public models like TinyLlama.
+
+
+Run on Bare Metal
+------------------
+For bare metal, follow the vLLM instalation from source section of :ref:`vLLM instalation <reference_to_vllm>` - Qualcomm Cloud AI Documentation.
+
+vLLM provides capabilities to start a FastAPI server to run LLM
+inference. Here is an example to use qaic backend (i.e. use the Qualcomm Cloud AI
+accelerators for inference).
+
+::
+
+   # Need to increase max open files to serve multiple requests
+   ulimit -n 1048576
+
+   # Need to configure thread parallelism to avoid unnecessary CPU contention
+   export OMP_NUM_THREADS=8
+
+   # Start the server
+   python3 -m vllm.entrypoints.api_server --host 127.0.0.1 --port 8000 --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 --max-model-len 256 --max-num-seq 16 --max-seq_len-to-capture 128 --device qaic --block-size 32 --quantization mxfp6 --kv-cache-dtype mxint8
+
+   # Client request
+   python3 examples/api_client.py --host 127.0.0.1 --port 8000 --prompt "My name is" --stream
+
+Similarly, an OpenAI compatible server can be invoked as follows
+
+::
+
+   # Need to increase max open files to serve multiple requests
+   ulimit -n 1048576
+
+   # Need to configure thread parallelism to avoid unnecessary CPU contention
+   export OMP_NUM_THREADS=8
+
+   # Start the server
+   python3 -m vllm.entrypoints.openai.api_server --host 127.0.0.1 --port 8000 --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 --max-model-len 256 --max-num-seq 16 --max-seq_len-to-capture 128 --device qaic --block-size 32 --quantization mxfp6 --kv-cache-dtype mxint8
+
+   # Client request
+   python3 examples/openai_chat_completion_client.py

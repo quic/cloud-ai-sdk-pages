@@ -1,0 +1,35 @@
+Build for x86_64
+================
+
+vLLM with qaic backend support can be installed by applying a patch on
+top of the open source vLLM repo.
+
+.. code-block:: bash
+
+    # Add user to qaic group to access Cloud AI devices without root
+    sudo usermod -aG qaic $USER
+    newgrp qaic
+
+    # Create a Python virtual environment
+    python3.10 -m venv qaic-vllm-venv
+
+    source qaic-vllm-venv/bin/activate
+
+    # Install the current release version of `Qualcomm Efficient-Transformers <https://github.com/quic/efficient-transformers>`_ (vLLM with qaic support requires efficient-transformers for model exporting and compilation)
+    pip install -U pip
+
+    pip install git+https://github.com/quic/efficient-transformers@release/v1.21.0
+
+    # Clone the vLLM repo, and apply the patch for qaic backend support
+    git clone https://github.com/vllm-project/vllm.git
+
+    cd vllm
+
+    git checkout v0.10.1
+
+    git apply /opt/qti-aic/integrations/vllm/qaic_vllm.patch
+
+    # Set environment variables and install
+    export VLLM_TARGET_DEVICE="qaic"
+
+    pip install -e .

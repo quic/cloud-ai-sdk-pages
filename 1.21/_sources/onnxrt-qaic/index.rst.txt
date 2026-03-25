@@ -1,0 +1,12 @@
+.. _reference-to-onnxrt-api:
+
+ONNX Runtime
+============
+
+ONNX Runtime reference for Qualcomm® Cloud AI:
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   onnxruntime/index

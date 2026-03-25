@@ -1,0 +1,48 @@
+QAicUdevMonitor
+===============
+
+The QAicUdevMonitor.py script is used to monitor the boot/ready status
+of AIC100 devices.
+
+Example for AIC100 device in ready state:
+
+.. code-block:: python
+
+      python3 /opt/qti-aic/examples/python/QAicUdevMonitor.py
+
+.. code-block:: text
+   =====Available devices====== 
+   DeviceName: qaic_aic100_1, Parent: 0000:01:00.0, status: Ready
+
+Example for AIC100 device in booting state:
+
+.. code-block:: python
+
+      python3 /opt/qti-aic/examples/python/QAicUdevMonitor.py
+
+.. code-block:: text
+   =====Available devices====== 
+   DeviceName: a100_00.26.00, Parent: 0000:1a:00.0, status: Booting
+
+Reset the device:
+
+.. code-block:: bash
+
+      sudo sh -c "echo 1 > /sys/bus/mhi/devices/mhi<device_id>/soc_reset"
+
+Udev log will show card bootup progress:
+
+.. code-block:: text
+
+   State: QAIC device down Parent: 0000:01:00.0 
+   State: FW Boot channel down Parent: 0000:01:00.0 
+   State: FW Timesync channel down Parent: 0000:01:00.0 
+   State: QAIC Controller channel down Parent: 0000:01:00.0 
+   State: FW Boot channel up Parent: 0000:01:00.0 
+   State: FW Timesync channel up Parent: 0000:01:00.0 
+   State: FW Boot channel down Parent: 0000:01:00.0 
+   State: FW Timesync channel down Parent: 0000:01:00.0 
+   State: FW Boot channel up Parent: 0000:01:00.0 
+   State: FW Timesync channel up Parent: 0000:01:00.0 
+   State: QAIC Controller channel up Parent: 0000:01:00.0 
+   State: QAIC device up Parent: 0000:01:00.0

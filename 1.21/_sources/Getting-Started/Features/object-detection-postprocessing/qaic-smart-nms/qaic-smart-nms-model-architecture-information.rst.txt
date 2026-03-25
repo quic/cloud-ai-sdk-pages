@@ -1,0 +1,92 @@
+Model architecture information
+==============================
+
+The Smart-NMS: user-config file (model architecture) parameters are:
+
+- modelname: modelname is used to choose the decode the subroutine
+  required for smart-nms. String options ("resnet34ssd", "mv1ssd",
+  "retinanet", "yolov3", "yolov4", "yolov5", "resnet18ssd",
+  "retinaface")
+
+  Required
+
+  Type: String
+
+- layout: Specifies the layout of output files. String options ("NAWHC",
+  "NCHW", "NHWC", "NCD", "NDC")
+
+  Required
+
+  Type: String
+
+- num-classes: Denotes the number of classes in the object-detection
+  model.
+
+  Required
+
+  Type: Int
+
+- num-landmark: Denotes the number of landmark datapoints present in
+  each branch of landmark output given in the landmark-output-list.
+
+  Optional. Default: 0
+
+  Type: Int
+
+- bbox-output-list: List of names of output nodes that contain box
+  features.
+
+  Required
+
+  Type: List
+
+- scores-output-list: List of names of output nodes that contain
+  score/logits features.
+
+  Required
+
+  Type: List
+
+- landmark-output-list: Required if num-landmark > 0, otherwise ignored.
+  List of names of output nodes that contain score/logits features.
+
+  Optional. Default: []
+
+  Type: List
+
+- do-class-specific-nms: Specify True if class-specific NMS is required.
+
+  Optional. Default: False
+
+  Type: Boolean
+
+- do-softmax: Specify True if softmax needs to be performed on outputs
+  from scores-output-list.
+
+  Optional. Default: False
+
+  Type: Boolean
+
+- background-class-idx: Specify index of class which contains
+  background.
+
+  Optional. Default: 0
+
+  Type: Int
+
+- map-classes-coco-81-to-91: Specify True if required to convert class
+  IDs from coco 81 class dataset to coco 91 class dataset.
+
+  Optional. Default: False
+
+  Type: Boolean
+
+- profiling-per-iter: This field enables the profiling of time and
+  memory for each time client call anchor box processing handle.
+  Otherwise, the summary of all the runs will be profiled.
+
+  Optional. Default: False
+
+  Type: Boolean
+
+
