@@ -1,0 +1,8 @@
+Examples
+========
+
+.. toctree::
+   :maxdepth: 1
+
+   InferenceSet IO Example <qaic-inference-set-io-buffers/index>
+   QAicInferenceSet Example <qaic-inference-set-group/index>

@@ -1,0 +1,64 @@
+.. _reference-to-cloud-ai-sdk:
+
+================
+SDK Installation
+================
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+
+   platform-sdk
+   platform-sdk-upgrade-pre-1.19
+   apps-sdk
+
+The Platform SDK and Apps SDK are the two components required to compile and
+run models on Qualcomm Cloud AI accelerators. This section covers compilation modes and installation steps.
+
+.. note::
+
+   Linux kernel 6.10 and later includes built-in KMD support and firmware for
+   Qualcomm Cloud AI accelerators. If you are running kernel 6.10+ and deploying
+   via containers, Platform SDK installation is optional - the
+   :doc:`Cloud AI container images </Getting-Started/Deployment/Docker/index>`
+   bundle the necessary runtime libraries and tools.
+
+Compilation Modes
+=================
+
+The Apps SDK and Platform SDK serve distinct roles in the model deployment pipeline:
+
+- **Apps SDK** - provides the compiler (``qaic-compile``) and development libraries
+  needed to compile models into QPC (Qualcomm Program Container) artifacts. The
+  Apps SDK can be installed on any Linux host, including systems without Cloud AI
+  hardware.
+
+- **Platform SDK** - provides the drivers, firmware, and runtime libraries required
+  to execute compiled models on Cloud AI hardware. Must be installed on every host
+  with Cloud AI cards physically attached.
+
+This separation supports two deployment patterns:
+
+.. list-table::
+   :widths: 20 40 40
+   :header-rows: 1
+
+   * - Mode
+     - Description
+     - SDK Requirements
+   * - **Single-Host**
+     - Compilation and execution are combined on the same system.
+     - Apps SDK + Platform SDK on the same host.
+   * - **Offline Compilation** *(recommended)*
+     - Compile on a dedicated build host and deploy the QPC artifact to one or
+       more inference servers. Compilation does not require Cloud AI hardware.
+       Inference servers require significantly less CPU and memory than build
+       servers. A single QPC can be deployed to many inference servers without
+       recompilation.
+     - Apps SDK on the build host; Platform SDK on the execution host.
+
+Installation
+============
+
+- :doc:`Platform SDK <platform-sdk>` - install on hosts with Cloud AI cards attached.
+- :doc:`Apps SDK <apps-sdk>` - install on build hosts for model compilation.

@@ -1,0 +1,191 @@
+AICMI (AICM CLI)
+================
+
+Overview
+--------
+
+The AICM CLI (``aicmi``) is an interactive command line tool for AICM’s
+REST APIs. It allows users to interact intuitively with AICM and avail
+its features through the terminal without having to use a programmatic
+interface. The pre-requisite to using ``aicmi`` is that the user should
+have AICM running on a target machine. It supports the available
+features of metric retrieval, group management, and other
+functionalities provided by AICM.
+
+Usage
+-----
+
+To run ``aicmi``, execute the following command:
+
+::
+
+   python aicmi.py
+
+You will be prompted to enter your username and password (same as the
+one used for AICM) followed by a menu with list of commands. ### Command
+Options - ``health``: Display general health data metrics. - ``group``:
+Manage groups of devices. - ``policy``: Create, apply and modify
+policies to manage devices. - ``exit``: Exit the application. -
+``list``: Display list of devices on the target system. - ``help``:
+Display this help message containing command menu.
+
+–8<– “docs/resources/aicmi_menu.md”
+
+Help
+~~~~
+
+For brief help on each command, you can use the ``help`` command
+directly or with ``help <topic>`` like:
+
+–8<– “docs/resources/aicmi_help.md”
+
+Health
+~~~~~~
+
+By default, the ``health`` command can be used to view the health
+metrics of all the AIC100 devices.
+
+Group
+~~~~~
+
+By default, the ``group`` command can be used to view the list of all
+the existing groups along with their respective device IDs, if any.
+
+Policy
+~~~~~~
+
+By default, the ``policy`` command can be used to view the list of all
+existing policies.
+
+List Command
+~~~~~~~~~~~~
+
+By default, the ``list`` command can be used to view the list of AIC100
+devices on the target system. –8<– “docs/resources/aicmi_list.md”
+
+Exit command
+~~~~~~~~~~~~
+
+Use the ``exit`` command to exit ``aicmi``.
+
+Additional Help
+~~~~~~~~~~~~~~~
+
+For more detailed help on each command, you can use the ``--help``
+option:
+
+.. code:: sh
+
+   health --help
+   group --help
+   policy --help
+
+Subcommands
+-----------
+
+Health Commands
+~~~~~~~~~~~~~~~
+
+Command Options
+^^^^^^^^^^^^^^^
+
+- ``-p``, ``--pcie``: Fetch PCIe throughput metrics.
+- ``-r``, ``--ras-error``, ``--ras_error``: Fetch RAS error metrics.
+- ``--ddr-bw``, ``--ddr_bw``: Fetch DDR bandwidth metrics.
+- ``-dev``, ``--device-id``, ``--device_id``: Target device ID
+  (integer).
+- ``-g``, ``--group``: Target group id (string).
+- ``-h``, ``--help``: Display this help message containing health
+  command options. –8<– “docs/resources/aicmi_health_help.md”
+
+Example Usage
+^^^^^^^^^^^^^
+
+1. **Fetch Health Data (For All-Devices/Device/Group)** ``sh  health``
+   ``sh  health -dev 0`` ``sh  health -g a_group_id``
+2. **Fetch PCIe Throughput Metrics (For All-Devices/Device/Group)**
+   ``sh  health -p`` ``sh  health -p -dev 0``
+   ``sh  health -p -g a_group_id``
+3. **Fetch RAS Error Metrics (For All-Devices/Device/Group)**
+   ``sh  health -r`` ``sh  health -r -dev 0``
+   ``sh  health -r -g a_group_id``
+4. **Fetch DDR Bandwidth Metrics (For All-Devices/Device/Group)**
+   ``sh  health --ddr-bw`` ``sh  health --ddr-bw -dev 0``
+   ``sh  health --ddr-bw -g a_group_id``
+
+Group Commands
+~~~~~~~~~~~~~~
+
+.. _command-options-1:
+
+Command Options
+^^^^^^^^^^^^^^^
+
+- ``-c``, ``--create``: Create a new group (string).
+- ``-d``, ``--delete``: Delete an existing group (string).
+- ``-e``, ``--empty``: Remove all devices from a group (string).
+- ``-a``, ``--add``: Add a targeted device to a group (string).
+- ``-r``, ``--remove``: Remove a targeted device from a group (string).
+- ``-l``, ``--list``: List devices in a target group (string).
+- ``-dev``, ``--device-id``, ``--device_id``: Single or multiple devices
+  to be targeted (integer).
+- ``-h``, ``--help``: Display this help message containing group command
+  options. –8<– “docs/resources/aicmi_group_help.md”
+
+.. _example-usage-1:
+
+Example Usage
+~~~~~~~~~~~~~
+
+1. **Create a New Group** ``sh  group -c new_group``
+2. **Delete an Existing Group** ``sh  group -d existing_group``
+3. **Empty an Existing Group** ``sh  group -e existing_group``
+4. **Add Devices to a Group** ``sh  group -a group_id -dev 0 1 2``
+5. **Remove Devices from a Group** ``sh  group -r group_id -dev 0 1 2``
+6. **List Devices in a Group** ``sh  group -l group_id``
+
+Policy Commands
+~~~~~~~~~~~~~~~
+
+.. _command-options-2:
+
+Command Options
+^^^^^^^^^^^^^^^
+
+- ``-c``, ``--create``: Create a new policy (string).
+- ``-d``, ``--delete``: Delete an existing policy (string).
+- ``-m``, ``--modify``: Modify an existing policy (string).
+- ``-cid``, ``--condition-id``, ``--condition_id``: Condition ID for a
+  policy (string). Valid choices: temperature_violation,
+  power_violation, DDR_pages_retirement_violation.
+- ``-aid``, ``--action-id``, ``--action_id``: Action ID for a policy
+  (string). Valid choices: alert.
+- ``-i``, ``--items``: One or more device-id(s) and/or group-id(s) to
+  apply a policy on (space-separated integer/string).
+- ``-dur``, ``--duration``: Duration of the data requested for condition
+  evaluation of a policy in seconds (integer). Valid choices: 10, 30,
+  60, 300, 600.
+- ``-agg``, ``--aggregation-type``, ``--aggregation_type``: Data
+  aggregation function to apply on the data collected (string). Valid
+  choices: min, max, avg.
+- ``-comp``, ``--comparison-operator``, ``--comparison_operator``:
+  Comparison operator to compare aggregated data with the threshold
+  during condition evaluation of a policy(string). Valid choices:
+  greater, greater_or_equal, less, less_or_equal.
+- ``-thres``, ``--threshold``: Threshold value to compare aggregated
+  data against (float).
+- ``-h``, ``--help``: Display this help message containing policy
+  command options. –8<– “docs/resources/aicmi_policy_help.md”
+
+.. _example-usage-2:
+
+Example Usage
+~~~~~~~~~~~~~
+
+1. **Create a New Policy**
+   ``sh  policy -c newpolicy -cid power_violation -aid alert -i 0 -dur 10 -agg avg -comp greater -thres 10``
+2. **Fetch All Policy Details** ``sh  policy``
+3. **Delete an Existing Policy** ``sh  policy -d newpolicy``
+4. **Modify an Existing Policy** For example: modifying the policy
+   created in 1.
+   ``sh  policy -m newpolicy -cid temperature_violation -thres 42``

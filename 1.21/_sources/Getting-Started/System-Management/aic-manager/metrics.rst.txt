@@ -1,0 +1,11 @@
+Metrics
+-------
+
+These are currently the metrics served by AICM (stored in
+``docs/metrics.csv``): In addition to a set of core metrics, AICM
+provides Reliability, Availability, Serviceability (RAS) error statuses.
+
+.. csv-table:: 
+   :file: metrics.csv
+   :header-rows: 1
+   :widths: 30, 30, 50

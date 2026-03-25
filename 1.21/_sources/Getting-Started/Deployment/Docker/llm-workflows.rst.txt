@@ -1,0 +1,35 @@
+LLM Workflows with vLLM
+========================
+
+These images are optimized for **large language model inference** using **vLLM** and
+provide OpenAI-compatible APIs out of the box.
+
+**Recommended images:**
+
+- ``cloud_ai_inference_vllm``
+- ``cloud_ai_inference_vllm_085``
+- ``cloud_ai_inference_vllm_py312`` (for Python 3.12 / gpt-oss)
+
+**Typical usage:**
+
+- Launch vLLM server directly
+- Serve models using OpenAI-compatible endpoints
+- Integrate with existing LLM clients
+
+**Example: vLLM inference server**
+
+.. code-block:: bash
+
+   docker pull ghcr.io/quic/cloud_ai_inference_vllm:1.21.2.0
+
+.. code-block:: bash
+
+   docker run --rm -it \
+     --shm-size=2gb \
+     --network host \
+     -e HF_TOKEN=<your_hf_token> \
+     -v $PWD/hf_cache:/workspace/hf_cache \
+     --device /dev/accel/ \
+     ghcr.io/quic/cloud_ai_inference_vllm:1.21.2.0 \
+     --model TinyLlama/TinyLlama-1.1B-Chat-v1.0 \
+     --port 8000

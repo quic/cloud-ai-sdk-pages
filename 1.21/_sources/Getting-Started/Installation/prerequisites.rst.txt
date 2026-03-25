@@ -1,0 +1,119 @@
+.. _reference-to-pre-requisites:
+
+=============
+Prerequisites
+=============
+
+Complete these prerequisites before installing the Cloud AI SDK.
+
+.. _reference-to-hardware-requirements:
+
+Hardware Requirements
+=====================
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Component
+     - Requirement
+   * - **CPU**
+     - Server-grade x86-64 or AArch64 multi-core processor
+   * - **RAM (Inference only)**
+     - Minimum 32 GB (recommended 128 GB+)
+   * - **RAM (Model compilation)**
+     - Minimum 512 GB (recommended 768 GB+)
+   * - **Storage**
+     - Minimum 1 TB (recommended 4 TB)
+
+.. note::
+   Large storage is recommended for storing multiple models, artifacts, and serialized engines.
+   Higher RAM is required for compiling large models with configurations like large batch sizes and context lengths.
+
+.. _reference-to-supported-os:
+
+Supported Operating Systems
+===========================
+
+.. list-table::
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Operating System
+     - Kernel
+   * - Ubuntu 22.04
+     - Default Kernel (GA or HWE)
+   * - Ubuntu 24.04
+     - Default Kernel (GA or HWE)
+   * - Red Hat Enterprise Linux 9.7
+     - Default Kernel
+   * - Red Hat Enterprise Linux 10.1
+     - Default Kernel
+   * - Amazon Linux 2023
+     - Default Kernel (x86-64 only)
+
+**Kernel Requirements**
+
+- Linux Kernel 5.10 or later is required
+- For systems with 64+ Cloud AI devices, Linux Kernel 6.2 or later is required
+
+.. only:: not appliance
+
+   .. warning::
+      Ultra cards consume 4 DRM/Accel device resources per card. Kernels prior to 6.2 are limited to 64 DRM device resources. Kernel 6.2+ extends this limit to 256.
+
+      For Ubuntu kernel versions, see `Ubuntu Kernel Lifecycle <https://ubuntu.com/kernel/lifecycle>`__.
+
+**Software Requirements**
+
+- Python 3.10 must be installed before running the SDK installers
+
+.. _reference-to-msi:
+
+Message Signaled Interrupts (MSI)
+=================================
+
+The QAic Kernel Driver requires 32 MSIs for optimal performance. The driver can function with a single MSI but with reduced performance.
+
+**Enable MSI in BIOS**
+
+- **Intel chipsets**: Enable Intel Virtualization Technology for Directed I/O (VT-d)
+- **AMD chipsets**: Enable IOMMU
+
+**Verify MSI Configuration**
+
+1. Find the device PCIe address:
+
+   .. code-block:: bash
+
+      lspci | grep Qualcomm
+
+2. Inspect MSI capability:
+
+   .. code-block:: bash
+
+      lspci -vvv -s <device_PCIe_address>
+
+3. Look for this output:
+
+   .. code-block:: text
+
+      Capabilities: [50] MSI: Enable+ Count=32/32 Maskable+ 64bit+
+
+   - ``Enable+`` - MSI is active
+   - ``Count=32/32`` - 32 interrupts are supported and enabled
+
+.. _reference-to-os-dependencies:
+
+OS Dependencies
+===============
+
+The ``install.sh`` scripts for both Platform SDK and Apps SDK automatically install required OS packages.
+
+To skip automatic dependency installation:
+
+.. code-block:: bash
+
+   sudo ./install.sh --skip_depends
+
+Continue to :ref:`Download SDKs <reference-to-download-sdks>`.

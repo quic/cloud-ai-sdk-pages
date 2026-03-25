@@ -1,0 +1,7 @@
+Compilation using qaic-compile
+==============================
+
+Qnms models follow the usual compilation process and commands. It is not
+required to provide additional options.
+
+

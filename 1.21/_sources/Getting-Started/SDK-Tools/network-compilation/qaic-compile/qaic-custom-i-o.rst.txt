@@ -1,0 +1,327 @@
+Custom I/O
+==========
+
+The custom I/O feature allows a user to provide the desired layout and
+precision for the inputs and outputs while loading a network. Instead of
+compiling the network for the inputs and outputs specified in the model,
+the network is compiled for the inputs and outputs described in the
+custom configuration. This feature is used when the user intends to
+preprocess (on GPU/CDSP or any other method) or offline process (like
+allowed by ML commons) the input data and avoid some steps in the input
+processing. A user can avoid redundant transposes, data-type conversions
+if they have knowledge of the input preprocessing steps. Similarly, on
+the postprocessing side, if the model output is to be fed to a next
+stage in a pipeline, the desired format and type can be configured as
+the output of current stage.
+
+- In case of layout, the user can choose either 'NHWC' or 'NCHW' if the
+  rank of the tensor is four.
+- In case of precision, the user can choose either 'float', 'float16',
+  or 'int8' datatypes. For the 'int8' datatype, quantization parameters
+  should also be provided.
+
+This feature is compatible with other features such as mixed precision,
+external quantization, and quantization profile generation. In this
+section, the term "model I/O" refers to the input and output datatypes
+and formats of the original model. The term "custom I/O" refers to the
+input and output datatypes and formats desired by the user.
+
+Custom I/O configuration file
+-----------------------------
+
+- YAML schema
+
+  Custom I/O can be applied using a configuration YAML file that
+  contains the following fields for each input and output that needs to
+  be modified:
+
+  - IOName: Name of the input or output that needs to be loaded as per
+    the custom requirement.
+  - Layout: NCHW and NHWC layouts are supported. This field is optional
+    and can be skipped for an input or output if rank is not equal to
+    four or if layout customization is not required.
+  - Precision: float, float16, and int8 datatypes are supported. This
+    field is optional and can be skipped for an input or output if
+    datatype customization is not required.
+  - Scale: scale value. This field is mandatory if the 'Precision' is
+    specified as 'int8'. This field is optional for other datatypes, and
+    it will be ignored even if provided.
+  - Offset: offset value. This field is mandatory if the 'Precision' is
+    specified as 'int8'. This field is optional for other datatypes, and
+    it will be ignored even if provided.
+
+- Custom I/O configuration example
+
+  Consider an ONNX model with three inputs and three outputs and with
+  the original model I/O and custom I/O configuration as shown in the
+  following tables.
+
+  **Custom I/O configuration: Inputs**
+
+  .. list-table::
+     :header-rows: 1
+
+     * - I/O Name
+       - Model I/O
+       - Custom I/O
+     * - input_0
+       - float NCHW
+       - int8 NHWC
+     * - input_1
+       - float NCHW
+       - float NHWC
+     * - input_2
+       - int64 NCHW
+       - int64 NHWC
+
+  **Custom I/O configuration: Outputs**
+
+  .. list-table::
+     :header-rows: 1
+
+     * - I/O Name
+       - Model I/O
+       - Custom I/O
+     * - output_0
+       - float NCHW
+       - float64 NHWC
+     * - output_1
+       - float (rank != 4)
+       - float64 (No layout change)
+     * - output_2
+       - int64 (rank !=4)
+       - No change
+
+Then, the content of the custom I/O configuration YAML file that should
+be provided is:
+
+.. code-block::
+
+   - IOName: input_0 
+     Layout: NHWC 
+     Precision: int8 
+     Scale: 0.12 
+     Offset: 3 
+     
+   - IOName: input_1 
+     Layout: NHWC 
+     
+   - IOName: input_2 
+     Layout: NHWC 
+     
+   - IOName: output_0 
+     Layout: NHWC 
+     Precision: float16 
+     
+   - IOName: output_1 
+     Precision: float16 
+
+**Notes:**
+
+1. If no change is required for an input or output, it can be skipped in
+   the configuration file.
+2. This feature currently does not support layouts other than NCHW and
+   NHWC. For other layouts, the '``Layout``' field should be skipped in
+   the configuration file.
+3. Precision can be modified using the custom I/O feature only if the
+   model input or output datatype is float, float16, or int8. For other
+   datatypes, the '``Precision``' field should be skipped in the
+   configuration file.
+4. For the int8 datatype, quantization parameters must be provided. They
+   can be obtained for a desired activations quantization schema using
+   the min-max quantization method. In case of SQNR or KL divergence
+   minimization or percentile calibration methods, then the min and max
+   values will be different than that of the float32 inputs.
+
+Usage with QAic compile
+-----------------------
+
+The QAic compile option '``-custom-IO-list-file``' can be used to provide
+the custom I/O configuration file as follows:
+
+.. code-block::
+
+   $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -input-list-file=<input_files_list_custom_IO> -custom-IO-list-file=custom_IO_config.yaml
+
+This feature is compatible with other QAic compile options such
+as  "``-aic-preproc``". In case all transformations need to be pushed to
+the device, the "``-aic-preproc``" option can be passed to qaic-compile
+along with custom I/O.
+
+For obtaining the custom I/O configuration template file, the option
+'``-dump-custom-IO-config-template``' should be used with Qaic compile as
+follows:
+
+.. code-block::
+
+   $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -dump-custom-IO-config-template=custom_IO_config.yaml
+
+If proper scale and offset fields need to be filled in the template
+file, then the option '``-dump-custom-IO-config-template``' should be
+used with QAic compile along with the quantization profile generated with
+model I/O, activations quantization schema, and calibration as follows:
+
+.. code-block::
+
+   $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -dump-custom-IO-config-template=custom_IO_config.yaml,pgq_profile_model_IO.yaml -quantization-schema-activations=<desired_schema> -quantization-calibration=<desired_calibration>
+
+- **Custom I/O with -convert-to-fp16**
+
+  1. Obtain the custom I/O configuration template
+
+     .. code-block::
+
+        $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -dump-custom-IO-config-template=custom_IO_config.yaml
+
+  2. Edit the template file 'custom_IO_config.yaml' obtained in step 1
+     and provide the desired layout and precision fields for the inputs
+     and outputs.
+
+  3. Apply custom I/O along with the ``-convert-to-fp16`` option.
+
+     .. code-block::
+
+        $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -input-list-file=<input_files_list_custom_IO> -custom-IO-list-file=custom_IO_config.yaml -convert-to-fp16
+
+- **Custom I/O with external quantization**
+
+  1. Obtain the custom I/O configuration template.
+
+     .. code-block::
+
+        $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -dump-custom-IO-config-template=custom_IO_config.yaml
+
+  2. Edit the template file '``custom_IO_config.yaml``' obtained in step
+     1 and provide the desired layout and precision fields for the
+     inputs and outputs. The scale and offset fields will be ignored
+     even if provided in the custom I/O configuration file. If precision
+     is set to int8, scale and offset will be obtained from the external
+     quantization profile file.
+
+  3. Apply custom I/O along with external quantization feature.
+
+     .. code-block::
+
+        $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -input-list-file=<input_files_list_custom_IO> -custom-IO-list-file=custom_IO_config.yaml -external-quantization=external_quantization_profile.yaml
+
+- **Custom I/O with profile guided quantization**
+
+  In case of profile guided quantization, the same custom I/O
+  configuration file should be used while dumping the profile and
+  loading the profile.
+
+  - **If scale and offset of I/O are known to the user:**
+
+    1. Obtain the custom I/O configuration template.
+
+       .. code-block::
+
+          $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -dump-custom-IO-config-template=custom_IO_config.yaml
+
+    2. Edit the template file ' ``custom_IO_config.yaml``\ ' obtained in
+       step 1 and provide the desired layout and precision fields for
+       the inputs and outputs. Fill the scale and offset fields with
+       proper values known to the user if the corresponding I/O
+       precision is set to int8.
+
+    3. Apply custom I/O and perform profiling using the input data in
+       the format as per the custom I/O configuration.
+
+       .. code-block::
+
+          $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -input-list-file=<input_files_list_custom_IO> -custom-IO-list-file=custom_IO_config.yaml -dump-profile=pgq_profile_custom_IO.yaml
+
+    4. Apply custom I/O and load the quantization profile file generated
+       in step 3.
+
+       .. code-block::
+
+          $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -input-list-file=<input_files_list_custom_IO> -custom-IO-list-file=custom_IO_config.yaml -load-profile=pgq_profile_custom_IO.yaml -quantization-schema-activations=<desired_schema> -quantization-calibration=<desired_calibration> -quantization-schema-constants=<desired_schema>
+
+  - **If scale and offset of I/O are not known to the user:**
+
+    In case the user does not have the scale and offset for the I/O that
+    should be used in the custom I/O configuration file, the user can
+    use any external tool such as AIMET for obtaining the scale and
+    offset and follow the steps provided in the previous section.
+
+    Alternatively, the scale and offset can be derived by performing PGQ
+    on model I/O. Then use that scale and offset to process the data
+    into custom I/O datatype and format and perform profiling with the
+    preprocessed input data. These steps are as follows:
+
+    1. Perform profiling with input data as per model I/O without using
+       custom I/O configuration. This step can be skipped if profile
+       file with model I/O is already available.
+
+       .. code-block::
+
+          $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -input-list-file=<input_files_list_model_IO> -dump-profile=pgq_profile_model_IO.yaml
+
+    2. Using the profile file dumped in step 1, the scale and offset can
+       be obtained in the template file using the option
+       '``-dump-custom-IO-config-template``' and by providing the
+       desired activations quantization schema and calibration method.
+
+       .. code-block::
+
+          $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -dump-custom-IO-config-template=custom_IO_config.yaml,pgq_profile_model_IO.yaml -quantization-schema-activations=<desired_schema> -quantization-calibration=<desired_calibration>
+
+    3. Edit the template file '``custom_IO_config.yaml``' obtained in
+       step 2 and provide the desired layout and precision fields for
+       the inputs and outputs. Note that the scale and offset fields are
+       already filled with proper values based on the given quantization
+       schema and calibration. They will be considered if the
+       corresponding I/O precision is set to int8, else ignored.
+
+    4. Perform profiling with the input data as per the custom I/O
+       configuration file.
+
+       .. code-block::
+
+          $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -input-list-file=<input_files_list_custom_IO> -dump-profile=pgq_profile_custom_IO.yaml -custom-IO-list-file=custom_IO_config.yaml
+
+    5. Load the model using the ``-load-profile`` option. Note that the
+       activations quantization schema and calibration should be same as
+       those used in step 2 while computing scale and offset.
+
+       .. code-block::
+
+          $ /opt/qti-aic/exec/qaic-compile -model=<path_to_model> -input-list-file=<input_files_list_custom_IO> -load-profile=pgq_profile_custom_IO.yaml -custom-IO-list-file=custom_IO_config.yaml -quantization-schema-activations=<desired_schema> -quantization-calibration=<desired_calibration> -quantization-schema-constants=<desired_schema>
+
+**Notes:**
+
+1. The Uint8 datatype is currently not supported with the custom I/O
+   feature. Conversion from Uint8 to Int8 should be done by LRT or the
+   device.
+2. Int64, Int32, and Int16 are currently not supported with custom I/O
+   feature.
+3. When low precision scale (fewer decimal places) and offset are used
+   to preprocess input data into custom I/O and further used by
+   dequantization during quantization profile generation for custom I/O,
+   there will be loss in accuracy.
+
+LLM custom-io file
+------------------
+
+This file defines explicit model inputs and outputs for Key‑Value (KV) cache state management in an autoregressive LLM.
+It is used when:
+
+- The model is exported in KV‑style (prefill + decode separation),
+- Inference runs token‑by‑token,
+- KV cache must be retained across decode iterations instead of recomputed every time.
+
+
+.. code-block:: yaml
+
+   - IOName: past_key.0 
+     Precision: mxint8
+     
+   - IOName: past_key.0 
+     Precision: mxint8
+     
+   - IOName: past_key.0_RetainedState
+     Precision: mxint8
+     
+   - IOName: past_key.0_RetainedState
+     Precision: mxint8

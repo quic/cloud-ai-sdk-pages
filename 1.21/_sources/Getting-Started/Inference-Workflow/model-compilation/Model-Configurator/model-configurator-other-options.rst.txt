@@ -1,0 +1,67 @@
+.. _reference_to_Other_options:
+
+Other options
+=============
+
+Parameters for other options are:
+
+- ``-load-configs``, ``-save-config``, ``-list-configs``: Options used
+  to save the search space in a file and load it later for another run
+  (with editing if needed). The ``-list-configs`` option will list all
+  the executions before running.
+
+- ``-iter``: Number of iterations to run.
+
+- ``-device-processing``: Enable pre- and postprocessing on the AIC
+  device.
+
+- ``-compile-only``: Perform compilation only (no execution). Compiled
+  networks are saved in output directories.
+
+- ``-device-id``: AIC device ID in case of multiple devices.
+
+- ``-d32-spatial-major``: Use spatial major layout. Note that the
+  compiler automatically uses spatial major layout for depth-wise
+  separable convolutions, so it is not necessary to specify this option
+  explicitly for such cases.
+
+- ``-qdrive``: Use qdrive present at 192.168.1.1 instead of attached
+  SA9000 to execute each model.
+
+- ``-register-custom-op``: Register custom operations for your model
+  using the configuration file.
+
+- ``-enable-depth-first``: Enables depth-first optimizations. Compiler
+  sets the default depth-first memory size. To search across different
+  depth-first memory sizes use the option ``-depth-first-mem=N.`` See
+  *Search space parameters* for more information.
+
+- ``-enable-single-device-partitioning``: Enables single-device
+  partitioning. The cores involved are split into partitions/clusters
+  and the network is split among the clusters, allowing for pipelined
+  execution of the network.
+
+  Extends the search space by automatically generating valid cluster
+  configurations and the associated MOS values for each cluster.
+
+- ``-remote-exec``: Enables remote execution of the model. Pass host and
+  username as ``username@host``. The connection is geared to be
+  password-less and requires the ssh keys to be set up on the remote
+  machine for this to work. When specified, the model is compiled
+  locally, the compiled binary and input data are copied to remote
+  machine, and model is run there. This is expected to be slower as data
+  movement is involved.
+
+- ``-onnx-define-symbol-batch-size``: Set the onnx symbol name for batch
+  size. Sets the batch size through the\ ``onnx-define-symbol`` option.
+  The batch size values are picked from the ``-batchsize`` option. This
+  option is relevant for ONNX models alone.
+
+- ``-retain-binaries``: By default, compiled model binaries are deleted
+  as they can take up a lot of disk space. This option can be used to
+  retain the binaries.
+
+- ``-max-compilation-threads``: Max number of threads to spawn for
+  running multiple compilations in parallel.
+
+

@@ -1,0 +1,77 @@
+Model Setting Details
+=====================
+
+Model Params - Compiler API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. csv-table::
+   :escape: $
+   :widths: 20, 40, 20, 20
+   :header: "Option", "Description", "Default", "Relevance"
+
+   "model-path", "Path to model file", "", "Required. Used in compilation, OnnxRT framework."
+   "onnx-define-symbol", "Define an onnx symbol with its value. pairs of onnx symbol key,value separated by space.", "", "Required. Used in compilation, OnnxRT framework."
+   "external-quantization", "Path to load the externally generated quantization profile", "", "Optional"
+   "node-precision-info", "Path to load model loader precision file for setting node instances to FP16 or FP32", "", "Optional. Used in compilation with pgq-profile for mixed precision."
+
+Runtime Parameters
+~~~~~~~~~~~~~~~~~~
+
+.. csv-table::
+   :escape: $
+   :widths: 20, 40, 20, 20
+   :header: "Option", "Description", "Default", "Relevance"
+
+   "aic-binary-dir", "Absolute path or relative path ( wrt model settings file parent directory) to dir with programqpc.bin", "", "Required to skip compilation."
+   "device-id", "AIC device ID", "0", "Optional"
+   "set-size", "Set Size for inference loop execution", "10", "Optional"
+   "aic-num-of-activations", "Number of activations", "1", "Optional"
+   "relative-path", "aic-binary-dir absolute path will be constructed using base-path of model-settings file; $"True$", $"False$"", "$"False$"", "Optional. Set to true, to allow relative-path for aic-binary-dir."
+
+Common
+~~~~~~
+
+.. csv-table::
+   :escape: $
+   :widths: 20, 40, 20, 20
+   :header: "Option", "Description", "Default", "Relevance"
+
+   "relative-path", "aic-binary-dir absolute path will be constructed using base-path of model-settings file; $"True$", $"False$"", "$"False$"", "Optional. Set to true, to allow relative-path for aic-binary-dir."
+
+qaicRegisterCustomOp - Compiler C API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. csv-table::
+   :escape: $
+   :widths: 20, 40, 20, 20
+   :header: "Option", "Description", "Default", "Relevance"
+
+   "register-custom-op", "Register custom op using this configuration file", "", "Required if model has AIC custom ops; vector of string"
+
+Graph Config - Compiler API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. csv-table::
+   :escape: $
+   :widths: 20, 40, 20, 20
+   :header: "Option", "Description", "Default", "Relevance"
+
+   "aic-depth-first-mem", "Sets DFS memory size", "Set by compiler", "Optional. Used in compilation with aic-enable-depth-first"
+   "aic-enable-depth-first", "Enables DFS with default memory size; $"True$", $"False$"", "Set by compiler", "Optional. Used in compilation."
+   "aic-num-cores", "Number of aic cores to be used for inference on", "1", "Optional. Used in compilation."
+   "allocator-dealloc-delay", "Option to increase buffer lifetime 0 - 10, e.g 1", "Set by compiler", "Optional. Used in compilation."
+   "batchsize", "Sets the number of batches to be used for execution", "1", "Optional. Used in compilation."
+   "convert-to-fp16", "Run all floating-point in fp16; $"True$", $"False$"", "$"False$"", "Optional. Used in compilation."
+   "enable-channelwise", "Enable channelwise quantization of Convolution op; $"True$", $"False$"", "Set by compiler", "Optional. Used in compilation with pgq-profile."
+   "enable-rowwise", "Enable rowwise quantization of FullyConnected and SparseLengthsSum ops; $"True$", $"False$"", "Set by compiler", "Optional. Used in compilation with pgq-profile."
+   "execute-nodes-in-fp16", "Run all instances of the operators in this list with FP16; $"True$", $"False$"", "Set by compiler", "Optional. Used in compilation with pgq-profile for mixed precision."
+   "hwVersion", "HW version of AI", "QAIC_HW_V2_0", "Cannot be configured, set to QAIC_HW_V2_0."
+   "keep-original-precision-for-nodes", "Run operators in this list with original precision at generation", "", "Optional. Used in compilation with pgq-profile for mixed precision."
+   "mos", "Effort level to reduce the on-chip memory; eg: $"1$"", "Set by compiler", "Optional. Used in compilation."
+   "multicast-weights", "Reduce DDR bandwidth by loading weights used on multiple-cores only once and multicasting to other cores", "", ""
+   "ols", "Factor to increasing splitting of network for parallelism", "Set by compiler", "Optional. Used in compilation."
+   "quantization-calibration", "Specify quantization calibration -$"None$", $"KLMinimization$", $"Percentile$", $"MSE$", $"SQNR$", $"KLMinimizationV2$"", "$"None$"", "Optional. Used in compilation with pgq-profile."
+   "quantization-schema-activations", "Specify quantization schema - $"asymmetric$", $"symmetric$", $"symmetric_with_uint8$", $"symmetric_with_power2_scale$"", "$"symmetric_with_uint8$"", "Optional. Used in compilation with pgq-profile."
+   "quantization-schema-constants", "Specify quantization schema - $"asymmetric$", $"symmetric$", $"symmetric_with_uint8$", $"symmetric_with_power2_scale$"", "$"symmetric_with_uint8$"", "Optional. Used in compilation with pgq-profile."
+   "size-split-granularity", "To set max tile size, KiB between 512 - 2048, e.g 1024", "Set by compiler", "Optional. Used in compilation."
+   "aic-hw", "To set the target to QAIC_SIM or QAIC_HW; $"True$", $"False$"", "$"True$"", "Optional."

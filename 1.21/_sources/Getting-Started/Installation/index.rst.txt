@@ -1,0 +1,127 @@
+.. _reference-to-installation:
+
+============
+Installation
+============
+
+This guide walks you through installing the Cloud AI SDK on your system. Choose your installation path based on your environment:
+
+.. list-table::
+   :widths: 25 75
+   :header-rows: 1
+
+   * - Environment
+     - Description
+   * - :ref:`Cloud Instances <reference-to-cloud-instances>`
+     - Pre-configured instances on AWS or Cirrascale (fastest setup)
+   * - :ref:`Local Server <reference-to-local-server-install>`
+     - On-premise servers with Cloud AI hardware
+   * - :doc:`Docker </Getting-Started/Deployment/Docker/index>`
+     - Containerized deployment
+   * - :doc:`Hypervisors </Getting-Started/Deployment/hypervisor/index>` 
+     - KVM, ESXi, or Hyper-V environments
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   checklist
+   prerequisites
+   download-sdks
+   sdk-installation
+   verification
+
+.. only:: not appliance
+
+   .. _reference-to-cloud-instances:
+
+   Cloud Instances
+   ===============
+
+   Qualcomm Cloud AI accelerators are available from two cloud providers:
+
+   - `Amazon Web Services (AWS) <https://aws.amazon.com/ec2/instance-types/dl2q/>`__ —
+     see :doc:`Getting Started on AWS </Getting-Started/Deployment/aws/index>` for
+     instance setup and configuration.
+   - `Cirrascale Cloud Services <https://cirrascale.com/solutions-qualcomm-cloud-ai100.php>`__ —
+     configurations from 1 to 8 Cloud AI accelerators per instance.
+
+   .. note::
+
+      SDKs are pre-installed on cloud instances. Skip ahead to
+      :doc:`Inference Workflow <../Inference-Workflow/index>`.
+
+.. _reference-to-local-server-install:
+
+Local Server Installation
+=========================
+
+Follow these steps to install on an on-premise server:
+
+1. **Verify hardware requirements** - :ref:`Hardware Requirements <reference-to-hardware-requirements>`
+2. **Check OS compatibility** - :ref:`Supported Operating Systems <reference-to-supported-os>`
+3. **Configure BIOS settings** - :ref:`Enable MSI <reference-to-msi>`
+4. **Download SDKs** - :ref:`Download from QPM <reference-to-download-sdks>`
+5. **Install Platform SDK** - :ref:`Platform SDK Installation <reference-to-platform-sdk>`
+6. **Install Apps SDK** - :ref:`Apps SDK Installation <reference-to-apps-sdk>`
+7. **Verify installation** - :ref:`Verification Checklist <reference-to-verification>`
+
+.. tip::
+   To run Platform SDK tools without ``sudo``, add yourself to the qaic group:
+
+   .. code-block:: bash
+
+      sudo usermod -aG qaic $USER
+      newgrp qaic  # Apply changes without logging out
+
+.. only:: not appliance
+
+   .. _reference-to-vm-install:
+
+   Virtual Machine Installation
+   ============================
+
+   Cloud AI supports PCIe passthrough to virtual machines. The VM has exclusive access to the Cloud AI device (no sharing between VMs or with the host).
+
+   **Supported Hypervisors (x86-64 only)**
+
+   - KVM
+   - Hyper-V
+   - ESXi
+   - Xen
+
+   **Installation Steps**
+
+   1. Configure PCIe passthrough on your hypervisor
+   2. Enable MSI in BIOS and hypervisor settings
+   3. Launch VM with a :ref:`supported OS <reference-to-supported-os>`
+   4. Install Cloud AI SDKs inside the VM
+   5. Verify card health
+
+   .. note::
+      Cloud AI SDKs are installed only on the guest VM, not on the hypervisor host.
+
+   See :doc:`Hypervisors </Getting-Started/Deployment/hypervisor/index>` for
+   detailed PCIe passthrough and hypervisor configuration instructions.
+
+.. _reference-to-docker-install:
+
+Docker Installation
+===================
+
+For containerized deployments:
+
+1. Install Platform SDK on the host system
+2. Download a prebuilt `Docker image <https://github.com/quic/cloud-ai-containers>`__ for Cloud AI or use the Apps SDK to build a custom Docker image.
+3. Launch container with device access
+
+See :doc:`Docker </Getting-Started/Deployment/Docker/index>` for detailed
+instructions, available images, and workflow examples.
+
+Next Steps
+==========
+
+After installation, proceed to:
+
+- :doc:`Inference Workflow <../Inference-Workflow/index>` - Compile and run models
+- :doc:`System Management <../System-Management/system-management/index>` - Monitor and manage devices

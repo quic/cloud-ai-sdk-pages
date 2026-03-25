@@ -1,0 +1,178 @@
+.. _reference_to_libAICsmartnms_so:
+
+libAICsmartnms.so
+=================
+
+libAICsmartnms.so can be linked with CPP code and the API mentioned in
+include files can be used in client CPP code. The example shows use of
+the APIs present in libAICsmartnms.so along with CMake to link to the
+library. The library requires GCC >= 7.5 , Protobuf==3.11.4 and CMake >=
+3.15.
+
+.. code-block::
+
+   /*  
+   Code for fp32 post-processing on resnet34-ssd model 
+   */ 
+    
+   // include the required header files 
+   // include directory to be specified in cmake 
+   #include "AnchorBoxProcessing.h" 
+   #include "Interface.h" 
+    
+   // Initiate the parameters required for smart box processing and NMS 
+   std::string configfilepath = "./src/examples/configs/user-config-resnet34ssd.yml"; 
+   InitParameters params(configfilepath); 
+    
+   // Initiate the AnchorBoxProcessing class 
+   // Available options for different precision - anchor::fTensor, anchor::uTensor,  anchor::iTensor, anchor::hfTensor 
+    
+   AnchorBoxProcessing<anchor::fTensor, float, anchor::fTensor, float,  anchor::fTensor, float> anchorBoxProc(params); 
+    
+   // Place holder for inputs to smart nms 
+   std::vector<anchor::fTensor> detections1; 
+   std::vector<anchor::fTensor> logits1; 
+   std::vector<anchor::fTensor> lm1; 
+    
+   //Placeholder for outputs from smartbp-nms 
+   // Output will store each vector of float 
+   /* 
+       [0] -> threadid 
+       [1] -> box_coordinate_1 
+       [2] -> box_coordinate_2 
+       [3] -> box_coordinate_3 
+       [4] -> box_coordinate_4 
+       [5] -> box_score 
+       [6] -> box_class_label 
+       [7] -> batch_identifier  
+   */  
+   std::vector<std::vector<float>> results(0,std::vector<float>(7,0)); 
+   std::vector<std::vector<std::vector<float>>> landmarksResults(0 ,  std::vector<std::vector<float>>(params.num_landmarks, std::vector<float> (2, 0))); 
+    
+   // call the anchor box processing handle api 
+   (anchorBoxProc.*(anchorBoxProc.handle))(detections1, logits1, lm1, results,  landmarksResults, threadid);
+
+The following changes in CMake are required to use the API(s) of
+Smart-NMS.
+
+.. code-block::
+
+   target_link_libraries(example PRIVATE /opt/qti-aic/tools/smart-nms/libAICsmartnms.so) 
+   target_include_directories(example PRIVATE /opt/qti-aic/tools/smart-nms/src/include)
+
+The following table lists libAICsmartnms.so output vector
+interpretations.
+
+.. list-table::
+   :widths: 13 25 34
+   :header-rows: 1
+
+   * - Output vector index
+     - Interpretation
+     - Remarks
+   * - 0
+     - id
+     - This is a placeholder for thread_id. In the case of multithreaded
+       execution, this can be used as book-keeping information.
+   * - 1,2,3,4
+     - box_coordinates
+     - These are the four coordinates of boxes that can be used to do
+       mAP evaluation or plotting; these boxes need postprocessing based
+       on model architecture.
+   * - 5
+     - box_score
+     - The box score for the class mentioned in box_class_label. That
+       is, a 0.9 as the box_score and a box_class_label = 5, means that
+       a box (with the box_coordinates above) has a 90% chance to be
+       class 5.
+   * - 6
+     - box_class_label
+     - The class ID of the box.
+   * - 7
+     - batch_identifier
+     - If the model support batch-size >1, run under a single thread,
+       then each row in outputs needs to be mapped to its correct batch.
+       This information is captured in batch_identifier. Example: If
+       yolov3 is executed with batch-size = 4, (that is, four images),
+       and in each image there are 4, 10, 2, 21 detections that are run
+       under a single thread, then the first 4 rows in output vector
+       have batch_identifier as 0, the next 10 will have 1, the next 2
+       will have 3, and finally the next 21 will have 3.
+
+The following changes in CMake are required to use the API(s) of
+Smart-NMS.
+
+.. code-block::
+
+   target_link_libraries(example PRIVATE /opt/qti-aic/tools/smart-nms/libAICsmartnms.so) 
+   target_include_directories(example PRIVATE /opt/qti-aic/tools/smart-nms/src/include) 
+
+Example of a typical CMake that is required to run client application
+using libAICsmartnms.so:
+
+.. code-block::
+
+   cmake_minimum_required(VERSION 3.15) 
+   set(CMAKE_CXX_STANDARD 17) 
+   set(CMAKE_CXX_FLAGS -O3) 
+     
+   set(CMAKE_CXX_FLAGS "-std=c++17 -pthread -O3 -ffast-math -ftree-vectorize") 
+   set(AIC_INCLUDE_DIR "/opt/qti-aic/dev/inc" "/opt/qti-aic/dev/inc/qaic-api-common") 
+     
+   list(APPEND PUBLIC_HEADERS 
+       include 
+       ${AIC_INCLUDE_DIR} 
+       ) 
+     
+   list(APPEND SRCS 
+       Client.cpp 
+       ) 
+   add_executable(example 
+       ${SRCS}) 
+     
+   set(AIC_LIBRARY ${CMAKE_CURRENT_BINARY_DIR}/libAICsmartnms.so) 
+   set_target_properties(example PROPERTIES LINK_FLAGS -Wl,--unresolved-symbols=ignore-in-shared-libs) 
+   target_link_libraries(example PRIVATE ${AIC_LIBRARY} ${CMAKE_DL_LIBS}) 
+   target_include_directories(example PRIVATE ${PUBLIC_HEADERS})
+
+Users can now write a function for decoding boxes and pass that function
+object to the anchorBoxProcessing object.
+
+The AnchorBoxProcessing class constructor accepts the InitParameters
+object with logic for decoding boxes and landmarks from prior
+information.
+
+Box decoding is a std::function object with a type of
+
+.. code-block::
+
+   std::function<void(std::vector<float>&, const float *, const uint32_t&)>
+
+and Landmark decoding is also std::function object with type of
+
+.. code-block::
+
+   std::function<void(std::vector<std::vector<float>>&, const float *)
+
+boxFunctor,lmFunctor will look for default decoding functions. If the
+default decoding functions do not match with the current model
+architecture, then it will issue an error.
+
+Refer to the following sample for initialization of AnchorBoxProcessing
+with custom decode functions.
+
+.. code-block::
+
+   // Box decoding 
+   void customBoxDecoding(std::vector<float>&loc, const float* prior, const uint32_t& layer) { 
+   //code 
+   } 
+    
+   //Landmark decoding 
+   void customerLandmarkDecoding(std::vector<std::vector<float>>& landmark, const float* prior) { 
+   //code 
+   } 
+    
+   AnchorBoxProcessing<anchor::fTensor, float, anchor::fTensor, float, anchor:fTensor, float> anchorBoxProc(params, customBoxDecoding, customLandmarkDecoding);
+
+

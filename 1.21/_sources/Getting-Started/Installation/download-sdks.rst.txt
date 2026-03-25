@@ -1,0 +1,77 @@
+.. _reference-to-download-sdks:
+
+=============
+Download SDKs
+=============
+
+The Platform SDK and Apps SDK are available from Qualcomm Package Manager (QPM).
+
+**What You Need**
+
+- **Platform SDK** - Drivers, firmware, and runtime libraries
+- **Apps SDK** - Compilation tools and development libraries
+
+Registration
+============
+
+First-time users must register for a `Qualcomm ID <https://account.qualcomm.com/>`__.
+
+Download Steps
+==============
+
+1. Log in to `Qualcomm Package Manager <https://qpm.qualcomm.com/#/main>`__
+
+2. Download the `Platform SDK <https://qpm.qualcomm.com/#/main/tools/details/aic_platform>`__
+
+3. Download the `Apps SDK <https://qpm.qualcomm.com/#/main/tools/details/aic_apps>`__
+
+4. Select your options:
+
+   - **Operating System**: Linux (Debian)
+   - **SDK Version**: Select the desired version
+
+   .. image:: ./qpm_download_sdk.png
+      :scale: 100%
+      :align: center
+      :alt: QPM download interface
+
+5. Click **Download** to download the SDK zip file
+
+.. note::
+   The Linux (Debian) download option includes Debian and RPM packages for x86-64 and AArch64.
+
+SDK Package Contents
+====================
+
+**Platform SDK**
+
+Filename format: ``aic_platform.Core.<version>.Linux-AnyCPU.zip``
+
+Example: ``aic_platform.Core.1.21.2.0.Linux-AnyCPU.zip``
+
+.. code-block:: text
+
+   ├── aarch64/
+   │   ├── deb/          # Debian packages for ARM64
+   │   └── rpm/          # RPM packages for ARM64
+   ├── x86_64/
+   │   ├── deb/          # Debian packages for x86-64
+   │   └── rpm/          # RPM packages for x86-64
+   └── common/           # Shared test data and tools
+
+**Apps SDK**
+
+Filename format: ``aic_apps.Core.<version>.Linux-AnyCPU.zip``
+
+Example: ``aic_apps.Core.1.21.2.0.Linux-AnyCPU.zip``
+
+.. code-block:: text
+
+   ├── aarch64/
+   │   └── deb/          # Debian packages for ARM64
+   ├── x86_64/
+   │   ├── deb/          # Debian packages for x86-64
+   │   └── rpm/          # RPM packages for x86-64
+   └── common/           # Examples, integrations, and tools
+
+Continue to :ref:`SDK Installation <reference-to-cloud-ai-sdk>`.

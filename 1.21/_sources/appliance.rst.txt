@@ -1,0 +1,134 @@
+:hide-navigation:
+
+
+Cloud AI SDK
+============
+
+The Qualcomm® AI On-Prem Appliance Solution processes generative AI 
+and computer vision workloads on a local, on-premises deployment, 
+ensuring the highest level of security for your sensitive information. 
+This hardware solution, combined with the  
+Qualcomm AI Inference Suite for On Prem powered by Qualcomm Cloud AI accelerators,
+simplifies management while reducing costs and automating critical workflows.
+
+.. toctree::
+   :caption: User Guide
+   :hidden:
+   :titlesonly:
+
+   Getting-Started/index
+   Getting-Started/Quick-Start-Guide/index
+   Getting-Started/Installation/index
+   Getting-Started/Inference-Workflow/index
+   Getting-Started/PyTorch-Workflow/Eager-Mode-Finetune/index
+   Getting-Started/Model-Architecture-Support/index
+   Getting-Started/Features/index
+   Getting-Started/System-Management/index
+   Getting-Started/Architecture/index
+   Getting-Started/Glossary/index
+
+.. toctree::
+   :caption: API
+   :hidden:
+   :titlesonly:
+   
+   Python-API/index
+   Cpp-API/index
+   onnxrt-qaic/index
+
+
+Get Started
+-----------
+
+.. grid:: 1 1 3 3
+   :gutter: 4
+
+   .. grid-item-card:: |icon-download| Download SDK
+      :link: Getting-Started/Installation/download/download-sdks
+      :link-type: doc
+      :class-title: title-icon-sm
+      :class-card: card-bg-fill
+
+      Download the Cloud AI Platform and Apps SDKs.
+
+   .. grid-item-card:: |icon-install| Install the SDK
+      :link: Getting-Started/Installation/index
+      :link-type: doc
+      :class-title: title-icon-sm
+      :class-card: card-bg-fill
+
+      Install the Cloud AI SDK on your On-Prem AI Appliance.
+
+   .. grid-item-card:: |icon-get-started| Quick start guide
+      :link: Getting-Started/Quick-Start-Guide/index
+      :link-type: doc
+      :class-title: title-icon-sm
+      :class-card: card-bg-fill
+
+      Run your first model on Cloud AI accelerators.
+
+
+
+Key Tasks
+---------
+
+.. grid:: 1 2 4 4
+   :gutter: 4
+
+   .. grid-item-card::
+      :class-title: title-icon-sm
+
+      |icon-setup| **Setup**
+      
+      :doc:`Getting started <Getting-Started/index>`
+
+      :doc:`Quick start guide <Getting-Started/Quick-Start-Guide/index>`
+
+      :doc:`Installation <Getting-Started/Installation/index>`
+
+
+   .. grid-item-card::
+      :class-title: title-icon-sm
+
+      |icon-health| **Manage devices**
+
+      :doc:`System management <Getting-Started/System-Management/system-management/index>`
+
+      :ref:`Prometheus monitoring <reference-to-prometheus-monitoring>`
+
+      :ref:`Grafana dashboards <reference-to-grafana-dashboards>`
+
+   .. grid-item-card::
+      :class-title: title-icon-sm
+
+      |icon-build| **Build**
+
+      :doc:`API reference <Python-API/index>`
+
+      `Efficient transformers <https://github.com/quic/efficient-transformers>`_
+
+      `Vision models <https://github.com/quic/cloud-ai-sdk/tree/1.19/models/vision>`_
+
+      `Image generation <https://github.com/quic/cloud-ai-sdk/tree/1.19/models/multimodal/text_to_image>`_
+
+   .. grid-item-card::
+      :class-title: title-icon-sm
+
+      |icon-deploy| **Deploy**
+
+      :doc:`Docker <Getting-Started/Installation/Docker/Docker/index>`
+
+      :doc:`ONNX runtime <onnxrt-qaic/index>`
+
+      :doc:`vLLM <Getting-Started/Installation/vLLM/vLLM/index>`
+
+      :doc:`Triton inference server <Getting-Started/Inference-Workflow/model-execution/Triton-Inference-Server-Support/index>`
+
+
+.. |icon-install| image:: images/icons/install.svg
+.. |icon-get-started| image:: images/icons/task-get-started.svg
+.. |icon-download| image:: images/icons/task-download.svg
+.. |icon-setup| image:: images/icons/setup.svg
+.. |icon-health| image:: images/icons/health.svg
+.. |icon-build| image:: images/icons/build.svg
+.. |icon-deploy| image:: images/icons/box.svg

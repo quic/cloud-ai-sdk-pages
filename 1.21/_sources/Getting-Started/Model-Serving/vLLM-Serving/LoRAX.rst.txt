@@ -1,0 +1,92 @@
+
+LoRAX Support with vLLM
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Overview
+^^^^^^^^
+
+`LoRA (Low-Rank Adaptation) <https://arxiv.org/abs/2106.09685>`__ is a parameter-efficient
+fine-tuning technique that adds small trainable weight matrices to a frozen base model,
+enabling task-specific or user-specific customization without retraining or redeploying
+the full model.
+
+**LoRAX** extends this to a serving context: multiple LoRA adapters are compiled together
+with a single base model QPC (combined model) and served concurrently. Each inference request can specify
+a different adapter, allowing one deployed model instance to serve many fine-tuned
+variants simultaneously.
+
+**Use cases:**
+
+- **Multi-tenant personalization** — serve different customers or applications with
+  their own fine-tuned behavior from a single base model deployment, reducing
+  infrastructure cost.
+- **Task specialization** — switch between adapters trained for different tasks
+  (summarization, code generation, classification) within the same request batch.
+- **A/B testing fine-tunes** — route traffic across adapter variants to compare
+  quality without maintaining separate model deployments.
+- **Rapid iteration** — update or add adapters without recompiling or restarting
+  the base model server.
+
+On Qualcomm Cloud AI, LoRA adapters are compiled into the base model QPC at
+serve time. 128 adapters are supported by default (configurable via
+``VLLM_QAIC_LORA_MAX_ID_SUPPORTED``), with supported target modules currently
+limited to attention projections (``q_proj``, ``k_proj``, ``v_proj``, ``o_proj``).
+
+.. _limitations-3:
+
+Limitations
+^^^^^^^^^^^
+
+-  The compiled adapters should have their weights applied to the same
+   set of target projection layers and modules. The supported modules
+   are limited to {"q_proj", "k_proj", "v_proj", "o_proj"}. Modules such
+   as {"up_proj", "down_proj", "gate_proj"} are not yet supported.
+
+Parameters relevant for LoRAX
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
++-----------------------------------+-----------------------------------+
+| Input Arg                         | Setting Required for Qaic runs    |
++===================================+===================================+
+| enable_lora                       | Enable the LoRAX feature by       |
+|                                   | setting this to True              |
++-----------------------------------+-----------------------------------+
+| max_loras                         | The maximum number of Lora        |
+|                                   | adapters that can run within a    |
+|                                   | batch. It should always be set to |
+|                                   | match the number of adapters      |
+|                                   | compiled with the base model.     |
++-----------------------------------+-----------------------------------+
+| lora_modules                      | A list of LoRAModulePath objects, |
+|                                   | each containing a name (Lora      |
+|                                   | adapter name) and a path          |
+|                                   | (snapshot download path for the   |
+|                                   | adapter repository), should be    |
+|                                   | provided. The list must include   |
+|                                   | all adapters intended to be       |
+|                                   | compiled with the base model.     |
++-----------------------------------+-----------------------------------+
+
+Create a LoRA request as follows and pass it to the generate API call.
+
+::
+
+   lora_requests = [
+       LoRARequest(
+           lora_name=repo_id[i].split("/")[1], lora_int_id=(i + 1), lora_path=snapshot_download(repo_id=repo_id[i])
+       )
+       for i in range(len(prompts))
+   ]
+   outputs = llm.generate(prompts, sampling_params, lora_request=lora_requests)
+
+Note: The maximum adapters to be compiled is by default 128, if want to
+increase, the size should be set through
+``export VLLM_QAIC_LORA_MAX_ID_SUPPORTED=XXX``
+
+Example Code for LoRAX
+^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+   python vllm/tests/test_qaic/lora/example_offline_inference_qaic_lora.py
+

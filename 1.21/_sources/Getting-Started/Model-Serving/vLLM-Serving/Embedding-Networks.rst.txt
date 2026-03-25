@@ -1,0 +1,102 @@
+
+Embedding Networks
+==================
+An embedding network is a type of neural network designed to transform high-dimensional input data—like words, images, or items—into dense, low-dimensional vectors called embeddings. These vectors capture the semantic or structural relationships between inputs, making them useful for tasks like recommendation systems, natural language processing, and similarity search. The goal is to place similar inputs closer together in the embedding space, enabling efficient comparison and clustering.
+
+Limitations
+-----------
+
+- sentence-transformers/gtr-t5-large model not supported as yet.
+
+Supported Models
+----------------
+
+- jinaai/jina-embeddings-v2-base-code	
+- jinaai/jina-embeddings-v2-base-en
+- intfloat/multilingual-e5-large
+- intfloat/e5-large
+
+Flags and Environment Variables
+-------------------------------
+
++-----------------------------------+-----------------------------------+
+| Input Arg                         | Setting Required for Qaic runs    |
++===================================+===================================+
+| task                              | Select the task as                | 
+|                                   | "embed" or "reward" or "classify" |
+|                                   | or "score"                        |             
++-----------------------------------+-----------------------------------+
+| override-qaic-config              | Initialize non default qaic config|
+|                                   | or override default qaic config   |
+|                                   | that are specific to Qaic devices,|
+|                                   | for speculative draft model, this |
+|                                   | argument will be used to configure|   
+|                                   | configure the qaic config that can|
+|                                   | be fully gathered from the vLLM   |
+|                                   | arguments                         |
++-----------------------------------+-----------------------------------+
+| override-pooler-config            | Pass a PoolerConfig object with   |          
+|                                   | pooling_type, normalize           |
+|                                   | and softmax as required           |
++-----------------------------------+-----------------------------------+
+
+For embedding models, user can pass following in override-qaic-config:
+
++-----------------------------------+-----------------------------------+
+| Input Arg                         | Setting Required for Qaic runs    |
++===================================+===================================+
+| pooling_device                    | Select qaic to run pooler as part |
+|                                   | of qpc. Select cpu to run pooler  |
+|                                   | on cpu.                           |
++-----------------------------------+-----------------------------------+
+| pooling_method                    | Select the pooling method to use. |
+|                                   | User can also define a custom     |
+|                                   | pooler. This is used for qaic     |
+|                                   | pooling device.                   |
++-----------------------------------+-----------------------------------+
+| normalize                         | Set to True for applying          |
+|                                   | normalization on output. This is  |
+|                                   | used for qaic pooling device.     |
++-----------------------------------+-----------------------------------+
+| softmax                           | Set to True for applying          |
+|                                   | softmax on output. This is        |
+|                                   | used for qaic pooling device.     |
++-----------------------------------+-----------------------------------+
+| embed_seq_len                     | Send a list of sequence lengths   |
+|                                   | as "seqlen1, seqlen2" or          |
+|                                   | [seqlen1, seqlen2] to compile for |
+|                                   | multiple sequence lengths.        |
++-----------------------------------+-----------------------------------+
+
+Example
+-------
+
+::
+
+   python examples/offline_inference/basic/qaic_embed.py
+
+Notes
+-----
+- For embedding models, max_seq_len_to_capture should be the same as context length. If user needs to compile for multiple sequence lengths the models' context length must be one of the sequence lengths passed in the list. Set max_model_len to the required sequence length if the user does not want to compile for actual model context length.
+- Apart from selecting the task, the user also needs to call the correct API such as embed, encode, classify and score.
+- jina models require setting trust_remote_code=True when instantiating the LLM for ensuring accuracy.
+- jinaai/jina-embeddings-v2-base-en also requires running the following python script to ensure accuracy.
+
+.. code-block:: python
+
+    from QEfficient import QEFFAutoModel
+    import os
+    import subprocess
+    import requests
+    
+    qeff_model = QEFFAutoModel.from_pretrained("jinaai/jina-embeddings-v2-base-en", trust_remote_code=True)
+    os.chdir(os.path.join(os.environ.get("HF_HOME"), "modules/transformers_modules/jinaai/jina-bert-implementation/f3ec4cf7de7e561007f27c9efc7148b0bd713f81/"))
+    
+    diff_url = "https://huggingface.co/jinaai/jina-bert-implementation/discussions/7/files.diff"
+    response = requests.get(diff_url)
+    
+    with open("pr7.diff", "wb") as f:
+        f.write(response.content)
+
+    subprocess.run(["patch", "-p1", "-i", "pr7.diff"], check=True)
+

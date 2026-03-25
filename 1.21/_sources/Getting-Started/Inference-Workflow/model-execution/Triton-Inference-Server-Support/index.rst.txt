@@ -1,0 +1,8 @@
+:orphan:
+Triton I
+nference Server
+=======================
+
+For deployment, serving, and feature documentation, see:
+
+- :doc:`Triton Inference Server </Getting-Started/Model-Serving/Triton-Serving/index>`

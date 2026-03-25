@@ -1,0 +1,83 @@
+QAic Backend
+============
+
+The QAic backend runs precompiled Qualcomm Program Container (QPC) binaries on Cloud AI inference accelerators.
+
+QAic Model Repository
+---------------------
+
+For qaic backend configuration, the ``backend`` parameter should be set
+to ``qaic``.
+
+Cloud AI Parameters
+~~~~~~~~~~~~~~~~~~~
+
+Parameters are user-provided key-value pairs that Triton passes to the
+backend runtime environment as variables; they can be used in the backend
+processing logic.
+
+-  qpc_path : path to the compiled binary of the model (programqpc.bin). If not
+   provided; the server searches for the QPC file in the model folder.
+-  device_id : ID of Cloud AI device on which inference is targeted (optional;
+   if not provided, the server automatically picks an available device).
+-  set_size : size of the runtime inference queue. Default: 20.
+-  no_of_activations : Number of activations of a model's network to use. Default: 1.
+
+Sample ``config.pbtxt``:
+
+::
+
+   name: "yolov5m_qaic"
+   backend: "qaic"
+   max_batch_size : 4
+   default_model_filename : "aic100/model.onnx"
+   input [
+     {
+       name: "images"
+       data_type: TYPE_FP32
+       dims: [3, 640, 640 ]
+     }
+   ]
+   output [
+     {
+       name: "feature_map_1"
+       data_type: TYPE_FP32
+       dims: [3, 80, 80, 85]
+     },
+     {
+       name: "feature_map_2"
+       data_type: TYPE_FP32
+       dims: [3, 40, 40, 85]
+     },
+     {
+       name: "feature_map_3"
+       data_type: TYPE_FP32
+       dims: [3, 20, 20, 85]
+     }
+   ]
+   parameters [
+     {
+       key: "qpc_path"
+       value: { string_value: "/path/to/qpc" }
+     },
+     {
+       key: "device_id"
+       value: { string_value: "0" }
+     }
+   ]
+   instance_group [
+     {
+       count: 2
+       kind: KIND_MODEL
+     }
+   ]
+
+
+Launch Triton Server
+--------------------
+
+Launch Triton server within the Triton container with the model repository path.
+
+.. code:: bash
+
+   /opt/tritonserver/bin/tritonserver --model-repository=</path/to/repository>

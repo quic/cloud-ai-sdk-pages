@@ -1,0 +1,18 @@
+.. _reference_to_Object_Detection_Postprocessing:
+
+Object Detection Postprocessing
+===============================
+
+Postprocessing is a critical step in object detection pipelines, where
+raw model outputs are decoded and filtered to produce final detections.
+Qualcomm Cloud AI 100 supports both host‑based and device‑based
+postprocessing solutions, enabling flexible trade‑offs between compute
+efficiency and data movement. The following sections describe the
+available postprocessing methods.
+
+.. toctree::
+   :maxdepth: 1
+
+   qaic-smart-nms/qaic-smart-nms-introduction
+   qaic-qdetect-layers/qaic_qdetect_layers_introduction
+

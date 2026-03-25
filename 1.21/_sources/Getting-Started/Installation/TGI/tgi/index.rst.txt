@@ -1,0 +1,9 @@
+
+:orphan:
+
+Text Generation Inference (TGI) 
+===============================
+
+For deployment, serving, and feature documentation, see:
+
+- :doc:`Model Serving — TGI </Getting-Started/Model-Serving/TGI-Serving/index>`

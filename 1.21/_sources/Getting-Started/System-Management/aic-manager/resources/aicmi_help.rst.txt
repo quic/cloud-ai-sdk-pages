@@ -1,0 +1,18 @@
+.. code:: bash
+
+   AICM:127.0.0.1 > help
+
+   Documented commands (type help <topic>):
+   ========================================
+   exit  group  health  help  list  policy
+
+   AICM:127.0.0.1 > help health
+   Get AI100 health data
+   AICM:127.0.0.1 > help group
+   Create/Modify groupings
+   AICM:127.0.0.1 > help policy
+   Get/Create/Delete Policies for AI100 devices
+   AICM:127.0.0.1 > help list
+   List available AI100 devices
+   AICM:127.0.0.1 > exit
+   2025-03-11 12:03:50,392 - [INFO]:[aicmi] Exiting AICM...

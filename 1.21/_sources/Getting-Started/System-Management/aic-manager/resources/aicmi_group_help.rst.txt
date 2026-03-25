@@ -1,0 +1,24 @@
+.. code:: bash
+
+   AICM:127.0.0.1 > group --help
+   usage: aicmi.py [-h] [-c CREATE_GROUP | -d DELETE_GROUP | -e EMPTY_GROUP | -a ADD_GROUP | -r REMOVE_GROUP | -l LIST_GROUP]
+                   [-dev DEVICE_ID [DEVICE_ID ...]]
+
+   Group Commands
+
+   optional arguments:
+     -h, --help            Show this help message
+     -c CREATE_GROUP, --create CREATE_GROUP
+                           Create a new group
+     -d DELETE_GROUP, --delete DELETE_GROUP
+                           Delete an existing group
+     -e EMPTY_GROUP, --empty EMPTY_GROUP
+                           Remove all device from a group
+     -a ADD_GROUP, --add ADD_GROUP
+                           Add a targeted device to a group
+     -r REMOVE_GROUP, --remove REMOVE_GROUP
+                           Remove a targeted device from a group
+     -l LIST_GROUP, --list LIST_GROUP
+                           List device in target group
+     -dev DEVICE_ID [DEVICE_ID ...], --device-id DEVICE_ID [DEVICE_ID ...], --device_id DEVICE_ID [DEVICE_ID ...]
+                           Single or multiple devices to be targted. e.g -dev 0 1 2

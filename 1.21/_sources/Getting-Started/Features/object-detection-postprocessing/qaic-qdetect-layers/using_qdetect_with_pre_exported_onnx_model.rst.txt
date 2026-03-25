@@ -1,0 +1,91 @@
+Using QDetect with pre-exported ONNX model
+==========================================
+
+The following steps explain how to modify the model to stitch the
+QDetect (QNms) plug-in, which will add a QNms node in the graph. The
+same example can be extended for any object detection algorithm. The
+example is for the YoloV5s model to generate the model with a Custom
+QNms node:.
+
+1. Clone the official Ultralytics repo.:
+
+   .. code-block::
+
+      git clone https://github.com/ultralytics/yolov5.git
+
+2. Install the necessary Python packages:
+
+   .. code-block::
+
+      pip install -r /opt/qti-aic/examples/apps/qdetect/qnms/requirements.txt
+
+3. Export the ONNX model from the repo.:
+
+   .. code-block::
+
+      cd yolov5 && python export.py -weights yolov5s.pt -include onnx
+
+4. Follow the steps in the notebook file to generate the QNms model:
+
+   .. code-block::
+
+      /opt/qti-aic/examples/apps/qdetect/qnms/notebooks/Qualcomm_Cloud_AI_100_QDetect_Demo.ipynb
+
+5. The notebook file has the required information to install the Apps
+   and Platform SDKs, and contains the configuration to be passed to the
+   qaic-model-preparator tool at this location:
+
+   .. code-block::
+
+      /opt/qti-aic/examples/apps/qdetect/qnms/notebooks/yolov5_ultralytics_model_info_qdetect.yaml
+
+6. Sample qaic-model-preparator command:
+
+   .. code-block::
+
+      python -W ignore qaic-model-preparator.py -config yolov5_ultralytics_model_info_qdetect.yaml
+
+A sample config file for yolov5 that is required from a user to capture
+all the options:
+
+.. code-block::
+
+   ###################################################################   
+   #                        Model Config Parameters   
+   ##################################################################  
+   # Official Model Location: https://github.com/ultralytics/yolov5 
+   # Onnx Ultralytics Model Generation steps: 
+       # git clone https://github.com/ultralytics/yolov3.git 
+       # cd yolov5 && pip install -r requirements.txt 
+       # python export.py --weights yolov3.pt --include onnx # Generate yolov3 onnx  model 
+   model: 
+       info: 
+           desc: "YoloV5s Models from Ultralytics Repo." 
+           model_type: "yolov5" 
+           model_path: yolov5s.onnx' 
+           input_info: {"images": [1, 3, 640, 640]} 
+           dynamic_info: False 
+           validate: True 
+           workspace: 'workspace/' 
+       pre_post_handle: 
+           post_plugin: "qdetect" # or "qdetect" or #None 
+           pre_plugin: True 
+           nms_params: 
+               max_output_size_per_class: 100 
+               max_total_size: 100 
+               iou_threshold: 0.65 
+               score_threshold: 0.3 
+               clip_boxes: False 
+          pad_per_class: False
+
+The output from the exported model would have 4 tensors, and boxes would
+be in the yxyx format:
+
+.. code-block::
+
+   detection_boxes     : [batch_size, max_total_size, 4] 
+   detection_scores    : [batch_size, max_total_size] 
+   detection_classes   : [batch_size, max_total_size] 
+   valid_detections    : [batch_size]
+
+

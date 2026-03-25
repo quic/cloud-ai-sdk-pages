@@ -1,0 +1,188 @@
+
+.. _reference_to_docker:
+
+Docker
+======
+
+Docker enables users to build, test, and deploy applications using lightweight software containers. For Qualcomm® Cloud AI, Docker provides pre-built inference images that bundle the Platform SDK, Apps SDK, libraries, and essential system tools.
+
+This integrated environment supports the end-to-end inference workflow, from model compilation to execution and serving, without requiring manual setup or complex dependency management.
+
+.. _reference-to-docker-system-pre-requisistes:
+
+System Prerequisites
+--------------------
+
+-  Packages: Python 3.10 and Docker v23 or later. See `Docker Installation <https://docs.docker.com/engine/install/>`__.
+-  Optional: Follow the `Docker post-installation steps <https://docs.docker.com/engine/install/linux-postinstall/>`__ to run ``docker`` as a non-root user. Otherwise, the ``docker`` command and ``build_image.py`` scripts must be prefaced with ``sudo``.
+
+Cloud AI Inference Containers
+-----------------------------
+
+Qualcomm provides a set of **pre-built Cloud AI Inference Docker images** that simplify
+model compilation, inference, and deployment on **Qualcomm® Cloud AI accelerators**.
+These images are published in the packages section of the
+`Cloud AI Containers <https://github.com/quic/cloud-ai-containers>`__ repository.
+
+Depending on the image, they support **LLM workflows using vLLM**,
+or **advanced serving scenarios** such as disaggregated serving, **computer vision workflows**, Kubernetes integration,
+and Triton Inference Server deployments.
+
+Some images provide an interactive shell for flexible development, while others expose
+a **preconfigured entrypoint** (for example, vLLM or qaic-disagg) to enable
+out-of-the-box inference and serving.
+
+Available Images
+----------------
+
+The following table summarizes the available Cloud AI Inference container images and
+their intended use cases.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 32 46 22
+
+   * - Image Name
+     - Description
+     - Entrypoint
+   * - ``cloud_ai_inference_ubuntu22``
+     - Ubuntu 22.04-based image for compiling and executing models on Qualcomm Cloud AI using Apps
+       and Platform SDKs.
+     - ``/bin/bash``
+   * - ``cloud_ai_inference_ubuntu24``
+     - Ubuntu 24.04-based general inference image with Apps SDK, Platform SDK, and
+       Python-based tools.
+     - ``/bin/bash``
+   * - ``cloud_ai_inference_vllm``
+     - Ubuntu 24.04-based image with a **preconfigured vLLM entrypoint** for OpenAI-compatible
+       LLM serving.
+     - ``python3 -m vllm.entrypoints.openai.api_server``
+   * - ``cloud_ai_inference_vllm_085``
+     - Similar to ``cloud_ai_inference_vllm`` but includes **vLLM v0.8.5**.
+     - ``python3 -m vllm.entrypoints.openai.api_server``
+   * - ``cloud_ai_inference_vllm_py312``
+     - vLLM inference image based on **Python 3.12**, suitable for **gpt-oss** models.
+     - ``python3 -m vllm.entrypoints.openai.api_server``
+   * - ``cloud_ai_inference_vllm_disagg``
+     - vLLM-based image with **qaic-disagg entrypoint** for **prefill/decode disaggregated
+       serving**.
+     - ``python3 -m qaic_disagg``
+   * - ``cloud_ai_inference_vllm_085_disagg``
+     - Disaggregated serving image based on **vLLM v0.8.5**.
+     - ``python3 -m qaic_disagg``
+   * - ``cloud_ai_inference_vllm_py312_disagg``
+     - Disaggregated serving image with **Python 3.12 vLLM environment**.
+     - ``python3 -m qaic_disagg``
+   * - ``cloud_ai_inference_rh_ubi9``
+     - General-purpose inference image based on **Red Hat UBI9**. Supports model compilation
+       and execution on Qualcomm Cloud AI with Apps and Platform SDKs.
+     - ``/bin/bash``
+   * - ``cloud_ai_inference_rh_ubi9_vllm_tgis``
+     - UBI9-based image with **vLLM TGIS adapter** installed. Suitable for LLM inference
+       workflows using vLLM.
+     - ``/bin/bash``
+   * - ``cloud_ai_inference_rh_ubi9_vllm_085_tgis``
+     - Similar to ``cloud_ai_inference_rh_ubi9_vllm_tgis`` but includes **vLLM v0.8.5**.
+     - ``/bin/bash``
+   * - ``cloud_ai_inference_rh_ubi9_vllm_py312_tgis``
+     - UBI9-based image with **Python 3.12 vLLM environment**, suitable for **gpt-oss**
+       workloads.
+     - ``/bin/bash``
+   * - ``cloud_ai_inference_pytools``
+     - Image for compiling and running **computer vision models** on Qualcomm Cloud AI. Includes Apps SDK,
+       Platform SDK, and Python-based tools. Focused on CV workflows rather than QEfficient
+       or vLLM.
+     - ``/bin/bash``
+   * - ``cloud_ai_k8s_device_plugin``
+     - Kubernetes device plugin enabling Qualcomm Cloud AI accelerators to be exposed to containerized
+       workloads.
+     - ``k8s-device-plugin``
+   * - ``cloud_ai_mgmt_aicm``
+     - Image running the **AIC Manager (AICM)** application for device management.
+     - ``python3 aicm_agent.py --ip=0.0.0.0 -vv``
+   * - ``cloud_ai_mgmt_qmonitor``
+     - Image running **QMonitor** for monitoring and diagnostics.
+     - ``/opt/qti-aic/tools/qaic-monitor-grpc-server -v``
+   * - ``cloud_ai_triton_server``
+     - Inference image that also includes the **Triton Inference Server** for serving models
+       using Triton.
+     - ``/bin/bash``
+
+
+Choose an Image
+---------------
+
+Qualcomm provides multiple **Cloud AI Inference container images**, each optimized for
+specific workflows such as **LLM inference with vLLM**, **computer vision model development**, and
+**production-grade serving**. Selecting the appropriate image depends on the type of model
+you are working with and how you plan to deploy it.
+
+This section helps you:
+
+- Choose the **right image** for your workflow
+- Understand the differences between **LLM, CV, and disaggregated serving** workflows
+- Get started quickly with **example `docker run` commands**
+
+Recommended Images by Use Case
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the decision matrix below to quickly identify the best container image for your use case.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 28 42 30
+
+   * - Use Case
+     - Recommended Image
+     - Why This Image
+   * - General experimentation (interactive)
+     - ``cloud_ai_inference_ubuntu24`` or ``cloud_ai_inference_rh_ubi9``
+     - Full Apps + Platform SDKs with an interactive shell for flexible experimentation.
+   * - LLM inference with vLLM
+     - ``cloud_ai_inference_vllm``
+     - Preconfigured vLLM entrypoint for OpenAI-compatible LLM serving.
+   * - LLM inference (vLLM v0.8.5)
+     - ``cloud_ai_inference_vllm_085``
+     - Use when vLLM v0.8.5 is required (for feature or compatibility reasons).
+   * - LLM inference with Python 3.12
+     - ``cloud_ai_inference_vllm_py312``
+     - Required for **gpt-oss** and other Python 3.12-based workflows.
+   * - Disaggregated prefill/decode serving
+     - ``cloud_ai_inference_vllm_disagg``
+     - Preconfigured qaic-disagg entrypoint for distributed LLM serving.
+   * - CV model compilation and inference
+     - ``cloud_ai_inference_pytools``
+     - Includes Python tools and SDKs for CV workflows; no vLLM or QEfficient dependencies.
+   * - Kubernetes deployments
+     - ``cloud_ai_k8s_device_plugin``
+     - Exposes Qualcomm Cloud AI accelerators to Kubernetes workloads.
+   * - Triton-based serving
+     - ``cloud_ai_triton_server``
+     - Includes Triton Inference Server and ONNX Runtime QAic Execution Provider for production inference pipelines.
+
+Containers by Workflow
+----------------------
+
+The following sections provide container setup examples for different inference workflows.
+
+.. toctree::
+   :maxdepth: 1
+
+   llm-workflows
+   disagg-workflows
+   cv-workflows
+   production-serving-management
+
+
+Custom Cloud AI Docker Images
+-----------------------------
+
+Follow these instructions to build, launch and test custom Cloud AI Docker images.
+
+.. toctree::
+   :maxdepth: 1
+
+   build-image
+   launch-container
+   test-container
+

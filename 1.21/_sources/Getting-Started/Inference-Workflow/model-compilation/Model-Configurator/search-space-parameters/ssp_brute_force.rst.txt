@@ -1,0 +1,75 @@
+Brute force
+===========
+
+The search space for brute force can be created by using the options in
+the following table. All the parameters have default values that can be
+found by using ``-help`` on ``model-configurator.py``.
+
+The Search Space parameters are:
+
+- -cores: Comma separated values and ranges (Examples: 1-4,8,12).
+
+  Number of cores - Selects the number of cores that the model will be
+  compiled for. This option instructs the AIC100 compiler on how many
+  cores the model compilation should be distributed. The number of cores
+  should not exceed the number of cores available on the hardware. To
+  know the number of cores available on the hardware, use the command
+  "``/opt/qti-aic/tools/qaic_util -q``" (available once the Platform SDK
+  is installed).
+
+- -batchsize: Comma separated values and ranges (Examples: 1-4,8,12).
+
+  It indicates the batch size of the model input. Multiple inputs can be
+  batched and inferenced together to reduce control and data path
+  overhead.
+
+- -mos: Maximum output channel split - The effort level to reduce the
+  on-chip memory usage. The compiler optimizes for the on-chip memory
+  usage by mapping the network to the on-chip memory. Increasing the
+  effort level holds more of the network inside on-chip memory, which
+  may lead to a higher communication overload. There may be a sweet spot
+  for optimum performance that is dependent on the actual network being
+  run. This value should be less than or equal to the number of cores.
+  The list of MOS values to be searched across as set by the user is
+  augmented with an additional default value. For points in the search
+  space where the MOS equals this default value, the compiler uses its
+  own internal heuristic algorithms to determine a MOS value to use. If
+  this option is not set, then the compiler sets it as per its internal
+  heuristic algorithms.
+
+- -ols: Overlap split factor - Factor to increase splitting of network
+  operations. The compiler can split network nodes into multiple
+  instances to enable more fine-grained parallelism. Generally higher is
+  better, but there may be a sweet spot that may need to be tuned for a
+  given network. This value should be less than or equal to 8. If this
+  option is not set, then the compiler sets it as per its internal
+  heuristic algorithms.
+
+- -instances: Comma separated values and ranges (Examples: 1-4,8,12). It
+  indicates the concurrent thread number to execute the same model in
+  parallel. By default, instances \* cores <= the number of cores
+  available on the hardware.
+
+- -depth-first-mem: Comma separated values and ranges. It indicates the
+  memory size for depth first compiler optimizations. Works when
+  depth-first is enabled and for cores=1. To enable depth-first, use
+  option ``-enable-depth-first``. See :ref:`Other options <reference_to_Other_options>`
+
+  If only ``-enable-depth-first`` is specified, then the compiler
+  chooses the depth-first-mem value using some heuristics.
+
+- -dealloc-dly: Comma separated and ranges. Example: 0-2,5. Sets buffer
+  lifetime. Adjusts how long to keep allocation alive past dealloc.
+  Smaller values may result in higher performance for networks with
+  large inputs. Valid values are in range [0,10]. Steps of 1 are taken
+  for the specified range.
+
+- -split-size: Comma separated and ranges. Example: 512-1024,2048. Sets
+  the maximum tile size in KiB. Valid values are in range [512,2048].
+  Steps of 256 are taken for the specified range.
+
+- -limit-vtcm-percent: Comma separated and ranges. Example: 50,80,100.
+  Percentage of fast memory an instruction can use. Valid values are in
+  range [0,100]. Steps of 5 are taken for the specified range.
+
+

@@ -1,0 +1,66 @@
+Python Sample
+=============
+
+The Python examples below show how to configure ONNX Runtime to use the QAic Execution Provider:
+
+- Build a QAic provider options dictionary with the ``config`` (model settings YAML) and optional ``aic_device_id``.
+- Create a session with ``QAicExecutionProvider`` and the provider options.
+- Load input tensor data from ``.raw`` and run inference.
+
+Load a model
+------------
+
+..  code-block:: python
+
+    import onnxruntime as ort
+
+    # QAIC Configs
+    aic_device_id = 0  # example device ID
+    config_path = "/opt/qti-aic/integrations/qaic_onnxrt/tests/resnet50/resnet50.yaml"
+    model_path = "/opt/qti-aic/integrations/qaic_onnxrt/tests/resnet50/resnet50-v1-12-batch.onnx"
+    raw_path = "/opt/qti-aic/integrations/qaic_onnxrt/tests/resnet50/input_goldfish.raw"
+    input_name = "data"
+
+    qaic_provider_options = {
+        "config": config_path,
+        "device_id": str(aic_device_id),
+    }
+
+    providers = ["QAicExecutionProvider"]
+    provider_options = [qaic_provider_options]
+
+    sess_options = ort.SessionOptions()
+
+    session = ort.InferenceSession(
+        model_path,
+        sess_options=sess_options,
+        providers=providers,
+        provider_options=provider_options,
+    )
+
+
+Run Inference
+-------------
+
+..  code-block:: python
+
+    import numpy as np
+
+    # Load raw input tensor from file
+
+    input_data = np.fromfile(raw_path, dtype=np.float32)
+    input_data = input_data.reshape(1, 3, 224, 224)  # example: NCHW for ResNet-50
+
+    # Perform inference using ONNX Runtime
+    outputs = session.run(
+        None,
+        {input_name: input_data},
+    )
+
+    # Print some info about outputs
+    print("Number of outputs:", len(outputs))
+    for idx, out in enumerate(outputs):
+        print(f"Output {idx}: shape={out.shape}, dtype={out.dtype}")
+        # Print first few elements
+        flat = out.ravel()
+        print("  first 10 values:", flat[:10])

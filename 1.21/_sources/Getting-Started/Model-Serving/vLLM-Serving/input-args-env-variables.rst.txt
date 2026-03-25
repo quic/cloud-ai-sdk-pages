@@ -1,0 +1,346 @@
+vLLM arguments for QAIC
+=======================
+
+vLLM input arguments
+--------------------
+
++--------------------------+-----------------------+-----------------------------+
+| Input Arg                | Default Value         | Setting Required for        |
+|                          |                       | Qaic runs                   |
++==========================+=======================+=============================+
+| model                    | None                  | Hugging face model          |
+|                          |                       | name or model path          |
++--------------------------+-----------------------+-----------------------------+
+| max-num-seqs             | 256                   | Decode batch size           |
++--------------------------+-----------------------+-----------------------------+
+| max-model-len            | 2048                  | Context length              |
++--------------------------+-----------------------+-----------------------------+
+| max-seq-len-to-capture   | None                  | Sequence length             |
++--------------------------+-----------------------+-----------------------------+
+| device                   | "auto"                | "auto" or "qaic" -          |
+|                          |                       | Qualcomm AI cloud           |
+|                          |                       | devices will be used,       |
+|                          |                       | if VLLM is installed        |
+|                          |                       | correctly for qaic          |
+|                          |                       | Note: This is only          |
+|                          |                       | applicable to               |
+|                          |                       | vLLM v0.8.5                 |
++--------------------------+-----------------------+-----------------------------+
+| device-group             | [0]                   | List of device ids to       |
+|                          |                       | be used for                 |
+|                          |                       | execution; Ultra -          |
+|                          |                       | 0,1,2,3; Ultra+ -           |
+|                          |                       | 0,1,2,3,4,5,6,7             |
++--------------------------+-----------------------+-----------------------------+
+| quantization             | "auto"                | "auto" - No weight          |
+|                          |                       | quantization (FP16);        |
+|                          |                       | "mxfp6" - Weight are        |
+|                          |                       | quantized with mxfp6        |
++--------------------------+-----------------------+-----------------------------+
+| kv-cache-dtype           | "auto"                | "auto" - No KV Cache        |
+|                          |                       | compression (FP16);         |
+|                          |                       | "mxint8" - KV Cache         |
+|                          |                       | compressed using            |
+|                          |                       | mxint8 format               |
++--------------------------+-----------------------+-----------------------------+
+| disable-log-stats        | True                  | True - print                |
+|                          |                       | performance stats;          |
+|                          |                       | False - disable             |
+|                          |                       | performance stats           |
++--------------------------+-----------------------+-----------------------------+
+| num-gpu-blocks-override  | "max-num-seqs"        | This is a user-configurable |
+|                          |                       | and controls how much       |
+|                          |                       | KV cache memory exists.     |
++--------------------------+-----------------------+-----------------------------+
+| tensor-parallel-size     | 1                     | vLLM implementation         |
+|                          |                       | of Tensor slicing           |
+|                          |                       | using collective            |
+|                          |                       | communication library       |
+|                          |                       | is not supported,           |
+|                          |                       | instead Tensor              |
+|                          |                       | Slicing is supported        |
+|                          |                       | inherently using QAIC       |
+|                          |                       | AOT approach. To use        |
+|                          |                       | TS>1 please provide         |
+|                          |                       | right set of                |
+|                          |                       | device_ids in               |
+|                          |                       | device_group                |
+|                          |                       | arguments. It is            |
+|                          |                       | recommend not to            |
+|                          |                       | enable vLLM default         |
+|                          |                       | TS implementation           |
+|                          |                       | using                       |
+|                          |                       | "-                          |
+|                          |                       | tensor-parallel-size"       |
+|                          |                       | argument                    |
++--------------------------+-----------------------+-----------------------------+
+| enable-chunked-prefill   | False                 | Chunked prefill is          |
+|                          |                       | supported by default        |
+|                          |                       | in QAIC model runner        |
+|                          |                       | implemention, not           |
+|                          |                       | using default               |
+|                          |                       | chunking logic in           |
+|                          |                       | vLLM scheduler class,       |
+|                          |                       | thus it is                  |
+|                          |                       | recommended not to          |
+|                          |                       | enable chunking using       |
+|                          |                       | "-en                        |
+|                          |                       | able-chunked-prefill"       |
+|                          |                       | argument                    |
++--------------------------+-----------------------+-----------------------------+
+| enable-prefix-caching    | False                 | Set this flag to True       |
+|                          |                       | to enable prefix            |
+|                          |                       | caching for qaic            |
++--------------------------+-----------------------+-----------------------------+
+| override-qaic-config     | None                  | Initialize non              |
+|                          |                       | default qaic config         |
+|                          |                       | or override default         |
+|                          |                       | qaic config that are        |
+|                          |                       | specific to Qaic            |
+|                          |                       | devices, for                |
+|                          |                       | speculative draft           |
+|                          |                       | model, this argument        |
+|                          |                       | will be used to             |
+|                          |                       | configure the qaic          |
+|                          |                       | config that can not         |
+|                          |                       | be fully gathered           |
+|                          |                       | from the vLLM               |
+|                          |                       | arguments                   |
++--------------------------+-----------------------+-----------------------------+
+| speculative-config       |                       | Configuration for           |
+|                          |                       | speculative decoding.       |
++--------------------------+-----------------------+-----------------------------+
+| task                     |                       | The task to use the         | 
+|                          |                       | model for. Each vLLM        | 
+|                          |                       | instance only supports      | 
+|                          |                       | one task, even if the       |
+|                          |                       | same model can be used      |    
+|                          |                       | for multiple tasks.         |
+|                          |                       | When the model only         |
+|                          |                       | supports one task,          |
+|                          |                       | "auto" can be used to       |
+|                          |                       | select it; otherwise,       |
+|                          |                       | you must specify            |
+|                          |                       | explicitly which task       | 
+|                          |                       | to use.                     |
++--------------------------+-----------------------+-----------------------------+
+| override-pooler-config   |                       | Initialize non default      | 
+|                          |                       | pooling config or           |
+|                          |                       | override default            |
+|                          |                       | pooling config for the      | 
+|                          |                       | pooling model.              |
++--------------------------+-----------------------+-----------------------------+
+
+
+Override Arguments that can be modified
+---------------------------------------
+
+override-qaic-config = ``<Compiler cfg for target model>``
+
+Using this interface user can override default attributes such as, -
+num_cores, dfs, mos, device_group, qpc_path, mxfp6_matmul,
+mxint8_kv_cache, device_group, and other compiler options.
+
+CLI inferencing
+~~~~~~~~~~~~~~~
+
+Single space between attributes, no space within attribute and value
+pair during running on command line arguments.
+
+Example
+
+.. code-block:: text
+
+   --override-qaic-config = "num_cores=4 mxfp6_matmul=True mos=1 device_group=0,1,2,3"
+
+Note: Only provide attributes which need to be overridden.
+
+Python object inferencing
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Override arguments can also be passed as input during LLM object
+creation.
+
+Example
+
+.. code-block:: text
+
+   override_qaic_config = {'num_cores':8, 'mxfp6_matmul':True,  'mos':1}
+
+Note: Only provide attributes which need to be overridden.
+
+All qaic-compile arguments can be passed as input parameters. The list below describes the supported arguments and their corresponding descriptions.
+
++-------------------------------+-------------------------------+-----------------------------------------------+
+| Input Argument                | Default Value                 | Description                                   |
++===============================+===============================+===============================================+
+| num_cores / aic_num_cores     | 16                            | Specifies the number of NSP cores to use.     |
+|                               |                               | Defaults to 8 for SpD draft models when the   |
+|                               |                               | speculative configuration uses the same       |
+|                               |                               | device group as the target model.             |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| dfs / aic_enable_depth_first  | True                          | Enables depth‑first scheduling. Set           |
+|                               |                               | "dfs=false" to disable.                       |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| mos                           | 1                             | Degree of weight splitting across cores to    |
+|                               |                               | reduce on‑chip memory usage.                  |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| num_devices                   | None                          | Number of devices to use. Users should        |
+|                               |                               | specify either "num_devices" or               |
+|                               |                               | "device_group". In auto‑device mode,          |
+|                               |                               | "device_group" is not required.               |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| mdts_mos                      | None                          | Degree of weight splitting across             |
+|                               |                               | multi‑device tensor slices to improve memory  |
+|                               |                               | usage and compute efficiency.                 |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| mxint8 / mxint8_en /          | False                         | Enables MXINT8 quantization for KV cache      |
+| mxint8_kv_cache               |                               | or MDP IO traffic compression. Recommended    |
+|                               |                               | to use vLLM args "--kv-cache-dtype"           |
+|                               |                               | instead when available.                       |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| mxfp6 / mxfp6_matmul /        | False                         | Enables MXFP6 (E2M3) quantization for         |
+| mxfp6_en                      |                               | constant MatMul weights to reduce memory      |
+|                               |                               | traffic at the cost of slightly more compute. |
+|                               |                               | Prefer vLLM "--quantization=mxfp6".           |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| device_group                  | None                          | List of device IDs used for execution.        |
+|                               |                               | Ultra: "0,1,2,3"                              |
+|                               |                               | Use either "device_group" or "num_devices".   |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| embed_seq_len                 | None                          | List of model lengths. Compiler generates a   |
+|                               |                               | single QPC supporting multiple lengths,       |
+|                               |                               | allowing vLLM to switch QPCs dynamically.     |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| comp_ctx_lengths_prefill      | None                          | List of context lengths for prefill stage.    |
+|                               |                               | Enables multi‑length binaries and CCL support |
+|                               |                               | for higher performance.                       |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| comp_ctx_lengths_decode       | None                          | List of context lengths for decode stage.     |
+|                               |                               | Enables multi‑length binaries and CCL support |
+|                               |                               | for higher performance.                       |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| ccl_enabled                   | False                         | Explicitly enables CCL. If not specified,     |
+|                               |                               | optimized CCL lists are automatically         |
+|                               |                               | generated when context length lists           |
+|                               |                               | are not provided.                             |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| num_patches                   | None                          | Used to compile Vision‑Language models        |
+|                               |                               | based on the number of image patches.         |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| height                        | None                          | Height of the image for which vision and      |
+|                               |                               | language binaries are compiled.               |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| width                         | None                          | Width of the image for which vision and       |
+|                               |                               | language binaries are compiled.               |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| aic_include_sampler           | False                         | Enables on‑device sampling.                   |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| max_top_k_ids                 | 512                           | Maximum top‑k value compiled into the         |
+|                               |                               | sampler binary.                               |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| aic_include_guided_decoding   | False                         | Enables guided decoding. Applicable only      |
+|                               |                               | when on‑device sampling is enabled.           |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| kv_offload                    | False                         | Enables KV cache offload.                     |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| skip_lang                     | False                         | Used in dual‑QPC compilation. When set,       |
+|                               |                               | language/text binary compilation is skipped.  |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| skip_vision                   | False                         | Used in dual‑QPC compilation. When set,       |
+|                               |                               | vision binary compilation is skipped.         |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| pooling_device                | None                          | Device on which pooling runs. Must be         |
+|                               |                               | "qaic" or "cpu"". Required for pooled         |
+|                               |                               | outputs.                                      |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| pooling_method                | None                          | Pooling method when "pooling_device=qaic".    |
+|                               |                               | Supported: "mean", "avg", "cls",              |
+|                               |                               | "max" or custom poolers.                      |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| normalize                     | False                         | Normalizes pooled outputs when using          |
+|                               |                               | "pooling_device=qaic".                        |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| softmax                       | False                         | Applies softmax to pooled outputs when        |
+|                               |                               | using "pooling_device=qaic".                  |
++-------------------------------+-------------------------------+-----------------------------------------------+
+| prefill_only                  | None                          | Used for disaggregated serving.               |
+|                               |                               | "True" → compile prefill QPC only             |
+|                               |                               | "False" → compile decode QPC only             |
+|                               |                               | "None" → single QPC for both stages           |
++-------------------------------+-------------------------------+-----------------------------------------------+
+
+vLLM flags and environment variables
+------------------------------------
+
++---------------------------+-----------------------+-----------------------+
+| Input Arg                 | Default Value         | Setting Required for  |
+|                           |                       | Qaic runs             |
++===========================+=======================+=======================+
+| VLLM_QAIC_QPC_PATH        | None                  | Set this flag with    |
+|                           |                       | the path to qpc. vLLM |
+|                           |                       | loads the qpc         |
+|                           |                       | directly from the     |
+|                           |                       | path provided and     |
+|                           |                       | will not compile the  |
+|                           |                       | model                 |
++---------------------------+-----------------------+-----------------------+
+| VLLM_QAIC_MOS             | None                  | Set MOS value         |
++---------------------------+-----------------------+-----------------------+
+| VLLM_QAIC_DFS_EN          | None                  | Enable compiler depth |
+|                           |                       | first                 |
++---------------------------+-----------------------+-----------------------+
+| VLLM_QAIC_QID             | None                  | Manually set QID for  |
+|                           |                       | qaic devices          |
++---------------------------+-----------------------+-----------------------+
+| VLLM_QAIC_NUM_CORES       | None                  | Set num_cores example |
+|                           |                       | 14 or 16              |
++---------------------------+-----------------------+-----------------------+
+| VLLM_QAIC_COMPILER_ARGS   | None                  | Set additional        |
+|                           |                       | compiler arguments    |
+|                           |                       | through this          |
+|                           |                       | environment variable  |
++---------------------------+-----------------------+-----------------------+
+| VLLM_QAIC_MAX_CPU_THREADS | None                  | Avoid                 |
+|                           |                       | oversubscription of   |
+|                           |                       | CPU threads, during   |
+|                           |                       | multi-instance        |
+|                           |                       | execution. By default |
+|                           |                       | there is no limit, if |
+|                           |                       | user set an           |
+|                           |                       | environment variable  |
+|                           |                       | VLLM_                 |
+|                           |                       | QAIC_MAX_CPU_THREADS, |
+|                           |                       | then number of cpu    |
+|                           |                       | thread running        |
+|                           |                       | pytorch sampling on   |
+|                           |                       | cpu is limited, to    |
+|                           |                       | avoid                 |
+|                           |                       | over-subscription.    |
+|                           |                       | The contention is     |
+|                           |                       | amplified when        |
+|                           |                       | running in a          |
+|                           |                       | container where CPU   |
+|                           |                       | limits can cause      |
+|                           |                       | throttling.           |
++---------------------------+-----------------------+-----------------------+
+
+Avoiding CPU oversubscription via VLLM_QAIC_MAX_CPU_THREADS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CPU oversubscription refers to a situation where the total number of
+CPUs allocated to a system exceeds the total number of CPUs available on
+the hardware. This leads to severe contention for CPU resources. In such
+cases, there is frequent switching between processes, which increases
+processes switching overhead and decreases overall system efficiency. In
+containers where multiple instances of vLLM can cause oversubscription,
+limiting the concurrent CPU threads is a good way to avoid
+oversubscription.
+
+Example
+
+.. code-block:: bash
+
+   export VLLM_QAIC_MAX_CPU_THREADS=8
+   export OMP_NUM_THREADS=8
+

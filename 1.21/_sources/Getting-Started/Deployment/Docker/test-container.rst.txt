@@ -1,0 +1,32 @@
+Test Container
+==============
+
+Connect to the container
+------------------------
+
+Connect to the container and run tests:
+
+.. code:: bash
+
+   # Get the CONTAINER ID
+   docker ps
+   
+   # Open an interactive shell inside a running container
+   docker exec -it <container_name_or_id> /bin/bash
+   
+   # Check qaic devices
+   /opt/qti-aic/tools/qaic-util -q
+   
+   # Run an inference with recorded data
+   /opt/qti-aic/exec/qaic-runner -d 0 -t /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-quant-resnet50/
+
+Run Python Example
+------------------
+
+Activate the Python environment and test Python HL API (valid if *qaic_python: "True"* specified in sdk group of user_specification_file while building Docker image):
+
+.. code:: bash
+
+   source /opt/qti-aic/dev/python/qaic-env/bin/activate
+   cd /opt/qti-aic/examples/apps/qaic-python-sdk/qaic/examples/resnet_example/
+   python resnet_example.py

@@ -1,0 +1,101 @@
+
+On Device Sampling Support with vLLM
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+On Device Sampling enables sampling operations to be executed directly 
+on the QAIC device rather than the host CPU. This enhancement reduces 
+host-device communication overhead and improves inference throughput 
+and scalability.
+
+
+Supported Sampling Strategies
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following sampling techniques are now supported natively on the 
+QAIC device:
+
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| Sampling Strategy    | Description                                                                                                 |
++======================+=============================================================================================================+
+| Repetition Penalty   | Penalize tokens that have appeared in the prompt and the generated text so far.                             |
+|                      | Values > 1 encourage the model to use new tokens, while values < 1 encourage the model to repeat tokens.    |
+|                      | Set to 1.0 to avoid penalizing.                                                                             |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| Presence Penalty     | Penalize tokens that are present in the generated text so far.                                              |
+|                      | Values > 0 encourage the model to use new tokens, while values < 0 encourage the model to repeat tokens.    |
+|                      | Set to 0.0 to avoid penalizing.                                                                             |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| Temperature Scaling  | Adjust the sharpness of the logits distribution. Lower values make the model more deterministic,            |
+|                      | while higher values make the model more random.                                                             |
+|                      | 0.0 means greedy sampling.                                                                                  |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| Top K                | Sample from the ``k`` largest tokens by value. Set to -1 or ``vocab_size`` to consider all tokens.          |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| Top P                | Sample from the smallest set of tokens whose cumulative probability is greater than or equal to ``p``.      |
+|                      | Must be in (0, 1].                                                                                          |
+|                      | Set to 1.0 to consider all tokens.                                                                          |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| Min P                | Represents the minimum probability for a token to be considered, relative to the probability                |
+|                      | of the most likely token. Must be in [0, 1].                                                                |
+|                      | Set to 0.0 to disable this.                                                                                 |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| Greedy Sampling      | Choose the token with highest value.                                                                        |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+| Random Sampling      | Choose a token randomly with its probability of being chosen given by its value.                            |
++----------------------+-------------------------------------------------------------------------------------------------------------+
+
+
+Implementation Details
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  *Sampler Integration*: Sampling logic is enabled by setting ``"aic_include_sampler": True`` in ``override_qaic_config`` while instantiating a LLM object.
+
+-  *Text Generation*: For each input prompt, Repetition Penalty, Presence Penalty, Temperature Scaling, Top K, Top P, and Min P sampling strategies are enabled/disabled by providing their respective values in a ``SamplingParams`` object. This is optional; if one or more values are not provided, default values are used.
+
+-  *Example Usage*:
+
+   .. code-block:: python
+
+      sampling_params = SamplingParams(
+         repetition_penalty=1.5,
+         presence_penalty=0.5,
+         temperature=0.01,
+         top_k=512,
+         top_p=0.9,
+         min_p=0.95,
+         n=1,
+         ignore_eos=False,
+         seed=0,
+      )
+      
+      llm = LLM(
+         ...
+         override_qaic_config={  # On Device Sampling
+            "aic_include_sampler": True,
+            "aic_return_pdfs": False,
+            "max_top_k_ids": 1024,
+         },
+      )
+      
+      outputs = llm.generate(prompts, sampling_params)
+
+-  *Note*:
+
+   -  Frequency penalties are not supported by the QAIC backend. The Sampler will run without frequency penalties. To use frequency penalties, please use the PyTorch backend.
+   -  By default, the QPC is compiled for ``"max_top_k_ids": 512``. To use a different value, please provide ``max_top_k_ids`` in ``override_qaic_config``. This will recompile the QPC with the updated value.
+
+Limitations
+^^^^^^^^^^^
+
+-  Currently, On Device Sampling cannot be enabled along with any of the following features: Prefix Caching, SpD, Multimodality, or LoRAX.
+-  On Device Sampling works with Causal language models and vision language models (VLMs).
+
+
+Example Code for On Device Sampling
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   python3 examples/offline_inference/qaic_on_device_sampling.py
+
+

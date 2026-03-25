@@ -1,0 +1,64 @@
+Build for AArch64
+=================
+
+.. code-block:: bash
+
+    # Add user to qaic group to access Cloud AI devices without root
+    sudo usermod -aG qaic $USER
+    newgrp qaic
+
+    # Create a python virtual environment
+    python3.10 -m venv qaic-vllm-venv
+
+    source qaic-vllm-venv/bin/activate
+
+    # Install the current release version of `Qualcomm Efficient-Transformers <https://github.com/quic/efficient-transformers>`_ (vLLM with qaic support requires efficient-transformers for model exporting and compilation)
+    pip install -U pip
+
+    pip install git+https://github.com/quic/efficient-transformers@release/v1.21.0
+
+    # Build Triton 3.0.0 dependency for AArch64
+    mkdir triton-3.0.0
+    cd triton-3.0.0
+    git clone https://github.com/triton-lang/triton.git -b release/3.0.x --depth=1
+    cd ..
+
+    # LLVM git cloning
+
+    mkdir llvm-main && cd llvm-main
+    export LLVM_HASH="$(cat /path_to/triton-3.0.0/triton/cmake/llvm-hash.txt)"
+
+    git clone --recursive https://github.com/llvm/llvm-project.git -b main 
+    cd llvm-project && git checkout ${LLVM_HASH}
+
+    # LLVM building:
+    pip install ninja cmake
+    mkdir llvm-project/build; cd llvm-project/build; 
+    cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_ASSERTIONS=ON ../llvm -DLLVM_ENABLE_PROJECTS="mlir;llvm" -DLLVM_TARGETS_TO_BUILD="host;NVPTX;AMDGPU"; ninja; 
+
+
+    # Triton building:
+    cd /path_to/triton-3.0.0/triton/python
+    export LLVM_BUILD_DIR=/path_to/llvm-main/llvm-project/build
+    export LLVM_INCLUDE_DIRS=$LLVM_BUILD_DIR/include
+    export LLVM_LIBRARY_DIR=$LLVM_BUILD_DIR/lib
+    export LLVM_SYSPATH=$LLVM_BUILD_DIR
+    pip wheel .
+
+    pip install triton-3.0.0-cp310-cp310-linux_aarch64.whl
+
+    cd /back/to/root/path
+
+    # Clone the vLLM repo, and apply the patch for qaic backend support
+    git clone https://github.com/vllm-project/vllm.git
+
+    cd vllm
+
+    git checkout v0.10.1
+
+    git apply /opt/qti-aic/integrations/vllm/qaic_vllm.patch
+
+    # Set environment variables and install
+    export VLLM_TARGET_DEVICE="qaic"
+
+    pip install -e .

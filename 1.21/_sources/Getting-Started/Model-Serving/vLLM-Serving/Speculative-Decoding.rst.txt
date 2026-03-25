@@ -1,0 +1,136 @@
+Speculative Decoding
+====================
+
+Overview
+--------
+
+Speculative decoding reduces token generation latency by using a fast **draft model**
+to propose several candidate tokens ahead of the target model, which then verifies them
+in a single forward pass. Accepted tokens are emitted immediately; rejected tokens fall
+back to the target model's output. Because verification is cheaper than independent
+generation, throughput and latency improve significantly for workloads where the draft
+model has high acceptance rates.
+
+Two methods are supported on Qualcomm Cloud AI accelerators:
+
+- **Draft model (SpD)** — a smaller companion model generates speculative tokens that
+  the target model verifies. Best suited for workloads where a well-matched smaller
+  model is available (e.g. Llama-3.2-1B drafting for Llama-3.1-8B).
+- **Prompt Lookup Decoding (PLD)** — candidate tokens are proposed by looking up
+  n-gram matches within the input prompt itself, requiring no separate draft model.
+  Effective for tasks where the output closely mirrors the input, such as summarization,
+  translation, and document editing.
+
+**Use cases:**
+
+- **Latency-sensitive applications** — chatbots, coding assistants, and interactive
+  tools where time-to-first-token and inter-token latency are critical.
+- **Summarization and editing** — PLD excels when output tokens are likely to repeat
+  phrases from the input, achieving high acceptance rates with zero extra model cost.
+- **High-throughput serving** — more tokens are produced per target model forward pass,
+  improving overall device utilization.
+
+.. _limitations-1:
+
+Limitations
+-----------
+
+-  SpD via Medusa, EAGLE and MLPSpeculator is not supported yet.
+
+Parameters
+----------
+
++----------------------------------------+-----------------------------------+
+| Input Arg                              | Setting Required for Qaic runs    |
++========================================+===================================+
+| speculative-config                     | Initialize non default qaic       |
+|                                        | config or override default qaic   |
+|                                        | config that are specific to Qaic  |
+|                                        | devices, for speculative draft    |
+|                                        | model, this argument will be used |
+|                                        | to configure the qaic config that |
+|                                        | can not be fully gathered from    |
+|                                        | the vLLM arguments.               |
++----------------------------------------+-----------------------------------+
+| override-qaic-config                   | Initialize non default qaic       |
+|                                        | config or override default qaic   |
+|                                        | config that are specific to Qaic  |
+|                                        | devices. In case of SpD, this is  |
+|                                        | applied to target model.          |
++----------------------------------------+-----------------------------------+
+
+As part of the speculative-config, user can provide the following:
+
++----------------------------------------+-----------------------------------+
+| Input Arg                              | Setting Required for Qaic runs    |
++========================================+===================================+
+| model                                  | Provide the draft model to be     |
+|                                        | used                              |
++----------------------------------------+-----------------------------------+
+| num-speculative-tokens                 | The number of speculative tokens  |
+|                                        | to sample from the draft model in |
+|                                        | speculative decoding.             |
++----------------------------------------+-----------------------------------+
+| acceptance-method                      | Specify the acceptance method to  |
+|                                        | use during draft token            |
+|                                        | verification in speculative       |
+|                                        | decoding. Two types of acceptance |
+|                                        | routines are supported: 1)        |
+|                                        | 'rejection_sampler' which does    |
+|                                        | not allow changing the acceptance |
+|                                        | rate of draft tokens, 2)          |
+|                                        | 'typical_acceptance_sampler'      |
+|                                        | which is configurable, allowing   |
+|                                        | for a higher acceptance rate at   |
+|                                        | the cost of lower quality, and    |
+|                                        | vice versa.                       |
++----------------------------------------+-----------------------------------+
+| draft_override_qaic_config             | Initialize non default qaic       |
+|                                        | config or override default qaic   |
+|                                        | config that are specific to qaic  |
+|                                        | devices. This is                  |
+|                                        | applied to the draft model.       |
++----------------------------------------+-----------------------------------+
+| quantization                           | Draft model quantization.         |
++----------------------------------------+-----------------------------------+
+| method                                 | The name of the speculative method|
+|                                        | to use. If users provide and set  |
+|                                        | the `model` param, the speculative| 
+|                                        | method type will be detected      |
+|                                        | automatically if possible, if     |
+|                                        | `model` param is not provided, the|
+|                                        | method name must be provided.     |
++----------------------------------------+-----------------------------------+
+| prompt_lookup_max                      | Maximum size of ngram token window|
+|                                        | when using Ngram proposer,        |
+|                                        | required when method is set to    |
+|                                        | ngram                             |
++----------------------------------------+-----------------------------------+
+| prompt_lookup_min                      | Minimum size of ngram token window|
+|                                        | when using Ngram proposer,        |
+|                                        | if provided. Defaults to 1.       |
++----------------------------------------+-----------------------------------+
+
+Default Settings
+---------------
+
+Always compiles for 1 Ultra card by default assuming both draft and
+target models are running on the same card: with 8 core each. To use
+different hardware configurations, use override-qaic-config or
+speculative-overrride-config.
+
+Example
+-------
+
+::
+
+   python examples/offline_inference/qaic_spd_pld.py
+
+Combined with Prefix Caching
+----------------------------
+
+Speculative decoding via draft model and PLD methods is compatible with
+:doc:`Prefix Caching <Prefix-Caching>`. No additional flags are required beyond
+enabling both features together — use the standard speculative decoding parameters
+alongside ``--enable-prefix-caching``.
+

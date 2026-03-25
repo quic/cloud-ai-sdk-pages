@@ -1,0 +1,64 @@
+Guided Decoding
+===============
+
+Guided Decoding is a technique used in Natural language generation (especially with LLMs) to constrain or steer the output during the decoding process so that it follows certain rules, formats or conditions.
+
+Normally models generate text token by token using strategies like “Greedy decoding”, beam search or sampling.
+
+Guided Decoding adds constraints or guidance such as “Grammar constraints” “Keyword constraints” “Structural constraints” “Semantic constraints”.
+
+Supported Backends
+------------------
+
+The following backends are supported.
+
++-------------------------+------------------------------------------+---------------------------------------+--------------------------------------+
+| Backends                | How it works                             | Use cases                             | Comments                             |
++=========================+==========================================+=======================================+======================================+
+| xgrammar                | Json schema(limited), regex,             | Good for structed outputs             | SUPPORTED                            |
+|                         | EBNF grammar, choice, structural tags    |                                       |                                      |
+|                         |                                          |                                       |                                      |
++-------------------------+------------------------------------------+---------------------------------------+--------------------------------------+
+| guidance (LL guidance)  | Full Regex, JSON schema,                 | For complex constraints               | NOT SUPPORTED                        |
+|                         | EBNF grammar via Lark,                   |                                       |                                      |
+|                         | choices, and structural tags             |                                       |                                      |
++-------------------------+------------------------------------------+---------------------------------------+--------------------------------------+
+| outlines                | Regex, json schema,                      | Does not support structural tags      | NOT SUPPORTED                        |
+|                         | EBNF (via LARK), choices                 |                                       |                                      |
+|                         |                                          |                                       |                                      |
++-------------------------+------------------------------------------+---------------------------------------+--------------------------------------+
+| Im-format-enforcer      | Regex, choice                            | Lightweight does not support grammar, | NOT SUPPORTED                        |
+|                         |                                          | Json objects or structural tags       |                                      |
+|                         |                                          |                                       |                                      |
++-------------------------+------------------------------------------+---------------------------------------+--------------------------------------+
+| faster-outlines         | Same as outlines but CPU optimized       | Optimized for speed on CPU            | NOT SUPPORTED                        |
+|                         |                                          |                                       |                                      |
+|                         |                                          |                                       |                                      |
++-------------------------+------------------------------------------+---------------------------------------+--------------------------------------+
+
+Supported Models
+----------------
+
+-  Qwen 2.5 VL 32 B instruct
+-  Llama-3.3-70B-instruct
+
+Limitations
+-----------
+
+-  Currently, Guided Decoding is supported only on v0.8.5 branch and QEfficient version “release/v1.21.0”
+-  Make sure vLLM installation section is using v0.8.5 and QEfficient version “release/v1.21.0”
+
+Example
+-------
+
+The example script for basic guided decoding test is located at,
+
+cd vllm/examples/offline_inference/
+
+This is how to run the script,
+
+.. code-block:: bash
+
+   python3 examples/offline_inference/qaic_on_device_sampling.py
+
+This has basic schema and tests guided decoding. Model details/BS/TS to be modified based on test requirements.

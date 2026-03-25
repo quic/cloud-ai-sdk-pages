@@ -1,0 +1,27 @@
+Usage
+=====
+
+::
+
+   model_configurator.py [-h] [-cores PARAM_CORES] [-batchsize PARAM_BS] [-mos PARAM_MOS] [-ols PARAM_OLS] [-dealloc-dly PARAM_DEALLOC_DELAY] [-split-size PARAM_SPLIT_SIZE] [-limit-vtcm-percent PARAM_VTCM_RATIO] [-enable-single-device-partitioning] [-test-depth-first-search] [-depth-first-mem PARAM_DFS_MEM] [-convert-to-fp16] [-quantization-precision {Int8,Int16}] [-quantization-precision-bias {Int8,Int32}] [-quantization-schema-activations {symmetric,asymmetric,symmetric_with_uint8,symmetric_with_power2_scale}] [-quantization-schema-constants {symmetric,asymmetric,symmetric_with_uint8,symmetric_with_power2_scale}] [-quantization-calibration {KLMinimization,Percentile,KLMinimizationV2,MSE,SQNR}] [-percentile-calibration-value PERCENTILE_CALIB] [-num-histogram-bins NUM_HISTOGRAM_BINS] [-quant-profile-threads QUANT_PROFILE_THREADS] [-quant-num-inputs QUANT_NUM_INPUTS] [-no-quant] [-external-quantization EXT_QUANT_FILE] [-node-precision-info NODE_PRECISION_FILE] [-execute-nodes-in-fp16 NODES_IN_FP16] [-keep-original-precision-for-nodes NODES_IN_ORIGINAL_PRECISION] [-device-processing] [-multicast-weights] [-combine-inputs {True,False}] [-combine-outputs {True,False}] [-compile-only] [-enable-depth-first] [-onnx-define-symbol-batch-size ONNX_DEFINE_SYMB_BS] [-onnx-define-symbol ONNX_SYMBS] [-stats-batchsize STATS_BATCHSIZE] [-max-compilation-threads MAX_COMPILATION_THREADS] [-iter ITER] [-time RUN_DURATION] [-instances INSTANCES] [-set-size SET_SIZE] [-input-list-file INPUT] [-input-list-generate] [-benchmark] [-custom-IO-list-file CUSTOM_IO_FILE] [-output-dir OUTPUT] [-device-id DEVICE_ID] [-model-input MODELINPUTDATA] [-output-node-name OUTNODENAME] [-qdrive] [-qdrive-telnet-ip QD_TELNET_IP] [-register-custom-op CUSTOM_OP_CONFIG] [-enable-channelwise] [-enable-rowwise] [-image-dir IMAGE_DIR] [-image-type {jpg,png}] [-height IMGHEIGHT] [-width IMGWIDTH] [-letterbox-resize] [-no-nhwc-conversion] [-no-normalize] [-normalize-255] [-fp32-to-int8] [-bgr-to-rgb] [-num-raw-files RAW_FILES_CNT] [-reuse-single-file] [--verbose] [-save-configs SAVESPFILE] [-load-configs LOADSPFILE] [-list-configs] [-remote-exec REMOTE_EXEC_INFO] [-load-pre-gen-files PRE_GEN_FILES] [-create-batched-inputs CREATE_BATCHED_INPUTS] [-parallel-evaluator] [-num-parallel-compile NUM_PARALLEL_COMPILATIONS] [-retain-binaries] [-optimized-config-search OPT_CONFIG_SEARCH] 
+   MODEL {onnx,tf}    
+
+Details of each of option can be found by running:
+
+::
+
+   python model_configurator.py -help 
+
+**Dependencies:** Python 3.10, Python packages - opencv-python, pandas,
+numpy, sklearn dataclasses, paramiko, jsonschema
+
+The dependent packages can be installed with:
+
+.. code-block::
+
+   pip3 install -r /opt/qti-aic/scripts/qaic-model-configurator/requirements.txt
+
+The model configurator requires both the Platform SDK and the Apps SDK
+to be installed.
+
+

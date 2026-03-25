@@ -1,0 +1,87 @@
+Example run and img2raw usage for a ResNet-50 model
+===================================================
+
+For ONNX models:
+
+.. code-block::
+
+   $ python3 /opt/qti-aic/scripts/qaic-model-configurator/model_configurator.py resnet50.onnx onnx -iter 5000 -precision Int8 -list-configs -batchsize 1 -cores 2,7-12 -mos 2 -ols 2 -instance 2,7 -input-list-file inputs_res.txt
+
+For an ONNX model with single device partitioning:
+
+.. code-block::
+
+   $ python3 /opt/qti-aic/scripts/qaic-model-configurator/model_configurator.py SsdResnet18_1MP.onnx onnx -iter 5000 -list-configs -batchsize 1 -cores 6 -mos 1,2,4,8 -ols 2,4 -instance 1 -input-list-file list.txt -width 224 -height 224 -reuse-single-file -enable-single-device-partitioning
+
+**To generate raw files** from jpg/png images for different batch sizes,
+the ``img2raw`` Python script can be used. This script is imported by
+the model_configurator to generate raw files for different batch sizes
+from a provided image directory.
+
+.. code-block::
+
+   img2raw.py [-h] [-batchsize BATCH_SIZE] -image-dir IMAGE_DIR
+                   [-image-type {jpg,png}] -height IMGHEIGHT -width IMGWIDTH 
+                   [-no-nhwc-conversion] [-no-normalize] [-fp32-to-int8] 
+                   [-bgr-to-rgb] [-num-raw-files RAW_FILES_CNT] 
+                   [-reuse-single-file] [-output OUTPUT] 
+    
+                   -h, --help show this help message and exit 
+                   -batchsize BATCH_SIZE   Output batch size, default 1 
+                   -image-dir IMAGE_DIR Input image directory 
+                   -image-type {jpg,png} jpg (default) or png 
+                   -height IMGHEIGHT output image height 
+                   -width IMGWIDTH output image width 
+                   -no-nhwc-conversion Disable conversion from NHWC to NCHW 
+                   -no-normalize Disable Normalization 
+                   -fp32-to-int8 Convert input from Fp32 to int8 
+                   -bgr-to-rgb Convert from BGR to RGB 
+                   -num-raw-files RAW_FILES_CNT  Number of raw files to generate default 1 (multiple of batchsize) 
+                   -reuse-single-file If set will reuse same image for multiple batches 
+                   -output OUTPUT Output Directory 
+
+**Example img2raw.py**
+
+(Picks up four images from JPEGImages_dir, does scaling with provided
+width and height, NHWC>NCHW, normalization, and merges the buffers into
+a single raw image.)
+
+.. code-block::
+
+   $ python3 /opt/qti-aic/scripts/qaic-model-configurator/img2raw.py -image-dir JPEGImages_dir -height 124 -width 124 -batchsize 4  
+    
+   ls batch_size_4 
+       file-list.txt img_0.raw
+
+The img2raw options are:
+
+- ``-batchsize``: Output batch size, default 1.
+- ``-image-dir IMAGE_DIR``: Input image directory. There could be any
+  number of files in the image-dir (should be more than the batch size
+  \* num-raw-files).
+- ``-image-type Type``: Type of images in the image-dir (png/jpg).
+- ``-height IMGHEIGHT``, ``-width IMGWIDTH``: Output image dimensions.
+  Input images are scaled to these dimensions.
+- ``-no-nhwc-conversion``: Input images are expected in NHWC format and
+  converted to NCHW. Add this flag to disable this conversion.
+- ``-no-normalize``: Disable normalization of images.
+- ``-fp32-to-int8``: Convert the output images in int8 format. (Disabled
+  by default.)
+- ``-bgr-to-rgb``: Convert input images from BGR to RGB format.
+  (Disabled by default.)
+- ``-num-raw-files``: How many raw files to generate (Default 1).
+  Example: If -batchsize=8 and if 16 images are present in the
+  directory, two raw files will be created. The image-dir should have at
+  least batch size \* num-raw-files files.
+- ``-reuse-single-file``: If set, will reuse the same image for
+  generating multibatch raw files. Only a single image from the
+  image-dir will be used.
+- ``-output``: Output directory where the files will be created. A text
+  file is also created in the same directory with the names of the raw
+  files generated.
+- ``-letterbox-resize``: Resize image as per letterbox logic.
+- ``-normalize-255``: Normalization by dividing image by 255.
+- ``-iter``: Number of iterations (iter) for which input file should be
+  generated.
+
+

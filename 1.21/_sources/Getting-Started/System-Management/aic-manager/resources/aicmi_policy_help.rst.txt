@@ -1,0 +1,30 @@
+.. code:: bash
+
+   AICM:127.0.0.1 > policy --help
+   usage: aicmi.py [-h] [-d DELETE_POLICY | -c CREATE_POLICY | -m MODIFY_POLICY] [-cid CONDITION_ID] [-aid ACTION_ID] [-i ITEMS [ITEMS ...]]
+                   [-dur DURATION] [-agg AGGREGATION_TYPE] [-comp COMPARISON_OPERATOR] [-thres THRESHOLD]
+
+   Policy Commands
+
+   optional arguments:
+     -h, --help            Show this help message
+     -d DELETE_POLICY, --delete DELETE_POLICY
+                           Delete existing policy
+     -c CREATE_POLICY, --create CREATE_POLICY
+                           Create a new policy
+     -m MODIFY_POLICY, --modify MODIFY_POLICY
+                           Modify an existing policy
+     -cid CONDITION_ID, --condition-id CONDITION_ID, --condition_id CONDITION_ID
+                           Condition ID for a policy
+     -aid ACTION_ID, --action-id ACTION_ID, --action_id ACTION_ID
+                           Action ID for a policy
+     -i ITEMS [ITEMS ...], --items ITEMS [ITEMS ...]
+                           One or more device-id and/or group-id to apply a policy on
+     -dur DURATION, --duration DURATION
+                           Duration of the data requested for condition evaluation of a policy
+     -agg AGGREGATION_TYPE, --aggregation-type AGGREGATION_TYPE, --aggregation_type AGGREGATION_TYPE
+                           Data aggregation function for data collected during condition evaluation of a policy
+     -comp COMPARISON_OPERATOR, --comparison-operator COMPARISON_OPERATOR, --comparison_operator COMPARISON_OPERATOR
+                           Comparison operator to compare with threshold value in policy
+     -thres THRESHOLD, --threshold THRESHOLD
+                           Threshold value to compare aggregated data against

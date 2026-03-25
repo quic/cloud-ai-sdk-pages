@@ -1,0 +1,23 @@
+Supported model types
+=====================
+
+The command syntax for the supported model types are:
+
+- Onnx: python model_configurator.py **<path to .onnx model> onnx**
+  <other options>
+
+  **Note:** When running with multiple batch sizes, use an **asterisk**
+  in place of first dimension for model-input.
+
+  Example: ``-model-input=gpu_0/data,float,[**\***,3,224,224]``
+
+- Tensorflow: python model_configurator.py **<path to tf model pb> tf
+  -output-node-name**\ =<comma separated names of outputs> <other
+  options>
+
+  **Note**: When running with multiple batch sizes, use an asterisk in
+  place of the first dimension for model-input.
+
+  Example: ``-model-input=gpu_0/data,float,[*,3,224,224]``
+
+

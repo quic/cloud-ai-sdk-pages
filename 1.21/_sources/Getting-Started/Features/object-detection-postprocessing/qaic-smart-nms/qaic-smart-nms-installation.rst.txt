@@ -1,0 +1,18 @@
+Installation
+============
+
+Smart NMS is provided via two interfaces:
+
+- Pre compiled executable (qaic-smart-nms)
+- Precompiled library (libAICsmartnms.so)
+- Python wheel package (smartnms-x.x.x-cp38-cp38-linux_x86_64.whl)
+
+The "\ ``qaic-smart-nms``\ " executable is part of the SDK release and
+can be found at "\ ``/opt/qti-aic/tools/smart-nms/qaic-smart-nms``\ ".
+The library is present at
+"\ ``/opt/qti-aic/tools/smart-nms/libAICsmartnms.so``\ ". The header
+files required with usage of the library are present at
+"\ ``/opt/qti-aic/tools/smart-nms/src/include``\ ". The Python package
+is present at "\ ``/opt/qti-aic/tools/smart-nms/smartnms-*.whl``\ ".
+
+

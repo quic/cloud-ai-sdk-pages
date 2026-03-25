@@ -1,0 +1,9 @@
+
+:orphan:
+
+Kubernetes
+==========
+
+For deployment, serving, and feature documentation, see:
+
+- :doc:`Deployment </Getting-Started/Deployment/Kubernetes/index>`

@@ -1,0 +1,63 @@
+Prefix Caching
+==============
+
+Overview
+--------
+
+Prefix caching reduces time-to-first-token (TTFT) and compute cost for requests that
+share a common leading sequence of tokens. When multiple requests begin with the same
+prefix — such as a system prompt, a few-shot example set, or a long document — the
+KV cache computed for that prefix is stored and reused rather than recomputed for each
+new request.
+
+**Use cases:**
+
+- **System prompt reuse** — chatbots and assistants that prepend the same system
+  prompt to every request benefit immediately; the prompt is processed once and its
+  KV cache is reused across all subsequent turns and sessions.
+- **Few-shot and RAG workloads** — retrieval-augmented generation pipelines that
+  prepend the same retrieved context or few-shot examples to many queries avoid
+  redundant prefill computation.
+- **Multi-turn conversations** — the growing conversation history shared across turns
+  is cached, so only the new user message requires fresh prefill work.
+- **Document Q&A** — when many questions are asked against the same document, the
+  document tokens are encoded once and reused for every question.
+
+On Qualcomm Cloud AI accelerators, prefix caching operates over a fixed KV cache allocated at
+server startup. The ``num-gpu-blocks-override`` parameter allows the cache to hold
+more concurrent user states than the active decode batch size, improving hit rates
+for multi-user workloads.
+
+Limitations
+-----------
+
+-  QAIC vLLM does not support PagedAttention as of now. So, QAIC Prefix
+   Caching can not share the same block between two sequences running
+   simultaneously in the same decode batch.
+-  QAIC Prefix Caching can not currently be enabled along with any of
+   the following features: multimodality, LoRAX, embedding, disaggregated serving, on device sampling.
+
+Parameters
+----------
+
++-----------------------------------+-----------------------------------+
+| Input Arg                         | Setting Required for Qaic runs    |
++===================================+===================================+
+| enable-prefix-caching             | Set this flag to True to enable   |
+|                                   | prefix caching for qaic           |
++-----------------------------------+-----------------------------------+
+| num-gpu-blocks-override           | Use this flag in case the user    |
+|                                   | wants to maintain the KV cache of |
+|                                   | more users than the decode batch  |
+|                                   | size (max-num-seqs)               |
++-----------------------------------+-----------------------------------+
+| use_v2_block_manager              | Set to True for prefix caching.   |
++-----------------------------------+-----------------------------------+
+
+Example
+-------
+
+::
+
+   python examples/offline_inference/qaic_prefix_caching.py
+

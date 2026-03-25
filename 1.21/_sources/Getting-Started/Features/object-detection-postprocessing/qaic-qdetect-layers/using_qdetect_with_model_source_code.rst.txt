@@ -1,0 +1,59 @@
+Using QDetect with model source code
+====================================
+
+The following steps explain how to modify the model to stitch the
+QDetect plug-in that will add a QNMS node in the graph. The same example
+can be extended for any object detection algorithm. The example is for
+the YoloV5s model and shows the steps to generate the model:
+
+1. Clone the official Ultralytics repo:
+
+   .. code-block::
+
+      git clone https://github.com/ultralytics/yolov5.git
+
+2. Install the necessary Python packages:
+
+   .. code-block::
+
+      pip install -r /opt/qti-aic/examples/apps/qdetect/qnms/requirements.txt
+
+3. Convert the box coordinates from xywh to yxyx format. For details,
+   refer to:
+
+   .. code-block::
+
+      /opt/qti-aic/examples/apps/qdetect/qnms/pdf_files/ QDetect_Guide_User_Source_Pipeline.pdf
+
+4. Skip the concatenation of boxes and scores (typical of Yolo models).
+   For details, refer to:
+
+   .. code-block::
+
+      /opt/qti-aic/examples/apps/qdetect/qnms/pdf_files/ QDetect_Guide_User_Source_Pipeline.pdf
+
+5. Modify the \_forward_once method in such a way that it calls a custom
+   non_max_suppression_aic function instead of non_max_suppression,
+   where the necessary mapping of the PyTorch custom layer is defined.
+   The non_max_suppression_aic function in turn creates an instance of
+   class CustomQnmsYolo and uses it to obtain the final post-NMS
+   bounding boxes, scores, and class-indexes.
+
+6. The definition of this custom op and the method to register it are
+   available here:
+
+   .. code-block::
+
+      /opt/qti-aic/examples/apps/qdetect/custom-op/qnmsExample/utils/yolo_qnms_plugin.py
+
+7. A sample script to export a new model with a QNms custom operator is
+   available here:
+
+   .. code-block::
+
+      /opt/qti-aic/examples/apps/qdetect/qnms/user_source_file/samples/sample_yolo_export.py
+
+**Note:** For more details on CustomQnmsYolo custom op, see the
+**Compiler Library Reference Manual**.
+
+

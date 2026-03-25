@@ -1,0 +1,168 @@
+MDP Load Partition Configuration
+=================================
+
+Overview
+---------
+
+This document describes the **MDP (Multi‑Device Partition) load configuration** used to distribute a computation graph across multiple devices. Multiple topologies are supported with or without a PCIe switch. Cards
+connected to a PCIe switch with peer-to-peer communication enabled
+provide the best performance. The network is partitioned, and the
+sub-networks are executed on multiple Cloud AI 100 cards.
+
+Command line options
+--------------------
+
+.. list-table::
+   :widths: 25 47
+   :header-rows: 1
+
+   * - Option
+     - Description
+   * - ``-mdp-dump-partition-config``
+     - Specifies the location to write a manual partition configuration
+       file, which can be modified by a user to enable multi-device
+       partitioning.
+   * - ``-mdp-load-partition-config``
+     - Specifies the location of a manual partition configuration file
+       used to enable multi-device partitioning.
+
+Partition configuration file
+----------------------------
+
+JSON schema
+
+- *connections*: Specifies the connection type (such as peer-to-peer or
+  via the host) between two or more logical devices. The connections
+  must define a pipelined partition. If no connection type is defined
+  between partitions (for example, between deviceId 0 and deviceId1),
+  then the connection defaults to going through the host.
+- *devices*: List of two or more logical device ids
+- *type*: connection type (either 'host' or 'p2p')
+
+  - *partitions*: An array of partition objects. Each entry contains:
+
+- *name*: The name of the partition (e.g., Partition0)
+- *devices*: A array of one or more devices assigned to the partition.
+  Greater than one partition enables tensor slicing partitioning within
+  the partition
+
+  - *deviceId*: Logical device ID
+  - *numCores*: The number of cores the partition is compiled for.
+
+- *nodeList*: List of node names that have been assigned to this
+  partition. Names should match those in the original graph.
+
+As a starting point, developers can use the *-mdp-dump-partition-config*
+option to emit a sample partition configuration file. This will include
+a single partition that includes a list of all the node names in the
+network. These node names should correspond to the names from the
+original network. The developer must split the nodes across two or more
+partitions and specify the connections between each partition.
+
+Example pipelined partition configuration file:
+
+.. code-block:: json
+
+
+   {
+       "connections": [
+           {
+               "devices": [0,1,2],
+               "type": "p2p"
+           },
+           {
+               "devices": [2,3],
+               "type": "host"
+           }
+       ],
+       "partitions": [
+           {
+               "name": "Partition0",
+               "devices": [
+                   {
+                       "deviceId": 0,
+                       "numCores": 10
+                   }
+               ],
+               "nodeList": [
+                   "Add_1105",
+                   "Div_1115",
+                   "Add_1106"
+               ]
+           },
+           {
+               "name": "Partition1",
+               "devices": [
+                   {
+                       "deviceId": 1,
+                       "numCores": 8
+                   }
+               ],
+               "nodeList": [
+                   "Add_1789",
+                   "Div_1799",
+                   "Add_1790"
+               ]
+           },
+           {
+               "name": "Partition2",
+               "devices": [
+                   {
+                       "deviceId": 2,
+                       "numCores": 16
+                   }
+               ],
+               "nodeList": [
+                   "Add_2473",
+                   "Div_2483",
+                   "Add_2474"
+               ]
+           },
+           {
+               "name": "Partition3",
+               "devices": [
+                   {
+                       "deviceId": 3,
+                       "numCores": 1
+                   }
+               ],
+               "nodeList": [
+                   "Add_3157",
+                   "Div_3167",
+                   "Add_3158",
+                   "Add_3172"
+               ]
+           }
+       ]
+   }
+
+Example tensor sliced partition configuration file:
+
+.. code-block:: json
+
+
+   {
+       "connections": [
+           {
+               "devices": [0,1],
+               "type": "p2p"
+           }
+       ],
+       "partitions": [
+           {
+               "name": "Partition0",
+               "devices": [
+                   {
+                       "deviceId": 0,
+                       "numCores": 8
+                   },
+                   {
+                       "deviceId": 1,
+                       "numCores": 8
+                   }
+               ]
+           }
+       ]
+   }
+
+

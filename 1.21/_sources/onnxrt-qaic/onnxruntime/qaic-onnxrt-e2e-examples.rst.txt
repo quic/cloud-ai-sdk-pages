@@ -1,0 +1,135 @@
+End-to-end examples
+===================
+
+Install additional packages in the container for running End-to-end
+examples
+
+::
+
+    apt-get update
+    apt-get install -y python-yaml libpng-dev
+
+    pip3 install --upgrade pip
+    pip3 install opencv-python-headless pyyaml scipy
+
+End to end examples (cpp and python) for ResNet50 are available at -
+``/opt/qti-aic/integrations/qaic_onnxrt/tests/``.
+
+Running the ResNet C++ sample
+-----------------------------
+
+
+Compile the Sample Resnet C++ test using build_tests.sh script. By
+default, test is built using libs from onnxruntime_qaic release build.
+To enable debugging, re-build onnxruntime_qaic project in Debug
+configuration and run ./build_test.sh with debug flag.
+
+::
+
+    build_tests.sh [--release|--debug]    
+
+Run the executable. The commands below set the environment and run the
+ResNet-50 model with the provided image on QAic or CPU backend. The
+program outputs the most probable prediction class index for each
+iteration.
+
+::
+
+    cd build/release 
+    ./qaic-onnxrt-resnet50-test -i <path/to/input/png/image>  
+                                -m  ../../resnet50/resnet50.yaml 
+
+Test options
+
++----------------------+----------------------------------------------------------+
+| Option               | Description                                              |
++======================+==========================================================+
+|``-m, --model-config``| [Required] Path to the model-setting yaml file           |
++----------------------+----------------------------------------------------------+
+| ``-i, --input-path`` | [Required] Path to the input PNG image file              |
++----------------------+----------------------------------------------------------+
+| ``-b, --backend``    | [Optional] Default='qaic', Specify qaic/cpu as backend   |
++----------------------+----------------------------------------------------------+
+| ``-d, --device-id``  | [Optional] Default=0 Specify qaic device ID              |
++----------------------+----------------------------------------------------------+
+| ``-n, --num-iter``   | [Optional]                                               |
++----------------------+----------------------------------------------------------+
+
+Running the ResNet Python sample
+--------------------------------
+
+::
+
+    Run test_resnet.py at /opt/qti-aic/integrations/qaic_onnxrt/tests/resnet50  
+    python test_resnet.py --model_config ./resnet50/resnet50.yaml   
+                          --input_file </path/to/png/image>  
+
+Test options
+
++-------------------+----------------------------------------------------------+
+| Option            | Description                                              |
++===================+==========================================================+
+| ``--model_config``| [Required] Path to the model-setting yaml file           |
++-------------------+----------------------------------------------------------+
+| ``--input_file``  | [Required] Path to the input PNG image file              |
++-------------------+----------------------------------------------------------+
+| ``--backend``     | [Optional] Default='qaic', Specify qaic/cpu as backend   |
++-------------------+----------------------------------------------------------+
+| ``--device_id``   | [Optional] Default=0 Specify qaic device ID              |
++-------------------+----------------------------------------------------------+
+| ``--num_iter``    | [Optional]                                               |
++-------------------+----------------------------------------------------------+
+
+Running models with generic QAic EP test
+----------------------------------------
+
+``test_qaic_ep.py`` is a generic test runner for compilation, execution
+on AIC100.
+
+Run ``test_qaic_ep.py`` at
+``/opt/qti-aic/integrations/qaic_onnxrt/tests/`` -
+
+::
+
+    python test_qaic_ep.py --model_config ./resnet50/resnet50.yaml   
+                               --input_file_list </path/to/input/list>   
+
+Test options
+
+.. csv-table::
+   :widths: 30, 70
+   :header: "Option", "Description"
+
+   "``--model_config``",	"[Required] Path to the model-setting yaml file"
+   "``--input_file_list``",	"[Required] Path of the file (.txt) containing list of batched inputs in .raw format"
+   "``--backend``",	"[Optional] Default='qaic', Specify qaic/cpu as backend"
+   "``--device_id``",	"[Optional] Default=0 Specify qaic device ID"
+   "``--num_iter``",	"[Optional]"
+   "``--max_threads``",	"[Optional] Default=1000 Maximum no. of threads to run inferences"
+   "``--log_level``",	"[Optional]"
+
+Execution through ONNX Runtime test framework
+--------------------------------------------
+
+-  QAic EP is enabled for execution with onnx_test_runner,
+   onnxruntime_perf_test.
+
+-  For model directory requirements and comprehensive list of options
+   supported, refer to `onnxruntime perf test
+   documentation <https://github.com/microsoft/onnxruntime/blob/v1.13.1/onnxruntime/test/perftest/README.md>`__.
+
+-  `onnx_test_runner
+   documentation <https://github.com/microsoft/onnxruntime/blob/v1.13.1/onnxruntime/test/onnx/README.txt>`__.
+
+-  Sample testdata can be downloaded
+   `here <https://github.com/onnx/models/raw/refs/heads/main/validated/vision/classification/resnet/model/resnet50-v1-7.tar.gz>`__.
+
+.. code::
+
+   cd /opt/qti-aic/integrations/qaic_onnxrt/onnxruntime_qaic/build/Release
+
+   ./onnxruntime_perf_test -e qaic -i 'config|/path/to/resnet50.yaml aic_device_id|0' -m times -r 1000 /path/to/model.onnx
+
+.. code::
+
+   ./onnx_test_runner -e qaic /path/to/model/dir

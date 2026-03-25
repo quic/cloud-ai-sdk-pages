@@ -1,0 +1,13 @@
+Structure of user-config file
+=============================
+
+The user-config file contains the following sections:
+
+.. toctree::
+   :maxdepth: 1
+
+   qaic-smart-nms-model-architecture-information
+   qaic-smart-nms-io-information
+   qaic-smart-nms-thresholds-information
+
+

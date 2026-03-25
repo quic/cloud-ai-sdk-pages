@@ -1,0 +1,59 @@
+vLLM Supports Tool Call Parsing
+================================
+
+vLLM supports structured **function calling** through configurable tool call parsers. In the context of GPT-OSS models, this refers specifically to parsing
+model-generated function calls into OpenAI-compatible Chat Completions format using the ``--tool-call-parser openai`` option.
+
+For more details, see: `vLLM Tool Calling Documentation <https://docs.vllm.ai/en/latest/features/tool_calling/>`__
+
+GPT-OSS Model Context
+---------------------
+
+GPT-OSS models (gpt-oss-120B and gpt-oss-20B) are trained to emit structured, JSON-based outputs for safe and predictable invocation of external capabilities.
+When using function calling with vLLM, GPT-OSS models require OpenAI-style tool parsing and automatic tool selection to be explicitly enabled.
+
+Required vLLM Flags for GPT-OSS Function Calling
+------------------------------------------------
+
+When using GPT-OSS models with function calling through the Chat Completions API, the following vLLM flags are required:
+
+- ``--tool-call-parser openai``  
+  Required to parse GPT-OSS model outputs into OpenAI-compatible function calls.
+
+- ``--enable-auto-tool-choice``  
+  Required to allow the model to automatically decide when to emit a function call during its reasoning process.
+
+Frameworks such as LangChain default to automatic tool selection and therefore require both flags to be enabled.
+
+Scope of Tool Parsing Support
+-----------------------------
+
+Tool parsing support validation is limited to basic functional behavior when vLLM is integrated with LangChain using OpenAI-compatible APIs.
+
+Stateful agent features such as response chaining, tool state persistence, file-based tools, or vector-store-backed workflows are outside the scope of this
+validation.
+
+Limitations and Constraints
+---------------------------
+
+- Tool parsing is supported only via OpenAI-compatible Chat/Completions APIs
+  (for example, ``/v1/chat/completions``).
+- Use of OpenAI Responses APIs (``/v1/responses``) is not supported for tool parsing.
+- Only Python 3.12 is supported for GPT-OSS models when using function calling.
+- In non-disaggregated mode, only ``seq_len = 1`` with continuous batching
+  disabled has been tested; non-disaggregated mode is not recommended.
+- GPT-OSS-120B compilation requires very high system memory
+  (1–2 TB RAM with weight offloading).
+- Tool parsing options (such as OpenAI-style tool call parsing) affect only
+  API-level request and response handling and do not alter model execution,
+  quantization, or hardware acceleration behavior.
+
+Supported Tool Parsing Paths
+----------------------------
+
++-------------+-------------+---------------------------------------------+----------------------------------------+------------------------------------+
+| vLLM Version| Python      | Target Models                               | Tool Parsing Path                      | Notes                              |
++=============+=============+=============================================+========================================+====================================+
+| vLLM 0.10.1 | Python 3.12 | GPT-OSS-120B / GPT-OSS-20B only             | ``/v1/chat/completions`` via LangChain | Required for GPT-OSS models        |
++-------------+-------------+---------------------------------------------+----------------------------------------+------------------------------------+
+

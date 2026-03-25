@@ -1,0 +1,300 @@
+.. _reference_to_text_generation_inference:
+
+Text Generation Inference (TGI) 
+===============================
+
+`Text Generation Inference
+(TGI) <https://github.com/huggingface/text-generation-inference>`__ is a
+toolkit for deploying and serving Large Language Models (LLMs). It
+includes features such as a simple launcher to serve LLMs and continuous
+batching of incoming requests for increased total throughput. This guide
+demonstrates how to install and run TGI with AI 100 backend support.
+
+Installation
+------------
+
+QAic Docker image with TGI support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Refer to this page for
+:ref:`prerequisites <reference-to-docker-system-pre-requisistes>`
+prior to building the docker image that includes the TGI installation
+
+Create user_image_spec_tgi.json, with the contents:
+
+::
+
+   {
+       "base_image": "ubuntu22",
+       "applications": ["tgi"],
+       "python_versions": ["py38", "py310"],
+       "sdk": {
+           "qaic_apps": "required",
+           "qaic_platform": "required"
+       }
+   }
+
+Build the docker image which includes the TGI installation using the
+build_image.py script.
+
+::
+
+   cd </path/to/app-sdk>/common/tools/docker-build/
+
+   python3 build_image.py --user_specification_file path_to_user_image_spec_tgi.json --apps_sdk path_to_apps_sdk_zip_file --platform_sdk path_to_platform_sdk_zip_file --tag 1.20-tgi
+
+This should create a docker image with TGI installed.
+
+::
+
+   ubuntu@host:~# docker image ls
+   REPOSITORY                                                                        TAG                           IMAGE ID       CREATED               SIZE
+   qaic-x86_64-ubuntu22-py310-py38-release-qaic_platform-qaic_apps-qaic_python-tgi   1.20-tgi                      6dcbe127dbc9   About a minute ago    3.21GB
+
+Once the docker image is built, refer to instructions
+:ref:`here <reference-to-docker-launch-container>` to launch the container and map
+the QID devices to the container. Additionally, specifying the port
+mapping to enable users to send requests outside of the container.
+
+Example command to launch the container:
+
+::
+
+   docker run -dit -p 8080:80 --name qaic-tgi --device=/dev/accel qaic-x86_64-ubuntu22-py310-py38-release-qaic_platform-qaic_apps-qaic_python-tgi:1.20-tgi
+
+| After launching the container, connect to the container:
+| Run ``docker ps`` to get the container SHA
+| Run ``docker exec -it <SHA> /bin/bash``
+
+Inside the container, run ``source /opt/tgi-env/bin/activate`` to
+activate the virtual environment.
+
+Standalone TGI Docker image
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Alternatively, on a system that has installed apps sdk and platforms
+sdk, a standalone TGI docker image with QAIC support can also be built.
+
+::
+
+   cd </path/to/app-sdk>/common/integrations/tgi/tools
+
+text_generation_server-0.0.1-py3-none-any.whl should be inside the
+directory.
+
+Create Dockerfile, with the contents:
+
+::
+
+   ARG MIRROR
+   # Fetch and extract the TGI sources (TGI_VERSION is mandatory)
+   FROM ${MIRROR}alpine:latest AS tgi_downloader
+   ARG TGI_VERSION=v2.3.1
+   RUN mkdir -p /tgi
+   ADD https://github.com/huggingface/text-generation-inference/archive/${TGI_VERSION}.tar.gz /tgi/sources.tar.gz
+   RUN tar -C /tgi -xf /tgi/sources.tar.gz --strip-components=1
+
+   ## Build rust and tgi bechmark, router, launcher
+   FROM ${MIRROR}ubuntu:22.04 AS tgi_builder
+   ARG ARCHITECTURE=x86_64
+
+   # Add rust
+   # Documented at https://forge.rust-lang.org/infra/other-installation-methods.html#other-ways-to-install-rustup
+   # Instead of using the "wget URL, pipe to shell as root" method, get rustup-init itself, which should be slightly safer
+   ENV RUSTUP_HOME=/opt/rust/rustup
+   ENV CARGO_HOME=/opt/rust/cargo
+   ENV PATH=${CARGO_HOME}/bin:$PATH
+   ENV CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+
+   RUN apt-get update -y && \
+       apt-get install -y --no-install-recommends build-essential \
+              pkg-config libssl-dev protobuf-compiler ninja-build \
+              wget ca-certificates protobuf-compiler python3.10-dev python-is-python3
+
+   RUN echo "rust" && \
+       echo "RH ${RUSTUP_HOME} CH ${CARGO_HOME} PATH ${PATH}" && \
+       url_to_get="https://static.rust-lang.org/rustup/dist/$ARCHITECTURE-unknown-linux-gnu/rustup-init" && \
+       wget $url_to_get 2> /dev/null && \
+       chmod 755 rustup-init && \
+       ./rustup-init -y --no-modify-path && \
+       rm rustup-init
+   WORKDIR /usr/src
+
+   RUN --mount=type=bind,from=tgi_downloader,source=/tgi,dst=/mnt \
+       cp /mnt/Cargo.toml Cargo.toml && \
+       cp /mnt/Cargo.lock Cargo.lock && \
+       cp /mnt/rust-toolchain.toml rust-toolchain.toml && \
+       cp -r /mnt/proto proto && \
+       cp -r /mnt/benchmark benchmark && \
+       cp -r /mnt/router router && \
+       cp -r /mnt/backends backends && \
+       cp -r /mnt/launcher launcher && \
+       cargo build --release --workspace --exclude text-generation-backends-trtllm
+
+   # QAIC TGI image
+   FROM ${MIRROR}ubuntu:22.04 AS qaic_tgi
+
+   WORKDIR /usr/src
+   ENV DEBIAN_FRONTEND=noninteractive
+
+   # Install system prerequisites
+   RUN apt-get update -y && \
+       apt-get install -y --no-install-recommends \
+           libpython3.10 \
+           python3.10 \
+           python3-pip \
+           python3-setuptools \
+           python-is-python3 \
+           python3-venv \
+           make \
+           git \
+           wget \
+           curl \
+           libpci3 \
+           libtinfo5 \
+           libncurses5 \
+           libatomic1 \
+           vim && \
+       rm -rf /var/lib/apt/lists/* && \
+       apt-get clean
+   RUN python3 -m pip install --upgrade pip
+
+   # Install `Qualcomm Efficient-Transformers <https://github.com/quic/efficient-transformers>`_
+   ARG QEFF_BRANCH=release/v1.20
+   RUN pip3 install git+https://github.com/quic/efficient-transformers@${QEFF_BRANCH}
+
+   # TGI base env
+   ARG VERSION=0.0.1
+   ENV HF_HUB_ENABLE_HF_TRANSFER=1 \
+       VERSION=${VERSION}
+
+   # Install benchmarker
+   COPY --from=tgi_builder /usr/src/target/release/text-generation-benchmark /usr/local/bin/text-generation-benchmark
+   # Install router
+   COPY --from=tgi_builder /usr/src/target/release/text-generation-router /usr/local/bin/text-generation-router
+   # Install launcher
+   COPY --from=tgi_builder /usr/src/target/release/text-generation-launcher /usr/local/bin/text-generation-launcher
+   # Install python server
+   ARG SERVER_WHEEL
+   RUN install -d /pyserver
+   WORKDIR /pyserver
+   COPY --from=tgi_downloader /tgi/proto proto
+   COPY *${SERVER_WHEEL} ${SERVER_WHEEL}
+   RUN pip install ${SERVER_WHEEL};
+   RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+   # Final image
+   FROM qaic_tgi
+
+   CMD ["/bin/bash"]
+
+Build the docker with the command
+
+::
+
+   docker build --rm -f Dockerfile --build-arg SERVER_WHEEL=text_generation_server-0.0.1-py3-none-any.whl -t qaic-tgi .
+
+Once the docker image is built, launch the tgi container with the
+command:
+
+::
+
+   docker run --rm -ti --volume /opt/qti-aic:/opt/qti-aic \
+     --env LD_LIBRARY_PATH=/opt/qti-aic/dev/lib/x86_64/ \
+     --device /dev/accel/ -p 8080:80 qaic-tgi:latest
+
+Setup Environment Variables
+---------------------------
+
+Before running TGI, several necessary environment variables need to be
+set up inside the Docker container for TGI configurations:
+
+::
+
+   # Set the port to listen on
+   export PORT=80
+
+   # Set the device ID(s) to be used for execution
+   export TGI_QAIC_DEVICE_GROUP=0  
+   # If there are multiple devices, provide a list of device IDs, 
+   # e.g., export TGI_QAIC_DEVICE_GROUP=0,1,2,3
+
+   # Set the maximum number of requests per batch
+   export MAX_BATCH_SIZE=8
+
+   # Set the maximum allowed input length (in number of tokens) for users
+   # The larger this value, the longer the prompt users can send
+   export MAX_INPUT_TOKENS=2047
+
+   # Set the maximum allowed total length, including both input tokens and generated tokens
+   # It must be larger than MAX_INPUT_TOKENS
+   export MAX_TOTAL_TOKENS=2048
+
+   # Set the maximum number of inputs that a client can send in a single request
+   export MAX_CLIENT_BATCH_SIZE=128
+
+   # The maximum amount of concurrent requests for this particular deployment. 
+   # Having a low limit will refuse clients requests instead of having them wait for too long 
+   # and is usually good to handle backpressure correctly
+   export MAX_CONCURRENT_REQUESTS=128
+
+   # Whether to use MXFP6 to compress weights for MatMul nodes to run faster on device 
+   # possible values: True, False
+   export TGI_MXFP6_EN=True
+
+   # Whether to use MXINT8 to compress KV-cache on device to access and update KV-cache faster
+   # possible values: True, False
+   export TGI_MXINT8_EN=True
+
+   # Optionally setup environment variables for model data cache
+   export HF_HOME=/path/to/cache/huggingface
+   export QEFF_HOME=/path/to/cache/QEfficient
+
+Specify the name of the model to load and launch TGI
+
+::
+
+   text-generation-launcher --model-id TinyLlama/TinyLlama-1.1B-Chat-v1.0
+
+Logs will be shown on screen, and after downloading model weights and
+transforming and compiling model using `Qualcomm Efficient-Transformers <https://github.com/quic/efficient-transformers>`_, at the end of
+the log it should be
+``INFO text_generation_router::server: router/src/server.rs:2210: Connected``
+
+Consuming TGI
+-------------
+
+Once TGI is running, you can use the generate endpoint or the Open AI
+Chat Completion API compatible Messages API. To learn more about how to
+query the endpoints, visit `Consuming
+TGI <https://huggingface.co/docs/text-generation-inference/basic_tutorials/consuming_tgi>`__,
+which contains examples for making requests using curl, Inference
+Client, and OpenAI Client. Below is a simple snippet to query the
+endpoint using curl.
+
+Open another terminal and make requests like
+
+::
+
+   curl 127.0.0.1:8080/generate -X POST -d '{"inputs":"What is Deep Learning?","parameters":{"max_new_tokens":200}}' -H 'Content-Type: application/json'
+
+To send multiple requests at the same time, use the following command:
+
+::
+
+   curl localhost:8080/v1/completions -X POST -d '{"model": "tgi","prompt": [ "Who are you?", "What is Deep Learning?"], "max_tokens": 50}' -H 'Content-Type: application/json'
+
+Benchmarking
+------------
+
+TGI provides benchmarking tool. To run the benchmark inside the docker
+container:
+
+1. Followed the steps above to start text-generation-launcher
+2. Open another terminal and connect to the same container: Run
+   ``docker ps`` to get the container SHA and then run
+   ``docker exec -it <SHA> /bin/bash``
+3. Run the benchmark:
+   ``text-generation-benchmark --tokenizer-name TinyLlama/TinyLlama-1.1B-Chat-v1.0 --batch-size 8 --sequence-length 128 --decode-length 128``
+
+

@@ -1,0 +1,17 @@
+Debug issues
+============
+
+When running the configurator over a search space, a set of files are
+created in the output directory. If no output directory is specified by
+the user, it defaults to directory name "model_configurator_output/" in
+the directory from which the command is being run.
+
+The model configurator log files/directories are:
+
+- model_configurator.log: Main application log file.
+- results.csv: The final results are saved in csv.
+- compiled_models: Directory containing compiler outputs. Removed at
+  application exit, unless the -retain-binaries command line option is
+  specified.
+
+

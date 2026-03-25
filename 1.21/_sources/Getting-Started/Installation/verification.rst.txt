@@ -1,0 +1,183 @@
+.. _reference-to-verification:
+
+============
+Verification
+============
+
+After installing the SDKs, verify that your Cloud AI hardware and software are functioning correctly.
+
+Quick Verification Checklist
+============================
+
+.. list-table::
+   :widths: 10 60 30
+   :header-rows: 1
+
+   * - Step
+     - Action
+     - Expected Result
+   * - 1
+     - :ref:`Verify PCIe enumeration <verify-pcie>`
+     - Qualcomm devices listed
+   * - 2
+     - :ref:`Check device nodes <verify-device-nodes>`
+     - ``/dev/accel/accel*`` files exist
+   * - 3
+     - :ref:`Check card health <verify-card-health>`
+     - Status: Ready
+   * - 4
+     - :ref:`Run test inference <verify-inference>`
+     - Positive Inf/Sec value
+
+.. _verify-pcie:
+
+Verify PCIe Enumeration
+=======================
+
+.. code-block:: bash
+
+   lspci | grep Qualcomm
+
+**Expected output:**
+
+.. code-block:: text
+
+   03:00.0 Processing accelerators: Qualcomm Device a100
+
+.. note::
+   If no devices appear, try:
+
+   - Re-seating the card
+   - Testing with a different PCIe slot
+   - Verifying PCIe power connections
+
+.. _verify-device-nodes:
+
+Check Device Nodes
+==================
+
+.. code-block:: bash
+
+   ls /dev/accel/accel*
+
+**Expected output:**
+
+.. code-block:: text
+
+   /dev/accel/accel0  /dev/accel/accel1  /dev/accel/accel2  /dev/accel/accel3
+
+One device node is created for each Cloud AI SoC.
+
+.. note::
+   If device nodes are missing, verify :ref:`MSI settings <reference-to-msi>` in your BIOS.
+
+.. _verify-card-health:
+
+Check Card Health
+=================
+
+.. code-block:: bash
+
+   /opt/qti-aic/tools/qaic-util -q | grep -e Status -e QID
+
+**Expected output:**
+
+.. code-block:: text
+
+   QID 0
+     Status:Ready
+   QID 1
+     Status:Ready
+   QID 2
+     Status:Ready
+   QID 3
+     Status:Ready
+
+**Status meanings:**
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Status
+     - Description
+   * - ``Ready``
+     - Card is healthy and operational
+   * - ``Error``
+     - Card has not booted completely
+
+.. tip::
+   If status shows ``Error``:
+
+   - Wait a few minutes and retry (card may still be booting)
+   - Check for unsupported OS/platform
+   - Verify secure boot settings
+
+.. _verify-inference:
+
+Run Test Inference
+==================
+
+Execute a test workload to verify hardware and software integration:
+
+.. code-block:: bash
+
+   /opt/qti-aic/exec/qaic-runner \
+     -t /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-conv-hmx/ \
+     -a 14 \
+     -n 5000 \
+     -d 0
+
+**Command options:**
+
+- ``-t`` - Path to test data
+- ``-a`` - Number of NSPs in the target QID
+- ``-n`` - Number of iterations
+- ``-d`` - QID to run the workload on
+
+**Expected output:**
+
+.. code-block:: text
+
+   Input file: /opt/qti-aic/test-data/aic100/v2/1nsp/1nsp-conv-hmx/user_idx0_in.bin
+   ---- Stats ----
+   InferenceCnt 5000 TotalDuration 15094us BatchSize 1 Inf/Sec 331257.453
+
+A positive ``Inf/Sec`` value confirms that hardware and software are functioning correctly.
+
+Troubleshooting
+===============
+
+**No Qualcomm devices in lspci**
+
+- Reseat the PCIe card
+- Try a different PCIe slot
+- Check power connections to the card
+- Verify card compatibility with your motherboard
+
+**Missing /dev/accel nodes**
+
+- Enable MSI in BIOS (Intel VT-d or AMD IOMMU)
+- Verify 32 MSIs are available (see :ref:`MSI configuration <reference-to-msi>`)
+- Reinstall Platform SDK
+
+**Status: Error on card**
+
+- Allow more time for boot (up to 5 minutes)
+- Check kernel compatibility
+- Review system logs: ``dmesg | grep qaic``
+- Verify secure boot configuration
+
+**Low Inf/Sec in test**
+
+- Adjust ``-a`` parameter to match your card's NSP count
+- Check for thermal throttling
+- Verify PCIe link speed: ``lspci -vvv -s <device> | grep LnkSta``
+
+Next Steps
+==========
+
+Your Cloud AI system is ready. Continue to:
+
+- :doc:`Inference Workflow <../Inference-Workflow/index>` - Compile and run your models
+- :doc:`System Management <../System-Management/system-management/index>` - Monitor device health and performance

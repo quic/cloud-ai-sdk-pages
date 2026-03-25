@@ -1,0 +1,60 @@
+Example config files
+====================
+
+Example config files (for use with model_configurator) are included in
+the ``SampleConfigurations`` sub-directory.
+
+The file ``config_8cores_only_smallset.csv`` can be used with
+model_configurator for an 8-core AIC100 SoC to do a shallow search of
+parameters values. This config file restricts the search space to
+combinations that satisfy the following conditions: cores*instances = 8,
+batchsize=1 or 4, mos=1,4, or 8, ols=1,2, or 4. It has 36 parameter
+combinations and may be helpful to quickly gauge the parameters to which
+a given network is sensitive and hence worth exploring with a deeper
+search.
+
+The file ``config_8cores_only.csv`` is also suited for use with an
+8-core AIC100 SoC; however, it specifies a deeper search over the same
+parameters as ``config_8cores_only_smallset.csv``. It also targets
+configurations that satisfy the criterion cores*instances = 8; however,
+it sweeps a larger range of values for the other parameters.
+Specifically, batchsize=1,2,4, or 8, mos=1,2,4, or 8, and ols = 1,2, or
+4. The file has 104 combinations and hence model_configurator will take
+a longer time to finish.
+
+It is recommended that model_configurator be invoked with one of the
+above config files for new networks to determine if there is an
+opportunity to tune parameters further. The default parameter values may
+not always be optimal.
+
+The file ``config_14cores_ref.csv`` is provided as a reference that
+contains all valid combinations of cores and instances for a 14-core
+AIC100 SoC. It sweeps over batchsize=1,2,4,8, or 14, mos=1,2,4, 8, or 14
+and ols=1,2, or 4. It has 304 combinations, including some that use
+fewer than 14 cores for the combination of cores and instances. The
+following command is one example that can generate this configuration
+file:
+
+.. code-block::
+
+   $ python3 /opt/qti-aic/scripts/qaic-model-configurator/model_configurator.py vgg16.onnx onnx -list-configs -save-configs ./config_14cores_ref.csv -iter 500 -cores=1,2,4,8,14 -instances 1,2,4,8,14 -batchsize 1,2,4,8,14 -mos 1,2,4,8,14 -ols 1,2,4
+
+By filtering out just the combinations of interest, other config files
+can be derived from this reference file. For example,
+``config_8cores_only_smallset.csv`` can be derived from
+``config_14cores_ref.csv`` by selecting only combinations for which
+cores*instances=8, batchsize=1 or 4, mos=1,4, or 8, ols=1,2, or 4.
+
+The selected config file can be passed to ``qaic-model-configurator`` to
+execute a search using the ``-load-configs`` option. For example:
+
+.. code-block::
+
+   $ python3 /opt/qti-aic/scripts/qaic-model-configurator/model_configurator.py vgg16.onnx onnx -output-dir int8host -list-configs -load-configs ./config_14cores_ref.csv -iter=500 -quantization-schema-activations=symmetric_with_uint8 -quantization-precision=Int8 -input-list-generate -image-dir ./ -height 640 -width 640 -image-type jpg -reuse-single-file
+
+**Note:** Options that impact how a model should be executed, such as
+quantization and format conversion options should be added to a
+``qaic-model-configurator`` invocation that performs the actual
+measurements, such as the one above.
+
+

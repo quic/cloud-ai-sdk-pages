@@ -1,0 +1,83 @@
+qaic-smart-nms
+==============
+
+The executable tool can be used on the output of partitioned object
+detection models with the help of the configuration file specified for
+that model. The "\ ``qaic-smart-nms``\ " tool requires model outputs,
+network-descriptor, and model-information as inputs. The information
+needs to be provided via a YAML configuration file to
+"\ ``qaic-smart-nms``\ ". It outputs boxes, labels, scores, and counts
+in .bin files as outputs inside the directory specified in
+"\ ``abp-output-directory``\ " inside the user-config file.
+
+Example usage for the resnet34-ssd model:
+
+.. code-block::
+
+   $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/qti-aic/tools/smart-nms/ 
+   $ cd /opt/qti-aic/tools/smart-nms 
+   $ ./qaic-smart-nms --config ./src/examples/configs/user-config-resnet34ssd.yml
+
+The tool also outputs "\ ``infer-output.txt``\ " inside the same output
+directory. The content of infer-output.txt will be a comma path to each
+output.
+
+Example:
+
+.. code-block::
+
+   ./ smart_nms_output/boxes-activation-0-inf-1.bin, ./smart_nms_output/scores-activation-0-inf-1.bin, ./ smart_nms_output/labels-activation-0-inf-1.bin, ./ smart_nms_output/counts-activation-0-inf-1.bin
+
+The following table lists qaic-smart-nms argument details.
+
+.. list-table::
+   :widths: 30 42
+   :header-rows: 1
+
+   * - Argument
+     - Description
+   * - -c,-config DESTINATION
+     - Specify the destination path to the configuration file.
+   * - -h,-help
+     - Show the help message.
+
+The qaic-smart-nms (output Interpretations) are:
+
+- ``boxes-activation-0-inf-1.bin``: This file contains all
+  box_coordinates[x,y,x,y] for all batches in flat format. Example: If
+  yolov3 is executed with batch-size = 4, (that is, four images), and in
+  each image, there are 4, 10, 2, 21 detections respectively that are
+  run under a single thread, then ``boxes-activation-0-inf-{index}.bin``
+  will have (4+10+2+21) \* 4, which is 148 float32 values.
+
+  Underlying datatype: raw / float32
+
+- ``scores-activation-0-inf-1.bin``: This file contains all scores for
+  all batches in flat format. Example: If yolov3 is executed with
+  batch-size = 4, (that is, four images), and in each image, there are
+  4, 10, 2, 21 detections respectively that are run under a single
+  thread, then ``scores-activation-0-inf-{index}.bin`` will have
+  (4+10+2+21), which is 37 float32 values.
+
+  Underlying datatype: raw / float32
+
+- ``labels-activation-0-inf-1.bin``: This file contains class-idx for
+  every box in boxes-activation-0-inf-{index}.bin in flat format.
+  Example: If yolov3 is executed with batch-size = 4, (that is, four
+  images), and in each image, there are 4, 10, 2, 21 detections
+  respectively, that are run under a single thread, then
+  ``labels-activation-0-inf-{index}.bin`` will have (4+10+2+21), which
+  is 37 float32 values.
+
+  Underlying datatype: raw / float32
+
+- ``counts-activation-0-inf-1.bin``: This file contains counts of
+  detection for each batch format. Example: If yolov3 is executed with
+  batch-size = 4, (that is, four images), and in each image, there are
+  4, 10, 2, 21 detections respectively that are run under a single
+  thread, then ``counts-activation-0-inf-{index}.bin`` will have four
+  float32 values: 4,10,2,21.
+
+  Underlying datatype: raw / float32
+
+

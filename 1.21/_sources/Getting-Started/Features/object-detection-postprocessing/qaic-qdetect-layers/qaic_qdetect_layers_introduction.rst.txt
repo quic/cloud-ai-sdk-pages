@@ -1,0 +1,21 @@
+.. _reference_to_QAic_QDetect_layers:
+
+QAic QDetect layers
+===================
+
+The QDetect layer is a proposed layer provided using Python to import
+and replace the existing detection layers (YoloLayer, SSDLayer, and so
+on) in the object detection models. This pluggable layer will eliminate
+the quantization-sensitive operations and will implement a custom
+operator that is supported in the AIC backend.
+
+QDetect layers can be applied on a pregenerated ONNX model or can be
+included in the PyTorch source code itself and registered as a custom
+op.
+
+.. toctree::
+   :maxdepth: 1
+
+   qaic_qdetect_layers_model_preparation
+   compilation_using_qaic_compile
+

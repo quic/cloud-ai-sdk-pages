@@ -1,0 +1,42 @@
+Optimized search results
+========================
+
+The results of the optimized config search will include:
+
+- The initial value used for that run of the optimizer.
+- The status returned by the optimizer (the following table lists the
+  possible statuses).
+- The configuration to which the optimizer converged.
+- The objective value that was achieved.
+
+The optimizer status should be checked before interpreting the rest of
+the results. The following table lists the optimizer status values.
+
+.. list-table::
+   :widths: 8 44 19
+   :header-rows: 1
+
+   * - No.
+     - Optimizer status
+     - Comment
+   * - 1
+     - SUCCESS
+     - The optimizer successfully converged on a solution.
+   * - 2
+     - CONSTRAIN_FAILURE
+     - The optimizer stopped without meeting all the constraints.
+   * - 3
+     - NUMERICAL_FAILURE
+     - The optimizer encountered a numerical failure internally.
+   * - 4
+     - EXCEED_MAX_ITER
+     - The optimizer exceeded the max allowed number of iterations of
+       its algorithm. Max_iterations = 2 \* max_evaluations.
+   * - 5
+     - EXCEED_MAX_EVAL
+     - The optimizer exceeded the max allowed number of evaluations.
+   * - 6
+     - UNKNOWN_ERROR
+     - The optimizer returned an unknown error.
+
+

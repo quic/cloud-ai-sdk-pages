@@ -1,0 +1,737 @@
+QAicInferenceSet Example
+========================
+
+The following document describes the ``AIC100`` example named
+``QAicInferenceSetExample.cpp``.
+
+This is a full-featured example that demonstrates running inferences
+against one or more compiled networks (QPCs) on a single device. It
+supports three inference execution patterns — callback-based,
+single-threaded, and multi-threaded — and optionally groups multiple
+networks into an :ref:`InferenceSetGroup <reference-to-inference-set>`
+to share device resources.
+
+
+.. dropdown:: QAicInferenceSetExample.cpp
+   :color: light
+   :class-container: sd-border-1
+   :icon: beaker
+
+   QAicInferenceSetExample.cpp
+
+   .. code::
+
+      1    //-----------------------------------------------------------------------------
+      2    // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+      3    // SPDX-License-Identifier: BSD-3-Clause-Clear
+      4    //-----------------------------------------------------------------------------
+      5
+      6    #include "QAicApi.hpp"
+      7
+      8    #include <getopt.h>
+      9    #include <iostream>
+      10   #include <memory>
+      11   #include <string>
+      12   #include <vector>
+      13   #include <optional>
+      14   #include <cassert>
+      15   #include <future>
+      16
+      17   namespace {
+      18
+      19   using InferenceSetRequestIdPairListType =
+      20       std::vector<std::pair<qaic::rt::shInferenceSet, uint32_t>>;
+      21
+      22   void usage() {
+      23     printf(
+      24          "Usage: qaic-inference-set-example [options]\n"
+      25            "  -d, --aic-device-id <id>           AIC device ID default 0\n"
+      26            "  -t, --add-program <path>           Location of program binaries\n"
+      27            "  -g, --use-inference-set-group      All programs to share same set of device cores\n"
+      28            "  -v, --verbose                      increase verbosity\n"
+      29            "  -h, --help                         help\n"
+      30            "Example activates one instance of each program with setsize one.\n"
+      31            "It runs inferences using random data for each program.\n"
+      32            );
+      33   }
+      34
+      35   /**
+      36    * Set the verbosity level of QLogLevel according to command line argument
+      37    * @param verbose integer to denote verbosity from command line argument
+      38    * @return QLogLevel logLevel
+      39    */
+      40   [[nodiscard]] auto setVerbosity(const uint32_t verbose) {
+      41     QLogLevel logLevel = QL_ERROR;
+      42     if (1 == verbose) {
+      43       logLevel = QL_WARN;
+      44     } else if (verbose > 1) {
+      45       logLevel = QL_INFO;
+      46     }
+      47     return logLevel;
+      48   }
+      49
+      50   template <typename T> struct StrToIntTrait;
+      51   template <> struct StrToIntTrait<uint32_t> {
+      52     [[nodiscard]] static long func(const char *str, char **str_end) {
+      53       return std::strtol(str, str_end, 10);
+      54     }
+      55   };
+      56
+      57   template <typename T> [[nodiscard]] std::optional<T> stringTo(const char *str) {
+      58     char *pend{};
+      59     const auto result = StrToIntTrait<uint32_t>::func(str, &pend);
+      60     if (str == pend) {
+      61       return std::nullopt;
+      62     }
+      63     return result;
+      64   }
+      65
+      66   /**
+      67    * @struct aggregating all command line options parsed.
+      68    */
+      69   struct GetOptResult final {
+      70     int retval{};
+      71     QID qid{};
+      72     std::vector<std::string> qpcFileList;
+      73     bool useInferenceSetGroup{false};
+      74     uint32_t verbose{};
+      75   };
+      76
+      77   /**
+      78    * Command line argument parsing
+      79    * @param argc argument count
+      80    * @param argv argument vector
+      81    * @return a pair of <success, results>. Users need to check against success
+      82    * bit before using results.
+      83    */
+      84   [[nodiscard]] std::pair<bool, GetOptResult> getOpt(int argc, char **argv) {
+      85     std::optional<QID> qid = 0;
+      86     std::vector<std::string> qpcFileList;
+      87     uint32_t verbose = 0;
+      88     bool useInferenceSetGroup = false;
+      89
+      90     struct option long_options[] = {
+      91         {"aic-device-id", required_argument, nullptr, 'd'},
+      92         {"add-program", required_argument, nullptr, 't'},
+      93         {"use-inference-set-group", no_argument, nullptr, 'g'},
+      94         {"verbose", no_argument, nullptr, 'v'},
+      95         {"help", no_argument, nullptr, 'h'},
+      96         {nullptr, 0, nullptr, 0}};
+      97     int option_index = 0;
+      98     int opt = 0;
+      99
+      100    while ((opt = getopt_long(argc, argv, "d:t:gvh", long_options,
+      101                              &option_index)) != -1) {
+      102      switch (opt) {
+      103      case 'd':
+      104        qid = stringTo<uint32_t>(optarg);
+      105        if (!qid || *qid < 0) {
+      106          std::cerr << "Cannot parse aic-device-id qid option: " << optarg << '\n';
+      107          return std::make_pair(false, GetOptResult{1});
+      108        }
+      109        break;
+      110      case 't':
+      111        qpcFileList.emplace_back(optarg);
+      112        break;
+      113      case 'g':
+      114        useInferenceSetGroup = true;
+      115        break;
+      116      case 'v':
+      117        ++verbose;
+      118        break;
+      119      case 'h':
+      120        [[fallthrough]];
+      121      case '?':
+      122      default:
+      123        usage();
+      124        return std::make_pair(false, GetOptResult{0});
+      125      }
+      126    }
+      127
+      128    if (qpcFileList.empty()) {
+      129      std::cerr << "Need at least one test-data input" << '\n';
+      130      usage();
+      131      return std::make_pair(false, GetOptResult{1});
+      132    }
+      133
+      134    return std::make_pair(
+      135        true, GetOptResult{0, *qid, qpcFileList, useInferenceSetGroup, verbose});
+      136  }
+      137
+      138  /**
+      139   * Dump config to stderr
+      140   * @param qpcFileList QPC file list
+      141   * @param qpcList QPC list associated with each QPC file
+      142   */
+      143  void dumpSelectedConfig(const std::vector<std::string> &qpcFileList,
+      144                          const std::vector<qaic::rt::shQpc> &qpcList) {
+      145    assert(qpcFileList.size() == qpcList.size());
+      146    std::size_t idx{};
+      147    for (const auto &fileName : qpcFileList) {
+      148      const auto innerIdx = idx++;
+      149      std::clog << std::setw(4) << "Program[" << idx << "] : " << fileName << '\n';
+      150      qaic::rt::BufferMappings bufferMappings = qpcList[innerIdx]->getBufferMappings();
+      151      for (auto const &m : bufferMappings) {
+      152        std::string bufferDir;
+      153        m.ioType == BUFFER_IO_TYPE_INPUT ? bufferDir = "IN " : bufferDir = "OUT";
+      154        std::clog << "\tBuffer Index: " << m.index << ", Dir: " << bufferDir
+      155                  << ", Size: " << std::setw(8) << m.size
+      156                  << ", Name: " << m.bufferName << '\n';
+      157      }
+      158    }
+      159    std::clog << '\n';
+      160  }
+      161
+      162  /**
+      163   * Abstract base class for InferenceSet vs InferenceSetGroup actions.
+      164   */
+      165  class InferenceActions {
+      166  public:
+      167    virtual ~InferenceActions() = default;
+      168    virtual QStatus enable() = 0;
+      169    virtual QStatus disable() = 0;
+      170    virtual void createInferenceGroup(qaic::rt::shContext &context, QID qid) = 0;
+      171    virtual qaic::rt::shInferenceSetProperties createProperties() = 0;
+      172  };
+      173
+      174  /**
+      175   * Non-group InferenceSet actions — enable/disable are no-ops.
+      176   */
+      177  class InferenceSetActions : public InferenceActions {
+      178  public:
+      179    QStatus enable() override { return QS_SUCCESS; }
+      180    QStatus disable() override { return QS_SUCCESS; }
+      181    void createInferenceGroup([[maybe_unused]] qaic::rt::shContext &context,
+      182                              [[maybe_unused]] QID qid) override {}
+      183    qaic::rt::shInferenceSetProperties createProperties() override {
+      184      return qaic::rt::InferenceSetProperties::makeDefault();
+      185    }
+      186  };
+      187
+      188  /**
+      189   * Group InferenceSet actions — delegates to InferenceSetGroup.
+      190   */
+      191  class InferenceSetGroupActions : public InferenceActions {
+      192  public:
+      193    QStatus enable() override { return inferenceSetGroup->enable(); }
+      194    QStatus disable() override { return inferenceSetGroup->disable(); }
+      195    void createInferenceGroup(qaic::rt::shContext &context, QID qid) override {
+      196      inferenceSetGroup =
+      197          qaic::rt::InferenceSetGroup::Factory(context, qid, "ExampleGroup");
+      198    }
+      199    qaic::rt::shInferenceSetProperties createProperties() override {
+      200      auto prop = qaic::rt::InferenceSetProperties::makeDefault();
+      201      prop->inferenceSetGroup = inferenceSetGroup;
+      202      return prop;
+      203    }
+      204    ~InferenceSetGroupActions() override { inferenceSetGroup->release(); }
+      205  private:
+      206    qaic::rt::shInferenceSetGroup inferenceSetGroup;
+      207  };
+      208
+      209  /**
+      210   * Create InferenceSet and InferenceVector for each QPC.
+      211   * @param qpcFileList QPC file paths
+      212   * @param qid device ID
+      213   * @param logLevel runtime log level
+      214   * @param inferenceActions pointer to InferenceActions implementation
+      215   * @param verbose verbosity level
+      216   * @return tuple of (inferenceVectorList, inferenceSetList)
+      217   */
+      218  [[nodiscard]] auto
+      219  createInferenceSetAndVector(const std::vector<std::string> &qpcFileList,
+      220                              const QID qid, const QLogLevel logLevel,
+      221                              InferenceActions *inferenceActions,
+      222                              const uint32_t verbose) {
+      223    std::vector<qaic::rt::shQpc> qpcList;
+      224    std::vector<qaic::rt::shInferenceVector> inferenceVectorList;
+      225    std::vector<qaic::rt::shInferenceSet> inferenceSetList;
+      226    std::vector<QID> qidList{qid};
+      227
+      228    constexpr auto properties = nullptr;
+      229    qaic::rt::shContext context = qaic::rt::Context::Factory(properties, qidList);
+      230    context->setLogLevel(logLevel);
+      231
+      232    inferenceActions->createInferenceGroup(context, qid);
+      233
+      234    for (auto &e : qpcFileList) {
+      235      qaic::rt::shInferenceSetProperties shInferenceSetProperties =
+      235          inferenceActions->createProperties();
+      236      qaic::rt::shQpc qpc = qpcList.emplace_back(qaic::rt::Qpc::Factory(e));
+      237      auto &bufferMappings = qpc->getBufferMappings();
+      238      auto inferenceVector = qaic::rt::InferenceVector::Factory(
+      239          bufferMappings,
+      240          qaic::rt::InferenceVector::DataSourceType::USER_BUFFERS);
+      241      auto dataBufferIterPair = inferenceVector->getDataBufferIterPair();
+      242      auto status = qaic::rt::UtilIO::fillRandomData(
+      243          bufferMappings, dataBufferIterPair, qaic::rt::UtilIO::UNBOUND);
+      244      if (status != QS_SUCCESS) {
+      245        std::cerr << "Failed to fill random data\n";
+      246      }
+      247      inferenceVectorList.push_back(inferenceVector);
+      248
+      249      constexpr auto setSize = 2U;
+      250      constexpr auto numActivations = 1U;
+      251      const auto ioDesc = nullptr;
+      252      const auto enableProfiling = false;
+      253
+      254      auto item = qaic::rt::InferenceSet::Factory(
+      255          context, qpc, qid, setSize, numActivations, shInferenceSetProperties,
+      256          enableProfiling, ioDesc);
+      257      inferenceSetList.push_back(item);
+      258    }
+      259
+      260    if (verbose > 0) {
+      261      std::clog << '\n';
+      262      dumpSelectedConfig(qpcFileList, qpcList);
+      263    }
+      264
+      265    return std::make_tuple(inferenceVectorList, inferenceSetList);
+      266  }
+      267
+      268  /**
+      269   * Submit a single inference request.
+      270   * @param inferenceVector inference vector with input data
+      271   * @param inferenceSet inference set to submit to
+      272   * @param progIdx program index for logging
+      273   * @param requestId user-defined request ID
+      274   * @param verbose verbosity level
+      275   * @return true on success
+      276   */
+      277  [[nodiscard]] auto submitInference(qaic::rt::shInferenceVector &inferenceVector,
+      278                                     qaic::rt::shInferenceSet &inferenceSet,
+      279                                     std::size_t progIdx, std::size_t requestId,
+      280                                     uint32_t verbose) {
+      281    qaic::rt::shInferenceHandle submitInfHandle;
+      282    QStatus status = inferenceSet->getAvailable(submitInfHandle);
+      283    if (status != QS_SUCCESS) {
+      284      std::cerr << "Could not get inference handle\n";
+      285      return false;
+      286    }
+      287    submitInfHandle->setInferenceVector(inferenceVector);
+      288    status = inferenceSet->submit(submitInfHandle, requestId);
+      289    if (status != QS_SUCCESS) {
+      290      std::cerr << "Could not submit inference request\n";
+      291      return false;
+      292    }
+      293    if (verbose > 0) {
+      294      std::clog << "\tInference submission: Program[" << progIdx
+      295                << "], Request ID[" << requestId << "]" << '\n';
+      296    }
+      297    return true;
+      298  }
+      299
+      300  /**
+      301   * Wait for completion of all submitted inferences.
+      302   * @param inferenceSetRequestIdPairList list of (inferenceSet, requestId) pairs
+      303   * @param verbose verbosity level
+      304   * @return true on success
+      305   */
+      306  [[nodiscard]] bool waitForCompletion(
+      307      InferenceSetRequestIdPairListType &inferenceSetRequestIdPairList,
+      308      const uint32_t verbose) {
+      309    for (const auto &[inferenceSet, requestId] : inferenceSetRequestIdPairList) {
+      310      qaic::rt::shInferenceHandle completedInfHandle;
+      311      QStatus status = inferenceSet->getCompletedId(completedInfHandle, requestId);
+      312      if (status != QS_SUCCESS) {
+      313        std::cerr << "Failed to get completed inference handle" << '\n';
+      314        return false;
+      315      }
+      316      status = inferenceSet->putCompleted(std::move(completedInfHandle));
+      317      if (status != QS_SUCCESS) {
+      318        std::cerr << "Failed to return inference handle" << '\n';
+      319        return false;
+      320      }
+      321      if (verbose > 0) {
+      322        std::clog << "\tInference completed: Request ID[" << requestId << "]" << '\n';
+      323      }
+      324    }
+      325    return true;
+      326  }
+      327
+      328  [[nodiscard]] bool runInferenceSingleThread(
+      329      std::vector<qaic::rt::shInferenceVector> &inferenceVectorList,
+      330      std::vector<qaic::rt::shInferenceSet> &inferenceSetList,
+      331      const uint32_t verbose) {
+      332    if (verbose > 0) {
+      333      std::clog << "\nRun Inferences Single threaded\n" << '\n';
+      334    }
+      335    InferenceSetRequestIdPairListType inferenceSetRequestIdPairList;
+      336    std::size_t requestId{};
+      337    std::size_t idx{};
+      338    for (auto &inferenceSet : inferenceSetList) {
+      339      const auto progIdx = idx++;
+      340      requestId++;
+      341      if (!submitInference(inferenceVectorList.at(progIdx), inferenceSet,
+      342                           progIdx, requestId, verbose)) {
+      343        std::cerr << "Failed to submit inference for program id " << progIdx << '\n';
+      344        return false;
+      345      }
+      346      inferenceSetRequestIdPairList.emplace_back(inferenceSet, requestId);
+      347    }
+      348    return waitForCompletion(inferenceSetRequestIdPairList, verbose);
+      349  }
+      350
+      351  [[nodiscard]] auto runInferences(qaic::rt::shInferenceVector inferenceVectorArg,
+      352                                   qaic::rt::shInferenceSet inferenceSetArg,
+      353                                   std::size_t progIdxArg,
+      354                                   const uint32_t verboseArg) {
+      355    constexpr int32_t numInferencePerProg = 5;
+      356    InferenceSetRequestIdPairListType inferenceSetRequestIdPairList;
+      357    std::size_t requestId = numInferencePerProg * progIdxArg;
+      358    for (int32_t i = 0; i < numInferencePerProg; i++) {
+      359      requestId++;
+      360      if (!submitInference(inferenceVectorArg, inferenceSetArg, progIdxArg,
+      361                           requestId, verboseArg)) {
+      362        std::cerr << "Failed to submit inference for program id " << progIdxArg << '\n';
+      363        return false;
+      364      }
+      365      inferenceSetRequestIdPairList.emplace_back(inferenceSetArg, requestId);
+      366      if (!waitForCompletion(inferenceSetRequestIdPairList, verboseArg)) {
+      367        return false;
+      368      }
+      369      inferenceSetRequestIdPairList.clear();
+      370    }
+      371    return true;
+      372  }
+      373
+      374  [[nodiscard]] bool runInferenceMultiThread(
+      375      std::vector<qaic::rt::shInferenceVector> &inferenceVectorList,
+      376      std::vector<qaic::rt::shInferenceSet> &inferenceSetList,
+      377      const uint32_t verbose) {
+      378    if (verbose > 0) {
+      379      std::clog << "\nRun Inferences Multi threaded\n" << '\n';
+      380    }
+      381    std::vector<std::pair<uint32_t, std::future<bool>>> statusVector;
+      382    statusVector.reserve(inferenceSetList.size());
+      383    std::size_t progIdx{};
+      384    const auto transFunc(
+      385        [&progIdx, verbose, &inferenceVectorList](const auto &is) {
+      386          auto fut = std::async(std::launch::async, runInferences,
+      387                                inferenceVectorList.at(progIdx), is, progIdx, verbose);
+      388          return std::make_pair(progIdx++, std::move(fut));
+      389        });
+      390    std::ignore = transform(inferenceSetList.cbegin(), inferenceSetList.cend(),
+      391                            back_inserter(statusVector), transFunc);
+      392    auto retVal = true;
+      393    for (auto &[infIdx, status] : statusVector) {
+      394      if (!status.get()) {
+      395        std::cerr << "Failed to run inferences, InferenceSet ID " << infIdx << '\n';
+      396        retVal = false;
+      397      }
+      398    }
+      399    return retVal;
+      400  }
+      401
+      402  struct CompletionData {
+      403    std::atomic<uint32_t> completedCount{0};
+      404    std::atomic<uint32_t> errorCount{0};
+      405    uint32_t totalInferences;
+      406    std::mutex mutex;
+      407    std::condition_variable cv;
+      408  };
+      409
+      410  void onCompleted(void *data, QStatus status,
+      411                   [[maybe_unused]] qaic::rt::shInferenceHandle infHandle) {
+      412    auto *completionData = static_cast<CompletionData *>(data);
+      413    if (status == QS_SUCCESS) {
+      414      completionData->completedCount++;
+      415    } else {
+      416      completionData->errorCount++;
+      417    }
+      418    if (completionData->completedCount + completionData->errorCount ==
+      419        completionData->totalInferences) {
+      420      std::unique_lock<std::mutex> lock(completionData->mutex);
+      421      completionData->cv.notify_one();
+      422    }
+      423  }
+      424
+      425  qaic::rt::shInferenceVector &
+      426  getNextData(std::vector<qaic::rt::shInferenceVector> &inferenceVectorList,
+      427              size_t &progIdx) {
+      428    auto &data = inferenceVectorList.at(progIdx);
+      429    progIdx = (progIdx + 1) % inferenceVectorList.size();
+      430    return data;
+      431  }
+      432
+      433  [[nodiscard]] bool runInferenceCallback(
+      434      std::vector<qaic::rt::shInferenceVector> &inferenceVectorList,
+      435      std::vector<qaic::rt::shInferenceSet> &inferenceSetList,
+      436      const uint32_t verbose, const uint32_t numInferencesTotal) {
+      437    if (verbose > 0) {
+      438      std::clog << "\nRun Inferences Callback-based\n" << '\n';
+      439    }
+      440    CompletionData completionData;
+      441    completionData.totalInferences = numInferencesTotal;
+      442    uint32_t submittedCount = 0;
+      443    size_t progIdx = 0;
+      444    while (submittedCount < numInferencesTotal) {
+      445      for (auto &inferenceSet : inferenceSetList) {
+      446        if (submittedCount >= numInferencesTotal) break;
+      447        qaic::rt::shInferenceHandle infHandle;
+      448        QStatus status = inferenceSet->getAvailable(infHandle, 0);
+      449        if (status != QS_SUCCESS) {
+      450          std::cerr << "Failed to get an available inference handle\n";
+      451          goto wait_for_completion;
+      452        }
+      453        infHandle->setInferenceVector(getNextData(inferenceVectorList, progIdx));
+      454        status = inferenceSet->submit(infHandle, onCompleted, &completionData);
+      455        if (status != QS_SUCCESS) {
+      456          std::cerr << "Failed to submit inference with callback\n";
+      457          goto wait_for_completion;
+      458        }
+      459        submittedCount++;
+      460      }
+      461    }
+      462  wait_for_completion:
+      463    std::unique_lock<std::mutex> lock(completionData.mutex);
+      464    completionData.cv.wait(lock, [&] {
+      465      return (completionData.completedCount + completionData.errorCount) >=
+      466             submittedCount;
+      467    });
+      468    if (verbose > 0) {
+      469      std::clog << "All inferences completed.\n";
+      470      std::clog << "\tSuccessful: " << completionData.completedCount << '\n';
+      471      std::clog << "\tErrors:     " << completionData.errorCount << '\n';
+      472    }
+      473    return completionData.errorCount == 0 &&
+      474           completionData.completedCount == submittedCount;
+      475  }
+      476
+      477  } // anonymous namespace
+      478
+      479  int main(int argc, char **argv) {
+      480    const auto [success, getOptResult] = getOpt(argc, argv);
+      481    if (!success) {
+      482      return getOptResult.retval;
+      483    }
+      484    const auto &qpcFileList = getOptResult.qpcFileList;
+      485    const auto qid = getOptResult.qid;
+      486    const auto useInferenceSetGroup = getOptResult.useInferenceSetGroup;
+      487    const auto verbose = getOptResult.verbose;
+      488    const auto logLevel = setVerbosity(verbose);
+      489
+      490    try {
+      491      auto inferenceActions =
+      492          [](const bool isGroup) -> std::unique_ptr<InferenceActions> {
+      493        if (isGroup) {
+      494          return std::make_unique<InferenceSetGroupActions>();
+      495        }
+      496        return std::make_unique<InferenceSetActions>();
+      497      }(useInferenceSetGroup);
+      498
+      499      auto [inferenceVectorList, inferenceSetList] = createInferenceSetAndVector(
+      500          qpcFileList, qid, logLevel, inferenceActions.get(), verbose);
+      500
+      501      if (inferenceActions->enable() != QS_SUCCESS) {
+      502        std::cerr << "Failed to enable InferenceSet Group" << '\n';
+      503        return -1;
+      504      }
+      505
+      506      constexpr auto numInferencesCallback = 100;
+      507      if (numInferencesCallback > 0) {
+      508        std::cout << "\nRunning " << numInferencesCallback
+      509                  << " inferences using callback-based API\n";
+      510        if (!runInferenceCallback(inferenceVectorList, inferenceSetList,
+      511                                  verbose, numInferencesCallback)) {
+      512          std::cerr << "Failed to run Inferences via Callback" << '\n';
+      513          return -1;
+      514        }
+      515      } else {
+      516        if (!runInferenceSingleThread(inferenceVectorList, inferenceSetList, verbose)) {
+      517          std::cerr << "Failed to run Inferences" << '\n';
+      518          return -1;
+      519        }
+      520        if (!runInferenceMultiThread(inferenceVectorList, inferenceSetList, verbose)) {
+      521          std::cerr << "Failed to run Inferences" << '\n';
+      522          return -1;
+      523        }
+      524      }
+      525
+      526      if (inferenceActions->disable() != QS_SUCCESS) {
+      527        std::cerr << "Failed to disable InferenceSet Group" << '\n';
+      528        return -1;
+      529      }
+      530    } catch (const qaic::ExceptionInit &e) {
+      531      std::cerr << e.what() << '\n';
+      532      return -1;
+      533    } catch (const qaic::ExceptionRuntime &e) {
+      534      std::cerr << e.what() << '\n';
+      535      return -1;
+      536    }
+      537    return 0;
+      538  }
+
+
+Main Flow
+---------
+
+The ``main()`` function has 5 parts.
+
+Command Line Parsing
+--------------------
+
+The example accepts the following command line options:
+
+-  ``-d, --aic-device-id <id>`` : AIC device ID to use (default: 0).
+-  ``-t, --add-program <path>`` : Path to a QPC directory. Can be
+   specified multiple times to load multiple programs.
+-  ``-g, --use-inference-set-group`` : When set, all programs share the
+   same set of device cores via an ``InferenceSetGroup``.
+-  ``-v, --verbose`` : Increase verbosity. Can be specified multiple
+   times.
+-  ``-h, --help`` : Print usage and exit.
+
+At least one ``-t`` argument is required. Parsing is performed by
+``getOpt()``, which returns a ``GetOptResult`` struct containing all
+parsed values.
+
+Setup
+-----
+
+This phase creates all runtime objects needed for inference:
+
+1. A :ref:`Context <reference-to-context>` is created for the specified
+   device, with the log level set according to the verbosity argument.
+2. If ``--use-inference-set-group`` was specified, an
+   ``InferenceSetGroup`` is created and associated with the context.
+3. For each QPC path provided on the command line:
+
+   a. A :ref:`QPC <reference-to-QPC>` object is loaded from the path.
+   b. An ``InferenceVector`` is created from the QPC's buffer mappings
+      and populated with random input data.
+   c. An :ref:`InferenceSet <reference-to-inference-set>` is created with
+      ``setSize = 2`` and ``numActivations = 1``. If a group is in use,
+      the ``InferenceSetGroup`` is attached via ``InferenceSetProperties``.
+
+Enable
+------
+
+Before running inferences, the ``InferenceSetGroup`` must be enabled by
+calling ``inferenceActions->enable()``. For the non-group case this is a
+no-op. The group can also be enabled implicitly by submitting the first
+inference to any associated ``InferenceSet``.
+
+Run Inferences
+--------------
+
+The example defaults to running 100 inferences using the
+**callback-based** pattern (``runInferenceCallback``). If
+``numInferencesCallback`` is set to 0, it falls back to running
+inferences sequentially using the **single-threaded** pattern
+(``runInferenceSingleThread``) followed by the **multi-threaded**
+pattern (``runInferenceMultiThread``). See `Inference Modes`_ for
+details on each pattern.
+
+Disable and Cleanup
+-------------------
+
+After all inferences complete, ``inferenceActions->disable()`` is called
+to release the ``InferenceSetGroup``. Any ``qaic::ExceptionInit`` or
+``qaic::ExceptionRuntime`` exceptions thrown during the above phases are
+caught and reported before returning a non-zero exit code.
+
+Inference Modes
+---------------
+
+Single-threaded
+~~~~~~~~~~~~~~~
+
+``runInferenceSingleThread`` submits one inference per loaded program
+and waits for all of them to complete before returning. This is the
+simplest pattern and is suitable for sequential workloads.
+
+Multi-threaded
+~~~~~~~~~~~~~~
+
+``runInferenceMultiThread`` launches one ``std::async`` thread per
+loaded program. Each thread calls ``runInferences``, which submits 5
+inferences for its assigned program and waits for each one to complete
+before submitting the next. All threads run concurrently, allowing
+multiple programs to be exercised in parallel.
+
+Callback-based
+~~~~~~~~~~~~~~
+
+``runInferenceCallback`` submits inferences using the
+``submit(infHandle, notifyFn, userData)`` overload. A callback function
+(``onCompleted``) is registered at submission time and is invoked by the
+runtime upon completion of each inference. A ``CompletionData`` struct
+with atomic counters and a condition variable is used to track progress
+and block the main thread until all submitted inferences have completed.
+
+Helper Functions and Classes
+-----------------------------
+
+-  ``usage()`` : Prints command line usage to stdout.
+-  ``setVerbosity(verbose)`` : Maps an integer verbosity level to a
+   ``QLogLevel`` value (``QL_ERROR``, ``QL_WARN``, or ``QL_INFO``).
+-  ``GetOptResult`` : Struct aggregating all parsed command line options.
+-  ``getOpt(argc, argv)`` : Parses command line arguments using
+   ``getopt_long`` and returns a ``GetOptResult``.
+-  ``dumpSelectedConfig(qpcFileList, qpcList)`` : Logs each program's
+   name and its buffer mappings (index, direction, size, name) to
+   ``stderr``.
+-  ``InferenceActions`` : Abstract base class providing ``enable()``,
+   ``disable()``, ``createInferenceGroup()``, and
+   ``createProperties()`` interfaces.
+-  ``InferenceSetActions`` : Concrete implementation for the non-group
+   case. ``enable()`` and ``disable()`` are no-ops.
+-  ``InferenceSetGroupActions`` : Concrete implementation for the group
+   case. Delegates ``enable()``/``disable()`` to the underlying
+   ``InferenceSetGroup`` and attaches it to ``InferenceSetProperties``.
+-  ``createInferenceSetAndVector(...)`` : Creates a ``Context``,
+   optionally an ``InferenceSetGroup``, and for each QPC creates a
+   ``Qpc``, ``InferenceVector`` (with random data), and ``InferenceSet``.
+-  ``submitInference(...)`` : Acquires an available ``InferenceHandle``,
+   sets the inference vector, and submits the request (non-blocking).
+-  ``waitForCompletion(...)`` : Iterates over a list of
+   (``InferenceSet``, ``requestId``) pairs, calling ``getCompletedId``
+   and ``putCompleted`` for each.
+-  ``runInferenceSingleThread(...)`` : Submits one inference per program
+   and waits for all completions.
+-  ``runInferences(...)`` : Submits 5 inferences sequentially for a
+   single program. Used by the multi-threaded runner.
+-  ``runInferenceMultiThread(...)`` : Runs ``runInferences`` for each
+   program concurrently using ``std::async``.
+-  ``CompletionData`` : Struct holding atomic counters and a condition
+   variable for tracking callback-based completion.
+-  ``onCompleted(data, status, infHandle)`` : Callback invoked by the
+   runtime on inference completion. Increments the appropriate counter
+   and signals the condition variable when all inferences are done.
+-  ``getNextData(inferenceVectorList, progIdx)`` : Returns the next
+   ``InferenceVector`` in a round-robin fashion over the list.
+-  ``runInferenceCallback(...)`` : Submits inferences using the
+   callback-based ``submit`` overload and waits for all completions via
+   a condition variable.
+
+Compile and Run Commands
+------------------------
+
+Copy ``QAicInferenceSetExample.cpp`` into a folder with a
+``CMakeLists.txt`` that links against the Platform SDK, then build:
+
+::
+
+    mkdir build
+    cd build
+    cmake ..
+    make -j 8
+
+Run with a single QPC:
+
+::
+
+    ./qaic-inference-set-example -t /path/to/programqpc.bin
+
+Run with multiple QPCs sharing device cores via InferenceSetGroup:
+
+::
+
+    ./qaic-inference-set-example -t /path/to/model1 -t /path/to/model2 -g
+
+Run with increased verbosity on device 1:
+
+::
+
+    ./qaic-inference-set-example -d 1 -t /path/to/programqpc.bin -vv

@@ -1,0 +1,154 @@
+I/O information
+===============
+
+The following information is required by the qaic-smart-nms tools for
+processing of the input/outputfiles. The "\ ``qaic-smart-nms``\ " tools
+read the AIC hardware output files from ``aic-output-dir``.
+
+The Smart-NMS: user-config file (I/O information) parameters are:
+
+- model-output-dir: Specify the directory to look for object detection
+  model outputs from AIC/CPU runtime.
+
+  Required
+
+  Type: PATH
+
+- model-output-extension: Looks for these extension files while reading
+  inference output files from model-output-dir.
+
+  Optional. Default: ".bin"
+
+  Type: String
+
+- model-num-outputs: Process that many numbers of boxes, scores,
+  landmarks from model-output-dir.
+
+  Optional. Default: 1
+
+  Type: Int
+
+- abp-output-dir: Specify the directory to store smart-nms outputs.
+
+  Required
+
+  Type: PATH
+
+- model-run-time: "AIC" / "CPU"
+
+  Required
+
+  Type: String
+
+- aic-model-info
+
+  - model-binary-dir: Path of binary directory file generated after
+    compilation of object-detection model.
+
+    Required. If model-run-time: "AIC"
+
+    Type: PATH
+
+  - skip-transform-value: Specify the value for different transformation
+    from LRT. Skip Transform Supported Types:
+
+    - 1 = On (initial)
+    - 2 = Quantize
+    - 3 = Transpose
+    - 4 = Convert
+    - 5 = Off (Transformed) Required. If model-run-time: "AIC . Default
+      : 5
+
+    Type: Int
+
+  - model-output-suffix: Append this value to output node names while
+    reading output files from model-output-dir if model-run-time: "AIC".
+
+    Optional. Default: "-activation-0-inf-"
+
+    Type: String
+
+- cpu-model-info
+
+  - model-output-suffix: Append this value to output node names while
+    reading output files from model-output-dir if model-run-time: "CPU".
+
+    Optional. Default: ""
+
+    Type: String
+
+  - model-outputs
+
+    - names: Names of all output nodes in the model
+
+      Required. If model-run-time: "CPU"
+
+      Type: List of String
+
+    - shapes: Respectively, shapes as a list for each model output, the
+      shape for next model output should be provided in the next line.
+
+      Required. If model-run-time: "CPU"
+
+      Type: List of lists
+
+    - types: List of type model output nodes given in names,
+      respectively. Supported types "float", "float16", "int8Q",
+      "uint8Q","int16Q", "int32Q", "int32I", "int64I", "bool".
+
+      Required. If model-run-time: "CPU"
+
+      Type: List of String
+
+    - offsets: List of offsets for model output nodes given in names,
+      respectively. Offsets and scales are required for
+      ["int8Q","uint8Q", "int16Q", "int32Q"] types.
+
+      Required. If model-run-time: "CPU" and types is quantized the
+      value will be ignored.
+
+      Type: List
+
+    - scales: List of scales for model output nodes given in names,
+      respectively. Offsets and scales are required for
+      ["int8Q","uint8Q", "int16Q", "int32Q"] types.
+
+      Required. If model-run-time: "CPU" and types is quantized else the
+      value will be ignored.
+
+      Type: List
+
+  - model-inputs
+
+    - names: Names of all output nodes in the model.
+
+      Required. Names of all output nodes in the model.
+
+      Type: List
+
+    - shapes: Respectively, shapes as a list for each model output, the
+      shape for next model output should be provided in the next line.
+
+      Required. If model-run-time: "CPU"
+
+      Type: List of List
+
+  - prior-filepath: Prior refers to a predefined collection of boxes
+    with encoded widths and heights chosen to match the widths and
+    heights of objects in a dataset. With respect to prior information
+    all the final predicted boxes are adjusted. The Yolo family does not
+    require the prior files. In that case, an empty path can be
+    provided.
+
+    PATH
+
+- input-info
+
+  - input-layout: Input image layout. Options for layout
+    ("NCD","NDC","NHWC","NCHW","NAWHC").
+
+    Optional
+
+    Type: String
+
+

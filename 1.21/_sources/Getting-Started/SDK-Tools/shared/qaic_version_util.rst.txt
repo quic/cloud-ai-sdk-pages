@@ -1,0 +1,85 @@
+
+qaic-version-util
+=================
+
+The versions of the **Platform SDK** and **Apps SDK** installed on the
+system can be verified using the ``qaic-version-util`` tool. This utility provides a
+simple and consistent way to query SDK versions without directly inspecting version
+files.
+
+The tool is located at:
+
+``/opt/qti-aic/tools/qaic-version-util``
+
+Command-Line Options
+--------------------
+
+The following options are supported:
+
+.. code-block:: bash
+
+   sudo /opt/qti-aic/tools/qaic-version-util -h
+
+.. code-block:: text
+
+   usage: qaic-version-util [-h] [--platform] [--apps] [--factory] [--all]
+
+   options:
+     -h, --help   show this help message and exit
+     --platform   print Platform SDK version
+     --apps       print Apps SDK version
+     --factory    print Factory SDK version
+     --all        print all available SDK versions
+
+Examples
+--------
+
+**Check Platform SDK version**
+
+.. code-block:: bash
+
+   sudo /opt/qti-aic/tools/qaic-version-util --platform
+
+Example output:
+
+.. code-block:: text
+
+   platform:AIC.1.21.2.0
+
+**Check Apps SDK version**
+
+.. code-block:: bash
+
+   sudo /opt/qti-aic/tools/qaic-version-util --apps
+
+Example output:
+
+.. code-block:: text
+
+   apps:AIC.1.21.2.0
+
+**Print all SDK versions**
+
+.. code-block:: bash
+
+   sudo /opt/qti-aic/tools/qaic-version-util --all
+
+This option prints all detected SDK versions in a single command.
+
+Alternative: Reading Version XML Files
+--------------------------------------
+
+As an alternative to using ``qaic-version-util``, SDK versions can also be verified by
+directly inspecting the version XML files.
+
+**Platform SDK:**
+
+.. code-block:: bash
+
+   cat /opt/qti-aic/versions/platform.xml
+
+**Apps SDK:**
+
+.. code-block:: bash
+
+   cat /opt/qti-aic/versions/apps.xml

@@ -1,0 +1,352 @@
+
+End-to-End Examples - ``qaic-compile`` and ``qaic-runner`` (CV + LLM)
+=====================================================================
+
+.. _reference_to_end_to_end_examples:
+
+This guide provides end-to-end examples demonstrating ``qaic-compile`` and
+``qaic-runner`` using the following reference models:
+
+- **CV:** ResNet50-v1-7
+- **LLM:** Llama-3.2-1B-Instruct
+
+Workflows
+---------
+
+- :ref:`CV workflow (ResNet50-v1-7) <reference_to_cv_resnet50>`
+- :ref:`LLM workflow (Llama-3.2-1B-Instruct) <reference_to_llm_llama>`
+- :ref:`Create the aic batch JSON file (ResNet50 example) <reference_to_resnet50_aic_batch_json>`
+- :ref:`Create the aic batch JSON file (Llama-3.2-1B example) <reference_to_llm_aic_batch_json>`
+
+.. note::
+
+   ``--aic-batch-json-input`` is not generally required at compile time.
+   It becomes relevant at compile time only in specific workflows where the
+   compiler needs representative inputs (e.g., quantization / calibration).
+
+CV (ResNet50-v1-7)
+------------------
+
+.. _reference_to_cv_resnet50:
+
+Download the ResNet50-v1-7 model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet50-v1-7.tar.gz
+   tar -xzf resnet50-v1-7.tar.gz
+
+Compile with ``qaic-compile``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   /opt/qti-aic/exec/qaic-compile \
+     -m=./resnet50-v1-7/resnet50-v1-7.onnx \
+     -onnx-define-symbol=N,1 \
+     -convert-to-fp16 \
+     -aic-hw \
+     -aic-num-cores=1 \
+     -aic-binary-dir=./compiler_output
+
+.. note::
+
+   The downloaded model does not include a definition for the ONNX symbol ``N``.
+   As a result, the batch dimension ``N`` must be specified explicitly.
+
+
+Create the aic batch JSON file
+------------------------------
+
+.. _reference_to_resnet50_aic_batch_json:
+
+To create the ``--aic-batch-json-input`` file, you need input raw files and the
+``qaic-qpc validate`` command output to identify runtime input/output binding
+names and expected buffer sizes for the compiled model. For more details on
+``qaic-qpc``, refer to :doc:`../network-compilation/qaic-qpc/index`.
+
+Generate input raw image
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Input raw files can be generated using ``img2raw.py`` located at::
+
+  /opt/qti-aic/scripts/qaic-model-configurator/
+
+Download an image:
+
+.. code-block:: bash
+
+   wget -O cat_285.png https://github.com/pytorch/glow/raw/master/tests/images/imagenet/cat_285.png
+
+Generate raw input:
+
+.. code-block:: python
+
+   python3 /opt/qti-aic/scripts/qaic-model-configurator/img2raw.py \
+     -image-dir ./ \
+     -image-type png \
+     -height 224 \
+     -width 224 \
+     -batchsize 1 \
+     -reuse-single-file \
+     -output ./
+
+This typically generates ``./batch_size_1/img_0.raw``.
+
+Identify runtime binding names and expected buffer sizes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   sudo /opt/qti-aic/tools/qaic-qpc validate --qpc ./compiler_output/programqpc.bin
+
+Record the runtime binding names and expected buffer sizes. For example (ResNet50):
+
+- Input binding name: ``data``
+- Output binding name: ``resnetv17_dense0_fwd``
+- Data type: Float (FP32 -> 4 bytes). Refer to :ref:`Supported Data Types and its values <reference_to_supported_data_types>`
+
+Parameters
+~~~~~~~~~~
+
+The following parameters must be specified for each input/output entry:
+
+- ``path``: Relative path to the raw data file
+  (input raw file for inputs; output destination for outputs).
+- ``io-direction``: ``in`` for inputs, ``out`` for outputs.
+- ``elem-size``: Element size in bytes matching the binding data type. Refer to :ref:`Supported Data Types and its values <reference_to_supported_data_types>`
+- ``map-to``: Runtime binding name to map this buffer to.
+
+Example: ``resnet50_ios.json``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: json
+
+   {
+     "IO-files": [
+       [
+         {
+           "path": "./batch_size_1/img_0.raw",
+           "io-direction": "in",
+           "elem-size": 4,
+           "map-to": "data"
+         },
+         {
+           "path": "resnet50_output_0.raw",
+           "io-direction": "out",
+           "elem-size": 4,
+           "map-to": "resnetv17_dense0_fwd"
+         }
+       ]
+     ]
+   }
+
+For the full JSON format usage, refer to :doc:`qaic_runner/aic_batch_json_input`.
+
+Execute the network binary
+--------------------------
+
+.. code-block:: bash
+
+   /opt/qti-aic/exec/qaic-runner -t compiler_output \
+     --aic-batch-json-input ./resnet50_ios.json \
+     --write-output-start-iter 0 \
+     --write-output-num-samples 1 \
+     --write-output-dir ./outputs \
+     -n 10 -a 1 -d 0
+
+
+LLM (Llama-3.2-1B-Instruct)
+---------------------------
+
+.. _reference_to_llm_llama:
+
+Model preparation
+-----------------
+
+To compile an LLM using ``qaic-compile`` you need:
+
+- ``model.onnx``
+- ``specializations.json``
+- ``custom_io.yaml``
+
+These can be generated using,
+
+- Standard vLLM commands (pull/run) with pre-built Docker container. For more details, refer to :ref:`vLLM Inference Server <reference_to_vLLM_deployment_workflow>`.
+
+- The `Qefficient libraries <https://quic.github.io/efficient-transformers/source/cli_api.html>`_.
+
+Reference model used here: ``meta-llama/Llama-3.2-1B-Instruct``.
+
+Compile with ``qaic-compile``
+-----------------------------
+
+Example compile command:
+
+.. code-block:: bash
+
+   /opt/qti-aic/exec/qaic-compile \
+     -m=/workspace/qeff_cache/LlamaForCausalLM/LlamaForCausalLM-810a822c8d59f4f7/LlamaForCausalLM.onnx \
+     -aic-hw \
+     -aic-hw-version=ai100 \
+     -network-specialization-config=/workspace/qeff_cache/LlamaForCausalLM/LlamaForCausalLM-810a822c8d59f4f7/qpc-891fe35443591dac/specializations.json \
+     -retained-state \
+     -convert-to-fp16 \
+     -aic-num-cores=16 \
+     -custom-IO-list-file=/workspace/qeff_cache/LlamaForCausalLM/LlamaForCausalLM-810a822c8d59f4f7/qpc-891fe35443591dac/custom_io.yaml \
+     -compile-only \
+     -aic-binary-dir=qpc/Llama-11kcl-bs1-16c
+
+This generates the network binary under ``qpc/Llama-11kcl-bs1-16c``.
+
+Create the aic batch JSON file
+------------------------------
+
+.. _reference_to_llm_aic_batch_json:
+
+To create the ``--aic-batch-json-input`` file, you need input raw files and the
+``qaic-qpc validate`` output to identify runtime binding names and expected
+buffer sizes for the compiled model. For more details on ``qaic-qpc``, refer to
+:doc:`../network-compilation/qaic-qpc/index`.
+
+Generate input raw files
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Example (Python):
+
+.. code-block:: python
+
+   import numpy as np
+
+   # Generates: input_ids.raw, position_ids.raw, batch_index.raw
+   np.array([1], dtype=np.int32).tofile("input_ids.raw")
+   np.array([0], dtype=np.int32).tofile("position_ids.raw")
+   np.array([0], dtype=np.int32).tofile("batch_index.raw")
+
+KV cache inputs (first token)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For the initial inference, create zero-initialized raw files:
+
+.. code-block:: python
+
+   import numpy as np
+
+   shape = (1, 8, 11264, 66)
+   size = np.prod(shape)
+
+   for i in range(16):
+       np.zeros(size, dtype=np.int8).tofile(f"past_key.{i}.raw")
+       np.zeros(size, dtype=np.int8).tofile(f"past_value.{i}.raw")
+
+Identify runtime binding names and expected buffer sizes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   sudo /opt/qti-aic/tools/qaic-qpc validate --qpc /workspace/qpc/Llama-11kcl-bs1-16c/programqpc.bin
+
+Parameters
+~~~~~~~~~~
+
+The following parameters must be specified for each input/output entry:
+
+- ``path``: Relative path to the raw data file.
+- ``io-direction``: ``in`` for inputs, ``out`` for outputs.
+- ``elem-size``: Element size in bytes matching the binding data type. Refer to :ref:`Supported Data Types and its values <reference_to_supported_data_types>`.
+- ``map-to``: Runtime binding name to map this buffer to.
+
+Example: ``llm_ios.json`` (single token)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Below is a minimal example for one token decode, including KV cache handling.
+
+.. code-block:: json
+
+   {
+     "IO-files": [
+       [
+         {
+           "path": "input_ids.raw",
+           "io-direction": "in",
+           "elem-size": 4,
+           "map-to": "input_ids"
+         },
+         {
+           "path": "position_ids.raw",
+           "io-direction": "in",
+           "elem-size": 4,
+           "map-to": "position_ids"
+         },
+         {
+           "path": "batch_index.raw",
+           "io-direction": "in",
+           "elem-size": 4,
+           "map-to": "batch_index"
+         },
+         {
+           "path": "past_key.0.raw",
+           "io-direction": "in",
+           "elem-size": 1,
+           "map-to": "past_key.0"
+         },
+         {
+           "path": "past_value.0.raw",
+           "io-direction": "in",
+           "elem-size": 1,
+           "map-to": "past_value.0"
+         },
+         {
+           "path": "logits.raw",
+           "io-direction": "out",
+           "elem-size": 4,
+           "map-to": "logits"
+         },
+         {
+           "path": "past_key.0.next.raw",
+           "io-direction": "out",
+           "elem-size": 1,
+           "map-to": "past_key.0_RetainedState"
+         },
+         {
+           "path": "past_value.0.next.raw",
+           "io-direction": "out",
+           "elem-size": 1,
+           "map-to": "past_value.0_RetainedState"
+         }
+       ]
+     ]
+   }
+
+.. note::
+
+   Update the file for N past key/values and retained outputs.
+
+   - Repeat ``past_key.N`` / ``past_value.N`` for N = 1..15
+   - Repeat retained outputs for N = 1..15
+
+For the full JSON format usage, refer to :doc:`qaic_runner/aic_batch_json_input`.
+
+Multi-token decoding (multiple IO sets)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To decode multiple tokens:
+
+- Add multiple IO sets inside ``"IO-files"``
+- Each IO set uses the previous step's ``_RetainedState`` outputs as
+  ``past_key.*`` / ``past_value.*`` inputs
+- Update ``input_ids`` and ``position_ids`` per token
+
+Execute with ``qaic-runner``
+---------------------------
+
+.. code-block:: bash
+
+   /opt/qti-aic/exec/qaic-runner \
+     -t /workspace/qpc/Llama-11kcl-bs1-16c/ \
+     --aic-batch-json-input ./llm_ios.json \
+     --write-output-start-iter 0 \
+     --write-output-num-samples 1 \
+     --write-output-dir ./outputs \
+     -S 1 -n 10 -d 0
