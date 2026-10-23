@@ -1,1 +1,1 @@
-# cloud-ai-sdk-pages
+This repository redirects https://quic.github.io/cloud-ai-sdk-pages/ and its deep links to https://qualcomm.github.io/cloud-ai-sdk-pages/.
